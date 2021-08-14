@@ -5,7 +5,7 @@ import { google } from "calendar-link";
 import LightSecondaryButton from "../atoms/ligthSecondaryButton";
 
 const ShowCard = ({
-  image = "https://via.placeholder.com/480x480.png?text=Flagship Collection",
+  image = "https://via.placeholder.com/480x480.png?text=Exclusive Collection",
   bgColor = "#1E6693",
   date = new Date(),
   description = "Collection description",

@@ -1,37 +1,27 @@
 import React from "react";
 import { useMediaQuery } from "react-responsive";
-import Carousel from "react-multi-carousel";
-import "react-multi-carousel/lib/styles.css";
+import {
+  CarouselProvider,
+  Slider,
+  Slide,
+  ButtonBack,
+  ButtonNext,
+  DotGroup,
+} from "pure-react-carousel";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import "pure-react-carousel/dist/react-carousel.es.css";
 
 import "./home.css";
-import { BLUE } from "../elements/colors";
+import { BLUE, GREY } from "../elements/colors";
 import DarkPrimaryButton from "../atoms/darkPrimaryButton";
 import LightPrimaryButton from "../atoms/lightPrimaryButton";
+import useWindowSize from "../atoms/hooks/useWindowSize";
+import TrendingCard from "../molecules/trendingCard";
 import FlagshipCard from "../molecules/flagshipCard";
-import ShowCard from "../molecules/showCard";
-
-const responsive = {
-  lgDesktop: {
-    // the naming can be any, depends on you.
-    breakpoint: { max: 2200, min: 1620 },
-    items: 4,
-  },
-  desktop: {
-    breakpoint: { max: 1620, min: 1220 },
-    items: 3,
-  },
-  tablet: {
-    breakpoint: { max: 1220, min: 820 },
-    items: 2,
-  },
-  mobile: {
-    breakpoint: { max: 820, min: 0 },
-    items: 1,
-  },
-};
 
 const Home = (props) => {
   const isMobile = useMediaQuery({ query: "(max-width: 820px)" });
+  const windowSize = useWindowSize();
 
   return (
     <>
@@ -119,24 +109,88 @@ const Home = (props) => {
         >
           Exclusive Wego drops
         </div>
-        <Carousel
-          responsive={responsive}
+
+        <CarouselProvider
+          naturalSlideWidth={100}
+          naturalSlideHeight={125}
+          visibleSlides={Math.floor(
+            windowSize.width /
+              (windowSize * 0.3 < 400 ? windowSize * 0.31 : 410)
+          )}
+          style={{ position: "relative" }}
           infinite={true}
-          itemClass="carousel-item"
+          totalSlides={3}
         >
-          <ShowCard
-            title="first wego collection"
-            description="we are ready for you"
-            bgColor="#8E3B37"
-            style={{ width: "20vw" }}
-            date={new Date(new Date().getTime() + 600000)}
-          />
-          <ShowCard
-            style={{ width: "20vw" }}
-            date={new Date(new Date().getTime() - 60000)}
-          />
-          <ShowCard style={{ width: "20vw" }} />
-        </Carousel>
+          <Slider style={{ height: "462px" }}>
+            <Slide index={0}>
+              <TrendingCard
+                title="first wego collection"
+                description="we are ready for you"
+                style={{
+                  width: "30vw",
+                  maxWidth: "400px",
+                  minWidth: "300px",
+                  margin: "0 auto",
+                }}
+                date={new Date(new Date().getTime() + 600000)}
+              />
+            </Slide>
+            <Slide index={1}>
+              <TrendingCard
+                style={{
+                  width: "30vw",
+                  maxWidth: "400px",
+                  minWidth: "300px",
+                  margin: "0 auto",
+                }}
+                date={new Date(new Date().getTime() - 60000)}
+              />
+            </Slide>
+            <Slide index={2}>
+              <TrendingCard
+                style={{
+                  width: "30vw",
+                  maxWidth: "400px",
+                  minWidth: "300px",
+                  margin: "0 auto",
+                }}
+              />
+            </Slide>
+          </Slider>
+          <ButtonBack
+            style={{
+              position: "absolute",
+              top: "50%",
+              backgroundColor: "white",
+              borderStyle: "solid",
+              borderColor: GREY,
+              borderWidth: "0.06em",
+              borderRadius: "1000rem",
+              height: "50px",
+              width: "50px",
+              zIndex: "10",
+            }}
+          >
+            <IoIosArrowBack size={20} />
+          </ButtonBack>
+          <ButtonNext
+            style={{
+              position: "absolute",
+              top: "50%",
+              right: "0",
+              backgroundColor: "white",
+              borderStyle: "solid",
+              borderColor: GREY,
+              borderWidth: "0.06em",
+              borderRadius: "10000rem",
+              height: "50px",
+              width: "50px",
+              zIndex: "10",
+            }}
+          >
+            <IoIosArrowForward size={20} />
+          </ButtonNext>
+        </CarouselProvider>
       </div>
     </>
   );

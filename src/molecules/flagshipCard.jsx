@@ -1,4 +1,5 @@
 import React from "react";
+import { BLUE } from "../elements/colors";
 
 const FlagshipCard = ({
   piece = "https://via.placeholder.com/480x480.png?text=Flagship Collection",
@@ -25,20 +26,24 @@ const FlagshipCard = ({
           zIndex: "15",
           position: "absolute",
           bottom: "0",
-          height: "20%",
+          height: "15%",
+          display: "flex",
+          flexDirection: "row",
         }}
       >
         <img
           src={userPhoto}
           alt="profile pic"
           style={{
+            height: "45px",
+            widht: "45px",
             borderRadius: "3rem",
             padding: "0.5em",
           }}
         />
-        <div>
-          <div>{pieceName}</div>
-          <div>{userName}</div>
+        <div style={{ padding: "0.5em" }}>
+          <div style={{ fontWeight: "600" }}>{pieceName}</div>
+          <div style={{ color: BLUE, fontWeight: "500" }}> {userName}</div>
         </div>
       </div>
     </div>
