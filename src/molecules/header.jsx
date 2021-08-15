@@ -25,7 +25,8 @@ const Header = (props) => {
         />
         <div
           style={{
-            margin: "0 auto",
+            display: "grid",
+            placeItems: "center",
             fontWeight: "700",
             fontSize: "4vmin",
             marginLeft: "10px",

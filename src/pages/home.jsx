@@ -105,7 +105,7 @@ const Home = (props) => {
         />
       </div>
       {/* Upcoming section */}
-      <div style={{ margin: "12vh 12vw" }}>
+      <div style={{ margin: "12vh 2vw" }}>
         <div
           style={{
             fontWeight: "600",
