@@ -32,7 +32,7 @@ const Header = (props) => {
             marginLeft: "10px",
           }}
         >
-          Title
+          Wego
         </div>
       </div>
 

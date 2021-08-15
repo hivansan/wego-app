@@ -1,6 +1,8 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import Header from "./molecules/header";
+import Footer from "./molecules/footer.jsx";
+
 import Marketplace from "./pages/marketplace";
 import Stats from "./pages/stats";
 import GetListed from "./pages/getListed";
@@ -26,6 +28,7 @@ function App() {
           </Route>
         </Switch>
       </Router>
+      <Footer />
     </div>
   );
 }
