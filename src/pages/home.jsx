@@ -1,14 +1,14 @@
 import React from "react";
 import { useMediaQuery } from "react-responsive";
+import Select from "react-select";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import {
   CarouselProvider,
   Slider,
   Slide,
   ButtonBack,
   ButtonNext,
-  DotGroup,
 } from "pure-react-carousel";
-import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import "pure-react-carousel/dist/react-carousel.es.css";
 
 import "./home.css";
@@ -22,6 +22,12 @@ import FlagshipCard from "../molecules/flagshipCard";
 const Home = (props) => {
   const isMobile = useMediaQuery({ query: "(max-width: 820px)" });
   const windowSize = useWindowSize();
+
+  const options = [
+    { value: "all", label: "all categories" },
+    { value: "art", label: "art" },
+    { value: "music", label: "music" },
+  ];
 
   return (
     <>
@@ -98,21 +104,31 @@ const Home = (props) => {
           }}
         />
       </div>
-      <div style={{ margin: "6vh" }}>
+      {/* Upcoming section */}
+      <div style={{ margin: "12vh 12vw" }}>
         <div
           style={{
-            textAlign: "center",
             fontWeight: "600",
-            fontSize: "calc(20px + 0.5vmin)",
+            fontSize: "calc(20px + 1vmin)",
             padding: "6vh 0",
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "center",
           }}
         >
-          Exclusive Wego drops
+          <div style={{ margin: "auto 0" }}>Upcoming in</div>
+          <Select
+            options={options}
+            defaultValue={options[0]}
+            styles={{
+              control: (s) => ({ ...s, width: "400px", marginLeft: "0.3em" }),
+            }}
+          />
         </div>
 
         <CarouselProvider
-          naturalSlideWidth={100}
-          naturalSlideHeight={125}
+          naturalSlideWidth={203}
+          naturalSlideHeight={446}
           visibleSlides={Math.floor(
             windowSize.width /
               (windowSize * 0.3 < 400 ? windowSize * 0.31 : 410)
@@ -121,7 +137,7 @@ const Home = (props) => {
           infinite={true}
           totalSlides={3}
         >
-          <Slider style={{ height: "462px" }}>
+          <Slider style={{ height: "480px" }}>
             <Slide index={0}>
               <TrendingCard
                 title="first wego collection"
