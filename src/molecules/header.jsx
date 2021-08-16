@@ -19,11 +19,11 @@ const Header = (props) => {
     >
       <div style={{ margin: "1em", display: "flex", flexDirection: "row" }}>
         <img
-          src="https://via.placeholder.com/120x120"
+          src={require("../assets/logo/blue&gray.png").default}
           alt=""
-          style={{ width: "40px", height: "40px" }}
+          style={{ width: "auto", height: "40px" }}
         />
-        <div
+        {/* <div
           style={{
             display: "grid",
             placeItems: "center",
@@ -33,7 +33,7 @@ const Header = (props) => {
           }}
         >
           Wego
-        </div>
+        </div> */}
       </div>
 
       {/* right menu */}
