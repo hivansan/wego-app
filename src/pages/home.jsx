@@ -128,7 +128,7 @@ const Home = (props) => {
 
         <CarouselProvider
           naturalSlideWidth={203}
-          naturalSlideHeight={446}
+          naturalSlideHeight={480}
           visibleSlides={Math.floor(
             windowSize.width /
               (windowSize * 0.3 < 400 ? windowSize * 0.31 : 410)
@@ -137,7 +137,7 @@ const Home = (props) => {
           infinite={true}
           totalSlides={3}
         >
-          <Slider style={{ height: "480px" }}>
+          <Slider style={{ height: "500px" }}>
             <Slide index={0}>
               <TrendingCard
                 title="first wego collection"
@@ -207,6 +207,35 @@ const Home = (props) => {
             <IoIosArrowForward size={20} />
           </ButtonNext>
         </CarouselProvider>
+        <div
+          style={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+            margin: "40px 0",
+          }}
+        >
+          <a
+            href="/marketplace"
+            style={{
+              paddingTop: "0.6em",
+              paddingBottom: "0.6em",
+              paddingLeft: "0.8em",
+              paddingRight: "0.8em",
+              borderRadius: "0.25em",
+              borderWidth: "0.06em",
+              borderColor: BLUE,
+              borderStyle: "solid",
+              color: BLUE,
+              fontWeight: "bolder",
+              backgroundColor: "transparent",
+              textDecoration: "none",
+              fontSize: "calc(20px+0.5vmin)",
+            }}
+          >
+            More
+          </a>
+        </div>
       </div>
     </>
   );
