@@ -6,7 +6,7 @@ const Footer = (props) => {
   return (
     <div
       style={{
-        height: "100px",
+        height: "150px",
         boxShadow: "0px 0px 1px black",
         color: "white",
         backgroundColor: BLUE,

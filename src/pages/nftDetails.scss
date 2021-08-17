@@ -1,0 +1,162 @@
+.color-white {
+  color: white;
+}
+
+.base-card {
+  font-size: 1em;
+  line-height: 2.3em;
+}
+
+.unstake {
+  background-color: gray !important;
+}
+
+.pool-name {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.pool-boxes {
+  margin-top: -10vh;
+}
+
+.text-purple {
+  color: #7c6ebb;
+}
+
+.text-gray {
+  color: #abafb3;
+}
+
+.pool-card-info {
+  padding: 10px;
+  margin: 6px;
+  box-shadow: 1px 2px 2px 2px #eee;
+  border: none;
+  color: #808389;
+  font-weight: 600;
+}
+
+.bees-logo {
+  height: 20vh;
+}
+
+.pool-stake-button {
+  text-transform: capitalize;
+  background-color: #14bd51;
+  color: white;
+  height: 3vh;
+  border-radius: 3px;
+}
+
+.pool-unstake-button {
+  text-transform: capitalize;
+  background-color: #d14b0e;
+  color: white;
+  height: 3vh;
+  border-radius: 3px;
+}
+
+.pool-max-balance {
+  cursor: pointer;
+}
+
+.pool-max-balance {
+  color: #abafb3;
+  font-size: 0.8rem !important;
+}
+
+.pool-card {
+  box-shadow: 1px 2px 2px 2px #eee;
+  color: #808389;
+  border: none;
+}
+
+.stake-header-lower-section {
+  margin-top: -20vh;
+  margin-bottom: 8vh;
+}
+
+.stake-header-upper-section {
+  height: 10vh;
+}
+
+.pool-logo {
+  // margin-top: -23vh;
+  max-width: 100%;
+  max-height: 20vh;
+}
+
+.stake-header-text {
+  // margin-top: -19vh;
+  // margin-left: -1vw;
+  // font-size: 0.65rem;
+}
+
+button:disabled {
+  background-color: #808080 !important;
+}
+
+.dropdown-item {
+  font-size: 0.9em;
+}
+
+.video-responsive {
+  overflow: hidden;
+  padding-bottom: 56.25%;
+  position: relative;
+  height: 0;
+}
+
+.video-responsive iframe {
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  max-height: 560;
+  max-width: 315;
+  position: absolute;
+}
+
+/*Extra small devices (portrait phones, less than 576px) 
+No media query since this is the default in Bootstrap because it is "mobile first"
+*/
+.card-img-top {
+  width: 100%;
+  height: 83vw;
+  object-fit: cover;
+  /* Small devices (landscape phones, 576px and up) */
+  @media (min-width: 576px) {
+    height: 43vw;
+  }
+
+  /* Medium devices (tablets, 768px and up) The navbar toggle appears at this breakpoint */
+  @media (min-width: 768px) {
+    height: 31vw;
+  }
+
+  /* Large devices (desktops, 992px and up) */
+  @media (min-width: 992px) {
+    height: 21vw;
+  }
+
+  /* Extra large devices (large desktops, 1200px and up) */
+  @media (min-width: 1200px) {
+  }
+}
+
+.header-social {
+  img {
+    height: 1.4em;
+  }
+}
+
+.owner-img {
+  border-radius: 30px;
+  width: 1.5em;
+}
+
+.img-fluid {
+  object-fit: contain;
+  object-position: center;
+}
