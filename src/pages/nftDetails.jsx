@@ -31,6 +31,7 @@ const NftDetails = (props) => {
   const [selectedAssetBalance, setSelectedAssetBalance] = useState(0);
   const [fromAddress, setFromAddress] = useState();
   const [fromToggleContents, setFromToggleContents] = useState("Choose");
+  const [rarityScore, setRarityScore] = useState(0);
 
   const provider = new Web3.providers.HttpProvider(infuraProvider);
 
@@ -80,6 +81,7 @@ const NftDetails = (props) => {
       setAsset(asset);
 
       console.log(asset.collection.payment_tokens[1].address);
+      console.log(asset);
 
       setFromOptions(
         asset.collection.payment_tokens.filter(
@@ -266,6 +268,18 @@ const NftDetails = (props) => {
                   </>
                 )}
                 <hr />
+                Rarity Score:
+                {` ${asset.traits
+                  .reduce(
+                    (acc, t) =>
+                      acc +
+                      1 /
+                        ((t.trait_count * (1 / asset.traits.length)) /
+                          asset.collection.stats.total_supply),
+                    0
+                  )
+                  .toLocaleString()}`}
+                <hr />
                 <div className="">
                   {asset?.owner?.address !==
                   "0x0000000000000000000000000000000000000000" ? (
@@ -321,7 +335,10 @@ const NftDetails = (props) => {
                                         )}`}
                                       </span>
                                     </a>
-                                    <span className="small gray">
+                                    <span
+                                      className="small gray"
+                                      style={{ marginLeft: "2px" }}
+                                    >
                                       owns: {quantity}
                                     </span>
                                   </div>
