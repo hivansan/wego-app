@@ -12,22 +12,24 @@ function App() {
   return (
     <div style={{ width: "100%", height: "100%" }}>
       <Header />
-      <Router>
-        <Switch>
-          <Route path="/marketplace">
-            <Marketplace />
-          </Route>
-          <Route path="/stats">
-            <Stats />
-          </Route>
-          <Route path="/getlisted">
-            <GetListed />
-          </Route>
-          <Route path="/">
-            <Home />
-          </Route>
-        </Switch>
-      </Router>
+      <div style={{ minHeight: "calc(90vh - 140px)" }}>
+        <Router>
+          <Switch>
+            <Route path="/marketplace">
+              <Marketplace />
+            </Route>
+            <Route path="/stats">
+              <Stats />
+            </Route>
+            <Route path="/getlisted">
+              <GetListed />
+            </Route>
+            <Route path="/">
+              <Home />
+            </Route>
+          </Switch>
+        </Router>
+      </div>
       <Footer />
     </div>
   );

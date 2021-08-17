@@ -17,6 +17,7 @@ const DarkPrimaryButton = ({ children, style, ...props }) => {
         borderWidth: "0.06em",
         borderColor: BLUE,
         borderStyle: "solid",
+        cursor: "pointer",
         ...style,
       }}
     >
