@@ -1,7 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import { BiWalletAlt } from "react-icons/bi";
 
+import { GREY } from "../elements/colors";
+
+import UnlockModal from "../atoms/unlock/unlockModal";
+import { CONNECTION_CONNECTED, CONNECTION_DISCONNECTED } from "../constants";
+import Store from "../stores/store";
+
+const { emitter, store } = Store;
+
 const Header = (props) => {
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const [connected, setConnected] = useState(false);
+  const [account, setAccount] = useState(null);
+  emitter.on(CONNECTION_CONNECTED, () => {
+    setConnected(true);
+    setAccount(store.getStore("account"));
+  });
+  emitter.on(CONNECTION_DISCONNECTED, () => {
+    setConnected(false);
+    setAccount(null);
+  });
+
   return (
     <header
       style={{
@@ -48,25 +69,45 @@ const Header = (props) => {
       >
         <a
           href="/marketplace"
-          style={{ textDecoration: "none", color: "black" }}
+          style={{ textDecoration: "none", color: "black", margin: "auto 0" }}
         >
           Marketplace
         </a>
-        <a href="/stats" style={{ textDecoration: "none", color: "black" }}>
+        <a
+          href="/stats"
+          style={{ textDecoration: "none", color: "black", margin: "auto 0" }}
+        >
           Stats
         </a>
-        <a href="/getlisted" style={{ textDecoration: "none", color: "black" }}>
+        <a
+          href="/getlisted"
+          style={{ textDecoration: "none", color: "black", margin: "auto 0" }}
+        >
           Get Listed
         </a>
-        <button
-          style={{
-            borderWidth: "0",
-            backgroundColor: "transparent",
-            cursor: "pointer",
-          }}
-        >
-          <BiWalletAlt size={24} />
-        </button>
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <button
+            style={{
+              borderWidth: "0",
+              backgroundColor: "transparent",
+              cursor: "pointer",
+            }}
+            onClick={() => setModalOpen(true)}
+          >
+            <BiWalletAlt size={24} />
+          </button>
+          {connected && (
+            <span style={{ color: "black", fontSize: "10px" }}>
+              {account?.address.substring(0, 8)}...
+            </span>
+          )}
+          {modalOpen && (
+            <UnlockModal
+              closeModal={() => setModalOpen(false)}
+              modalOpen={modalOpen}
+            />
+          )}
+        </div>
       </div>
     </header>
   );
