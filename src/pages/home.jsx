@@ -137,7 +137,7 @@ const Home = (props) => {
           infinite={true}
           totalSlides={3}
         >
-          <Slider style={{ height: "500px" }}>
+          <Slider style={{ height: "550px" }}>
             <Slide index={0}>
               <TrendingCard
                 title="first wego collection"

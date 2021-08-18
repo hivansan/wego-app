@@ -47,15 +47,15 @@ const Header = (props) => {
         }}
       >
         <a
-          href="marketplace"
+          href="/marketplace"
           style={{ textDecoration: "none", color: "black" }}
         >
           Marketplace
         </a>
-        <a href="stats" style={{ textDecoration: "none", color: "black" }}>
+        <a href="/stats" style={{ textDecoration: "none", color: "black" }}>
           Stats
         </a>
-        <a href="getlisted" style={{ textDecoration: "none", color: "black" }}>
+        <a href="/getlisted" style={{ textDecoration: "none", color: "black" }}>
           Get Listed
         </a>
         <button

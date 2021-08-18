@@ -35,8 +35,8 @@ const FlagshipCard = ({
           src={userPhoto}
           alt="profile pic"
           style={{
-            height: "45px",
-            widht: "45px",
+            height: "60px",
+            widht: "60px",
             borderRadius: "3rem",
             padding: "0.5em",
           }}
