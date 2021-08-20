@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { BiWalletAlt } from "react-icons/bi";
 
-import { GREY } from "../elements/colors";
-
 import UnlockModal from "../atoms/unlock/unlockModal";
 import { CONNECTION_CONNECTED, CONNECTION_DISCONNECTED } from "../constants";
 import Store from "../stores/store";

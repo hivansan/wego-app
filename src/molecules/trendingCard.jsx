@@ -105,11 +105,17 @@ const TrendingCard = ({
               margin: "0.5vh 0",
             }}
           >
-            by {userName}
+            {userName && `by ${userName}`}
           </div>
-          <a style={{ color: BLUE }} href={website} rel="noreferrer">
-            {website}
-          </a>
+          {website && (
+            <a
+              style={{ color: BLUE, textDecoration: "none", fontWeight: "700" }}
+              href={website}
+              rel="noreferrer"
+            >
+              Website
+            </a>
+          )}
           <div
             style={{
               paddingTop: "4vh",

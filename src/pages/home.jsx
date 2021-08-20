@@ -1,33 +1,71 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useMediaQuery } from "react-responsive";
 import Select from "react-select";
-import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
-import {
-  CarouselProvider,
-  Slider,
-  Slide,
-  ButtonBack,
-  ButtonNext,
-} from "pure-react-carousel";
-import "pure-react-carousel/dist/react-carousel.es.css";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
+import { OpenSeaPort, Network, OpenSeaAPI } from "opensea-js";
+import * as Web3 from "web3";
 
 import "./home.css";
-import { BLUE, GREY } from "../elements/colors";
+import { BLUE } from "../elements/colors";
 import DarkPrimaryButton from "../atoms/darkPrimaryButton";
 import LightPrimaryButton from "../atoms/lightPrimaryButton";
 import useWindowSize from "../atoms/hooks/useWindowSize";
 import TrendingCard from "../molecules/trendingCard";
 import FlagshipCard from "../molecules/flagshipCard";
+import { infuraProvider } from "../config/example.config";
+import { useState } from "react";
+
+const addresses = [
+  ["0x8b459723c519c66ebf95b4f643ba4aa0f9b0e925", 10014],
+  ["0xe19b9d6538c1ab71434098d9806a7cec5b186ba0", "87"],
+  ["0x18c7766a10df15df8c971f6e8c1d2bba7c7a410b", "2402"],
+  ["0x91673149ffae3274b32997288395d07a8213e41f", "641"],
+  ["0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270", "131000901"],
+  ["0xbace7e22f06554339911a03b8e0ae28203da9598", "650"],
+  ["0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270", "118000128"],
+];
 
 const Home = (props) => {
   const isMobile = useMediaQuery({ query: "(max-width: 820px)" });
   const windowSize = useWindowSize();
+  const [nfts, setNfts] = useState([]);
 
   const options = [
     { value: "all", label: "all categories" },
     { value: "art", label: "art" },
     { value: "music", label: "music" },
   ];
+
+  const provider = new Web3.providers.HttpProvider(infuraProvider);
+
+  useEffect(() => {
+    const seaport = new OpenSeaPort(provider, {
+      networkName: Network.Main,
+    });
+
+    //   const api = new OpenSeaAPI({ apiKey: null });
+    //   addresses.forEach((e) =>
+    //   api.getAsset({ tokenAddress: e[0], tokenId: e[1] }).then((token) =>
+    //     setNfts((nfts) => {
+    //       nfts.push(token);
+    //       return nfts;
+    //     })
+    //   )
+    // );
+
+    seaport.api
+      .getAssets({
+        asset_contract_addresses: addresses.map((address) => address[0]),
+        token_ids: addresses.map((address) => address[1]),
+      })
+      .then((res) => setNfts(res.assets))
+      .catch((err) => {});
+  }, []);
+
+  useEffect(() => console.log(nfts), [nfts]);
 
   return (
     <>
@@ -113,6 +151,7 @@ const Home = (props) => {
             padding: "6vh 0",
             display: "flex",
             flexDirection: "row",
+            flexWrap: "wrap",
             justifyContent: "center",
           }}
         >
@@ -126,87 +165,61 @@ const Home = (props) => {
           />
         </div>
 
-        <CarouselProvider
-          naturalSlideWidth={203}
-          naturalSlideHeight={480}
-          visibleSlides={Math.floor(
-            windowSize.width /
-              (windowSize * 0.3 < 400 ? windowSize * 0.31 : 410)
-          )}
-          style={{ position: "relative" }}
+        <Slider
+          dots={true}
           infinite={true}
-          totalSlides={3}
+          speed={500}
+          slidesToShow={3}
+          slidesToScroll={1}
+          className="react__slick__slider__parent"
+          responsive={[
+            {
+              breakpoint: 2100,
+              settings: {
+                slidesToShow: 3,
+                slidesToScroll: 1,
+              },
+            },
+            {
+              breakpoint: 1200,
+              settings: {
+                slidesToShow: 2,
+                slidesToScroll: 1,
+              },
+            },
+            {
+              breakpoint: 770,
+              settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1,
+              },
+            },
+          ]}
         >
-          <Slider style={{ height: "550px" }}>
-            <Slide index={0}>
-              <TrendingCard
-                title="first wego collection"
-                description="we are ready for you"
-                style={{
-                  width: "30vw",
-                  maxWidth: "400px",
-                  minWidth: "300px",
-                  margin: "0 auto",
-                }}
-                date={new Date(new Date().getTime() + 600000)}
-              />
-            </Slide>
-            <Slide index={1}>
+          {nfts.map((nft) => (
+            <div key={nft.tokenId}>
               <TrendingCard
                 style={{
                   width: "30vw",
-                  maxWidth: "400px",
+                  maxWidth: "350px",
                   minWidth: "300px",
                   margin: "0 auto",
                 }}
-                date={new Date(new Date().getTime() - 60000)}
-              />
-            </Slide>
-            <Slide index={2}>
-              <TrendingCard
-                style={{
-                  width: "30vw",
-                  maxWidth: "400px",
-                  minWidth: "300px",
-                  margin: "0 auto",
+                piece={nft.imageUrl}
+                userPhoto={nft.owner.profile_img_url}
+                userName={nft.owner.user.username}
+                title={nft.name}
+                date={nft.collection.createdDate}
+                website={nft.externalLink}
+                price={{
+                  top: 1,
+                  bottom: 0.1,
                 }}
+                amountNfts={0}
               />
-            </Slide>
-          </Slider>
-          <ButtonBack
-            style={{
-              position: "absolute",
-              top: "50%",
-              backgroundColor: "white",
-              borderStyle: "solid",
-              borderColor: GREY,
-              borderWidth: "0.06em",
-              borderRadius: "1000rem",
-              height: "50px",
-              width: "50px",
-              zIndex: "10",
-            }}
-          >
-            <IoIosArrowBack size={20} />
-          </ButtonBack>
-          <ButtonNext
-            style={{
-              position: "absolute",
-              top: "50%",
-              right: "0",
-              backgroundColor: "white",
-              borderStyle: "solid",
-              borderColor: GREY,
-              borderWidth: "0.06em",
-              borderRadius: "10000rem",
-              height: "50px",
-              width: "50px",
-              zIndex: "10",
-            }}
-          >
-            <IoIosArrowForward size={20} />
-          </ButtonNext>
-        </CarouselProvider>
+            </div>
+          ))}
+        </Slider>
         <div
           style={{
             width: "100%",

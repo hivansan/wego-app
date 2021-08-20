@@ -1,3 +1,26 @@
-.carousel-item {
-  margin: 0 0px;
+/* REACT SLICK ARROW CUSTOM CSS */
+.react__slick__slider__parent {
+  width: 80% !important;
+  margin: 0 auto;
+  position: relative;
+}
+
+.react__slick__slider__parent .slick-prev,
+.react__slick__slider__parent .slick-next {
+  position: absolute;
+  top: 50%;
+}
+.react__slick__slider__parent .slick-prev {
+  color: black;
+  z-index: 1;
+}
+.react__slick__slider__parent .slick-next {
+  border-radius: 50%;
+  color: black;
+  z-index: 1;
+}
+
+.react__slick__slider__parent .slick-prev:before,
+.slick-next:before {
+  color: black;
 }
