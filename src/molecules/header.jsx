@@ -1,11 +1,63 @@
 import React, { useState } from "react";
 import { BiWalletAlt } from "react-icons/bi";
+import { useMediaQuery } from "react-responsive";
+import Accordion from "react-bootstrap/Accordion";
 
 import UnlockModal from "../atoms/unlock/unlockModal";
 import { CONNECTION_CONNECTED, CONNECTION_DISCONNECTED } from "../constants";
 import Store from "../stores/store";
 
 const { emitter, store } = Store;
+
+const RightMenu = ({ children }) => {
+  const isMobile = useMediaQuery({ query: "(max-width: 520px)" });
+  return (
+    <>
+      {isMobile ? (
+        <div
+          style={{
+            marginTop: "5px",
+          }}
+        >
+          <Accordion>
+            <Accordion.Item eventKey="0">
+              <Accordion.Header></Accordion.Header>
+              <Accordion.Body>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    textAlign: "center",
+                  }}
+                >
+                  {children.map((x) => (
+                    <>
+                      <div style={{ margin: "10px" }}>{x}</div>
+                      <hr />
+                    </>
+                  ))}
+                </div>
+              </Accordion.Body>
+            </Accordion.Item>
+          </Accordion>
+        </div>
+      ) : (
+        <div
+          style={{
+            margin: "auto 1em",
+            fontWeight: "bolder",
+            display: "flex",
+            flexDirection: "row",
+            gap: "5vw",
+          }}
+        >
+          {children}
+        </div>
+      )}
+    </>
+  );
+};
 
 const Header = (props) => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -56,15 +108,7 @@ const Header = (props) => {
       </div>
 
       {/* right menu */}
-      <div
-        style={{
-          margin: "auto 1em",
-          fontWeight: "bolder",
-          display: "flex",
-          flexDirection: "row",
-          gap: "5vw",
-        }}
-      >
+      <RightMenu>
         <a
           href="/marketplace"
           style={{ textDecoration: "none", color: "black", margin: "auto 0" }}
@@ -106,7 +150,7 @@ const Header = (props) => {
             />
           )}
         </div>
-      </div>
+      </RightMenu>
     </header>
   );
 };
