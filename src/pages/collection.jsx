@@ -191,9 +191,11 @@ const Collection = (props) => {
               props.match.params.collectionId,
               nextPage
             );
+            console.log(res.data.items);
             const elements = res.data.items.map(
-              ({ tokenId, meta, royalties }) => ({
+              ({ tokenId, meta, royalties, contract }) => ({
                 id: tokenId,
+                collectionId: contract,
                 collection: "collection",
                 name: meta.name,
                 src: meta.image.url.BIG,

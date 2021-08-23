@@ -2,7 +2,6 @@ import React, { useEffect, useReducer, useState } from "react";
 import { useInView } from "react-intersection-observer";
 
 import ShowcaseCard from "../molecules/showcaseCard";
-import getCollection from "../molecules/nftlib";
 
 const Showcase = ({ getElements }) => {
   const [elements, setElements] = useState([]);
@@ -33,6 +32,8 @@ const Showcase = ({ getElements }) => {
       {elements.map((el) => (
         <ShowcaseCard
           key={`card-${i++}-${el.id}`}
+          collectionId={el.collectionId}
+          id={el.id}
           src={el.src}
           name={el.name}
           from={el.from}

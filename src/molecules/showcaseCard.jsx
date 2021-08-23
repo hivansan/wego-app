@@ -11,6 +11,8 @@ const ShowcaseCard = ({
   total = 30,
   left = 30,
   lastDate = new Date(new Date().getTime() + 2 ** 30),
+  collectionId = "0x8b459723c519c66ebf95b4f643ba4aa0f9b0e925",
+  id = "10014",
 }) => {
   return (
     <div
@@ -27,15 +29,18 @@ const ShowcaseCard = ({
         padding: "10px",
       }}
     >
-      <div
-        style={{
-          backgroundImage: `url("${src}"`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          width: "100%",
-          height: "70%",
-        }}
-      />
+      <a href={`/item/${collectionId}/${id}`}>
+        <div
+          style={{
+            backgroundImage: `url("${src}"`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            width: "100%",
+            height: "70%",
+          }}
+        />
+      </a>
+
       <div
         style={{
           display: "flex",
