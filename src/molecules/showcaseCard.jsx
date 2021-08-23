@@ -12,7 +12,6 @@ const ShowcaseCard = ({
   left = 30,
   lastDate = new Date(new Date().getTime() + 2 ** 30),
 }) => {
-  console.log(LIGHT_GREY);
   return (
     <div
       style={{

@@ -9,10 +9,12 @@ import Stats from "./pages/stats";
 import GetListed from "./pages/getListed";
 import Home from "./pages/home";
 import NftDetails from "./pages/nftDetails";
+import Collection from "./pages/collection";
 
 import { CONNECTION_CONNECTED } from "./constants";
 import { injected } from "./stores/connectors";
 import Store from "./stores/store";
+
 const { store, emitter } = Store;
 
 function App() {
@@ -42,8 +44,13 @@ function App() {
           <Switch>
             <Route
               exact
-              path="/nft/:tokenAddress/:tokenId"
+              path="/item/:tokenAddress/:tokenId"
               component={NftDetails}
+            ></Route>
+            <Route
+              exact
+              path="/collection/:collectionId"
+              component={Collection}
             ></Route>
             <Route path="/marketplace">
               <Marketplace />

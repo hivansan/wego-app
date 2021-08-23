@@ -6,6 +6,7 @@ import Accordion from "react-bootstrap/Accordion";
 import UnlockModal from "../atoms/unlock/unlockModal";
 import { CONNECTION_CONNECTED, CONNECTION_DISCONNECTED } from "../constants";
 import Store from "../stores/store";
+import { useEffect } from "react";
 
 const { emitter, store } = Store;
 
@@ -64,14 +65,16 @@ const Header = (props) => {
 
   const [connected, setConnected] = useState(false);
   const [account, setAccount] = useState(null);
-  emitter.on(CONNECTION_CONNECTED, () => {
-    setConnected(true);
-    setAccount(store.getStore("account"));
-  });
-  emitter.on(CONNECTION_DISCONNECTED, () => {
-    setConnected(false);
-    setAccount(null);
-  });
+  useEffect(() => {
+    emitter.on(CONNECTION_CONNECTED, () => {
+      setConnected(true);
+      setAccount(store.getStore("account"));
+    });
+    emitter.on(CONNECTION_DISCONNECTED, () => {
+      setConnected(false);
+      setAccount(null);
+    });
+  }, []);
 
   return (
     <header
