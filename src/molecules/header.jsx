@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BiWalletAlt } from "react-icons/bi";
+import { FaWallet, FaUser } from "react-icons/fa";
 import { useMediaQuery } from "react-responsive";
 import Accordion from "react-bootstrap/Accordion";
 
@@ -16,21 +16,13 @@ const RightMenu = ({ children }) => {
     <>
       {isMobile ? (
         <div
-          style={{
-            marginTop: "5px",
-          }}
         >
           <Accordion>
             <Accordion.Item eventKey="0">
               <Accordion.Header></Accordion.Header>
               <Accordion.Body>
                 <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                    textAlign: "center",
-                  }}
+                className='accordion'
                 >
                   {children.map((x) => (
                     <>
@@ -45,13 +37,7 @@ const RightMenu = ({ children }) => {
         </div>
       ) : (
         <div
-          style={{
-            margin: "auto 1em",
-            fontWeight: "bolder",
-            display: "flex",
-            flexDirection: "row",
-            gap: "5vw",
-          }}
+          className="right-menu"
         >
           {children}
         </div>
@@ -78,24 +64,17 @@ const Header = (props) => {
 
   return (
     <header
-      style={{
-        position: "sticky",
-        width: "100%",
-        height: "70px",
-        backgroundColor: "white",
-        boxShadow: "0px 0px 5px black",
-        top: 0,
-        zIndex: "200",
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "space-between",
-      }}
+      className="header"
     >
-      <div style={{ margin: "1em", display: "flex", flexDirection: "row" }}>
+      <div className="left-menu">
+        <img
+          src="https://storage.googleapis.com/opensea-static/Logomark/Logomark-Blue.png"
+          alt="opensea logo"
+        />
         <img
           src={require("../assets/logo/blue&gray.png").default}
           alt=""
-          style={{ width: "auto", height: "40px" }}
+          className="logo"
         />
         {/* <div
           style={{
@@ -112,25 +91,12 @@ const Header = (props) => {
 
       {/* right menu */}
       <RightMenu>
-        <a
-          href="/marketplace"
-          style={{ textDecoration: "none", color: "black", margin: "auto 0" }}
-        >
-          Marketplace
-        </a>
-        <a
-          href="/stats"
-          style={{ textDecoration: "none", color: "black", margin: "auto 0" }}
-        >
-          Stats
-        </a>
-        <a
-          href="/getlisted"
-          style={{ textDecoration: "none", color: "black", margin: "auto 0" }}
-        >
-          Get Listed
-        </a>
-        <div style={{ display: "flex", flexDirection: "column" }}>
+        <a href="/marketplace">Marketplace</a>
+        <a href="/analytics">Analytics</a>
+        <a href="/getlisted">Get Listed</a>
+        <a href="/stats">Stats</a>
+        <div className='icons'>
+          <FaUser size={28} className="header-icon" />
           <button
             style={{
               borderWidth: "0",
@@ -139,7 +105,7 @@ const Header = (props) => {
             }}
             onClick={() => setModalOpen(true)}
           >
-            <BiWalletAlt size={24} />
+            <FaWallet size={28} className="header-icon" />
           </button>
           {connected && (
             <span style={{ color: "black", fontSize: "10px" }}>
