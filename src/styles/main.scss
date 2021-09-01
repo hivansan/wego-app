@@ -2,5 +2,7 @@
 // @use "./light-mode";
 // @use "./dark-mode";
 
-@use './components/index.scss';
+@use './index.scss';
+@use './components/index.scss' as components;
+@use './pages/home/index.scss' as home;
 

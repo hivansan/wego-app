@@ -1,0 +1,47 @@
+@import '../../variables.scss';
+
+.dividing-section{
+
+	display: flex;
+	justify-content: center;
+	margin: 3rem 0;
+	.divider{
+
+		margin: 0 auto;
+		border-top: 3px solid #EBEBEB ;
+		border-bottom: 3px solid #EBEBEB;
+		h1{
+		font-size: 3rem;
+		color:  $primary-color;
+		margin: 10px 0;
+	}
+	}
+}
+
+
+@media screen and (max-width: 993px) {
+	.dividing-section{
+		
+		.divider{
+			
+			h1{	
+				font-weight: 500;
+				font-size: 2rem;
+			}
+		}
+	}
+}
+
+
+@media screen and (max-width: 576px){
+	.dividing-section{
+		
+		.divider{
+			
+			h1{
+				
+				font-size: 1.5rem;
+			}
+		}
+	}	
+}

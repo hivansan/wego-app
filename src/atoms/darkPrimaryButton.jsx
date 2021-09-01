@@ -1,15 +1,12 @@
 import { BLUE } from "../elements/colors";
 import React from "react";
 
-const DarkPrimaryButton = ({ children, style, ...props }) => {
+const DarkPrimaryButton = ({children, style, ...props}) => {
   return (
     <button
       {...props}
       style={{
-        paddingTop: "0.8em",
-        paddingBottom: "0.8em",
-        paddingLeft: "3em",
-        paddingRight: "3em",
+        padding: "1em 1em",
         borderRadius: "0.25em",
         color: "white",
         fontWeight: "bold",

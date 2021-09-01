@@ -5,8 +5,8 @@ import { BLUE } from "../elements/colors";
 
 const Footer = (props) => {
   return (
-    <footer>
-      <div className='footer'>
+    <footer className='footer'>
+      <div className='footer-container'>
       <h1>Stay in the loop</h1>
       <div className="footer-info">
         <div className='newsletter'>

@@ -11,7 +11,7 @@ import { useEffect } from "react";
 const { emitter, store } = Store;
 
 const RightMenu = ({ children }) => {
-  const isMobile = useMediaQuery({ query: "(max-width: 520px)" });
+  const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
   return (
     <>
       {isMobile ? (
@@ -76,17 +76,6 @@ const Header = (props) => {
           alt=""
           className="logo"
         />
-        {/* <div
-          style={{
-            display: "grid",
-            placeItems: "center",
-            fontWeight: "700",
-            fontSize: "4vmin",
-            marginLeft: "10px",
-          }}
-        >
-          Wego
-        </div> */}
       </div>
 
       {/* right menu */}

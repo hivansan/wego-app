@@ -8,15 +8,18 @@ import "slick-carousel/slick/slick-theme.css";
 import { OpenSeaPort, Network, OpenSeaAPI } from "opensea-js";
 import * as Web3 from "web3";
 
-import "./home.css";
-import { BLUE } from "../elements/colors";
-import DarkPrimaryButton from "../atoms/darkPrimaryButton";
-import LightPrimaryButton from "../atoms/lightPrimaryButton";
-import useWindowSize from "../atoms/hooks/useWindowSize";
-import TrendingCard from "../molecules/trendingCard";
-import FlagshipCard from "../molecules/flagshipCard";
-import { infuraProvider } from "../config/example.config";
+import "./../home.css";
+import { BLUE } from "../../elements/colors";
+import DarkPrimaryButton from "../../atoms/darkPrimaryButton";
+import LightPrimaryButton from "../../atoms/lightPrimaryButton";
+import useWindowSize from "../../atoms/hooks/useWindowSize";
+import TrendingCard from "../../molecules/trendingCard";
+import FlagshipCard from "../../molecules/flagshipCard";
+import { infuraProvider } from "../../config/example.config";
 import { useState } from "react";
+import FlagShipSection from './flagship-section';
+import TopCollectionSection from './TopCollectionSection';
+
 
 const addresses = [
   ["0x8b459723c519c66ebf95b4f643ba4aa0f9b0e925", 10014],
@@ -29,7 +32,7 @@ const addresses = [
 ];
 
 const Home = (props) => {
-  const isMobile = useMediaQuery({ query: "(max-width: 820px)" });
+
   const windowSize = useWindowSize();
   const [nfts, setNfts] = useState([]);
 
@@ -69,81 +72,19 @@ const Home = (props) => {
 
   return (
     <>
-      {/* flagship section*/}
-      <div
-        style={{
-          padding: "5vh 5vw",
-          position: "relative",
-          maxHeight: "min-height",
-          display: "flex",
-          flexDirection: isMobile ? "column" : "row",
-          gap: "5vw",
-          justifyContent: "space-evenly",
-        }}
-      >
-        <div
-          style={{
-            position: "absolute",
-            zIndex: 0,
-            top: 0,
-            left: 0,
-            backgroundImage:
-              'url("https://via.placeholder.com/480x480.png/f1f1f1/808080?background image")',
-            filter: "blur(5px)",
-            backgroundSize: "cover",
-            width: "100%",
-            height: "100%",
-          }}
-        />
-        <div
-          style={{
-            zIndex: 10,
-            display: "flex",
-            flexDirection: "column",
-            padding: "10vh 4vw",
-          }}
-        >
-          <div
-            style={{
-              fontWeight: "600",
-              fontSize: isMobile ? "32px" : "3.5vw",
-            }}
-          >
-            Discover, collect, and sell extraordinary NFTs
-          </div>
-          <div
-            style={{
-              fontSize: isMobile ? "24px" : "1.5vw",
-              paddingTop: "3vh",
-              paddingBottom: "3vh",
-              paddingRight: "40%",
-            }}
-          >
-            on the world's first {"&"} largest NFT marketplace
-          </div>
-          <div style={{ display: "flex", gap: "2vmin" }}>
-            <DarkPrimaryButton style={{ fontSize: "15px" }}>
-              Explore
-            </DarkPrimaryButton>
-            <LightPrimaryButton style={{ fontSize: "15px" }}>
-              Create
-            </LightPrimaryButton>
-          </div>
-          <div style={{ color: BLUE, paddingTop: "8vh" }}>
-            Get featured on the homepage
-          </div>
-        </div>
-        <FlagshipCard
-          style={{
-            zIndex: 0,
-            width: "400px",
-            height: "400px",
-            margin: "0 auto",
-          }}
-        />
-      </div>
+
+    <FlagShipSection/>
+
+    <section className='dividing-section'>
+    <div className='divider'>
+    <h1>Get featured on the homepage</h1>
+    </div>
+      </section>
+
+    <TopCollectionSection/>
+
       {/* Upcoming section */}
-      <div style={{ margin: "12vh 2vw" }}>
+      {/* <div style={{ margin: "12vh 2vw" }}>
         <div
           style={{
             fontWeight: "600",
@@ -171,6 +112,7 @@ const Home = (props) => {
           speed={500}
           slidesToShow={3}
           slidesToScroll={1}
+          arrows={false}
           className="react__slick__slider__parent"
           responsive={[
             {
@@ -249,9 +191,13 @@ const Home = (props) => {
             More
           </a>
         </div>
-      </div>
+      </div> */}
     </>
   );
 };
 
 export default Home;
+
+
+
+

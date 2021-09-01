@@ -6,10 +6,7 @@ const DarkPrimaryButton = ({ children, style, ...props }) => {
     <button
       {...props}
       style={{
-        paddingTop: "0.8em",
-        paddingBottom: "0.8em",
-        paddingLeft: "3em",
-        paddingRight: "3em",
+        padding: "1em  1em",
         borderRadius: "0.25em",
         borderWidth: "0.06em",
         borderColor: BLUE,
