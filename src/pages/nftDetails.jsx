@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 
-import * as Web3 from "web3";
-import { OpenSeaPort, Network } from "opensea-js";
-import { OrderSide } from "opensea-js/lib/types";
-import { InputGroup, Dropdown, Form, Accordion, Button } from "react-bootstrap";
+import * as Web3 from 'web3';
+import { OpenSeaPort, Network } from 'opensea-js';
+import { OrderSide } from 'opensea-js/lib/types';
+import { InputGroup, Dropdown, Form, Accordion, Button } from 'react-bootstrap';
 
-import moment from "moment";
+import moment from 'moment';
 
-import "./nftDetails.scss";
-import Store from "../stores/store";
-import { infuraProvider } from "../config/example.config";
-import { CONNECTION_CONNECTED } from "../constants/constants";
+import './nftDetails.scss';
+import Store from '../stores/store';
+import { infuraProvider } from '../config/example.config';
+import { CONNECTION_CONNECTED } from '../constants/constants';
 // import openseaGetAsset from '../utils/opensea.getAsset';
 
 const { emitter, dispatcher, store } = Store;
@@ -19,18 +19,18 @@ const NftDetails = (props) => {
   const [asset, setAsset] = useState({});
   const [sellOrder, setSellOrder] = useState();
   const [buyOrders, setBuyOrders] = useState([]);
-  const [account, setAccount] = useState("");
+  const [account, setAccount] = useState('');
   const [enabledOfferForm, seteEnabledOfferForm] = useState(false);
   const [loaders, setLoaders] = useState({
     buying: false,
     makingOffer: false,
   });
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
   const [fromOptions, setFromOptions] = useState([]);
-  const [fromAmount, setFromAmount] = useState("0");
+  const [fromAmount, setFromAmount] = useState('0');
   const [selectedAssetBalance, setSelectedAssetBalance] = useState(0);
   const [fromAddress, setFromAddress] = useState();
-  const [fromToggleContents, setFromToggleContents] = useState("Choose");
+  const [fromToggleContents, setFromToggleContents] = useState('Choose');
   const [rarityScore, setRarityScore] = useState(0);
 
   const provider = new Web3.providers.HttpProvider(infuraProvider);
@@ -38,7 +38,7 @@ const NftDetails = (props) => {
   useEffect(() => {
     getAsset();
     emitter.on(CONNECTION_CONNECTED, onConnected);
-    let account = store.getStore("account");
+    let account = store.getStore('account');
     setAccount(account);
     return () => {
       emitter.removeListener(CONNECTION_CONNECTED, onConnected);
@@ -46,7 +46,7 @@ const NftDetails = (props) => {
   }, [props.id]);
 
   const onConnected = () => {
-    let account = store.getStore("account");
+    let account = store.getStore('account');
     setAccount(account);
   };
 
@@ -86,7 +86,7 @@ const NftDetails = (props) => {
       setFromOptions(
         asset.collection.payment_tokens.filter(
           ({ address }) =>
-            address !== "0x0000000000000000000000000000000000000000"
+            address !== '0x0000000000000000000000000000000000000000'
         )
       );
       // onSelectAssetIn(asset.collection.payment_tokens[1].address);
@@ -114,11 +114,11 @@ const NftDetails = (props) => {
   };
 
   const onMakeOffer = async () => {
-    setLoader("makingOffer");
+    setLoader('makingOffer');
     console.log(asset);
     const { asset_contract } = asset;
     const { tokenAddress, tokenId } = props.match.params;
-    const account = store.getStore("account");
+    const account = store.getStore('account');
     console.log(account.address);
     console.log(tokenId);
     console.log(tokenAddress);
@@ -148,11 +148,11 @@ const NftDetails = (props) => {
       console.log(error);
     }
 
-    freeLoader("makingOffer");
+    freeLoader('makingOffer');
   };
 
   const onChangeFromSelect = (value) => {
-    setError("");
+    setError('');
     setFromAddress(value);
   };
 
@@ -169,11 +169,11 @@ const NftDetails = (props) => {
       <>
         <img
           style={{
-            maxHeight: "22px",
-            marginRight: "5px",
+            maxHeight: '22px',
+            marginRight: '5px',
           }}
           src={image_url}
-          alt=""
+          alt=''
         />
         {symbol}
       </>
@@ -184,15 +184,15 @@ const NftDetails = (props) => {
     return options.map(({ address, symbol, image_url }) => {
       return (
         <Dropdown.Item key={address} eventKey={address}>
-          <div className="d-flex justify-content-between">
+          <div className='d-flex justify-content-between'>
             <img
               style={{
-                maxHeight: "22px",
+                maxHeight: '22px',
               }}
               src={image_url}
-              alt=""
+              alt=''
             />
-            <span className="dropdown-item">{symbol}</span>
+            <span className='dropdown-item'>{symbol}</span>
           </div>
         </Dropdown.Item>
       );
@@ -200,12 +200,12 @@ const NftDetails = (props) => {
   };
 
   const onChangeFrom = async (amountIn) => {
-    setError("");
+    setError('');
     setFromAmount(amountIn);
   };
 
   const onBuyItem = async () => {
-    setLoader("buying");
+    setLoader('buying');
 
     if (window.ethereum) {
       window.web3 = new Web3(window.ethereum);
@@ -223,11 +223,11 @@ const NftDetails = (props) => {
         asset_contract_address: asset.asset_contract.address,
         side: OrderSide.Sell,
         token_id: asset.token_id,
-        order_by: "created_date",
-        order_direction: "desc",
-        bundled: "false",
-        include_bundled: "false",
-        include_invalid: "false",
+        order_by: 'created_date',
+        order_direction: 'desc',
+        bundled: 'false',
+        include_bundled: 'false',
+        include_invalid: 'false',
       });
 
       console.log(JSON.stringify(order));
@@ -238,9 +238,9 @@ const NftDetails = (props) => {
         accountAddress: account.address,
       });
       console.log(transactionHash);
-      freeLoader("buying");
+      freeLoader('buying');
     } catch (error) {
-      freeLoader("buying");
+      freeLoader('buying');
       console.log(error);
     }
     // const accountAddress = '0x...'; // The buyer's wallet address, also the taker
@@ -251,16 +251,16 @@ const NftDetails = (props) => {
   };
 
   return (
-    <div className="pt-5 mt-sm-0 p-sm-5 px-3">
+    <div className='pt-5 mt-sm-0 p-sm-5 px-3'>
       {asset?.owner ? (
-        <div className="row">
-          <div className="col-md-4 col-sm-12">
-            <div className="card">
-              <img className="img-fluid" src={asset.image_url} alt="" />
+        <div className='row'>
+          <div className='col-md-4 col-sm-12'>
+            <div className='card'>
+              <img className='img-fluid' src={asset.image_url} alt='' />
             </div>
-            <div className="card mt-3">
-              <div className="card-body">
-                <h5 className="card-title">Details</h5>
+            <div className='card mt-3'>
+              <div className='card-body'>
+                <h5 className='card-title'>Details</h5>
                 {asset.description && (
                   <>
                     <hr />
@@ -280,33 +280,33 @@ const NftDetails = (props) => {
                   )
                   .toLocaleString()}`}
                 <hr />
-                <div className="">
+                <div className=''>
                   {asset?.owner?.address !==
-                  "0x0000000000000000000000000000000000000000" ? (
+                  '0x0000000000000000000000000000000000000000' ? (
                     <>
                       <span>
                         <img
                           src={asset.owner.profile_img_url}
-                          className="owner-img mr-2"
-                          alt=""
+                          className='owner-img mr-2'
+                          alt=''
                         />
                         Owned By
                       </span>
                       <a
                         href={`https://etherscan.io/address/${asset?.owner?.address}`}
-                        target="_blank"
+                        target='_blank'
                       >
-                        <span className="small gray ml-2">
+                        <span className='small gray ml-2'>
                           {asset.owner?.address
                             ? asset.owner?.address.substr(0, 6)
-                            : ""}
+                            : ''}
                         </span>
                       </a>
                     </>
                   ) : (
                     <>
-                      <Accordion defaultActiveKey="0">
-                        <Accordion.Item eventKey="0">
+                      <Accordion defaultActiveKey='0'>
+                        <Accordion.Item eventKey='0'>
                           <Accordion.Header>
                             {asset?.collection?.stats?.num_owners} owners
                           </Accordion.Header>
@@ -318,14 +318,14 @@ const NftDetails = (props) => {
                                   <div key={owner.address}>
                                     <img
                                       src={owner.profile_img_url}
-                                      className="owner-img mr-2"
-                                      alt=""
+                                      className='owner-img mr-2'
+                                      alt=''
                                     />
                                     <a
                                       href={`https://etherscan.io/address/${owner.address}`}
-                                      target="_blank"
+                                      target='_blank'
                                     >
-                                      <span className="small gray ml-2">
+                                      <span className='small gray ml-2'>
                                         {`${owner.address?.substr(
                                           0,
                                           5
@@ -336,8 +336,8 @@ const NftDetails = (props) => {
                                       </span>
                                     </a>
                                     <span
-                                      className="small gray"
-                                      style={{ marginLeft: "2px" }}
+                                      className='small gray'
+                                      style={{ marginLeft: '2px' }}
                                     >
                                       owns: {quantity}
                                     </span>
@@ -355,13 +355,13 @@ const NftDetails = (props) => {
                 <div>
                   <b>Chain Info: </b>
 
-                  <div className="d-flex justify-content-between">
+                  <div className='d-flex justify-content-between'>
                     <span>Contract address</span>
                     <a
                       href={`https://etherscan.io/address/${asset.asset_contract?.address}`}
-                      target="_blank"
+                      target='_blank'
                     >
-                      <span className="small gray">
+                      <span className='small gray'>
                         {`${asset?.asset_contract?.address.substr(
                           0,
                           5
@@ -372,16 +372,16 @@ const NftDetails = (props) => {
                       </span>
                     </a>
                   </div>
-                  <div className="d-flex justify-content-between">
+                  <div className='d-flex justify-content-between'>
                     <span>Token Id</span>
-                    <span className="small gray">
+                    <span className='small gray'>
                       {asset?.token_id.substr(0, 10)}
-                      {asset?.token_id.length > 10 && "..."}
+                      {asset?.token_id.length > 10 && '...'}
                     </span>
                   </div>
-                  <div className="d-flex justify-content-between">
+                  <div className='d-flex justify-content-between'>
                     <span>Schema</span>
-                    <span className="small gray">
+                    <span className='small gray'>
                       {asset?.asset_contract?.schema_name}
                     </span>
                   </div>
@@ -389,22 +389,22 @@ const NftDetails = (props) => {
               </div>
             </div>
           </div>
-          <div className="col-md-8">
+          <div className='col-md-8'>
             <div>
               <h4>{asset.name}</h4>
               {asset.creator && (
                 <div>
                   <img
                     src={asset.creator?.profile_img_url}
-                    className="owner-img mr-2"
-                    alt=""
+                    className='owner-img mr-2'
+                    alt=''
                   />
                   Created By {asset.creator?.user?.username}
                   <a
                     href={`https://etherscan.io/address/${asset?.creator?.address}`}
-                    target="_blank"
+                    target='_blank'
                   >
-                    <span className="small gray ml-2">
+                    <span className='small gray ml-2'>
                       {`${asset.creator?.address.substr(
                         0,
                         5
@@ -417,24 +417,24 @@ const NftDetails = (props) => {
                 </div>
               )}
             </div>
-            <div className="row">
-              <div className="col-md-3"></div>
+            <div className='row'>
+              <div className='col-md-3'></div>
             </div>
-            <div className="card mt-3">
-              <div className="card-body">
-                <h5 className="card-title">
+            <div className='card mt-3'>
+              <div className='card-body'>
+                <h5 className='card-title'>
                   {sellOrder && (
                     <>
                       <span>
                         {`${sellOrder.current_price}` / 1000000000000000000} eth
                       </span>
                       <span>
-                        {" "}
+                        {' '}
                         (
                         {(
                           (`${sellOrder.current_price}` / 1000000000000000000) *
                           sellOrder.payment_token_contract.usd_price
-                        ).toFixed(2)}{" "}
+                        ).toFixed(2)}{' '}
                         usd)
                       </span>
                     </>
@@ -444,12 +444,12 @@ const NftDetails = (props) => {
                 {/* asset?.orders?.length  */}
                 {sellOrder ? (
                   <button
-                    className="btn btn-outline-orange"
-                    type="button"
+                    className='btn btn-outline-orange'
+                    type='button'
                     disabled={loaders.buying || !sellOrder}
                     onClick={onBuyItem}
                   >
-                    {loaders.buying ? "complete in metamask ..." : "Buy now"}
+                    {loaders.buying ? 'complete in metamask ...' : 'Buy now'}
                   </button>
                 ) : (
                   <div>This item is not for sale</div>
@@ -458,7 +458,7 @@ const NftDetails = (props) => {
 
                 <h4>Offers</h4>
                 {buyOrders.length ? (
-                  <table className="table">
+                  <table className='table'>
                     <thead>
                       <tr>
                         <th>from</th>
@@ -473,8 +473,8 @@ const NftDetails = (props) => {
                             <td>
                               <img
                                 src={order.maker?.profile_img_url}
-                                className="owner-img mr-2"
-                                alt=""
+                                className='owner-img mr-2'
+                                alt=''
                               />
                               {order.maker?.user?.username
                                 ? order.maker.user.username
@@ -483,12 +483,12 @@ const NftDetails = (props) => {
                             <td>
                               <img
                                 src={order.payment_token_contract.image_url}
-                                className="owner-img mr-2"
-                                alt=""
+                                className='owner-img mr-2'
+                                alt=''
                               />
                               {order.base_price /
                                 10 **
-                                  order.payment_token_contract.decimals}{" "}
+                                  order.payment_token_contract.decimals}{' '}
                               (
                               {`$${(
                                 (order.base_price /
@@ -504,26 +504,26 @@ const NftDetails = (props) => {
                     </tbody>
                   </table>
                 ) : (
-                  "no offers yet"
+                  'no offers yet'
                 )}
 
                 <br />
 
                 <hr />
                 {enabledOfferForm && (
-                  <div id="sell-order-wrapper">
-                    <div className="d-flex justify-content-between align-items-end">
+                  <div id='sell-order-wrapper'>
+                    <div className='d-flex justify-content-between align-items-end'>
                       <span>Select token</span>
-                      <span className="pull-right small">
-                        Your balance: {selectedAssetBalance}{" "}
+                      <span className='pull-right small'>
+                        Your balance: {selectedAssetBalance}{' '}
                       </span>
                     </div>
-                    <InputGroup className="mb-3">
+                    <InputGroup className='mb-3'>
                       <Dropdown onSelect={onSelectAssetIn}>
                         <Dropdown.Toggle
-                          variant="outline-primary"
-                          id="dropdown-flags"
-                          className="text-left"
+                          variant='outline-primary'
+                          id='dropdown-flags'
+                          className='text-left'
                         >
                           {fromToggleContents}
                         </Dropdown.Toggle>
@@ -534,20 +534,20 @@ const NftDetails = (props) => {
                       </Dropdown>
 
                       <Form.Control
-                        style={{ width: "55%" }}
-                        type="number"
+                        style={{ width: '55%' }}
+                        type='number'
                         value={fromAmount}
                         onChange={(e) => onChangeFrom(e.target.value)}
-                        aria-describedby="basic-addon1"
+                        aria-describedby='basic-addon1'
                       />
                     </InputGroup>
                   </div>
                 )}
 
-                <div className="d-flex justify-content-between">
+                <div className='d-flex justify-content-between'>
                   {account ? (
                     <button
-                      className="btn btn-outline-primary mt-3"
+                      className='btn btn-outline-primary mt-3'
                       disabled={
                         loaders.makingOffer ||
                         (enabledOfferForm &&
@@ -560,8 +560,8 @@ const NftDetails = (props) => {
                       }
                     >
                       {loaders.makingOffer
-                        ? "complete in metamask ..."
-                        : "Make offer"}
+                        ? 'complete in metamask ...'
+                        : 'Make offer'}
                     </button>
                   ) : (
                     <div>
@@ -575,7 +575,7 @@ const NftDetails = (props) => {
 
                   {enabledOfferForm && (
                     <button
-                      className="btn btn-secondary mt-3"
+                      className='btn btn-secondary mt-3'
                       disabled={loaders.makingOffer}
                       onClick={() => seteEnabledOfferForm(false)}
                     >
@@ -588,8 +588,8 @@ const NftDetails = (props) => {
           </div>
         </div>
       ) : (
-        <div className="text-center">
-          <div className="lds-roller">
+        <div className='text-center'>
+          <div className='lds-roller'>
             <div></div>
             <div></div>
             <div></div>

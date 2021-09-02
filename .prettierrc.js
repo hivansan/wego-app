@@ -1,5 +1,5 @@
 module.exports = {
-  parser: 'babel',
+  // parser: "babel",
   useTabs: false,
   tabWidth: 8,
   endOfLine: 'lf',
