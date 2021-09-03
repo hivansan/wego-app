@@ -1,0 +1,23 @@
+@import '../../variables.scss';
+
+.trend-collections-section {
+  width: 75%;
+  margin: 0 auto;
+  padding: 3rem 0;
+
+  h1 {
+    text-align: center;
+    font-family: $default-font;
+    color: $secondary-color;
+    font-weight: 500;
+
+    strong {
+      color: $primary-color;
+      font-weight: 500;
+    }
+  }
+
+  .trend-collections-section-slider-container {
+    margin: 3rem 0;
+  }
+}

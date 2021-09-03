@@ -1,105 +1,90 @@
 @import '../../variables.scss';
 
-
 .flagship-section {
-	width: 100%;
-	padding: 5vh 5vw;
-	position: relative;
-	gap: 5vw;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	font-family: 'Raleway', sans-serif;
+  width: 100%;
+  padding: 5vh 5vw;
+  position: relative;
+  gap: 5vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Raleway', sans-serif;
 
-	.section-left {
-		z-index: 10;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
+  .section-left {
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-		h1 {
-			width: 42vw;
-			text-align: center;
-			font-size: 3rem;
-			font-weight: 400;
-			color: $secondary-color;
-		}
+    h1 {
+      width: 42vw;
+      text-align: center;
+      font-size: 3rem;
+      font-weight: 400;
+      color: $secondary-color;
+    }
 
-		p {
-			width: 100%;
-			color: $light-gray;
-			text-align: center;
-			font-size: 1.5rem;
-			margin: 2rem;
-		}
+    p {
+      width: 100%;
+      color: $light-gray;
+      text-align: center;
+      font-size: 1.5rem;
+      margin: 2rem;
+    }
 
-		.buttons {
-			display: flex;
-			gap: 2vmin;
-
-		}
-	}
-
+    .buttons {
+      display: flex;
+      gap: 2vmin;
+    }
+  }
 }
 
-
-
-// 1428
+//media queries
 
 @media screen and (max-width: 1200px) {
-	.flagship-section {
+  .flagship-section {
+    .section-left {
+      padding: 10vh 1vw;
+      h1 {
+        width: 400px;
+        font-size: 2rem;
+      }
 
-		.section-left{
-			padding: 10vh 1vw;
-			h1{
-				width: 400px;
-				font-size: 2rem;
-			}
-
-			p{
-				font-size: 1rem;
-			}
-		}
-	}
+      p {
+        font-size: 1rem;
+      }
+    }
+  }
 }
 
 @media screen and (max-width: 993px) {
-	.flagship-section {
+  .flagship-section {
+    flex-direction: column;
+    gap: 0;
 
-		flex-direction: column;
-		gap: 0;
-
-		.section-left{
-			h1{
-				width: 400px;
-				font-size: 2rem;
-			}
-		}
-	}
+    .section-left {
+      h1 {
+        width: 400px;
+        font-size: 2rem;
+      }
+    }
+  }
 }
 
 //small screens
-@media screen and (max-width: 576px){
+@media screen and (max-width: 576px) {
+  .flagship-section {
+    flex-direction: column;
 
-	.flagship-section {
-		flex-direction: column;
+    .section-left {
+      h1 {
+        width: 100%;
+        font-size: 1.9rem;
+      }
 
-		.section-left{
-
-
-
-			h1{
-				width: 100%;
-				font-size: 1.9rem;
-			}
-
-			p{
-				font-size: 1rem;
-			}
-
-		}
-	
-	}
-
-	
+      p {
+        font-size: 1rem;
+      }
+    }
+  }
 }

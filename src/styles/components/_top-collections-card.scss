@@ -1,70 +1,65 @@
 @import '../variables.scss';
 
-.top-collections-card{
+.top-collections-card {
+        display: flex;
+        flex-direction: column;
+        border: 1px solid #ccced3;
+        border-radius: 0.4rem;
+        min-width: 300px;
+        width: 310px;
+        transition-property: all;
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        transition-duration: 150ms;
+        padding: 0.4rem 0;
 
-	display: flex;
-	flex-direction: column;
-	border: 1px solid #ccced3;
-	border-radius: 0.4rem;
-	min-width: 300px;
-	width: 300px;
-	transition-property: all;
-    	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    	transition-duration: 150ms;
-	  padding: 0.4rem 0;
+        .card-title {
+                font-weight: 800;
+                color: $primary-color;
+                padding: 0.8rem 1rem;
+        }
 
-	.card-title{
-		font-weight: 800;
-		color: $primary-color ;
-		padding: 0.8rem 1rem;
-	}
+        p {
+                width: 2.6rem;
+                font-size: 1.5rem;
+                font-weight: 600;
+                color: #9ca3af;
+                margin: 0;
+                padding: 2px;
+        }
 
-	p{
-		width: 2.6rem;
-		font-size: 1.5rem;
-		font-weight: 600;
-		color: #9CA3AF;
-		margin: 0;
-		padding: 2px;
-	}
+        .collection-info {
+                gap: 1vm;
+                display: flex;
+                align-items: center;
+                padding: 0.5rem 1rem;
 
-	.collection-info{
-		gap: 1vm;
-		display: flex;
-		align-items: center;
-	padding: 0.5rem 1rem;
+                cursor: pointer;
+                &:hover {
+                        background-color: #e6e6e6;
+                }
 
-		cursor: pointer;
-		&:hover{
-			background-color: #e6e6e6;
-		}
+                .collection-pic {
+                        width: 35px;
+                        height: 35px;
+                        border-radius: 50%;
+                        margin: 0 10px;
+                }
 
-		.collection-pic{
-			width: 35px;
-			height: 35px;
-			border-radius: 50%;
-			margin: 0 10px;
-		}
-	
-		
+                .collection-data {
+                        display: flex;
+                        flex-direction: column;
 
-		.collection-data{
-			display: flex;
-			flex-direction: column;
+                        p {
+                                font-weight: 600;
+                                color: $primary-color;
+                                font-size: 1rem;
+                                margin: 0;
+                        }
 
-			p{
-				font-weight: 600;
-				color: $primary-color;
-				font-size: 1rem;
-				margin: 0;
-			}
-
-			small{
-				font-weight: 400;
-				color: #9CA3AF;
-			}
-		}
-	}
-
-	
+                        small {
+                                font-weight: 400;
+                                color: #9ca3af;
+                        }
+                }
+        }
 }

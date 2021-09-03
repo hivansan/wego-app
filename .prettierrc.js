@@ -1,9 +1,9 @@
 module.exports = {
-  parser: 'babel',
-  useTabs: false,
-  tabWidth: 8,
-  endOfLine: 'lf',
-  singleQuote: true,
-  jsxSingleQuote: true,
-  printWidth: 80,
+        // parser: 'babel',
+        useTabs: false,
+        tabWidth: 2,
+        endOfLine: 'lf',
+        singleQuote: true,
+        jsxSingleQuote: true,
+        printWidth: 80,
 };

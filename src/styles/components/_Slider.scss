@@ -1,0 +1,35 @@
+@import '../variables.scss';
+
+.slick-dots {
+  &.slick-thumb {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 0.5rem;
+    bottom: -10%;
+
+    li {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background-color: #f0f0f0;
+      border: 1px solid #ccced3;
+
+      div {
+        &::after {
+          content: '';
+        }
+      }
+
+      &.slick-active {
+        background-color: $primary-color;
+      }
+    }
+
+    .dots {
+      &::before {
+        content: '';
+      }
+    }
+  }
+}
