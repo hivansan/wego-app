@@ -1,9 +1,4 @@
 import React from 'react';
-import { FaEthereum } from 'react-icons/fa';
-
-import { BLUE, GREY } from '../elements/colors';
-import LightSecondaryButton from '../atoms/ligthSecondaryButton';
-import CalendarButton from '../atoms/calendarButton';
 
 const TrendingCard = ({
   piece = 'https://via.placeholder.com/720x720.png?text=Upcoming Collection',
@@ -21,9 +16,6 @@ const TrendingCard = ({
   amountNfts = 0,
   ...props
 }) => {
-  const isLive = new Date() > date;
-  const link = '/collection/:id'; // TODO: change this for the actual link id
-
   return (
     <div className='trend-card'>
       <header className='trend-card-header'>Featured</header>

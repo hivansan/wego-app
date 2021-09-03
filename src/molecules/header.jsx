@@ -12,8 +12,6 @@ const { emitter, store } = Store;
 
 const RightMenu = ({ children }) => {
   const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
-
-  console.log(children);
   return (
     <>
       {isMobile ? (

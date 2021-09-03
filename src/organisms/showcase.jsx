@@ -1,7 +1,7 @@
-import React, { useEffect, useReducer, useState } from "react";
-import { useInView } from "react-intersection-observer";
+import React, { useEffect, useReducer, useState } from 'react';
+import { useInView } from 'react-intersection-observer';
 
-import ShowcaseCard from "../molecules/showcaseCard";
+import ShowcaseCard from '../molecules/showcaseCard';
 
 const Showcase = ({ getElements }) => {
   const [elements, setElements] = useState([]);
@@ -23,10 +23,10 @@ const Showcase = ({ getElements }) => {
   return (
     <div
       style={{
-        display: "flex",
-        flexDirection: "row",
-        flexWrap: "wrap",
-        justifyContent: "center",
+        display: 'flex',
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'center',
       }}
     >
       {elements.map((el) => (
