@@ -7,9 +7,9 @@ import Footer from './molecules/footer.jsx';
 import Marketplace from './pages/marketplace';
 import Stats from './pages/stats';
 import GetListed from './pages/getListed';
-import Home from './pages/home/index';
+import Home from './pages/home/Index';
 import NftDetails from './pages/nftDetails';
-import Collection from './pages/collection';
+import CollectionDetails from './pages/CollectionDetails/Index';
 
 import { CONNECTION_CONNECTED } from './constants';
 import { injected } from './stores/connectors';
@@ -48,11 +48,7 @@ function App() {
             path='/item/:tokenAddress/:tokenId'
             component={NftDetails}
           ></Route>
-          <Route
-            exact
-            path='/collection/:collectionId'
-            component={Collection}
-          ></Route>
+          <Route exact path='/collection' component={CollectionDetails}></Route>
           <Route path='/marketplace'>
             <Marketplace />
           </Route>

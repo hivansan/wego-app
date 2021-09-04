@@ -1,7 +1,6 @@
 import React from 'react';
 import { FaTwitter, FaDiscord, FaInstagram } from 'react-icons/fa';
 import { BsLink45Deg } from 'react-icons/bs';
-import { BLUE } from '../elements/colors';
 
 const Footer = (props) => {
   return (

@@ -1,0 +1,48 @@
+@import '../variables.scss';
+
+.collection-asset-card {
+  width: 300px;
+  border: 1px solid #aaaaaa;
+  padding: 0.8rem;
+  border-radius: 10px;
+  cursor: pointer;
+  margin: 0.5rem;
+  .asset-card-header {
+    display: flex;
+    justify-content: space-between;
+
+    p {
+      color: $primary-color;
+
+      &:last-child {
+        color: $secondary-color;
+      }
+    }
+  }
+
+  .asset-card-image {
+    width: 100%;
+
+    img {
+      object-fit: cover;
+      width: 100%;
+    }
+  }
+
+  &:hover {
+    transition: all 0.2s ease 0s;
+    box-shadow: rgb(4 17 29 / 25%) 0px 0px 8px 0px;
+  }
+
+  .asset-card-info {
+    text-align: center;
+
+    p {
+      margin: 0;
+
+      svg {
+        color: $primary-color;
+      }
+    }
+  }
+}

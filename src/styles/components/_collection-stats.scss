@@ -1,0 +1,60 @@
+@import '../variables.scss';
+
+.collection-additionals-stats {
+  display: flex;
+  margin: 1.5rem 0;
+  .stat {
+    margin: 0 1rem;
+    text-align: center;
+    small {
+      margin: 0;
+      display: block;
+      color: $primary-color;
+
+      &:last-child {
+        color: $secondary-color;
+      }
+    }
+  }
+}
+
+.collection-stats {
+  width: 65%;
+  display: flex;
+  border: 1px solid #aaaaaa;
+  border-radius: 5px;
+
+  .stat {
+    cursor: pointer;
+    width: 33.3%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-left: 1px solid #aaaaaa;
+    padding: 0.3rem 0;
+
+    &:hover {
+      transition: all 0.2s ease 0s;
+      box-shadow: rgb(4 17 29 / 25%) 0px 0px 8px 0px;
+    }
+
+    &:first-child {
+      border-left: none;
+      border-top-left-radius: 5px;
+    }
+
+    &:last-child {
+      border-top-right-radius: 5px;
+    }
+
+    p {
+      margin: 0;
+      color: $primary-color;
+    }
+    small {
+      color: $secondary-color;
+    }
+  }
+}

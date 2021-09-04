@@ -1,0 +1,126 @@
+@import '../../variables.scss';
+
+.collection-assets-container {
+  width: 100vw;
+  display: flex;
+  padding: 1rem 2rem;
+
+  .collection-assets {
+    width: 80%;
+    margin-left: 10px;
+
+    .assets-header {
+      width: 100%;
+      height: 100px;
+      display: flex;
+      padding: 0 1rem;
+      justify-content: space-between;
+
+      .assets-sort {
+        width: 50%;
+        display: flex;
+        align-items: center;
+
+        p {
+          color: $primary-color;
+          margin: 0;
+          margin-right: 1rem;
+        }
+
+        select {
+          width: 300px;
+          padding: 0.5rem;
+          border-radius: 9px;
+          margin-right: 1rem;
+          border: 1px solid #aaaaaa;
+          color: $secondary-color;
+
+          &:focus-within {
+            outline: none;
+          }
+        }
+
+        input {
+          width: 50px;
+          border: 1px solid #aaaaaa;
+          margin: 0 1rem;
+          padding: 0.5rem;
+          border-radius: 9px;
+          color: $secondary-color;
+          text-align: center;
+          &:focus-within {
+            outline: none;
+          }
+        }
+      }
+
+      .assets-pagination {
+        width: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: end;
+        color: $primary-color;
+        p {
+          margin: 0;
+        }
+        input {
+          width: 50px;
+          border: 1px solid #aaaaaa;
+          margin-left: 1rem;
+          padding: 0.5rem;
+          border-radius: 9px;
+          color: $secondary-color;
+          text-align: center;
+          &:focus-within {
+            outline: none;
+          }
+        }
+        small {
+          margin: 0 1rem;
+        }
+
+        button {
+          padding: 0.3rem 2rem;
+        }
+      }
+    }
+  }
+
+  .assets-container {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+  }
+}
+
+.assets-select {
+  width: 100%;
+}
+
+.search-filters {
+  width: 20%;
+  border: 1px solid #aaaaaa;
+  max-height: 640px;
+  overflow: hidden;
+  header {
+    padding: 0.8rem;
+    color: $primary-color;
+    font-size: 25px;
+  }
+
+  .filters {
+    width: 100%;
+    height: 300px;
+    background-color: #f8f8f8;
+    p {
+      padding: 0.8rem;
+      border-bottom: 1px solid #aaaaaa;
+      background-color: #fff;
+      color: $primary-color;
+      font-size: 25px;
+      &:last-child {
+        border-top: 1px solid #aaaaaa;
+      }
+    }
+  }
+}

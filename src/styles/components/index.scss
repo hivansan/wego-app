@@ -1,7 +1,14 @@
 @use './header';
 @use './footer';
+
+@use './dark-primary-btn';
+@use './light-primary-btn';
+
 @use './flagship-card';
 @use './top-collections-card';
 @use './trending-card';
 @use './Slider';
 @use './collections-table';
+
+@use './collection-stats';
+@use './collection-asset-card';

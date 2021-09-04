@@ -1,0 +1,12 @@
+@import '../variables.scss';
+
+.light-primary-btn {
+  padding: 1rem;
+  border-radius: 0.25rem;
+  border-width: 0.06rem;
+  border-color: $primary-color;
+  border-style: solid;
+  color: $primary-color;
+  font-weight: bold;
+  background-color: #fff;
+}
