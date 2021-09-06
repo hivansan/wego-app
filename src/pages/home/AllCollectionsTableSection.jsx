@@ -11,6 +11,7 @@ const AllCollectionsTableSection = () => {
       cell: (row, idx) => {
         return <div>{idx + 1}</div>;
       },
+      sortable: true,
     },
     {
       name: 'Collection',

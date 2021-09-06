@@ -6,9 +6,13 @@ const CollectionAssetCard = ({
   assetImage = 'https://lh3.googleusercontent.com/DFWF5M0TDAk5HChLQWv88kL84TdOciZLrBm_UFszYDmPNP9K86gyhhcMQ7Resz_33tBIqK-dOTx6BCagEcP8qtxmuqSldNUTf_Y5ng=w600',
   assetName = 'Asset Name',
   price = '429.69',
+  className,
+  ...props
 }) => {
+  const hasExtraClasses = className ? className : '';
+
   return (
-    <div className='collection-asset-card'>
+    <div {...props} className={`${hasExtraClasses} collection-asset-card`}>
       <div className='asset-card-header'>
         <p>#1</p>
         <p>{assetName}</p>

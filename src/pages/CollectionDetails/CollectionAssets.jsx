@@ -16,15 +16,16 @@ const CollectionAssets = () => {
           <CollectionAssetsPagination />
         </div>
         <div className='assets-container'>
-          <CollectionAssetCard />
-          <CollectionAssetCard />
-          <CollectionAssetCard />
-          <CollectionAssetCard />
-          <CollectionAssetCard />
-          <CollectionAssetCard />
-          <CollectionAssetCard />
-          <CollectionAssetCard />
-          <CollectionAssetCard />
+          <CollectionAssetCard className='asset' />
+          <CollectionAssetCard className='asset' />
+          <CollectionAssetCard className='asset' />
+          <CollectionAssetCard className='asset' />
+          <CollectionAssetCard className='asset' />
+          <CollectionAssetCard className='asset' />
+          <CollectionAssetCard className='asset' />
+          <CollectionAssetCard className='asset' />
+          <CollectionAssetCard className='asset' />
+          <CollectionAssetCard className='asset' />
         </div>
       </div>
     </div>
