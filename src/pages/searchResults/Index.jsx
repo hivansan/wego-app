@@ -174,9 +174,17 @@ const SearchScreen = () => {
 
       <div className='search-results-container'>
         {!results ? (
-          <div className='loader-search'>
-            <div className='spinner-border'></div>
-          </div>
+          <>
+            {param === '' ? (
+              <div className='loader-search'>
+                <h1>No items found</h1>
+              </div>
+            ) : (
+              <div className='loader-search'>
+                <div className='spinner-border'></div>
+              </div>
+            )}
+          </>
         ) : (
           <div className='results'>
             <div className='all-results'>

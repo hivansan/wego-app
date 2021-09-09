@@ -9,7 +9,7 @@ import Stats from './pages/stats';
 import GetListed from './pages/getListed';
 import Home from './pages/home/Index';
 import NftDetails from './pages/nftDetails';
-import CollectionDetails from './pages/CollectionDetails/Index';
+import CollectionDetails from './pages/collectionDetails/Index';
 import SearchResults from './pages/searchResults/Index';
 
 import { CONNECTION_CONNECTED } from './constants';
@@ -57,6 +57,7 @@ function App() {
           <Route path='/getlisted'>
             <GetListed />
           </Route>
+
           <Route path='/:search'>
             <SearchResults />
           </Route>
