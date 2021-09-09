@@ -7,9 +7,9 @@ import Footer from './molecules/footer.jsx';
 import Marketplace from './pages/marketplace';
 import Stats from './pages/stats';
 import GetListed from './pages/getListed';
-import Home from './pages/home/Index';
+import Home from './pages/home/index';
 import NftDetails from './pages/nftDetails';
-import CollectionDetails from './pages/collectionDetails/Index';
+import CollectionDetails from './pages/CollectionDetails/Index';
 import SearchResults from './pages/searchResults/Index';
 
 import { CONNECTION_CONNECTED } from './constants';
