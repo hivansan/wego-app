@@ -12,3 +12,12 @@
 
 @use './collection-stats';
 @use './collection-asset-card';
+
+@use './search-input';
+@use './_nft-search-bar';
+@use './exact-match-card';
+@use './drop-down-assets';
+@use './drop-down-collections';
+
+@use './_collection-result-card';
+@use './_asset-result-card';

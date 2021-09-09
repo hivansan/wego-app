@@ -1,0 +1,64 @@
+@import '../variables.scss';
+
+.search-bar-wrapper {
+  width: 450px;
+
+  .search-bar-control {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    small {
+      color: #bbbbbb;
+    }
+    button {
+      padding: 0.5rem 1rem;
+      margin: 1rem auto;
+    }
+  }
+
+  .search-bar-drop-down {
+    min-width: 1124px;
+    max-width: 1124px;
+    z-index: 199;
+    position: absolute;
+    border-radius: 4px;
+
+    box-shadow: rgb(0 0 0 / 16%) 0px 4px 16px;
+    background-color: rgb(255, 255, 255);
+    transform: translate3d(-292px, 54px, 0px);
+    inset: 0px auto auto 0px;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 0;
+
+    a {
+      text-decoration: none;
+    }
+
+    .loader-container {
+      width: 100%;
+      height: 690.19px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .drop-down-results {
+      display: flex;
+      justify-content: space-between;
+      padding: 1rem;
+    }
+
+    .drop-down-footer {
+      text-align: center;
+      background-color: #f6f6f6;
+      color: $primary-color;
+      padding: 0.5rem 0;
+      border: 1px solid #aaaaaa;
+
+      border-bottom-left-radius: 4px;
+      border-bottom-right-radius: 4px;
+    }
+  }
+}

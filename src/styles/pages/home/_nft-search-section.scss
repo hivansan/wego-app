@@ -1,0 +1,21 @@
+@import '../../variables.scss';
+
+.nft-search-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 40vh;
+  font-family: $default-font;
+  h1 {
+    font-weight: 400;
+    strong {
+      color: $primary-color;
+      font-weight: 400;
+    }
+    color: $secondary-color;
+    margin: 0;
+    margin-bottom: 10px;
+  }
+}

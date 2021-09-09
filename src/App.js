@@ -10,6 +10,7 @@ import GetListed from './pages/getListed';
 import Home from './pages/home/Index';
 import NftDetails from './pages/nftDetails';
 import CollectionDetails from './pages/CollectionDetails/Index';
+import SearchScreen from './pages/Search/Index';
 
 import { CONNECTION_CONNECTED } from './constants';
 import { injected } from './stores/connectors';
@@ -39,8 +40,6 @@ function App() {
   return (
     <>
       <Header />
-
-      {/* <div style={{ minHeight: 'calc(90vh - 140px)' }} ></div> */}
       <Router>
         <Switch>
           <Route
@@ -58,12 +57,14 @@ function App() {
           <Route path='/getlisted'>
             <GetListed />
           </Route>
+          <Route path='/:search'>
+            <SearchScreen />
+          </Route>
           <Route path='/'>
             <Home />
           </Route>
         </Switch>
       </Router>
-
       <Footer />
     </>
   );

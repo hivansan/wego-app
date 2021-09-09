@@ -1,0 +1,21 @@
+@import '../variables.scss';
+
+.search-input {
+  color: $secondary-color;
+  background-color: #fff;
+  width: 100%;
+  padding: 0.8rem;
+  border-radius: 1.4rem;
+  border: 1px solid #c7c7c7;
+  &::placeholder {
+    color: #aaaaaa;
+  }
+
+  &:focus {
+    border: 1px solid $primary-color;
+  }
+
+  &:focus-within {
+    outline: none;
+  }
+}

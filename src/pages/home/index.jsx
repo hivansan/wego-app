@@ -12,6 +12,8 @@ import TopCollectionSection from './TopCollectionSection';
 import TrendingCollectionSection from './TrendingCollectionSection';
 import AllCollectionsTableSection from './AllCollectionsTableSection';
 
+import NftSearchSection from './NftSearchSection';
+
 const addresses = [
   ['0x8b459723c519c66ebf95b4f643ba4aa0f9b0e925', 10014],
   ['0xe19b9d6538c1ab71434098d9806a7cec5b186ba0', '87'],
@@ -55,24 +57,21 @@ const Home = (props) => {
 
   return (
     <>
-      <FlagShipSection />
+      <NftSearchSection />
 
+      <FlagShipSection />
       <section className='dividing-section'>
         <div className='divider'>
           <h1>Get featured on the homepage</h1>
         </div>
       </section>
-
       <TopCollectionSection />
-
       <section className='dividing-section'>
         <div className='divider'>
           <h1>Get listed</h1>
         </div>
       </section>
-
       <TrendingCollectionSection />
-
       <AllCollectionsTableSection />
     </>
   );
