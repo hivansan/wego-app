@@ -60,11 +60,11 @@ const SearchBar = ({
             value={value}
             setDebounceParam={setDebounceParam}
           />
-          <NftSearchBarModal isOpen={isOpen} results={results} query={query} />
         </div>
         <small>search collections, top assets, etc</small>
         <DarkPrimaryButton>Search</DarkPrimaryButton>
       </div>
+      <NftSearchBarModal isOpen={isOpen} results={results} query={query} />
     </div>
   );
 };

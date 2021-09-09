@@ -17,6 +17,7 @@ const SearchInput = forwardRef((props, ref) => {
       onChange={handleChange}
       ref={ref}
       onKeyDown={(e) => e.key === 'Enter' && props.onPressEnter()}
+      autoComplete='off'
     />
   );
 });

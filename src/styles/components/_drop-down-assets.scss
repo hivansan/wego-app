@@ -1,7 +1,7 @@
 @import '../variables.scss';
 
 .drop-down-assets {
-  width: 300px;
+  width: 350px;
   margin: 0 3rem;
 
   header {
@@ -47,7 +47,6 @@
         flex-direction: column;
 
         small {
-          color: $secondary-color;
           strong {
             font-weight: 400;
             color: $primary-color;

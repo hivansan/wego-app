@@ -1,13 +1,14 @@
 @import '../variables.scss';
 
 .search-bar-wrapper {
-  width: 450px;
-
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: relative;
   .search-bar-control {
-    width: 100%;
+    width: 450px;
     display: flex;
     flex-direction: column;
-    position: relative;
     small {
       color: #bbbbbb;
     }
@@ -18,16 +19,14 @@
   }
 
   .search-bar-drop-down {
-    min-width: 1124px;
-    max-width: 1124px;
+    min-width: 100vw;
+    max-width: 100vw;
+    top: 35%;
     z-index: 199;
     position: absolute;
     border-radius: 4px;
-
     box-shadow: rgb(0 0 0 / 16%) 0px 4px 16px;
     background-color: rgb(255, 255, 255);
-    transform: translate3d(-292px, 54px, 0px);
-    inset: 0px auto auto 0px;
     display: flex;
     flex-direction: column;
     padding-bottom: 0;
@@ -37,8 +36,7 @@
     }
 
     .loader-container {
-      width: 100%;
-      height: 690.19px;
+      height: 630px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -46,7 +44,7 @@
 
     .drop-down-results {
       display: flex;
-      justify-content: space-between;
+      justify-content: space-around;
       padding: 1rem;
     }
 
