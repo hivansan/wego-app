@@ -115,7 +115,7 @@ const SearchScreen = () => {
         </div>
       </div>
 
-      {/* /// */}
+      {/* /// molecule component */}
 
       {isToolsOpen && (
         <div className='tools'>

@@ -10,7 +10,7 @@ import GetListed from './pages/getListed';
 import Home from './pages/home/Index';
 import NftDetails from './pages/nftDetails';
 import CollectionDetails from './pages/CollectionDetails/Index';
-import SearchScreen from './pages/Search/Index';
+import SearchResults from './pages/searchResults/Index';
 
 import { CONNECTION_CONNECTED } from './constants';
 import { injected } from './stores/connectors';
@@ -58,7 +58,7 @@ function App() {
             <GetListed />
           </Route>
           <Route path='/:search'>
-            <SearchScreen />
+            <SearchResults />
           </Route>
           <Route path='/'>
             <Home />
