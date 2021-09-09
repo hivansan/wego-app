@@ -7,7 +7,7 @@ import * as Web3 from 'web3';
 
 import { infuraProvider } from '../../config/example.config';
 import { useState } from 'react';
-import FlagShipSection from './Flagship-section';
+import FlagShipSection from './FlagshipSection';
 import TopCollectionSection from './TopCollectionSection';
 import TrendingCollectionSection from './TrendingCollectionSection';
 import AllCollectionsTableSection from './AllCollectionsTableSection';
