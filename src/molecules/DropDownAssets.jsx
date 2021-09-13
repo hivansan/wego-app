@@ -1,13 +1,21 @@
 import React from 'react';
 
-const DropDownAssets = ({ results }) => {
+import { Link } from 'react-router-dom';
+
+const DropDownAssets = ({ results, location }) => {
   const FilterA = results.filter((a, i) => i < 4);
 
   return (
     <div className='drop-down-assets'>
       <header>Assets</header>
       {FilterA.map((asset) => (
-        <a href='/#' key={asset.address}>
+        <Link
+          to={{
+            pathname: `assets/${asset.address}/1`,
+            state: { background: location },
+          }}
+          key={asset.address}
+        >
           <div className='asset'>
             <div className='asset-info-container'>
               <img src={asset.image} alt={asset.name} />
@@ -27,7 +35,7 @@ const DropDownAssets = ({ results }) => {
               </div>
             </div>
           </div>
-        </a>
+        </Link>
       ))}
       <a href='/#'>450 see more...</a>
     </div>

@@ -1,10 +1,13 @@
 import React from 'react';
 
+import { Link } from 'react-router-dom';
+
 const FlagshipCard = ({
   piece = 'https://via.placeholder.com/480x480.png?text=Flagship Collection',
   userPhoto = 'https://via.placeholder.com/60x60',
   userName = 'User name',
   pieceName = 'Piece name',
+  location,
   ...props
 }) => {
   return (

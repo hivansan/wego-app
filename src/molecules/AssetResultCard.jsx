@@ -2,7 +2,9 @@ import React from 'react';
 
 import { FaEthereum } from 'react-icons/fa';
 
-const AssetResultCard = ({ asset }) => {
+import { Link } from 'react-router-dom';
+
+const AssetResultCard = ({ asset, location }) => {
   return (
     <div className='asset-result-card'>
       <header>Asset</header>
@@ -12,7 +14,14 @@ const AssetResultCard = ({ asset }) => {
             <div className='asset-result-card-info'>
               <img src={asset.image} alt={asset.name} />
               <div className='info'>
-                <p>{asset.name}</p>
+                <Link
+                  to={{
+                    pathname: `assets/${asset.address}/111`,
+                    state: { background: location },
+                  }}
+                >
+                  <p>{asset.name}</p>
+                </Link>
                 <small>428 traded</small>
               </div>
             </div>
@@ -55,7 +64,14 @@ const AssetResultCard = ({ asset }) => {
           <div className='asset-preview'>
             <div className='asset'>
               <p>Preview</p>
-              <img src={asset.image} alt={asset.name} />
+              <Link
+                to={{
+                  pathname: `assets/${asset.address}/111`,
+                  state: { background: location },
+                }}
+              >
+                <img src={asset.image} alt={asset.name} />
+              </Link>
             </div>
           </div>
           <div className='wego-score'>

@@ -1,4 +1,7 @@
 import React, { useEffect } from 'react';
+
+import { useLocation } from 'react-router-dom';
+
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
@@ -26,6 +29,7 @@ const addresses = [
 
 const Home = (props) => {
   const [nfts, setNfts] = useState([]);
+  const location = useLocation();
 
   const provider = new Web3.providers.HttpProvider(infuraProvider);
 
@@ -53,24 +57,26 @@ const Home = (props) => {
       .catch((err) => {});
   }, []);
 
-  useEffect(() => console.log(nfts), [nfts]);
-
   return (
     <>
-      <NftSearchSection />
+      <NftSearchSection location={location} />
 
-      <FlagShipSection />
+      <FlagShipSection location={location} />
+
       <section className='dividing-section'>
         <div className='divider'>
           <h1>Get featured on the homepage</h1>
         </div>
       </section>
+
       <TopCollectionSection />
+
       <section className='dividing-section'>
         <div className='divider'>
           <h1>Get listed</h1>
         </div>
       </section>
+
       <TrendingCollectionSection />
       <AllCollectionsTableSection />
     </>

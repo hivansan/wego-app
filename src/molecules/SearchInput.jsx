@@ -5,7 +5,10 @@ const SearchInput = forwardRef((props, ref) => {
 
   const handleChange = (e) => {
     props.onChange(e.target.value);
-    props.setDebounceParam(e.target.value);
+
+    if (props.setDebounceParam) {
+      props.setDebounceParam(e.target.value);
+    }
   };
 
   return (

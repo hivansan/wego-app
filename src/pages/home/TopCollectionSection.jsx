@@ -3,7 +3,7 @@ import TopCollectionsCard from '../../molecules/TopCollectionsCard';
 
 import topCollections from '../../db.json';
 
-const TopCollectionSection = () => {
+const TopCollectionSection = ({ location }) => {
   return (
     <section className='top-collections-section'>
       <h1 className='text-center mb-5'>Top Collections</h1>

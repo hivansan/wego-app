@@ -1,6 +1,6 @@
 import React, { useEffect, createRef, useState } from 'react';
 
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import SearchInput from './SearchInput';
 import DarkPrimaryButton from '../atoms/darkPrimaryButton';
 
@@ -12,6 +12,7 @@ const SearchBar = ({
   value,
   results,
   query,
+  location,
   ...props
 }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,6 +21,10 @@ const SearchBar = ({
   const history = useHistory();
 
   const onPressEnter = () => {
+    if (value === '') {
+      return history.push(`/search`);
+    }
+
     history.push(`/search?q=${encodeURI(query)}`);
   };
 
@@ -64,7 +69,12 @@ const SearchBar = ({
         <small>search collections, top assets, etc</small>
         <DarkPrimaryButton>Search</DarkPrimaryButton>
       </div>
-      <NftSearchBarModal isOpen={isOpen} results={results} query={query} />
+      <NftSearchBarModal
+        isOpen={isOpen}
+        results={results}
+        query={query}
+        location={location}
+      />
     </div>
   );
 };

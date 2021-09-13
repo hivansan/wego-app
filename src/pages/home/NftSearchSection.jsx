@@ -4,7 +4,7 @@ import NftSearchBar from '../../molecules/NftSearchBar';
 import { useDebounce } from '../../atoms/hooks/useStateDebounce';
 import { Api } from '../../services/api';
 
-const NftSearchSection = () => {
+const NftSearchSection = ({ location }) => {
   const [param, setParam] = useState('');
   const [debounceParam, setDebounceParam] = useDebounce(param, 500);
   const [results, setResults] = useState(null);
@@ -28,6 +28,11 @@ const NftSearchSection = () => {
     if (param === '') {
       setResults(null);
     }
+
+    //cleanup when component unmount
+    return () => {
+      setResults(null);
+    };
   }, [debounceParam]);
 
   return (
@@ -41,6 +46,7 @@ const NftSearchSection = () => {
         onChange={setParam}
         results={results}
         query={param}
+        location={location}
       />
     </section>
   );

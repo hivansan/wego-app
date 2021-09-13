@@ -5,7 +5,7 @@ import ExactMatchCard from './ExactMatchCard';
 import DropDownCollections from './DropDownCollections';
 import DropDownAssets from './DropDownAssets';
 
-const NftSearchBarModal = ({ results, isOpen, setIsOpen, query }) => {
+const NftSearchBarModal = ({ results, isOpen, setIsOpen, query, location }) => {
   const modalIsOpen = isOpen ? 'd-none' : '';
 
   return (
@@ -18,8 +18,8 @@ const NftSearchBarModal = ({ results, isOpen, setIsOpen, query }) => {
         <>
           <div className='drop-down-results'>
             <DropDownCollections results={results.collections} />
-            <DropDownAssets results={results.assets} />
-            <ExactMatchCard result={results.exactMatch} />
+            <DropDownAssets results={results.assets} location={location} />
+            <ExactMatchCard result={results.exactMatch} location={location} />
           </div>
           <Link to={`/search?q=${encodeURI(query)}`}>
             <div className='drop-down-footer'>Show all results</div>

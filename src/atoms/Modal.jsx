@@ -1,31 +1,35 @@
-import React, { Component } from 'react';
-import { DialogContent, Dialog, Slide } from '@material-ui/core';
+import React from 'react';
+import { Modal, Fade, Backdrop, makeStyles } from '@material-ui/core';
 
-function Transition(props) {
-  return <Slide direction='up' {...props} />;
-}
+const useStyles = makeStyles((theme) => ({
+  modal: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+}));
 
-class UnlockModal extends Component {
-  render() {
-    const { closeModal, modalOpen } = this.props;
+const CustomModal = ({ children, bodyStyles, open, onClose, ...props }) => {
+  const defaultStyles = useStyles();
 
-    const fullScreen = window.innerWidth < 450;
+  return (
+    <Modal
+      aria-labelledby='transition-modal-title'
+      aria-describedby='transition-modal-description'
+      className={defaultStyles.modal}
+      open={open}
+      onClose={onClose}
+      closeAfterTransition
+      BackdropComponent={Backdrop}
+      BackdropProps={{
+        timeout: 500,
+      }}
+    >
+      <Fade in={open}>
+        <div className={bodyStyles}>{children}</div>
+      </Fade>
+    </Modal>
+  );
+};
 
-    return (
-      <Dialog
-        open={true}
-        onClose={closeModal}
-        fullWidth={true}
-        maxWidth={'sm'}
-        TransitionComponent={Transition}
-        fullScreen={fullScreen}
-      >
-        <DialogContent>
-          <h1>modal</h1>
-        </DialogContent>
-      </Dialog>
-    );
-  }
-}
-
-export default UnlockModal;
+export default CustomModal;

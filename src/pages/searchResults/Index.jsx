@@ -1,11 +1,8 @@
 import React, { useEffect, useState, createRef } from 'react';
-import { RiToolsLine } from 'react-icons/ri';
-import { AiFillCaretDown, AiFillCaretUp } from 'react-icons/ai';
 
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { Api } from '../../services/api';
 
-import { useDebounce } from '../../atoms/hooks/useStateDebounce';
 import SearchInput from '../../molecules/SearchInput';
 
 import useQuery from '../../atoms/hooks/useQuery';
@@ -14,23 +11,51 @@ import ExactMatchCard from '../../molecules/ExactMatchCard';
 import CollectionResultCard from '../../molecules/CollectionResultCard';
 import AssetResultCard from '../../molecules/AssetResultCard';
 
+import FiltersBar from './FiltersBar';
+
+import DarkPrimaryButton from '../../atoms/darkPrimaryButton';
+
 const SearchScreen = () => {
   const api = new Api();
   const query = useQuery();
+  const location = useLocation();
   const history = useHistory();
   const searchRef = createRef();
   const prevQuery = query.get('q');
 
-  const [isTypeToolsOpen, setIsTypeToolsOpen] = useState(false);
-  const [isSizeToolsOpen, setIsSizeToolsOpen] = useState(false);
-  const [isToolsOpen, setIsToolsOpen] = useState(false);
-  const [param, setParam] = useState(prevQuery);
-  const [debounceParam, setDebounceParam] = useDebounce(param, 500);
+  const q = !prevQuery ? '' : prevQuery;
+
+  const [param, setParam] = useState(q);
+  const [url, setUrl] = useState(q);
   const [results, setResults] = useState(null);
   const [locationKeys, setLocationKeys] = useState([]);
 
-  const typeOptions = ['JPG', 'PNG', 'GIF', 'SVG', 'MP4'];
-  const sizeOption = ['Large', 'Medium', 'Small'];
+  const getRequest = async (param) => {
+    try {
+      setResults(null);
+      const res = await api.search(param);
+      setResults(res);
+    } catch (err) {
+      throw err;
+    }
+  };
+
+  const getTrendingItems = async () => {
+    setResults(null);
+    const res = await api.trending();
+    setResults(res);
+  };
+
+  const onPressEnter = () => {
+    if (param === '') {
+      history.push(`/search`);
+      setUrl('');
+      return getTrendingItems();
+    }
+    history.push(`/search?q=${encodeURI(param)}`);
+    setUrl(param);
+    getRequest(param);
+  };
 
   useEffect(() => {
     return history.listen((location) => {
@@ -39,45 +64,37 @@ const SearchScreen = () => {
       }
       if (history.action === 'POP') {
         if (locationKeys[1] === location.key) {
-          setLocationKeys(([_, ...keys]) => keys);
           // Handle forward event
+          setLocationKeys((keys) => [location.key, ...keys]);
           const q = new URLSearchParams(location.search);
-          setParam(q.get('q'));
+          const hasQuery = location.search === '' ? '' : q.get('q');
+          setParam(hasQuery);
+          if (hasQuery === '') {
+            return getTrendingItems();
+          }
+          getRequest(hasQuery);
         } else {
           // Handle back event
-          const q = new URLSearchParams(location.search);
           setLocationKeys((keys) => [location.key, ...keys]);
-          setParam(q.get('q'));
+          const q = new URLSearchParams(location.search);
+          const hasQuery = location.search === '' ? '' : q.get('q');
+          setUrl(hasQuery);
+          setParam(hasQuery);
         }
       }
     });
   }, [locationKeys]);
 
-  const getRequest = async () => {
-    try {
-      setResults(null);
-      const res = await api.search(debounceParam);
-      setResults(res);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   useEffect(() => {
-    history.push(`/search?q=${encodeURI(param)}`);
-    if (param.length === 0) {
-      history.push(`/search`);
-      return true;
+    console.log(url);
+
+    if (url === '') {
+      //Trending collections or assets and images fetch
+      return getTrendingItems();
     }
 
-    if (debounceParam.length > 0) {
-      getRequest();
-    }
-  }, [param, debounceParam]);
-
-  const onPressEnter = () => {
-    getRequest();
-  };
+    getRequest(param);
+  }, [url]);
 
   return (
     <div className='full-search-container'>
@@ -86,7 +103,6 @@ const SearchScreen = () => {
           <strong>NFT</strong> Search
         </h1>
         <SearchInput
-          setDebounceParam={setDebounceParam}
           type='text'
           placeholder='Search Nft, Collections, or Keyword'
           onChange={setParam}
@@ -94,113 +110,62 @@ const SearchScreen = () => {
           onPressEnter={onPressEnter}
           ref={searchRef}
         />
-        <small>About 450 results</small>
+        {results && results.totalResults && (
+          <small>about {results.totalResults} Results</small>
+        )}
       </header>
-      <div className='search-filters'>
-        <ul>
-          <li className='active'>All</li>
-          <li>Images</li>
-          <li>Collections</li>
-          <li>Assets</li>
-          <li>Market overview</li>
-          <li>Price change</li>
-          <li>Owners</li>
-          <li>Release date</li>
-        </ul>
-        <div
-          className='toggle-tools'
-          onClick={() => setIsToolsOpen(!isToolsOpen)}
-        >
-          <p>Tools</p>
-        </div>
-      </div>
 
-      {/* /// molecule component */}
-
-      {isToolsOpen && (
-        <div className='tools'>
-          <div
-            className='tool'
-            onClick={() => setIsTypeToolsOpen(!isTypeToolsOpen)}
-          >
-            <p>
-              Type{' '}
-              {isTypeToolsOpen ? (
-                <AiFillCaretUp size={12} />
-              ) : (
-                <AiFillCaretDown size={12} />
-              )}
-            </p>
-            {isTypeToolsOpen && (
-              <div className='drop-down-tool'>
-                <ul>
-                  {typeOptions.map((type) => (
-                    <li key={type} onClick={() => alert(type)}>
-                      <small>{type}</small>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-          </div>
-          <div
-            className='tool'
-            onClick={() => setIsSizeToolsOpen(!isSizeToolsOpen)}
-          >
-            <p>
-              Size
-              {isSizeToolsOpen ? (
-                <AiFillCaretUp size={12} />
-              ) : (
-                <AiFillCaretDown size={12} />
-              )}
-            </p>
-            {isSizeToolsOpen && (
-              <div className='drop-down-tool'>
-                <ul>
-                  {sizeOption.map((type) => (
-                    <li key={type} onClick={() => alert(type)}>
-                      <small>{type}</small>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-          </div>
-        </div>
-      )}
-
-      {/* /// */}
+      <FiltersBar />
 
       <div className='search-results-container'>
         {!results ? (
-          <>
-            {param === '' ? (
-              <div className='loader-search'>
-                <h1>No items found</h1>
-              </div>
-            ) : (
-              <div className='loader-search'>
-                <div className='spinner-border'></div>
-              </div>
-            )}
-          </>
+          <div className='loader-search'>
+            <div className='spinner-border'></div>
+          </div>
         ) : (
           <div className='results'>
-            <div className='all-results'>
-              {results.collections.map((collection) => (
-                <CollectionResultCard
-                  collection={collection}
-                  key={collection.address}
-                />
-              ))}
-              {results.assets.map((asset) => (
-                <AssetResultCard asset={asset} key={asset.address} />
-              ))}
-            </div>
-            <div className='match-found'>
-              <ExactMatchCard result={results.exactMatch} className='match' />
-            </div>
+            {results.collections.length === 0 && results.assets.length === 0 ? (
+              <div className='no-items-found-container'>
+                <div className='no-items-found'>
+                  <h3>No items found for this search</h3>
+                  <DarkPrimaryButton
+                    onClick={() => {
+                      history.push('/search');
+                      getTrendingItems();
+                      setParam('');
+                    }}
+                  >
+                    Back to all Items
+                  </DarkPrimaryButton>
+                </div>
+              </div>
+            ) : (
+              <>
+                <div className='all-results'>
+                  {results.collections.map((collection) => (
+                    <CollectionResultCard
+                      collection={collection}
+                      key={collection.address}
+                    />
+                  ))}
+                  {results.assets.map((asset) => (
+                    <AssetResultCard
+                      asset={asset}
+                      key={asset.address}
+                      location={location}
+                    />
+                  ))}
+                </div>
+                <div className='match-found'>
+                  {results.exactMatch && (
+                    <ExactMatchCard
+                      result={results.exactMatch}
+                      className='match'
+                    />
+                  )}
+                </div>
+              </>
+            )}
           </div>
         )}
       </div>

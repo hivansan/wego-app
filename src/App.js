@@ -1,16 +1,7 @@
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { useEffect } from 'react';
 
-import Header from './molecules/header';
-import Footer from './molecules/footer.jsx';
-
-import Marketplace from './pages/marketplace';
-import Stats from './pages/stats';
-import GetListed from './pages/getListed';
-import Home from './pages/home/index';
-import NftDetails from './pages/nftDetails';
-import CollectionDetails from './pages/CollectionDetails/Index';
-import SearchResults from './pages/searchResults/Index';
+import MainSwitch from './routerSwitches/Index';
 
 import { CONNECTION_CONNECTED } from './constants';
 import { injected } from './stores/connectors';
@@ -37,36 +28,12 @@ function App() {
       }
     });
   });
+
   return (
     <>
-      <Header />
       <Router>
-        <Switch>
-          <Route
-            exact
-            path='/item/:tokenAddress/:tokenId'
-            component={NftDetails}
-          ></Route>
-          <Route exact path='/collection' component={CollectionDetails}></Route>
-          <Route path='/marketplace'>
-            <Marketplace />
-          </Route>
-          <Route path='/stats'>
-            <Stats />
-          </Route>
-          <Route path='/getlisted'>
-            <GetListed />
-          </Route>
-
-          <Route path='/:search'>
-            <SearchResults />
-          </Route>
-          <Route path='/'>
-            <Home />
-          </Route>
-        </Switch>
+        <MainSwitch />
       </Router>
-      <Footer />
     </>
   );
 }

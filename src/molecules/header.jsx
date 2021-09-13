@@ -3,6 +3,8 @@ import { FaWallet, FaUser } from 'react-icons/fa';
 import { useMediaQuery } from 'react-responsive';
 import Accordion from 'react-bootstrap/Accordion';
 
+import { Link, useRouteMatch } from 'react-router-dom';
+
 import UnlockModal from '../atoms/unlock/unlockModal';
 import { CONNECTION_CONNECTED, CONNECTION_DISCONNECTED } from '../constants';
 import Store from '../stores/store';
@@ -12,6 +14,7 @@ const { emitter, store } = Store;
 
 const RightMenu = ({ children }) => {
   const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
+
   return (
     <>
       {isMobile ? (
@@ -41,9 +44,10 @@ const RightMenu = ({ children }) => {
 
 const Header = (props) => {
   const [modalOpen, setModalOpen] = useState(false);
-
+  const [assetModal, setAssetModal] = useState(false);
   const [connected, setConnected] = useState(false);
   const [account, setAccount] = useState(null);
+
   useEffect(() => {
     emitter.on(CONNECTION_CONNECTED, () => {
       setConnected(true);
@@ -55,18 +59,22 @@ const Header = (props) => {
     });
   }, []);
 
+  const modalAssetLinkIsOpen = assetModal && 'd-none';
+
   return (
-    <header className='header'>
+    <header className={`header ${modalAssetLinkIsOpen}`}>
       <div className='left-menu'>
         <img
           src='https://storage.googleapis.com/opensea-static/Logomark/Logomark-Blue.png'
           alt='opensea logo'
         />
-        <img
-          src={require('../assets/logo/blue&gray.png').default}
-          alt=''
-          className='logo'
-        />
+        <Link to='/'>
+          <img
+            src={require('../assets/logo/blue&gray.png').default}
+            alt=''
+            className='logo'
+          />
+        </Link>
       </div>
 
       {/* right menu */}

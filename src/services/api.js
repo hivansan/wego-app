@@ -19,6 +19,7 @@ export class Api {
       throw error;
     }
   }
+
   async search(param) {
     const query = `search?q=${encodeURI(param)}`;
     const searchUrl = baseURL + query;
@@ -27,7 +28,17 @@ export class Api {
       let res = await axios.get(searchUrl);
       return res.data;
     } catch (error) {
-      console.log(error);
+      throw error;
+    }
+  }
+
+  async trending() {
+    const trendingUrl = baseURL + 'trending';
+    try {
+      let res = await axios.get(trendingUrl);
+      return res.data;
+    } catch (error) {
+      throw error;
     }
   }
 }
