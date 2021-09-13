@@ -16,7 +16,7 @@ const AssetResultCard = ({ asset, location }) => {
               <div className='info'>
                 <Link
                   to={{
-                    pathname: `assets/${asset.address}/111`,
+                    pathname: `assets/${asset.address}/${asset.tokenId}`,
                     state: { background: location },
                   }}
                 >
@@ -66,7 +66,7 @@ const AssetResultCard = ({ asset, location }) => {
               <p>Preview</p>
               <Link
                 to={{
-                  pathname: `assets/${asset.address}/111`,
+                  pathname: `assets/${asset.address}/${asset.tokenId}`,
                   state: { background: location },
                 }}
               >

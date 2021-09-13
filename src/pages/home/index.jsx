@@ -13,19 +13,8 @@ import { useState } from 'react';
 import FlagShipSection from './FlagshipSection';
 import TopCollectionSection from './TopCollectionSection';
 import TrendingCollectionSection from './TrendingCollectionSection';
-import AllCollectionsTableSection from './AllCollectionsTableSection';
 
 import NftSearchSection from './NftSearchSection';
-
-const addresses = [
-  ['0x8b459723c519c66ebf95b4f643ba4aa0f9b0e925', 10014],
-  ['0xe19b9d6538c1ab71434098d9806a7cec5b186ba0', '87'],
-  ['0x18c7766a10df15df8c971f6e8c1d2bba7c7a410b', '2402'],
-  ['0x91673149ffae3274b32997288395d07a8213e41f', '641'],
-  ['0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270', '131000901'],
-  ['0xbace7e22f06554339911a03b8e0ae28203da9598', '650'],
-  ['0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270', '118000128'],
-];
 
 const Home = (props) => {
   const [nfts, setNfts] = useState([]);
@@ -48,13 +37,13 @@ const Home = (props) => {
     //   )
     // );
 
-    seaport.api
-      .getAssets({
-        asset_contract_addresses: addresses.map((address) => address[0]),
-        token_ids: addresses.map((address) => address[1]),
-      })
-      .then((res) => setNfts(res.assets))
-      .catch((err) => {});
+    // seaport.api
+    //   .getAssets({
+    //     asset_contract_addresses: addresses.map((address) => address[0]),
+    //     token_ids: addresses.map((address) => address[1]),
+    //   })
+    //   .then((res) => setNfts(res.assets))
+    //   .catch((err) => {});
   }, []);
 
   return (
@@ -78,7 +67,6 @@ const Home = (props) => {
       </section>
 
       <TrendingCollectionSection />
-      <AllCollectionsTableSection />
     </>
   );
 };

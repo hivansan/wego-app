@@ -8,40 +8,58 @@ const CollectionHeaderLeft = ({ collectionInfo }) => {
       <section className='left-section-header'>
         <div className='left-header-info'>
           <div className='d-flex'>
-            <img src={collectionInfo.profileImage} alt='' />
+            {!collectionInfo.image ? (
+              <img
+                src='https://via.placeholder.com/120x120.png?Profile'
+                alt='trial'
+              />
+            ) : (
+              <img src={collectionInfo.image} alt='' />
+            )}
             <div>
-              <p>{collectionInfo.collectionName}</p>
+              <p>{collectionInfo.name}</p>
               <p>Ranked by Wego</p>
             </div>
           </div>
-          <small>Date Added: 27 julio</small>
+          <small>Date Added: {collectionInfo.dateAdded}</small>
         </div>
       </section>
       <section className='collection-description'>
         <p>Description:</p>
-        <p>
-          {collectionInfo.description} Lorem, ipsum dolor sit amet consectetur
-          adipisicing elit. Nihil exercitationem unde, inventore vero aut
-          eveniet ipsum molestias quam cumque a suscipit, asperiores at sit
-          magni doloribus harum, dolor distinctio pariatur.
-        </p>
+        <p>{collectionInfo.description}</p>
       </section>
       <section className='collection-socials'>
         <div className='social'>
-          <FaLink size={30} />
-          <small>Website</small>
+          {collectionInfo.website && (
+            <a href={collectionInfo.website}>
+              <FaLink size={30} />
+              <small>Website</small>
+            </a>
+          )}
         </div>
         <div className='social'>
-          <FaDiscord size={30} />
-          <small>Discord</small>
+          {collectionInfo.discord && (
+            <>
+              <FaDiscord size={30} />
+              <small>Discord</small>
+            </>
+          )}
         </div>
         <div className='social'>
-          <FaTwitter size={30} />
-          <small>Twitter</small>
+          {collectionInfo.twitter && (
+            <a href={collectionInfo.twitter}>
+              <FaTwitter size={30} />
+              <small>Twitter</small>
+            </a>
+          )}
         </div>
         <div className='social'>
-          <FaInstagram size={30} />
-          <small>Instagram</small>
+          {collectionInfo.instagram && (
+            <a href={collectionInfo.instagram}>
+              <FaInstagram size={30} />
+              <small>Instagram</small>
+            </a>
+          )}
         </div>
       </section>
     </div>

@@ -11,7 +11,7 @@ const DropDownAssets = ({ results, location }) => {
       {FilterA.map((asset) => (
         <Link
           to={{
-            pathname: `assets/${asset.address}/1`,
+            pathname: `assets/${asset.address}/${asset.tokenId}`,
             state: { background: location },
           }}
           key={asset.address}

@@ -1,42 +1,42 @@
 import React from 'react';
 import { FaEthereum } from 'react-icons/fa';
 
-const CollectionStats = ({ stats }) => {
+const CollectionStats = ({ collection }) => {
   return (
     <>
       <div className='collection-additionals-stats'>
         <div className='stat'>
           <small>7 Day Volume</small>
-          <small>32.25 ETH</small>
+          <small>{collection.sevenDayVolume} ETH</small>
         </div>
         <div className='stat'>
-          <small>7 Day Volume</small>
-          <small>32.25 ETH</small>
+          <small>Total Volume</small>
+          <small>{collection.ethTotalVolume} ETH</small>
         </div>
         <div className='stat'>
-          <small>7 Day Volume</small>
-          <small>32.25 ETH</small>
+          <small>7 Day Avg Price</small>
+          <small>{collection.sevenDayAvgPrice} ETH</small>
         </div>
         <div className='stat'>
-          <small>7 Day Volume</small>
-          <small>32.25 ETH</small>
+          <small>Owners</small>
+          <small>{collection.owners}</small>
         </div>
       </div>
 
       <div className='collection-stats'>
         <div className='stat'>
-          <p>16,386</p>
+          <p>{collection.total}</p>
           <small>total</small>
         </div>
         <div className='stat'>
           <p>
-            16,386 <FaEthereum size={20} />
+            {collection.priceFloor} <FaEthereum size={20} />
           </p>
-          <small>total</small>
+          <small>Price floor</small>
         </div>
         <div className='stat'>
-          <p>16,386</p>
-          <small>total</small>
+          <p>{collection.volumeTraded}</p>
+          <small>Volume traded</small>
         </div>
       </div>
     </>

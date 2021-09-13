@@ -1,16 +1,22 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-const DropDownCollections = ({ results }) => {
+const DropDownCollections = ({ results, location }) => {
   const FilterA = results.filter((a, i) => i < 4);
 
   return (
     <div className='drop-down-collections'>
       <header>Collections</header>
       {FilterA.map((collection) => (
-        <a href='/#' key={collection.address}>
+        <Link
+          to={{
+            pathname: `collection/${collection.address}`,
+          }}
+          key={collection.address}
+        >
           <div className='collection'>
             <div className='collection-info'>
-              <img src={collection.image} alt={collection.address} />
+              <img src={collection.image} alt={collection.name} />
               <div>
                 <p>{collection.name}</p>
                 <div className='trades'>
@@ -28,7 +34,7 @@ const DropDownCollections = ({ results }) => {
               </small>
             </div>
           </div>
-        </a>
+        </Link>
       ))}
       <a href='/#'>450 more...</a>
     </div>

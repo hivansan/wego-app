@@ -10,6 +10,8 @@ import NftDetails from '../pages/nftDetails';
 import CollectionDetails from '../pages/CollectionDetails/Index';
 import SearchResults from '../pages/searchResults/Index';
 
+import Graphs from '../pages/graphs/Index';
+
 import Header from '../molecules/header';
 import Footer from '../molecules/footer.jsx';
 
@@ -30,7 +32,7 @@ const MainSwitch = () => {
           path='/item/:tokenAddress/:tokenId'
           component={NftDetails}
         ></Route>
-        <Route exact path='/collection' component={CollectionDetails}></Route>
+
         <Route path='/marketplace'>
           <Marketplace />
         </Route>
@@ -40,15 +42,25 @@ const MainSwitch = () => {
         <Route path='/getlisted'>
           <GetListed />
         </Route>
+
+        <Route path='/graph'>
+          <Graphs />
+        </Route>
+
         <Route
           path='/assets/:address/:id'
           children={<AssetDetail setModalLink={setModalLink} />}
         />
-        <Route path='/' exact>
-          <Home />
+        <Route path='/collection/:address'>
+          <CollectionDetails />
         </Route>
+
         <Route exact path='/:search'>
           <SearchResults />
+        </Route>
+
+        <Route path='/' exact>
+          <Home />
         </Route>
       </Switch>
       {modalLink === '' && <Footer />}

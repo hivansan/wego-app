@@ -1,15 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import CollectionBanner from './CollectionBanner';
 import CollectionHeaderLeft from './CollectionHeaderLeft';
 import CollectionHeaderRight from './CollectionHeaderRight';
 
-const CollectionHeader = ({ collectionInfo }) => {
+const CollectionHeader = ({ collection }) => {
   return (
     <div className='collection-header'>
-      <CollectionBanner banner={collectionInfo.banner} />
+      <CollectionBanner banner={collection.banner} />
       <div className='collection-header-info'>
-        <CollectionHeaderLeft collectionInfo={collectionInfo} />
-        <CollectionHeaderRight collectionInfo={collectionInfo} />
+        <CollectionHeaderLeft collectionInfo={collection} />
+        <CollectionHeaderRight collectionInfo={collection} />
       </div>
     </div>
   );

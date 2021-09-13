@@ -6,7 +6,7 @@ import CollectionAssetsPagination from '../../molecules/CollectionAssetsPaginati
 
 import CollectionAssetCard from '../../molecules/CollectionAssetCard';
 
-const CollectionAssets = () => {
+const CollectionAssets = ({ collection, location }) => {
   return (
     <div className='collection-assets-container'>
       <CollectionAssetsFilters />
@@ -16,16 +16,23 @@ const CollectionAssets = () => {
           <CollectionAssetsPagination />
         </div>
         <div className='assets-container'>
-          <CollectionAssetCard className='asset' />
-          <CollectionAssetCard className='asset' />
-          <CollectionAssetCard className='asset' />
-          <CollectionAssetCard className='asset' />
-          <CollectionAssetCard className='asset' />
-          <CollectionAssetCard className='asset' />
-          <CollectionAssetCard className='asset' />
-          <CollectionAssetCard className='asset' />
-          <CollectionAssetCard className='asset' />
-          <CollectionAssetCard className='asset' />
+          {!collection.assets ? (
+            <div className='loader-assets'>
+              <div className='spinner-border'></div>
+            </div>
+          ) : (
+            <>
+              {collection.assets.map((asset, i) => (
+                <CollectionAssetCard
+                  className='asset'
+                  asset={asset}
+                  key={asset.tokenId}
+                  location={location}
+                  idx={i}
+                />
+              ))}
+            </>
+          )}
         </div>
       </div>
     </div>

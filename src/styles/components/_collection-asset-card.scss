@@ -1,46 +1,52 @@
 @import '../variables.scss';
 
-.collection-asset-card {
-  width: 230px;
-  border: 1px solid #aaaaaa;
-  padding: 0.8rem;
-  border-radius: 10px;
-  cursor: pointer;
-  .asset-card-header {
-    display: flex;
-    justify-content: space-between;
+a {
+  text-decoration: none;
 
-    p {
-      color: $primary-color;
+  .collection-asset-card {
+    width: 230px;
+    border: 1px solid #aaaaaa;
+    padding: 0.8rem;
+    border-radius: 10px;
+    cursor: pointer;
+    .asset-card-header {
+      display: flex;
+      justify-content: space-between;
 
-      &:last-child {
-        color: $secondary-color;
+      p {
+        color: $primary-color;
+
+        &:last-child {
+          color: $secondary-color;
+        }
       }
     }
-  }
 
-  .asset-card-image {
-    width: 100%;
-
-    img {
-      object-fit: cover;
+    .asset-card-image {
       width: 100%;
+
+      img {
+        object-fit: cover;
+        width: 100%;
+      }
     }
-  }
 
-  &:hover {
-    transition: all 0.2s ease 0s;
-    box-shadow: rgb(4 17 29 / 25%) 0px 0px 8px 0px;
-  }
+    &:hover {
+      transition: all 0.2s ease 0s;
+      box-shadow: rgb(4 17 29 / 25%) 0px 0px 8px 0px;
+    }
 
-  .asset-card-info {
-    text-align: center;
+    .asset-card-info {
+      text-align: center;
 
-    p {
-      margin: 0;
+      p {
+        color: $secondary-color;
+        margin: 0;
+        margin-top: 10px;
 
-      svg {
-        color: $primary-color;
+        svg {
+          color: $primary-color;
+        }
       }
     }
   }

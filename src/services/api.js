@@ -9,7 +9,26 @@ export class Api {
   /**
    * @param {string} auth - user:password
    */
-  constructor(auth) {}
+  constructor(auth) {
+    this.axios = axios.create({
+      baseURL,
+      headers: {
+        accept: 'application/json, text/plain, */*',
+      },
+    });
+
+    this.assets = {
+      findByAddress: (address) => {
+        return this.request('get', `assets/${address}`);
+      },
+    };
+
+    this.collections = {
+      findByAddress: (address) => {
+        return this.request('get', `collections/${address}`);
+      },
+    };
+  }
 
   async request(method, url) {
     try {

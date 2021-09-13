@@ -1,8 +1,12 @@
 import React from 'react';
 
+import { Link } from 'react-router-dom';
+
 import { FaEthereum } from 'react-icons/fa';
 
-const CollectionResultCard = ({ collection }) => {
+const CollectionResultCard = ({ collection, location }) => {
+  const FilterPreviewAssets = collection.assets.filter((a, i) => i < 3);
+
   return (
     <div className='collection-result-card'>
       <header>Collection</header>
@@ -12,7 +16,9 @@ const CollectionResultCard = ({ collection }) => {
             <div className='collection-result-card-info'>
               <img src={collection.image} alt={collection.name} />
               <div className='info'>
-                <p>{collection.name}</p>
+                <Link to={`collection/${collection.address}`}>
+                  <p>{collection.name}</p>
+                </Link>
                 <small>428 traded</small>
               </div>
             </div>
@@ -39,15 +45,11 @@ const CollectionResultCard = ({ collection }) => {
               </strong>
             </p>
             <p>
-              {' '}
-              7 day volume:{' '}
+              7 day volume:
               <strong>
                 {collection.totalItems}
                 <FaEthereum size={15} />
               </strong>
-            </p>
-            <p>
-              Market overview: <strong>stat</strong>
             </p>
           </div>
         </div>
@@ -55,9 +57,16 @@ const CollectionResultCard = ({ collection }) => {
           <div className='assets'>
             <p>Assets</p>
             <div className='assets-container'>
-              {collection.assets.map((asset, i) => (
+              {FilterPreviewAssets.map((asset, i) => (
                 <div className='asset' key={i}>
-                  <img src={asset} alt='' />
+                  <Link
+                    to={{
+                      pathname: `assets/${asset.address}/${asset.tokenId}`,
+                      state: { background: location },
+                    }}
+                  >
+                    <img src={asset.image} alt='' />
+                  </Link>
                 </div>
               ))}
             </div>

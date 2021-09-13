@@ -1,6 +1,6 @@
 import React, { useEffect, useState, createRef } from 'react';
 
-import { useHistory, useLocation, useParams } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { Api } from '../../services/api';
 
 import SearchInput from '../../molecules/SearchInput';
@@ -76,7 +76,6 @@ const SearchScreen = () => {
           setLocationKeys((keys) => [location.key, ...keys]);
           const q = new URLSearchParams(location.search);
           const hasQuery = location.search === '' ? '' : q.get('q');
-          console.log(hasQuery);
           setUrl(hasQuery);
           setParam(hasQuery);
         }
@@ -142,6 +141,7 @@ const SearchScreen = () => {
                     <CollectionResultCard
                       collection={collection}
                       key={collection.address}
+                      location={location}
                     />
                   ))}
                   {results.assets.map((asset) => (
