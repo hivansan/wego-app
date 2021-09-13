@@ -30,10 +30,10 @@ const SearchScreen = () => {
   const [results, setResults] = useState(null);
   const [locationKeys, setLocationKeys] = useState([]);
 
-  const getRequest = async (param) => {
+  const getRequest = async (p) => {
     try {
       setResults(null);
-      const res = await api.search(param);
+      const res = await api.search(p);
       setResults(res);
     } catch (err) {
       throw err;
@@ -49,12 +49,10 @@ const SearchScreen = () => {
   const onPressEnter = () => {
     if (param === '') {
       history.push(`/search`);
-      setUrl('');
-      return getTrendingItems();
+      return setUrl('');
     }
     history.push(`/search?q=${encodeURI(param)}`);
     setUrl(param);
-    getRequest(param);
   };
 
   useEffect(() => {
@@ -78,6 +76,7 @@ const SearchScreen = () => {
           setLocationKeys((keys) => [location.key, ...keys]);
           const q = new URLSearchParams(location.search);
           const hasQuery = location.search === '' ? '' : q.get('q');
+          console.log(hasQuery);
           setUrl(hasQuery);
           setParam(hasQuery);
         }
@@ -86,14 +85,11 @@ const SearchScreen = () => {
   }, [locationKeys]);
 
   useEffect(() => {
-    console.log(url);
-
     if (url === '') {
       //Trending collections or assets and images fetch
       return getTrendingItems();
     }
-
-    getRequest(param);
+    getRequest(url);
   }, [url]);
 
   return (
