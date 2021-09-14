@@ -24,6 +24,15 @@ export class Api {
     };
 
     this.collections = {
+      all: () => {
+        return this.request('get', 'collections');
+      },
+
+      searchCollections: (param) => {
+        const query = `search?q=${encodeURI(param)}`;
+        return this.request('get', `collections/${query}`);
+      },
+
       findByAddress: (address) => {
         return this.request('get', `collections/${address}`);
       },

@@ -1,9 +1,44 @@
-import React from 'react';
-import data from '../../db.json';
+import React, { useState, useEffect } from 'react';
+
+import { Api } from '../../services/api';
+import { useDebounce } from '../../atoms/hooks/useStateDebounce';
+
+import { Link } from 'react-router-dom';
 
 import CollectionsTable from '../../molecules/CollectionsTable';
 
 const AllCollectionsTable = () => {
+  const [collections, setCollections] = useState(null);
+  const [value, setValue] = useState('');
+  const [debounceValue, setDebounceValue] = useDebounce(value, 500);
+  const api = new Api();
+
+  const searchCollectionsByParam = async () => {
+    setCollections(null);
+    const res = await api.collections.searchCollections(debounceValue);
+    setCollections(res);
+  };
+
+  const getCollections = async () => {
+    const res = await api.collections.all();
+    setCollections(res);
+  };
+
+  useEffect(() => {
+    if (debounceValue !== '') {
+      searchCollectionsByParam();
+    }
+
+    if (value === '') {
+      getCollections();
+    }
+
+    //cleanup when component unmount
+    return () => {
+      setCollections(null);
+    };
+  }, [debounceValue]);
+
   const columns = [
     {
       name: '#',
@@ -11,17 +46,18 @@ const AllCollectionsTable = () => {
       cell: (row, idx) => {
         return <div>{idx + 1}</div>;
       },
-      sortable: true,
     },
     {
       name: 'Collection',
       selector: (row) => row.name,
       cell: (row, i) => {
         return (
-          <div className='table-collection-info'>
-            <img src={row.avatar} alt='' />
-            <small>{row.name}</small>
-          </div>
+          <Link to={`collection/${row.address}`}>
+            <div className='table-collection-info'>
+              <img src={row.image} alt='' className='mx-2' />
+              <small>{row.name}</small>
+            </div>
+          </Link>
         );
       },
     },
@@ -69,10 +105,14 @@ const AllCollectionsTable = () => {
 
   return (
     <section className='all-collections-table-section'>
-      <h1>
-        All <strong>Collections</strong>
-      </h1>
-      <CollectionsTable data={data} columns={columns} />
+      <CollectionsTable
+        data={collections}
+        columns={columns}
+        value={value}
+        setValue={setValue}
+        debounceValue={debounceValue}
+        setDebounceValue={setDebounceValue}
+      />
     </section>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import CollectionBanner from './CollectionBanner';
 import CollectionHeaderLeft from './CollectionHeaderLeft';
 import CollectionHeaderRight from './CollectionHeaderRight';
