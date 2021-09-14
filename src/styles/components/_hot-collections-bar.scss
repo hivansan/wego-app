@@ -1,0 +1,51 @@
+@import '../variables.scss';
+
+.hot-collections-bar {
+  display: flex;
+  width: 100vw;
+  border: 1px solid #aaaaaa;
+  background-color: #fff;
+  font-family: $default-font;
+
+  .price {
+    border-right: 1px solid #aaaaaa;
+    padding: 0.3rem 2rem;
+    display: flex;
+    align-items: center;
+    p {
+      color: #aaaaaa;
+      margin: 0;
+    }
+  }
+
+  .hot-collections {
+    display: flex;
+    overflow-y: auto;
+    cursor: pointer;
+    min-height: 42px;
+    .hot-collection {
+      display: flex;
+      align-items: center;
+      padding: 0.5rem 1.5rem;
+
+      small {
+        margin-right: 0.3rem;
+      }
+
+      p {
+        margin: 0;
+        margin: 0 0.3rem;
+      }
+
+      img {
+        width: 15px;
+        height: 15px;
+      }
+
+      &:hover {
+        transition: all 0.2s ease 0s;
+        box-shadow: rgb(4 17 29 / 25%) 0px 0px 8px 0px;
+      }
+    }
+  }
+}

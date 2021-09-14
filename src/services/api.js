@@ -28,6 +28,10 @@ export class Api {
         return this.request('get', 'collections');
       },
 
+      hotCollections: () => {
+        return this.request('get', 'hotCollections');
+      },
+
       searchCollections: (param) => {
         const query = `search?q=${encodeURI(param)}`;
         return this.request('get', `collections/${query}`);
