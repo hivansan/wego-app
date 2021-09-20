@@ -136,6 +136,15 @@ const SearchScreen = () => {
               </div>
             ) : (
               <>
+                <div className='match-found mobile-match'>
+                  {results.exactMatch && (
+                    <ExactMatchCard
+                      result={results.exactMatch}
+                      className='match'
+                    />
+                  )}
+                </div>
+
                 <div className='all-results'>
                   {results.collections.map((collection) => (
                     <CollectionResultCard
@@ -152,7 +161,7 @@ const SearchScreen = () => {
                     />
                   ))}
                 </div>
-                <div className='match-found'>
+                <div className='match-found desktop-match'>
                   {results.exactMatch && (
                     <ExactMatchCard
                       result={results.exactMatch}

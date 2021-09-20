@@ -17,7 +17,9 @@ import Footer from '../molecules/footer.jsx';
 
 import AssetDetail from '../molecules/AssetDetail';
 
-const MainSwitch = () => {
+import Favorites from '../pages/Favorites';
+
+const MainSwitch = ({ account }) => {
   const [modalLink, setModalLink] = useState('');
   const location = useLocation();
 
@@ -46,7 +48,9 @@ const MainSwitch = () => {
         <Route path='/graph'>
           <Graphs />
         </Route>
-
+        <Route exact path='/favorites'>
+          <Favorites />
+        </Route>
         <Route
           path='/assets/:address/:id'
           children={<AssetDetail setModalLink={setModalLink} />}
@@ -58,13 +62,12 @@ const MainSwitch = () => {
         <Route exact path='/:search'>
           <SearchResults />
         </Route>
-
+        <Route exact path='/favorites'></Route>
         <Route path='/' exact>
           <Home />
         </Route>
       </Switch>
       {modalLink === '' && <Footer />}
-
       {/* Show the modal when a background page is set */}
       {background && (
         <Route path='/assets/:address/:id' children={<AssetDetail />} />

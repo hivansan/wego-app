@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import ToolsBar from './ToolsBar';
+import ScrollContainer from 'react-indiana-drag-scroll';
 
 const FiltersBar = () => {
   const [isToolsBarOpen, setIsToolsBarOpen] = useState(false);
 
   return (
     <>
-      <div className='search-filters'>
+      <ScrollContainer className='search-filters'>
         <ul>
           <li className='active'>All</li>
           <li>Images</li>
@@ -16,14 +17,16 @@ const FiltersBar = () => {
           <li>Price change</li>
           <li>Owners</li>
           <li>Release date</li>
+          <li>
+            <div
+              className='toggle-tools'
+              onClick={() => setIsToolsBarOpen(!isToolsBarOpen)}
+            >
+              <p>Tools</p>
+            </div>
+          </li>
         </ul>
-        <div
-          className='toggle-tools'
-          onClick={() => setIsToolsBarOpen(!isToolsBarOpen)}
-        >
-          <p>Tools</p>
-        </div>
-      </div>
+      </ScrollContainer>
 
       <ToolsBar isToolsBarOpen={isToolsBarOpen} />
     </>

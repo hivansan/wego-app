@@ -41,24 +41,26 @@ const AssetDetailModal = ({
 
   return (
     <Modal bodyStyles='asset-detail-modal-body' open={open} onClose={back}>
-      <div className='asset-detail-modal-info'>
-        <header className='asset-detail-modal-info-header'>
-          Rarity Rank #22
-        </header>
-        <img src={image} alt={name} />
-        <p>{name}</p>
+      <div className='asset-detail-modal-info-container'>
+        <div className='asset-detail-modal-info'>
+          <header className='asset-detail-modal-info-header'>
+            Rarity Rank #22
+          </header>
+          <img src={image} alt={name} />
+          <p>{name}</p>
 
-        <a href='/#'>
-          <div className='asset-modal-opensea'>
-            <img
-              src='https://storage.googleapis.com/opensea-static/Logomark/Logomark-Blue.png'
-              alt='open sea logo'
-            />
-            <p>
-              View on OpenSea <strong>1ETH</strong>
-            </p>
-          </div>
-        </a>
+          <a href='/#'>
+            <div className='asset-modal-opensea'>
+              <img
+                src='https://storage.googleapis.com/opensea-static/Logomark/Logomark-Blue.png'
+                alt='open sea logo'
+              />
+              <p>
+                View on OpenSea <strong>1ETH</strong>
+              </p>
+            </div>
+          </a>
+        </div>
       </div>
 
       <div className='asset-detail-modal-stats'>

@@ -15,6 +15,7 @@
     p {
       color: #aaaaaa;
       margin: 0;
+      white-space: nowrap;
     }
   }
 
@@ -23,29 +24,55 @@
     overflow-y: auto;
     cursor: pointer;
     min-height: 42px;
-    .hot-collection {
-      display: flex;
-      align-items: center;
-      padding: 0.5rem 1.5rem;
+    a {
+      color: $secondary-color;
+      .hot-collection {
+        display: flex;
+        align-items: center;
+        padding: 0.5rem 1.5rem;
 
-      small {
-        margin-right: 0.3rem;
-      }
+        small {
+          margin-right: 0.3rem;
+        }
 
-      p {
-        margin: 0;
-        margin: 0 0.3rem;
-      }
+        p {
+          margin: 0;
+          margin: 0 0.3rem;
+        }
 
-      img {
-        width: 15px;
-        height: 15px;
+        img {
+          width: 15px;
+          height: 15px;
+        }
       }
 
       &:hover {
-        transition: all 0.2s ease 0s;
-        box-shadow: rgb(4 17 29 / 25%) 0px 0px 8px 0px;
+        color: $secondary-color-hover;
       }
+    }
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .hot-collections-bar {
+    .price {
+      align-items: center;
+    }
+  }
+}
+
+@media screen and (max-width: 993px) {
+  .hot-collections-bar {
+    .price {
+    }
+  }
+}
+
+// //small screens
+@media screen and (max-width: 576px) {
+  .hot-collections-bar {
+    .price {
+      display: none;
     }
   }
 }

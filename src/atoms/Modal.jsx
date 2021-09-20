@@ -1,15 +1,18 @@
 import React from 'react';
+import { useMediaQuery } from 'react-responsive';
 import { Modal, Fade, Backdrop, makeStyles } from '@material-ui/core';
 
-const useStyles = makeStyles((theme) => ({
-  modal: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-}));
-
 const CustomModal = ({ children, bodyStyles, open, onClose, ...props }) => {
+  const isTablet = useMediaQuery({ query: '(max-width: 768px)' });
+
+  const useStyles = makeStyles((theme) => ({
+    modal: {
+      display: 'flex',
+      alignItems: isTablet ? 'unset' : 'center',
+      justifyContent: 'center',
+    },
+  }));
+
   const defaultStyles = useStyles();
 
   return (

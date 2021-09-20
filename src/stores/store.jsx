@@ -34,7 +34,6 @@ import Web3 from 'web3';
 import STORE_INIT_CONSTANTS from './store-init-constant';
 import * as balancesLib from './lib';
 import { MemoFetch } from './lib/utils';
-import { useMemo } from 'react';
 // import * as balanceHivesFns from './balance.hives.functions';
 
 const rp = require('request-promise');

@@ -31,6 +31,9 @@
     flex-direction: column;
     padding-bottom: 0;
 
+    .large-table-match {
+      display: none;
+    }
     a {
       text-decoration: none;
     }
@@ -46,6 +49,10 @@
       display: flex;
       justify-content: space-around;
       padding: 1rem;
+
+      .mobile-match {
+        display: none;
+      }
 
       .drop-down-no-results {
         height: 630px;
@@ -64,6 +71,129 @@
 
       border-bottom-left-radius: 4px;
       border-bottom-right-radius: 4px;
+    }
+  }
+}
+
+//QUERIES//
+
+@media screen and (max-width: 1200px) {
+  .search-bar-wrapper {
+    .search-bar-control {
+      .search-input {
+        &::placeholder {
+        }
+      }
+    }
+    .search-bar-drop-down {
+      .large-table-match {
+        display: none;
+      }
+
+      .drop-down-results {
+        .mobile-match {
+        }
+
+        .desktop-match {
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1160px) {
+  .search-bar-wrapper {
+    .search-bar-control {
+      .search-input {
+        &::placeholder {
+        }
+      }
+    }
+    .search-bar-drop-down {
+      .large-table-match {
+        display: block;
+        margin: 0.5rem 0;
+        display: flex;
+        justify-content: center;
+      }
+
+      .drop-down-results {
+        .mobile-match {
+        }
+
+        .desktop-match {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 993px) {
+  .search-bar-wrapper {
+    .search-bar-control {
+      align-items: center;
+      .search-input {
+        width: 70%;
+
+        &::placeholder {
+          font-size: 14px;
+        }
+      }
+    }
+    .search-bar-drop-down {
+      top: 37%;
+
+      .large-table-match {
+        display: none;
+      }
+      .drop-down-results {
+        align-items: center;
+        flex-direction: column;
+        justify-content: flex-start;
+
+        .mobile-match {
+          display: block;
+          margin-bottom: 0.5rem;
+        }
+
+        .desktop-match {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+// //small screens
+@media screen and (max-width: 576px) {
+  .search-bar-wrapper {
+    .search-bar-control {
+      align-items: center;
+      .search-input {
+        width: 70%;
+
+        &::placeholder {
+          font-size: 14px;
+        }
+      }
+    }
+    .search-bar-drop-down {
+      top: 37%;
+      .drop-down-results {
+        align-items: center;
+        flex-direction: column;
+        justify-content: flex-start;
+
+        .mobile-match {
+          display: block;
+          margin-bottom: 0.5rem;
+        }
+
+        .desktop-match {
+          display: none;
+        }
+      }
     }
   }
 }

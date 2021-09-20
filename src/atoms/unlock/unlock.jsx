@@ -1,19 +1,19 @@
-import React, { Component } from "react";
-import { withStyles } from "@material-ui/core/styles";
-import { Typography, Button, CircularProgress } from "@material-ui/core";
-import CloseIcon from "@material-ui/icons/Close";
+import React, { Component } from 'react';
+import { withStyles } from '@material-ui/core/styles';
+import { Typography, Button, CircularProgress } from '@material-ui/core';
+import CloseIcon from '@material-ui/icons/Close';
 
-import { Web3ReactProvider, useWeb3React } from "@web3-react/core";
-import { Web3Provider } from "@ethersproject/providers";
+import { Web3ReactProvider, useWeb3React } from '@web3-react/core';
+import { Web3Provider } from '@ethersproject/providers';
 
 import {
   ERROR,
   CONNECTION_DISCONNECTED,
   CONNECTION_CONNECTED,
-} from "../../constants";
+} from '../../constants';
 
-import Store from "../../stores/store";
-import unlockStyles from "./unlock-styles";
+import Store from '../../stores/store';
+import unlockStyles from './unlock-styles';
 
 const emitter = Store.emitter;
 const store = Store.store;
@@ -117,7 +117,7 @@ function onConnectionClicked(
   setActivatingConnector,
   activate
 ) {
-  const connectorsByName = store.getStore("connectorsByName");
+  const connectorsByName = store.getStore('connectorsByName');
   setActivatingConnector(currentConnector);
   activate(connectorsByName[name], (err) => console.log(err));
 }
@@ -135,7 +135,7 @@ function onDeactivateClicked(deactivate, connector) {
 
 function MyComponent(props) {
   const context = useWeb3React();
-  const localContext = store.getStore("web3context");
+  const localContext = store.getStore('web3context');
   var localConnector = null;
   if (localContext) {
     localConnector = localContext.connector;
@@ -143,7 +143,7 @@ function MyComponent(props) {
   const { connector, library, account, activate, deactivate, active, error } =
     context;
 
-  var connectorsByName = store.getStore("connectorsByName");
+  var connectorsByName = store.getStore('connectorsByName');
 
   const { closeModal } = props;
 
@@ -178,10 +178,10 @@ function MyComponent(props) {
   return (
     <div
       style={{
-        display: "flex",
-        flexWrap: "wrap",
-        justifyContent: width > 650 ? "space-between" : "center",
-        alignItems: "center",
+        display: 'flex',
+        flexWrap: 'wrap',
+        justifyContent: width > 650 ? 'space-between' : 'center',
+        alignItems: 'center',
       }}
     >
       {Object.keys(connectorsByName).map((name) => {
@@ -194,54 +194,54 @@ function MyComponent(props) {
         var url;
         var display = name;
 
-        if (name === "MetaMask") {
-          url = require("../../assets/icn-metamask.svg");
-        } else if (name === "WalletConnect") {
-          url = require("../../assets/walletConnectIcon.svg");
-        } else if (name === "TrustWallet") {
-          url = require("../../assets/trustWallet.png");
-        } else if (name === "Portis") {
-          url = require("../../assets/portisIcon.png");
-        } else if (name === "Fortmatic") {
-          url = require("../../assets/fortmaticIcon.png");
-        } else if (name === "Ledger") {
-          url = require("../../assets/icn-ledger.svg");
-        } else if (name === "Squarelink") {
-          url = require("../../assets/squarelink.png");
-        } else if (name === "Trezor") {
-          url = require("../../assets/trezor.png");
-        } else if (name === "Torus") {
-          url = require("../../assets/torus.jpg");
-        } else if (name === "Authereum") {
-          url = require("../../assets/icn-aethereum.svg");
-        } else if (name === "WalletLink") {
-          display = "Coinbase Wallet";
-          url = require("../../assets/coinbaseWalletIcon.svg");
-        } else if (name === "Frame") {
-          return "";
+        if (name === 'MetaMask') {
+          url = require('../../assets/icn-metamask.svg');
+        } else if (name === 'WalletConnect') {
+          url = require('../../assets/walletConnectIcon.svg');
+        } else if (name === 'TrustWallet') {
+          url = require('../../assets/trustWallet.png');
+        } else if (name === 'Portis') {
+          url = require('../../assets/portisIcon.png');
+        } else if (name === 'Fortmatic') {
+          url = require('../../assets/fortmaticIcon.png');
+        } else if (name === 'Ledger') {
+          url = require('../../assets/icn-ledger.svg');
+        } else if (name === 'Squarelink') {
+          url = require('../../assets/squarelink.png');
+        } else if (name === 'Trezor') {
+          url = require('../../assets/trezor.png');
+        } else if (name === 'Torus') {
+          url = require('../../assets/torus.jpg');
+        } else if (name === 'Authereum') {
+          url = require('../../assets/icn-aethereum.svg');
+        } else if (name === 'WalletLink') {
+          display = 'Coinbase Wallet';
+          url = require('../../assets/coinbaseWalletIcon.svg');
+        } else if (name === 'Frame') {
+          return '';
         }
         return (
           <div
             key={name}
             style={{
-              padding: "12px 0px",
-              display: "flex",
-              justifyContent: "space-between",
+              padding: '12px 0px',
+              display: 'flex',
+              justifyContent: 'space-between',
             }}
           >
             <Button
               style={{
-                padding: "16px",
-                backgroundColor: "#4a5e72",
-                borderRadius: "1rem",
-                border: "1px solid #186ce9",
+                padding: '16px',
+                backgroundColor: '#4a5e72',
+                borderRadius: '1rem',
+                border: '1px solid #186ce9',
                 fontWeight: 500,
-                display: "flex",
-                justifyContent: "space-between",
-                minWidth: "250px",
+                display: 'flex',
+                justifyContent: 'space-between',
+                minWidth: '250px',
               }}
-              variant="outlined"
-              color="primary"
+              variant='outlined'
+              color='primary'
               onClick={() => {
                 onConnectionClicked(
                   currentConnector,
@@ -254,12 +254,12 @@ function MyComponent(props) {
             >
               <Typography
                 style={{
-                  margin: "0px 12px",
-                  color: "#FFF",
+                  margin: '0px 12px',
+                  color: '#FFF',
                   fontWeight: 200,
-                  fontSize: "1rem",
+                  fontSize: '1rem',
                 }}
-                variant={"h3"}
+                variant={'h3'}
               >
                 {display}
               </Typography>
@@ -267,27 +267,27 @@ function MyComponent(props) {
               {!activating && !connected && (
                 <img
                   style={{
-                    position: "absolute",
-                    right: "20px",
+                    position: 'absolute',
+                    right: '20px',
 
-                    width: "30px",
-                    height: "30px",
+                    width: '30px',
+                    height: '30px',
                   }}
                   src={url.default}
-                  alt=""
+                  alt=''
                 />
               )}
               {activating && (
-                <CircularProgress size={15} style={{ marginRight: "10px" }} />
+                <CircularProgress size={15} style={{ marginRight: '10px' }} />
               )}
               {!activating && connected && (
                 <div
                   style={{
-                    background: "#4caf50",
-                    borderRadius: "10px",
-                    width: "10px",
-                    height: "10px",
-                    marginRight: "10px",
+                    background: '#4caf50',
+                    borderRadius: '10px',
+                    width: '10px',
+                    height: '10px',
+                    marginRight: '10px',
                   }}
                 ></div>
               )}
@@ -296,33 +296,33 @@ function MyComponent(props) {
         );
       })}
 
-      <div style={{ width: "252px", margin: "12px 0px" }}>
+      <div style={{ width: '252px', margin: '12px 0px' }}>
         <Button
           style={{
-            padding: "16px",
-            backgroundColor: "#4a5e72",
-            borderRadius: "1rem",
-            border: "1px solid #186ce9",
+            padding: '16px',
+            backgroundColor: '#4a5e72',
+            borderRadius: '1rem',
+            border: '1px solid #186ce9',
             fontWeight: 200,
-            display: "flex",
-            justifyContent: "space-between",
-            minWidth: "250px",
+            display: 'flex',
+            justifyContent: 'space-between',
+            minWidth: '250px',
           }}
-          variant="outlined"
-          color="primary"
+          variant='outlined'
+          color='primary'
           onClick={() => {
             onDeactivateClicked(deactivate, connector);
           }}
         >
           <Typography
             style={{
-              margin: "0px 12px",
-              color: "#FFF",
+              margin: '0px 12px',
+              color: '#FFF',
               fontWeight: 200,
-              fontSize: "1rem",
+              fontSize: '1rem',
             }}
-            variant={"h3"}
-            color="#FFF"
+            variant={'h3'}
+            color='#FFF'
           >
             Deactivate
           </Typography>

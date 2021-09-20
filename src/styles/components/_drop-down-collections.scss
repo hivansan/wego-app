@@ -75,3 +75,10 @@
     }
   }
 }
+
+@media screen and (max-width: 576px) {
+  .drop-down-collections {
+    width: auto;
+    margin-bottom: 0.8rem;
+  }
+}

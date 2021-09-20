@@ -55,17 +55,15 @@ const SearchBar = ({
   return (
     <div className='search-bar-wrapper' {...props}>
       <div className='search-bar-control'>
-        <div>
-          <SearchInput
-            type='text'
-            placeholder='Search Nft, Collections, or Keyword'
-            onChange={onChange}
-            ref={searchRef}
-            onPressEnter={onPressEnter}
-            value={value}
-            setDebounceParam={setDebounceParam}
-          />
-        </div>
+        <SearchInput
+          type='text'
+          placeholder='Search Nft, Collections, or Keyword'
+          onChange={onChange}
+          ref={searchRef}
+          onPressEnter={onPressEnter}
+          value={value}
+          setDebounceParam={setDebounceParam}
+        />
         <small>search collections, top assets, etc</small>
         <DarkPrimaryButton>Search</DarkPrimaryButton>
       </div>

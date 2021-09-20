@@ -120,3 +120,28 @@
     }
   }
 }
+
+@media screen and (max-width: 576px) {
+  .asset-result-card {
+    .asset-result-card-body {
+      flex-direction: column;
+
+      .asset-info {
+        flex-direction: column;
+        gap: 1rem;
+        margin-bottom: 1rem;
+        .asset-result-card-stats {
+          align-self: flex-start;
+          font-size: 14px;
+        }
+      }
+      .asset-result-card-s {
+        width: 100%;
+
+        .asset-preview {
+          justify-content: flex-start;
+        }
+      }
+    }
+  }
+}

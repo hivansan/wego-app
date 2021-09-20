@@ -16,7 +16,6 @@
   .collection-result-card-body {
     display: flex;
     justify-content: space-between;
-
     .collection-info {
       display: flex;
       gap: 2rem;
@@ -121,6 +120,77 @@
           font-size: 20px;
           font-weight: 600;
           color: #38b87d;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1325px) {
+  .collection-result-card {
+    .collection-result-card-body {
+      .collection-info {
+        gap: 0;
+        .collection-result-card-stats {
+          p {
+            font-size: 12px;
+            white-space: nowrap;
+            strong {
+              font-size: 10px;
+
+              svg {
+                width: 10px;
+                height: 10px;
+              }
+            }
+          }
+        }
+      }
+      .collection-result-card-s {
+        margin-top: 30px;
+        .assets {
+          width: 100%;
+          .assets-container {
+            .asset {
+              width: 50px;
+              height: 50px;
+            }
+          }
+        }
+
+        .wego-score {
+          font-size: 10px;
+        }
+      }
+    }
+  }
+}
+
+//small screens
+@media screen and (max-width: 576px) {
+  .collection-result-card {
+    .collection-result-card-body {
+      flex-direction: column;
+
+      .collection-info {
+        flex-direction: column;
+        gap: 1rem;
+        margin-bottom: 1rem;
+        .collection-result-card-stats {
+          align-self: flex-start;
+          font-size: 14px;
+        }
+      }
+      .collection-result-card-s {
+        width: 100%;
+
+        .assets {
+          .assets-container {
+            .asset {
+              width: 70px;
+              height: 70px;
+            }
+          }
         }
       }
     }
