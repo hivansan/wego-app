@@ -4,33 +4,53 @@
   position: sticky;
   top: 0;
   z-index: 200;
+  box-shadow: rgb(4 17 29 / 25%) 0px 0px 8px 0px;
 }
 
 .header {
   background-color: $bg-primary;
-
   width: 100%;
   height: 70px;
-
+  background-color: #fff;
   display: flex;
-  justify-content: space-between;
+  align-items: center;
   color: $secondary-color;
-  padding: 0.5rem 1.1rem;
+  padding: 0.5rem 2rem;
+  padding-left: 0rem;
   font-family: 'Raleway', sans-serif;
+  border-bottom: 1px solid $muted;
+  justify-content: space-between;
+
+  .hot-bar-header {
+    overflow: auto;
+  }
 
   .left-menu {
     display: flex;
     align-items: center;
-
+    padding-right: 100px;
     img {
       width: auto;
-      height: 30px;
+      height: 40px;
+      object-fit: cover;
     }
 
     .logo {
       margin: 0 1rem;
       object-fit: fill;
       height: 35px;
+    }
+  }
+
+  .search-header-container {
+    width: 100%;
+    display: flex;
+    margin-right: 50px;
+    .search-header {
+      width: 600px;
+      input {
+        height: 45px;
+      }
     }
   }
 
@@ -53,6 +73,32 @@
       color: $secondary-color;
       text-decoration: none;
       font-weight: 500;
+      position: relative;
+      white-space: nowrap;
+
+      &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        display: inline-block;
+        height: 2.06em;
+        width: 100%;
+        border-bottom: 2px solid $primary-color;
+        margin-top: 10px;
+        opacity: 0;
+        -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+        transition: opacity 0.35s, transform 0.35s;
+        -webkit-transform: scale(0, 1);
+        transform: scale(0, 1);
+      }
+
+      &:hover {
+        &::after {
+          opacity: 1;
+          -webkit-transform: scale(1);
+          transform: scale(1);
+        }
+      }
     }
 
     .icons {
@@ -61,6 +107,46 @@
       .header-icon {
         color: $primary-color;
         margin: 0 4px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1414px) {
+  .header {
+    .left-menu {
+      padding-right: 0;
+    }
+
+    .search-header-container {
+      margin-right: 0;
+      .search-header {
+        width: 100%;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .header {
+    .right-menu {
+      margin-left: 10px;
+    }
+  }
+}
+
+@media screen and (max-width: 993px) {
+}
+
+// //small screens
+@media screen and (max-width: 576px) {
+  .header {
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+
+    .search-header-container {
+      display: none;
+      .search-header {
       }
     }
   }

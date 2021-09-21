@@ -33,7 +33,6 @@ const AllCollectionsTable = () => {
       getCollections();
     }
 
-    //cleanup when component unmount
     return () => {
       setCollections(null);
     };

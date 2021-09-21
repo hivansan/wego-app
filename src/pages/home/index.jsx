@@ -50,23 +50,23 @@ const Home = (props) => {
     <>
       <NftSearchSection location={location} />
 
-      <FlagShipSection location={location} />
+      {/* <FlagShipSection location={location} /> */}
 
-      <section className='dividing-section'>
+      {/* <section className='dividing-section'>
         <div className='divider'>
           <h1>Get featured on the homepage</h1>
         </div>
-      </section>
+      </section> */}
 
       <TopCollectionSection />
 
-      <section className='dividing-section'>
+      {/* <section className='dividing-section'>
         <div className='divider'>
           <h1>Get listed</h1>
         </div>
-      </section>
+      </section> */}
 
-      <TrendingCollectionSection />
+      {/* <TrendingCollectionSection /> */}
     </>
   );
 };

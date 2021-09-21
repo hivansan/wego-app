@@ -49,24 +49,10 @@
           }
         }
       }
-
-      .socials {
-        display: flex;
-        flex-direction: column;
-        margin: 0 5rem;
-
-        .icons {
-          margin: 5px 0px;
-
-          svg {
-            margin-right: 20px;
-          }
-        }
-      }
     }
   }
 
-  .footer-terms {
+  .footer-c {
     width: 100%;
     background-color: #1d1d1d;
     display: flex;
@@ -75,9 +61,39 @@
     padding: 1.5rem;
     color: #fff;
     font-family: 'Raleway', sans-serif;
+    flex-wrap: wrap;
 
-    p {
-      margin: 0 5px;
+    a {
+      color: #fff;
+      margin-left: 5px;
+
+      &:first-child {
+        padding-right: 5px;
+        border-right: 1px solid #fff;
+      }
+    }
+
+    .socials {
+      display: flex;
+      margin: 0 3rem;
+      .icons {
+        a {
+          border: none;
+          margin-left: 0;
+          padding-right: 0;
+          svg {
+            margin: 0 0.5rem;
+
+            &:first-child {
+              margin: 0 0.3rem;
+            }
+
+            &:hover {
+              color: $primary-color;
+            }
+          }
+        }
+      }
     }
   }
 }
@@ -133,6 +149,52 @@
 // }
 
 // //small screens
-// @media screen and (max-width: 576px){
+@media screen and (max-width: 576px) {
+  .footer {
+    .footer-container {
+      .footer-info {
+        flex-direction: column;
+        align-items: center;
 
-// }
+        .newsletter {
+          width: 100%;
+          p {
+            text-align: center;
+            width: 100%;
+          }
+
+          form {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            input {
+              min-width: 100px;
+            }
+          }
+        }
+
+        .socials {
+          align-items: center;
+          margin: 0;
+          .icons {
+            text-align: center;
+          }
+        }
+      }
+    }
+
+    .footer-c {
+      .socials {
+        margin-top: 0.7rem;
+        .icons {
+          a {
+            svg {
+              &:hover {
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

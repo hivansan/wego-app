@@ -37,9 +37,14 @@ const NftSearchSection = ({ location }) => {
 
   return (
     <section className='nft-search-section'>
-      <h1>
-        <strong>NFT</strong> Search
-      </h1>
+      <div className='search-section-logo'>
+        <img
+          src={require('../../assets/logo/blue&gray.png').default}
+          alt=''
+          className='logo'
+        />
+      </div>
+
       <NftSearchBar
         setDebounceParam={setDebounceParam}
         value={param}

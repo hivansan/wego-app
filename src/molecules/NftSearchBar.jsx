@@ -1,4 +1,4 @@
-import React, { useEffect, createRef, useState } from 'react';
+import React, { useEffect, createRef, useState, Profiler } from 'react';
 
 import { useHistory } from 'react-router-dom';
 import SearchInput from './SearchInput';
@@ -16,8 +16,10 @@ const SearchBar = ({
   ...props
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isModalFocus, setIsModalFocus] = useState(false);
 
   const searchRef = createRef();
+  const dropDownRef = createRef();
   const history = useHistory();
 
   const onPressEnter = () => {
@@ -29,7 +31,10 @@ const SearchBar = ({
   };
 
   useEffect(() => {
-    searchRef.current.focus();
+    if (value !== '') {
+      searchRef.current.focus();
+      setIsOpen(true);
+    }
   }, [value, results]);
 
   if (value === '') {
@@ -44,9 +49,13 @@ const SearchBar = ({
             ref={searchRef}
             onPressEnter={onPressEnter}
             setDebounceParam={setDebounceParam}
+            dropDownRef={dropDownRef}
+            setDropDownOpen={setIsOpen}
+            isModalFocus={isModalFocus}
+            dropDown={true}
           />
           <small>search collections, top assets, etc</small>
-          <DarkPrimaryButton>Search</DarkPrimaryButton>
+          <DarkPrimaryButton onClick={onPressEnter}>Search</DarkPrimaryButton>
         </div>
       </div>
     );
@@ -63,15 +72,20 @@ const SearchBar = ({
           onPressEnter={onPressEnter}
           value={value}
           setDebounceParam={setDebounceParam}
+          setDropDownOpen={setIsOpen}
+          isModalFocus={isModalFocus}
+          dropDown={true}
         />
         <small>search collections, top assets, etc</small>
-        <DarkPrimaryButton>Search</DarkPrimaryButton>
+        <DarkPrimaryButton onClick={onPressEnter}>Search</DarkPrimaryButton>
       </div>
       <NftSearchBarModal
+        ref={dropDownRef}
         isOpen={isOpen}
         results={results}
         query={query}
         location={location}
+        setIsFocus={setIsModalFocus}
       />
     </div>
   );

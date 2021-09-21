@@ -2,16 +2,12 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 import MainSwitch from './routerSwitches/Index';
-import {
-  CONNECTION_CONNECTED,
-  CONNECTION_DISCONNECTED,
-  CONFIGURE,
-} from './constants';
+import { CONNECTION_CONNECTED, CONNECTION_DISCONNECTED } from './constants';
 
 import { injected } from './stores/connectors';
 import Store from './stores/store';
 
-const { store, emitter, dispatcher } = Store;
+const { store, emitter } = Store;
 
 class App extends Component {
   state = {
@@ -55,7 +51,7 @@ class App extends Component {
   connectionConnected = () => {
     // console.log('connection connected');
     this.setState({ account: store.getStore('account') });
-    dispatcher.dispatch({ type: CONFIGURE, content: {} });
+    // dispatcher.dispatch({ type: CONFIGURE, content: {} });
   };
 
   connectionDisconnected = () => {

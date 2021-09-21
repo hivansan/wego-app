@@ -2,14 +2,12 @@
 
 .hot-collections-bar {
   display: flex;
-  width: 100vw;
-  border: 1px solid #aaaaaa;
   background-color: #fff;
   font-family: $default-font;
-
+  overflow-y: auto;
   .price {
-    border-right: 1px solid #aaaaaa;
-    padding: 0.3rem 2rem;
+    border-right: 1px solid $muted;
+    padding: 0.3rem 1rem;
     display: flex;
     align-items: center;
     p {
@@ -63,8 +61,6 @@
 
 @media screen and (max-width: 993px) {
   .hot-collections-bar {
-    .price {
-    }
   }
 }
 

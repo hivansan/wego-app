@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FaEthereum } from 'react-icons/fa';
 
@@ -11,6 +11,7 @@ const CollectionAssetCard = ({
   ...props
 }) => {
   const hasExtraClasses = className ? className : '';
+
   return (
     <Link
       to={{
@@ -20,14 +21,13 @@ const CollectionAssetCard = ({
     >
       <div {...props} className={`${hasExtraClasses} collection-asset-card`}>
         <div className='asset-card-header'>
-          <p>{idx + 1}#</p>
-          <p>{asset.name}</p>
+          <p>{asset.asset_contract.name.split(/(?=[A-Z])/).join(' ')}</p>
         </div>
         <div className='asset-card-image'>
-          <img src={asset.image} alt={asset.name} />
+          <img src={asset.image_url} alt={asset.name} />
         </div>
         <div className='asset-card-info'>
-          <p>{asset.name}</p>
+          <p>{asset.token_id}</p>
           <p>
             {price} <FaEthereum size={20} />
           </p>

@@ -4,7 +4,7 @@ import Modal from '../atoms/Modal';
 import DarkPrimaryButton from '../atoms/darkPrimaryButton';
 import LightPrimaryButton from '../atoms/lightPrimaryButton';
 
-import { useLocation, useHistory, useRouteMatch } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 
 const AssetDetailModal = ({
   tokenId = '12312312312312312312',
@@ -14,18 +14,17 @@ const AssetDetailModal = ({
   dateAdded = '20 jul 2021',
   owners = 300,
   setModalLink,
+  setFooter,
 }) => {
   const [open, setOpen] = useState(true);
 
   const location = useLocation();
   const history = useHistory();
-  const match = useRouteMatch();
 
   const back = (e) => {
     e.stopPropagation();
     if (!location.key) {
       history.push('/');
-      setModalLink('');
       return false;
     }
 
@@ -35,7 +34,7 @@ const AssetDetailModal = ({
 
   useEffect(() => {
     if (!location.key) {
-      setModalLink(match.path);
+      setFooter(location.pathname);
     }
   }, []);
 

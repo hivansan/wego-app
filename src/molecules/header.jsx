@@ -4,8 +4,11 @@ import { useMediaQuery } from 'react-responsive';
 import Accordion from 'react-bootstrap/Accordion';
 
 import HotCollectionsBar from './HotCollectionsBar';
+import SearchInput from './SearchInput';
 
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+
+import { useDebounce } from '../atoms/hooks/useStateDebounce';
 
 import { Api } from '../services/api';
 import UnlockModal from '../atoms/unlock/unlockModal';
@@ -17,11 +20,12 @@ const { emitter, store } = Store;
 
 const RightMenu = ({ children }) => {
   const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
+  const isTablet = useMediaQuery({ query: '(max-width : 1200px)' });
 
   return (
     <>
-      {isMobile ? (
-        <div>
+      {isMobile || isTablet ? (
+        <div className='right-menu'>
           <Accordion>
             <Accordion.Item eventKey='0'>
               <Accordion.Header></Accordion.Header>
@@ -29,7 +33,7 @@ const RightMenu = ({ children }) => {
                 <div className='accordion'>
                   {children.map((x, i) => (
                     <div key={x.props.children}>
-                      <div style={{ margin: '10px' }}>{x}</div>
+                      <div>{x}</div>
                       <hr />
                     </div>
                   ))}
@@ -45,12 +49,18 @@ const RightMenu = ({ children }) => {
   );
 };
 
+///////
+
 const Header = (props) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [assetModal, setAssetModal] = useState(false);
   const [hotCollections, setHotCollections] = useState(null);
   const [connected, setConnected] = useState(false);
   const [account, setAccount] = useState(null);
+  const [param, setParam] = useState('');
+  const [debounceParam, setDebounceParam] = useDebounce(param, 500);
+
+  const location = useLocation();
 
   const api = new Api();
 
@@ -70,35 +80,72 @@ const Header = (props) => {
       setConnected(false);
       setAccount(null);
     });
+
+    return () => {
+      setAccount(null);
+      setHotCollections(null);
+    };
   }, []);
+
+  useEffect(() => {
+    if (debounceParam !== '') {
+      console.log(debounceParam);
+    }
+  }, [debounceParam]);
+
+  useEffect(() => {
+    if (location.pathname === `/search`) {
+      console.log('estamos en search');
+    }
+  }, [location.pathname]);
 
   const modalAssetLinkIsOpen = assetModal && 'd-none';
 
   return (
     <div className='header-container'>
-      <header className={`header ${modalAssetLinkIsOpen}`}>
-        <div className='left-menu'>
-          <img
-            src='https://storage.googleapis.com/opensea-static/Logomark/Logomark-Blue.png'
-            alt='opensea logo'
-          />
-          <Link to='/'>
-            <img
-              src={require('../assets/logo/blue&gray.png').default}
-              alt=''
-              className='logo'
-            />
-          </Link>
-        </div>
-
+      <nav className={`header ${modalAssetLinkIsOpen}`}>
+        {location.pathname === '/' || location.pathname === '/search' ? (
+          <div className='hot-bar-header'>
+            <HotCollectionsBar hotCollections={hotCollections} />
+          </div>
+        ) : (
+          <div className='left-menu'>
+            <div className='d-flex'>
+              <Link to='/'>
+                <img
+                  src={require('../assets/logo/blue&gray.png').default}
+                  alt=''
+                  className='logo'
+                />
+              </Link>
+            </div>
+          </div>
+        )}
+        {location.pathname === '/' || location.pathname === '/search' ? (
+          ''
+        ) : (
+          <div className='search-header-container'>
+            <div className='search-header'>
+              <SearchInput
+                type='text'
+                placeholder='Search Nft, Collections, or Keyword'
+                setDebounceParam={setDebounceParam}
+                value={param}
+                onChange={setParam}
+                query={param}
+                location={location}
+              />
+            </div>
+          </div>
+        )}
         {/* right menu */}
         <RightMenu>
-          <a href='/marketplace'>Marketplace</a>
-          <a href='/analytics'>Analytics</a>
-          <a href='/getlisted'>Get Listed</a>
-          <a href='/stats'>Stats</a>
+          <Link to='/marketplace'>Marketplace</Link>
+          <Link to='/analytics'>Analytics</Link>
+          <Link to='/getlisted'>Get Listed</Link>
+          <Link to='/stats'>Stats</Link>
           <div className='icons'>
-            <FaUser size={28} className='header-icon' />
+            {connected && <FaUser size={28} className='header-icon' />}
             <button
               style={{
                 borderWidth: '0',
@@ -122,8 +169,12 @@ const Header = (props) => {
             )}
           </div>
         </RightMenu>
-      </header>
-      <HotCollectionsBar hotCollections={hotCollections} />
+      </nav>
+      {location.pathname === '/' || location.pathname === '/search' ? (
+        ''
+      ) : (
+        <HotCollectionsBar hotCollections={hotCollections} />
+      )}
     </div>
   );
 };

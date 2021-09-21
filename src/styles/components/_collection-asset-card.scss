@@ -5,7 +5,7 @@ a {
 
   .collection-asset-card {
     width: 230px;
-    border: 1px solid #aaaaaa;
+    border: 1px solid #e3e3e6;
     padding: 0.8rem;
     border-radius: 10px;
     cursor: pointer;
@@ -18,6 +18,7 @@ a {
 
         &:last-child {
           color: $secondary-color;
+          font-size: 15px;
         }
       }
     }
@@ -40,6 +41,10 @@ a {
       text-align: center;
 
       p {
+        &:first-child {
+          color: $primary-color;
+        }
+
         color: $secondary-color;
         margin: 0;
         margin-top: 10px;

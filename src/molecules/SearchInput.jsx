@@ -1,6 +1,8 @@
-import React, { forwardRef, useMemo } from 'react';
+import React, { forwardRef, useEffect, useState } from 'react';
 
 const SearchInput = forwardRef((props, ref) => {
+  const [isFocus, setIsFocus] = useState(false);
+
   const hasExtraClasses = props.className ? props.className : '';
 
   const handleChange = (e) => {
@@ -11,6 +13,20 @@ const SearchInput = forwardRef((props, ref) => {
     }
   };
 
+  useEffect(() => {
+    if (props.dropDown) {
+      if (isFocus && props.value !== '') {
+        return props.setDropDownOpen(true);
+      }
+      // props.setDropDownOpen(false);
+      if (props.isModalFocus) {
+        return props.setDropDownOpen(true);
+      }
+
+      props.setDropDownOpen(false);
+    }
+  }, [isFocus, props.isModalFocus]);
+
   return (
     <input
       className={`${hasExtraClasses} search-input`}
@@ -20,7 +36,9 @@ const SearchInput = forwardRef((props, ref) => {
       onChange={handleChange}
       ref={ref}
       onKeyDown={(e) => e.key === 'Enter' && props.onPressEnter()}
-      autoComplete='off'
+      onFocus={() => setIsFocus(true)}
+      onBlur={() => setIsFocus(false)}
+      autoFocus
     />
   );
 });

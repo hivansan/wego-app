@@ -1,6 +1,6 @@
 import React, { useEffect, useState, createRef } from 'react';
 
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useLocation, Link } from 'react-router-dom';
 import { Api } from '../../services/api';
 
 import SearchInput from '../../molecules/SearchInput';
@@ -89,14 +89,21 @@ const SearchScreen = () => {
       return getTrendingItems();
     }
     getRequest(url);
+
+    return () => {
+      setResults(null);
+    };
   }, [url]);
 
   return (
     <div className='full-search-container'>
       <header className='full-search-header'>
-        <h1>
-          <strong>NFT</strong> Search
-        </h1>
+        <Link to='/'>
+          <img
+            src={require('../../assets/logo/blue&gray.png').default}
+            alt=''
+          />
+        </Link>
         <SearchInput
           type='text'
           placeholder='Search Nft, Collections, or Keyword'

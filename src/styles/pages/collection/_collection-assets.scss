@@ -91,6 +91,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 1.4rem;
+    overflow-y: auto;
 
     .loader-assets {
       width: 100%;

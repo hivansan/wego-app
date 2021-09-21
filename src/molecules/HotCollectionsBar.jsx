@@ -7,18 +7,7 @@ import { FiArrowUpCircle, FiArrowDownCircle } from 'react-icons/fi';
 const HotCollectionsBar = ({ hotCollections }) => {
   return (
     <div className='hot-collections-bar'>
-      <div className='price'>
-        <p>ETH: $3740.71</p>
-      </div>
-      <div className='price d-none d-lg-flex'>
-        <p>139 GWEI</p>
-      </div>
-      <div className='price d-none d-lg-flex'>
-        <p>HOT PAIRS</p>
-      </div>
-      {!hotCollections ? (
-        <div className='hot-collections'></div>
-      ) : (
+      {hotCollections && (
         <ScrollContainer className='hot-collections'>
           {hotCollections.hotCollections.map((collection, i) => (
             <a

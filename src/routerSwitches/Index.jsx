@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { Switch, Route, useLocation, useRouteMatch } from 'react-router-dom';
 
@@ -19,15 +19,31 @@ import AssetDetail from '../molecules/AssetDetail';
 
 import Favorites from '../pages/Favorites';
 
-const MainSwitch = ({ account }) => {
-  const [modalLink, setModalLink] = useState('');
+const MainSwitch = () => {
+  const [header, setHeader] = useState(true);
+  const [footer, setFooter] = useState(true);
+  const [collectionAddress, setCollectionAddress] = useState('');
   const location = useLocation();
 
   const background = location.state && location.state.background;
 
+  useEffect(() => {
+    if (location.pathname === `/collection/${collectionAddress}`) {
+      return setFooter(false);
+    }
+
+    if (location.pathname === `${collectionAddress}`) {
+      setHeader(false);
+      return setFooter(false);
+    }
+
+    setHeader(true);
+    setFooter(true);
+  }, [location.pathname, collectionAddress]);
+
   return (
     <>
-      {modalLink === '' && <Header />}
+      {header && <Header />}
       <Switch location={background || location}>
         <Route
           exact
@@ -38,8 +54,12 @@ const MainSwitch = ({ account }) => {
         <Route path='/marketplace'>
           <Marketplace />
         </Route>
+
+        <Route path='/analytics'>
+          <Graphs />
+        </Route>
         <Route path='/stats'>
-          <Stats />
+          <Graphs />
         </Route>
         <Route path='/getlisted'>
           <GetListed />
@@ -53,22 +73,25 @@ const MainSwitch = ({ account }) => {
         </Route>
         <Route
           path='/assets/:address/:id'
-          children={<AssetDetail setModalLink={setModalLink} />}
+          children={
+            <AssetDetail
+              setHeader={setHeader}
+              setFooter={setCollectionAddress}
+            />
+          }
         />
         <Route path='/collection/:address'>
-          <CollectionDetails />
+          <CollectionDetails setFooter={setCollectionAddress} />
         </Route>
 
         <Route exact path='/:search'>
           <SearchResults />
         </Route>
-        <Route exact path='/favorites'></Route>
         <Route path='/' exact>
           <Home />
         </Route>
       </Switch>
-      {modalLink === '' && <Footer />}
-      {/* Show the modal when a background page is set */}
+      {footer && <Footer />}
       {background && (
         <Route path='/assets/:address/:id' children={<AssetDetail />} />
       )}
