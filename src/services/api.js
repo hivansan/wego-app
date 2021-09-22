@@ -20,8 +20,8 @@ export class Api {
         return this.request('get', `assets/${address}`);
       },
 
-      findByContract: (contract, offset) => {
-        const url = `https://api.opensea.io/api/v1/assets?asset_contract_address=0x60E4d786628Fea6478F785A6d7e704777c86a7c6&order_direction=desc&offset=${offset}&limit=20`;
+      findByContract: (address, offset) => {
+        const url = `https://api.opensea.io/api/v1/assets?asset_contract_address=${address}&order_direction=desc&offset=${offset}&limit=20`;
         return this.request('get', url);
       },
     };
@@ -29,6 +29,10 @@ export class Api {
     this.collections = {
       all: () => {
         return this.request('get', 'collections');
+      },
+
+      findOne: (slug) => {
+        return this.request('get', `/api/Collections/get?q=${slug}`);
       },
 
       hotCollections: () => {

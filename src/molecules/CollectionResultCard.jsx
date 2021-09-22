@@ -16,7 +16,7 @@ const CollectionResultCard = ({ collection, location }) => {
             <div className='collection-result-card-info'>
               <img src={collection.image} alt={collection.name} />
               <div className='info'>
-                <Link to={`collection/${collection.address}`}>
+                <Link to={`collection/${collection.slug}`}>
                   <p>{collection.name}</p>
                 </Link>
                 <small>428 traded</small>

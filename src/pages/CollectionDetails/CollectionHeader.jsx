@@ -6,7 +6,6 @@ import CollectionHeaderRight from './CollectionHeaderRight';
 const CollectionHeader = ({ collection }) => {
   return (
     <div className='collection-header'>
-      <CollectionBanner banner={collection.banner} />
       <div className='collection-header-info'>
         <CollectionHeaderLeft collectionInfo={collection} />
         <CollectionHeaderRight collectionInfo={collection} />

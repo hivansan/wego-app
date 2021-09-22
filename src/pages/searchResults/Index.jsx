@@ -156,7 +156,7 @@ const SearchScreen = () => {
                   {results.collections.map((collection) => (
                     <CollectionResultCard
                       collection={collection}
-                      key={collection.address}
+                      key={collection.id}
                       location={location}
                     />
                   ))}

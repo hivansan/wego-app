@@ -158,7 +158,7 @@ const Header = (props) => {
             </button>
             {connected && (
               <span style={{ color: 'black', fontSize: '10px' }}>
-                {account?.address.substring(0, 8)}...
+                {account?.address.substring(0, 5)}...
               </span>
             )}
             {modalOpen && (

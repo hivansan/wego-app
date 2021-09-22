@@ -11,7 +11,7 @@ const CollectionHeaderRight = ({ collectionInfo }) => {
         <LightPrimaryButton>Explore traits</LightPrimaryButton>
         <LightPrimaryButton>My Wallet</LightPrimaryButton>
       </div>
-      <CollectionStats collection={collectionInfo} />
+      {collectionInfo && <CollectionStats collection={collectionInfo} />}
     </div>
   );
 };

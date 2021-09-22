@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import CollectionAssetsFilters from '../../molecules/CollectionAssetsFilters';
+import CollectionAssetsFilters from '../../molecules/CollectionsAssetsFilters/Index';
 import CollectionAssetsSort from '../../molecules/CollectionAssetsSort';
-import CollectionAssetsPagination from '../../molecules/CollectionAssetsPagination';
 
 import InfiniteScroll from 'react-infinite-scroll-component';
 
@@ -15,14 +14,19 @@ const CollectionAssets = ({
   fetchMoreAssets,
   noMoreAssets,
   offset,
+  getCollectionAssets,
 }) => {
+  const [isFiltersCollapse, setIsFiltersCollapse] = useState(true);
+
   return (
     <div className='collection-assets-container'>
-      <CollectionAssetsFilters />
+      <CollectionAssetsFilters
+        isCollapse={isFiltersCollapse}
+        setCollapse={setIsFiltersCollapse}
+      />
       <div className='collection-assets'>
         <div className='assets-header'>
           <CollectionAssetsSort />
-          <CollectionAssetsPagination offset={offset} />
         </div>
         <div className='assets-container'>
           {!assets.length === 0 ? (
@@ -34,7 +38,7 @@ const CollectionAssets = ({
               <InfiniteScroll
                 dataLength={assets.length}
                 next={fetchMoreAssets}
-                className='assets-container'
+                className='assets-container-infinite'
                 hasMore={noMoreAssets}
               >
                 {assets.map((asset, i) => (

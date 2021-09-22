@@ -80,7 +80,7 @@ const MainSwitch = () => {
             />
           }
         />
-        <Route path='/collection/:address'>
+        <Route path='/collection/:slug'>
           <CollectionDetails setFooter={setCollectionAddress} />
         </Route>
 

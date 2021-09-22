@@ -10,9 +10,9 @@ const DropDownCollections = ({ results, location }) => {
       {FilterA.map((collection) => (
         <Link
           to={{
-            pathname: `collection/${collection.address}`,
+            pathname: `collection/${collection.slug}`,
           }}
-          key={collection.address}
+          key={collection.id}
         >
           <div className='collection'>
             <div className='collection-info'>

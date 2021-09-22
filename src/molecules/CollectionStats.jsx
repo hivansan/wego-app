@@ -11,31 +11,31 @@ const CollectionStats = ({ collection }) => {
         </div>
         <div className='stat'>
           <small>Total Volume</small>
-          <small>{collection.ethTotalVolume} ETH</small>
+          <small>{collection.totalVolume} ETH</small>
         </div>
         <div className='stat'>
           <small>7 Day Avg Price</small>
-          <small>{collection.sevenDayAvgPrice} ETH</small>
+          <small>{collection.sevenDayAveragePrice} ETH</small>
         </div>
         <div className='stat'>
           <small>Owners</small>
-          <small>{collection.owners}</small>
+          <small>{collection.numOwners}</small>
         </div>
       </div>
 
       <div className='collection-stats'>
         <div className='stat'>
-          <p>{collection.total}</p>
+          <p>{collection.totalSupply}</p>
           <small>total</small>
         </div>
         <div className='stat'>
           <p>
-            {collection.priceFloor} <FaEthereum size={20} />
+            {collection.floorPrice} <FaEthereum size={20} />
           </p>
           <small>Price floor</small>
         </div>
         <div className='stat'>
-          <p>{collection.volumeTraded}</p>
+          <p>0</p>
           <small>Volume traded</small>
         </div>
       </div>

@@ -8,7 +8,7 @@ import usePrevious from '../../atoms/hooks/usePrevious';
 import { Api } from '../../services/api';
 
 const CollectionDetails = ({ setFooter }) => {
-  const { address } = useParams();
+  const { slug } = useParams();
   const [result, setResult] = useState({});
   const [resultA, setResultA] = useState([]);
   const [offset, setOffset] = useState(1);
@@ -20,7 +20,7 @@ const CollectionDetails = ({ setFooter }) => {
   const getCollection = async () => {
     setResult({});
     try {
-      const { collection } = await api.collections.findByAddress(address);
+      const collection = await api.collections.findOne(slug);
       setResult(collection);
     } catch (err) {
       throw err;
@@ -30,10 +30,9 @@ const CollectionDetails = ({ setFooter }) => {
   const getCollectionAssets = async () => {
     try {
       const { assets } = await api.assets.findByContract(
-        '0x60e4d786628fea6478f785a6d7e704777c86a7c6',
+        '0x60E4d786628Fea6478F785A6d7e704777c86a7c6',
         offset
       );
-
       setResultA([...resultA, ...assets]);
       setOffset(offset + 1);
       if (assets.length === 0 || assets.length < 20) {
@@ -47,7 +46,7 @@ const CollectionDetails = ({ setFooter }) => {
   useEffect(() => {
     getCollection();
     getCollectionAssets();
-    setFooter(address);
+    setFooter(slug);
   }, []);
 
   return (
