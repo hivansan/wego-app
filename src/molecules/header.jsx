@@ -51,7 +51,7 @@ const RightMenu = ({ children }) => {
 
 ///////
 
-const Header = (props) => {
+const Header = ({ background }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [assetModal, setAssetModal] = useState(false);
   const [hotCollections, setHotCollections] = useState(null);
@@ -59,6 +59,7 @@ const Header = (props) => {
   const [account, setAccount] = useState(null);
   const [param, setParam] = useState('');
   const [debounceParam, setDebounceParam] = useDebounce(param, 500);
+  const [isInputHeaderShown, setIsInputHeaderShown] = useState(false);
 
   const location = useLocation();
 
@@ -94,9 +95,16 @@ const Header = (props) => {
   }, [debounceParam]);
 
   useEffect(() => {
-    if (location.pathname === `/search`) {
-      console.log('estamos en search');
+    if (
+      location.pathname === '/' ||
+      location.pathname === '/search' ||
+      background.pathname === '/' ||
+      background.pathname === '/search'
+    ) {
+      return setIsInputHeaderShown(false);
     }
+
+    setIsInputHeaderShown(true);
   }, [location.pathname]);
 
   const modalAssetLinkIsOpen = assetModal && 'd-none';
@@ -104,7 +112,7 @@ const Header = (props) => {
   return (
     <div className='header-container'>
       <nav className={`header ${modalAssetLinkIsOpen}`}>
-        {location.pathname === '/' || location.pathname === '/search' ? (
+        {!isInputHeaderShown ? (
           <div className='hot-bar-header'>
             <HotCollectionsBar hotCollections={hotCollections} />
           </div>
@@ -121,7 +129,7 @@ const Header = (props) => {
             </div>
           </div>
         )}
-        {location.pathname === '/' || location.pathname === '/search' ? (
+        {!isInputHeaderShown ? (
           ''
         ) : (
           <div className='search-header-container'>
@@ -170,7 +178,7 @@ const Header = (props) => {
           </div>
         </RightMenu>
       </nav>
-      {location.pathname === '/' || location.pathname === '/search' ? (
+      {!isInputHeaderShown ? (
         ''
       ) : (
         <HotCollectionsBar hotCollections={hotCollections} />

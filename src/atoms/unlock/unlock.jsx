@@ -118,6 +118,7 @@ function onConnectionClicked(
   activate
 ) {
   const connectorsByName = store.getStore('connectorsByName');
+  console.log(connectorsByName);
   setActivatingConnector(currentConnector);
   activate(connectorsByName[name], (err) => console.log(err));
 }

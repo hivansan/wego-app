@@ -14,7 +14,7 @@ const DropDownAssets = ({ results, location }) => {
             pathname: `assets/${asset.address}/${asset.tokenId}`,
             state: { background: location },
           }}
-          key={asset.address}
+          key={asset.id}
         >
           <div className='asset'>
             <div className='asset-info-container'>

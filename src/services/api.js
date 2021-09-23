@@ -20,6 +20,10 @@ export class Api {
         return this.request('get', `assets/${address}`);
       },
 
+      findOne: (address, tokenId) => {
+        return this.request('get', `api/Assets/${address}/${tokenId}`);
+      },
+
       findByContract: (address, offset) => {
         const url = `https://api.opensea.io/api/v1/assets?asset_contract_address=${address}&order_direction=desc&offset=${offset}&limit=20`;
         return this.request('get', url);

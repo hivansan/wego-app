@@ -9,7 +9,7 @@ const Favorites = () => {
 
   useEffect(() => {
     emitter.on(CONNECTION_CONNECTED, () => {
-      setLibrary(store.getStore('web3context'));
+      setLibrary(store.getStore('web3context').library);
       setConnected(true);
     });
     emitter.on(CONNECTION_DISCONNECTED, () => {
@@ -22,8 +22,7 @@ const Favorites = () => {
     return <h1>Sign in to your wallet.</h1>;
   }
 
-  console.log(library);
-  return <h1>si hay</h1>;
+  return <h1>wallet connected</h1>;
 };
 
 export default Favorites;

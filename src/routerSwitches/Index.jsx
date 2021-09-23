@@ -43,7 +43,7 @@ const MainSwitch = () => {
 
   return (
     <>
-      {header && <Header />}
+      {header && <Header background={background} />}
       <Switch location={background || location}>
         <Route
           exact
@@ -72,7 +72,7 @@ const MainSwitch = () => {
           <Favorites />
         </Route>
         <Route
-          path='/assets/:address/:id'
+          path='/assets/:address/:tokenId'
           children={
             <AssetDetail
               setHeader={setHeader}
@@ -93,7 +93,7 @@ const MainSwitch = () => {
       </Switch>
       {footer && <Footer />}
       {background && (
-        <Route path='/assets/:address/:id' children={<AssetDetail />} />
+        <Route path='/assets/:address/:tokenId' children={<AssetDetail />} />
       )}
     </>
   );

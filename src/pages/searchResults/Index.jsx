@@ -163,7 +163,7 @@ const SearchScreen = () => {
                   {results.assets.map((asset) => (
                     <AssetResultCard
                       asset={asset}
-                      key={asset.address}
+                      key={asset.id}
                       location={location}
                     />
                   ))}
