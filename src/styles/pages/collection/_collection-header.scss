@@ -39,7 +39,6 @@
             width: 100%;
             height: 100%;
             display: flex;
-            justify-content: space-between;
 
             img {
               width: auto;
@@ -49,21 +48,28 @@
               object-fit: cover;
             }
 
+            .collection-personal-stats {
+              display: flex;
+              flex-direction: column;
+              small {
+                margin: 0;
+                color: $primary-color;
+                font-size: 1rem;
+
+                strong {
+                  color: $success-color;
+                }
+
+                &:last-child {
+                  text-align: start;
+                }
+              }
+            }
+
             p {
               margin: 0;
               color: $secondary-color;
               font-size: 1.5rem;
-              text-align: center;
-
-              &:last-child {
-                color: $primary-color;
-                font-size: 1rem;
-              }
-            }
-
-            small {
-              align-self: end;
-              color: $primary-color;
             }
           }
         }

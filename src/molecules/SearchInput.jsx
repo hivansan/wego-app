@@ -13,19 +13,19 @@ const SearchInput = forwardRef((props, ref) => {
     }
   };
 
-  useEffect(() => {
-    if (props.dropDown) {
-      if (isFocus && props.value !== '') {
-        return props.setDropDownOpen(true);
-      }
-      // props.setDropDownOpen(false);
-      if (props.isModalFocus) {
-        return props.setDropDownOpen(true);
-      }
+  // useEffect(() => {
+  //   if (props.dropDown) {
+  //     if (isFocus && props.value !== '') {
+  //       return props.setDropDownOpen(true);
+  //     }
+  //     // props.setDropDownOpen(false);
+  //     if (props.isModalFocus) {
+  //       return props.setDropDownOpen(true);
+  //     }
 
-      props.setDropDownOpen(false);
-    }
-  }, [isFocus, props.isModalFocus]);
+  //     props.setDropDownOpen(false);
+  //   }
+  // }, [isFocus, props.isModalFocus]);
 
   return (
     <input

@@ -41,13 +41,10 @@
         }
 
         input {
-          width: 50px;
           border: 1px solid #aaaaaa;
-          margin: 0 1rem;
           padding: 0.5rem;
           border-radius: 9px;
           color: $secondary-color;
-          text-align: center;
           &:focus-within {
             outline: none;
           }
@@ -57,6 +54,7 @@
   }
 
   .assets-container {
+    height: 100vh;
     .loader-assets {
       width: 100%;
       height: 1118px;
@@ -98,7 +96,7 @@
       width: 100%;
       .header-action-collapse {
         display: flex;
-        justify-content: flex-end;
+
         align-items: center;
 
         svg {

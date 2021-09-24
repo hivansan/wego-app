@@ -21,7 +21,7 @@
 .collection-stats {
   width: 65%;
   display: flex;
-  border: 1px solid #aaaaaa;
+  border: 1px solid #e6e6e6;
   border-radius: 5px;
 
   .stat {
@@ -32,7 +32,7 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    border-left: 1px solid #aaaaaa;
+    border-left: 1px solid #e6e6e6;
     padding: 0.3rem 0;
 
     &:hover {

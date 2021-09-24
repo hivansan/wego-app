@@ -10,7 +10,6 @@ const CollectionAssetsFilters = ({ isCollapse, setCollapse }) => {
 
   const [statusCollapse, setStatusCollapse] = useState(true);
   const [priceCollapse, setPriceCollapse] = useState(true);
-  const [filtersCollapse, setFiltersCollapse] = useState(true);
 
   if (isCollapse) {
     return (
@@ -24,36 +23,23 @@ const CollectionAssetsFilters = ({ isCollapse, setCollapse }) => {
 
   return (
     <div className='collection-assets-filters'>
-      <header>
-        <BiArrowToLeft size={20} onClick={setIsCollapse} />
-        <div
-          className='header-collapsed-off'
-          onClick={() => setFiltersCollapse(!filtersCollapse)}
-        >
-          <div className='header-action-collapse'>
-            Filter
-            {filtersCollapse ? (
-              <IoIosArrowDown size={20} />
-            ) : (
-              <IoIosArrowUp size={20} />
-            )}
-          </div>
+      <header onClick={setIsCollapse}>
+        <div className='header-collapsed-off'>
+          <div className='header-action-collapse'>Filter</div>
         </div>
+        <BiArrowToLeft size={20} />
       </header>
-      {filtersCollapse && (
-        <>
-          <Filter
-            title='Status'
-            isCollapsed={statusCollapse}
-            setIsCollapsed={setStatusCollapse}
-          ></Filter>
-          <Filter
-            title='Price'
-            isCollapsed={priceCollapse}
-            setIsCollapsed={setPriceCollapse}
-          ></Filter>
-        </>
-      )}
+
+      <Filter
+        title='Status'
+        isCollapsed={statusCollapse}
+        setIsCollapsed={setStatusCollapse}
+      ></Filter>
+      <Filter
+        title='Price'
+        isCollapsed={priceCollapse}
+        setIsCollapsed={setPriceCollapse}
+      ></Filter>
     </div>
   );
 };

@@ -51,6 +51,14 @@ export class Api {
       findByAddress: (address) => {
         return this.request('get', `collections/${address}`);
       },
+
+      assets: (slug, filter) => {
+        const encodeFilter = encodeURIComponent(JSON.stringify(filter));
+        return this.request(
+          'get',
+          `/api/Collections/${slug}/assets?filter=${encodeFilter}`
+        );
+      },
     };
   }
 

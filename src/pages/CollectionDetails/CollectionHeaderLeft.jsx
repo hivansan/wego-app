@@ -19,7 +19,10 @@ const CollectionHeaderLeft = ({ collectionInfo }) => {
                       alt='trial'
                     />
                   ) : (
-                    <img src={collectionInfo.imgMain} alt='' />
+                    <img
+                      src={collectionInfo.imgMain}
+                      alt={`${collectionInfo.slug} logo`}
+                    />
                   )}
                   <div>
                     {collectionInfo.name ? (
@@ -38,12 +41,17 @@ const CollectionHeaderLeft = ({ collectionInfo }) => {
                         )}
                       </p>
                     )}
-                    <p>Ranked by Wego</p>
+                    <div className='collection-personal-stats'>
+                      <small className='wego-score'>
+                        Wego Score: <strong>{collectionInfo.wegoScore}</strong>
+                      </small>
+                      <small>
+                        Date Added:{' '}
+                        {moment(collectionInfo.createdAt).format('ll')}
+                      </small>
+                    </div>
                   </div>
                 </div>
-                <small>
-                  Date Added: {moment(collectionInfo.createdAt).format('ll')}
-                </small>
               </div>
             </section>
             {collectionInfo.description && (
@@ -55,7 +63,11 @@ const CollectionHeaderLeft = ({ collectionInfo }) => {
             <section className='collection-socials'>
               <div className='social'>
                 {collectionInfo.website && (
-                  <a href={collectionInfo.website}>
+                  <a
+                    href={collectionInfo.website}
+                    target='_blank'
+                    rel='noreferrer'
+                  >
                     <FaLink size={30} />
                     <small>Website</small>
                   </a>
@@ -63,15 +75,23 @@ const CollectionHeaderLeft = ({ collectionInfo }) => {
               </div>
               <div className='social'>
                 {collectionInfo.discord && (
-                  <>
+                  <a
+                    href={collectionInfo.discord}
+                    target='_blank'
+                    rel='noreferrer'
+                  >
                     <FaDiscord size={30} />
                     <small>Discord</small>
-                  </>
+                  </a>
                 )}
               </div>
               <div className='social'>
                 {collectionInfo.twitter && (
-                  <a href={collectionInfo.twitter}>
+                  <a
+                    href={`https://twitter.com/${collectionInfo.twitter}`}
+                    target='_blank'
+                    rel='noreferrer'
+                  >
                     <FaTwitter size={30} />
                     <small>Twitter</small>
                   </a>
@@ -79,7 +99,11 @@ const CollectionHeaderLeft = ({ collectionInfo }) => {
               </div>
               <div className='social'>
                 {collectionInfo.instagram && (
-                  <a href={collectionInfo.instagram}>
+                  <a
+                    href={collectionInfo.instagram}
+                    target='_blank'
+                    rel='noreferrer'
+                  >
                     <FaInstagram size={30} />
                     <small>Instagram</small>
                   </a>

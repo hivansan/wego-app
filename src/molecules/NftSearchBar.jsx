@@ -3,6 +3,9 @@ import React, { useEffect, createRef, useState, Profiler } from 'react';
 import { useHistory } from 'react-router-dom';
 import SearchInput from './SearchInput';
 import DarkPrimaryButton from '../atoms/darkPrimaryButton';
+import ExactMatchCard from './ExactMatchCard';
+import DropDownCollections from './DropDownCollections';
+import DropDownAssets from './DropDownAssets';
 
 import NftSearchBarModal from './NftSearchBarModal';
 
@@ -16,10 +19,9 @@ const SearchBar = ({
   ...props
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isModalFocus, setIsModalFocus] = useState(false);
 
   const searchRef = createRef();
-  const dropDownRef = createRef();
+
   const history = useHistory();
 
   const onPressEnter = () => {
@@ -49,10 +51,7 @@ const SearchBar = ({
             ref={searchRef}
             onPressEnter={onPressEnter}
             setDebounceParam={setDebounceParam}
-            dropDownRef={dropDownRef}
             setDropDownOpen={setIsOpen}
-            isModalFocus={isModalFocus}
-            dropDown={true}
           />
           <small>search collections, top assets, etc</small>
           <DarkPrimaryButton onClick={onPressEnter}>Search</DarkPrimaryButton>
@@ -73,20 +72,49 @@ const SearchBar = ({
           value={value}
           setDebounceParam={setDebounceParam}
           setDropDownOpen={setIsOpen}
-          isModalFocus={isModalFocus}
-          dropDown={true}
         />
         <small>search collections, top assets, etc</small>
         <DarkPrimaryButton onClick={onPressEnter}>Search</DarkPrimaryButton>
       </div>
       <NftSearchBarModal
-        ref={dropDownRef}
         isOpen={isOpen}
         results={results}
         query={query}
         location={location}
-        setIsFocus={setIsModalFocus}
-      />
+      >
+        {results && (
+          <>
+            <div className='large-table-match'>
+              {results.exactMatch && (
+                <ExactMatchCard
+                  result={results.exactMatch}
+                  className='match mobile-match'
+                  location={location}
+                />
+              )}
+            </div>
+            <div className='drop-down-results'>
+              {results.exactMatch && (
+                <ExactMatchCard
+                  result={results.exactMatch}
+                  className='match mobile-match'
+                  location={location}
+                />
+              )}
+
+              <DropDownCollections results={results.collections} />
+              <DropDownAssets results={results.assets} location={location} />
+              {results.exactMatch && (
+                <ExactMatchCard
+                  result={results.exactMatch}
+                  className='match desktop-match'
+                  location={location}
+                />
+              )}
+            </div>{' '}
+          </>
+        )}
+      </NftSearchBarModal>
     </div>
   );
 };

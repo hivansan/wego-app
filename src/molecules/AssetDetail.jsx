@@ -47,6 +47,8 @@ const AssetDetailModal = ({
     getAsset();
   }, []);
 
+  console.log(asset);
+
   return (
     <Modal bodyStyles='asset-detail-modal-body' open={open} onClose={back}>
       {asset && (
@@ -56,7 +58,24 @@ const AssetDetailModal = ({
               <header className='asset-detail-modal-info-header'>
                 Rarity Rank #22
               </header>
-              <img src={asset.imageBig} alt={name} />
+              {asset.animationUrl ? (
+                <video
+                  autoPlay
+                  muted
+                  controls
+                  controlsList='nodownload'
+                  loop
+                  playsInline
+                  className='animation'
+                >
+                  <source src={asset.animationUrl} type='video/mp4' />
+                </video>
+              ) : (
+                <a href={asset.imageBig} target='_blank' rel='noreferrer'>
+                  <img src={asset.imageSmall} alt={name} className='img' />
+                </a>
+              )}
+
               <p>
                 {asset.name
                   ? asset.name
@@ -65,7 +84,20 @@ const AssetDetailModal = ({
                       .map((a) => a.charAt(0).toUpperCase() + a.substr(1))
                       .join(' ')}
 
-                <small> #{asset.tokenId}</small>
+                <small>
+                  #
+                  {asset.tokenId.length > 8 ? (
+                    <>
+                      {asset.tokenId.substring(0, 8)}...
+                      {asset.tokenId.substring(
+                        asset.tokenId.length - 5,
+                        asset.tokenId.length - 1
+                      )}
+                    </>
+                  ) : (
+                    <>{asset.tokenId}</>
+                  )}
+                </small>
               </p>
 
               <a href='/#'>
@@ -85,7 +117,9 @@ const AssetDetailModal = ({
           <div className='asset-detail-modal-stats'>
             <div className='rarity-score'>
               <div className='rarity-score-title'>Rarity Score</div>
-              <div className='rarity-score-content'>{asset.rariScore}</div>
+              <div className='rarity-score-content'>
+                {asset.rariScore ? asset.rariScore : '0'}
+              </div>
             </div>
 
             <div className='asset-detail-modal-stats-filters-sorts'>

@@ -7,30 +7,34 @@ const CollectionAssetCard = ({
   className,
   asset,
   location,
-  idx,
   ...props
 }) => {
   const hasExtraClasses = className ? className : '';
-
   return (
     <Link
       to={{
-        pathname: `/assets/${asset.address}/${asset.tokenId}`,
+        pathname: `/assets/${asset.asset_contract.address}/${asset.token_id}`,
         state: { background: location },
       }}
     >
       <div {...props} className={`${hasExtraClasses} collection-asset-card`}>
         <div className='asset-card-header'>
-          <p>{asset.asset_contract.name.split(/(?=[A-Z])/).join(' ')}</p>
+          <p>
+            {asset.collection.slug
+              .split('-')
+              .map((a) => a.charAt(0).toUpperCase() + a.substr(1))
+              .join(' ')}
+          </p>
         </div>
         <div className='asset-card-image'>
           <img src={asset.image_url} alt={asset.name} />
         </div>
         <div className='asset-card-info'>
-          <p>{asset.token_id}</p>
-          <p>
+          <p>{asset.name ? asset.name : asset.token_id}</p>
+
+          {/* <p>
             {price} <FaEthereum size={20} />
-          </p>
+          </p> */}
         </div>
       </div>
     </Link>

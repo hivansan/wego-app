@@ -6,11 +6,7 @@ import CollectionStats from '../../molecules/CollectionStats';
 const CollectionHeaderRight = ({ collectionInfo }) => {
   return (
     <div className='right-section'>
-      <div className='right-buttons'>
-        <DarkPrimaryButton>View collection</DarkPrimaryButton>
-        <LightPrimaryButton>Explore traits</LightPrimaryButton>
-        <LightPrimaryButton>My Wallet</LightPrimaryButton>
-      </div>
+      <div className='right-buttons'></div>
       {collectionInfo && <CollectionStats collection={collectionInfo} />}
     </div>
   );

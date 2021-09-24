@@ -18,25 +18,25 @@ const CollectionStats = ({ collection }) => {
           <small>{collection.sevenDayAveragePrice} ETH</small>
         </div>
         <div className='stat'>
-          <small>Owners</small>
-          <small>{collection.numOwners}</small>
+          <small>Total Sales</small>
+          <small>{collection.totalSales}</small>
         </div>
       </div>
 
       <div className='collection-stats'>
         <div className='stat'>
           <p>{collection.totalSupply}</p>
-          <small>total</small>
+          <small>Total Items</small>
         </div>
         <div className='stat'>
           <p>
             {collection.floorPrice} <FaEthereum size={20} />
           </p>
-          <small>Price floor</small>
+          <small>Floor price</small>
         </div>
         <div className='stat'>
-          <p>0</p>
-          <small>Volume traded</small>
+          <p>{collection.numOwners}</p>
+          <small>Owners</small>
         </div>
       </div>
     </>

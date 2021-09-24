@@ -3,17 +3,19 @@ import CollectionHeader from './CollectionHeader';
 import CollectionAssets from './CollectionAssets';
 
 import { useParams, useLocation } from 'react-router-dom';
-import usePrevious from '../../atoms/hooks/usePrevious';
 
 import { Api } from '../../services/api';
 
 const CollectionDetails = ({ setFooter }) => {
   const { slug } = useParams();
   const [result, setResult] = useState({});
-  const [resultA, setResultA] = useState([]);
-  const [offset, setOffset] = useState(1);
+  const [resultAssets, setResultAssets] = useState([]);
+  const [assetsFilterQuery, setAssetsQueryFilter] = useState({
+    offset: 0,
+    limit: 20,
+  });
   const [noMoreAssets, setNoMoreAssets] = useState(true);
-  const prevAssets = usePrevious(offset);
+
   const api = new Api();
   const location = useLocation();
 
@@ -29,13 +31,13 @@ const CollectionDetails = ({ setFooter }) => {
 
   const getCollectionAssets = async () => {
     try {
-      const { assets } = await api.assets.findByContract(
-        '0x60E4d786628Fea6478F785A6d7e704777c86a7c6',
-        offset
-      );
-      setResultA([...resultA, ...assets]);
-      setOffset(offset + 1);
-      if (assets.length === 0 || assets.length < 20) {
+      const res = await api.collections.assets(slug, assetsFilterQuery);
+      setResultAssets([...resultAssets, ...res]);
+      setAssetsQueryFilter({
+        offset: assetsFilterQuery.offset + 20,
+        limit: 20,
+      });
+      if (res.length === 0 || res.length < 20) {
         setNoMoreAssets(false);
       }
     } catch (err) {
@@ -53,10 +55,9 @@ const CollectionDetails = ({ setFooter }) => {
     <div className='collection-container'>
       <CollectionHeader collection={result} />
       <CollectionAssets
-        offset={offset}
         collection={result}
         location={location}
-        assets={resultA}
+        assets={resultAssets}
         fetchMoreAssets={getCollectionAssets}
         noMoreAssets={noMoreAssets}
       />

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, createRef } from 'react';
 import { FaWallet, FaUser } from 'react-icons/fa';
 import { useMediaQuery } from 'react-responsive';
 import Accordion from 'react-bootstrap/Accordion';
@@ -6,7 +6,7 @@ import Accordion from 'react-bootstrap/Accordion';
 import HotCollectionsBar from './HotCollectionsBar';
 import SearchInput from './SearchInput';
 
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useHistory } from 'react-router-dom';
 
 import { useDebounce } from '../atoms/hooks/useStateDebounce';
 
@@ -15,6 +15,8 @@ import UnlockModal from '../atoms/unlock/unlockModal';
 import { CONNECTION_CONNECTED, CONNECTION_DISCONNECTED } from '../constants';
 import Store from '../stores/store';
 import { useEffect } from 'react';
+import NftSearchBarModal from './NftSearchBarModal';
+import HeaderDropDownResults from './DropdownResults/headerResults/Index';
 
 const { emitter, store } = Store;
 
@@ -60,17 +62,26 @@ const Header = ({ background }) => {
   const [param, setParam] = useState('');
   const [debounceParam, setDebounceParam] = useDebounce(param, 500);
   const [isInputHeaderShown, setIsInputHeaderShown] = useState(false);
-
+  const [results, setResults] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
-
+  const searchRef = createRef();
+  const history = useHistory();
   const api = new Api();
 
-  const getHotCollections = async () => {
-    const res = await api.collections.hotCollections();
-    setHotCollections(res);
-  };
+  useEffect(() => {
+    if (param !== '') {
+      searchRef.current.focus();
+      setIsOpen(true);
+    }
+  }, [param, results]);
 
   useEffect(() => {
+    const getHotCollections = async () => {
+      const res = await api.collections.hotCollections();
+      setHotCollections(res);
+    };
+
     getHotCollections();
 
     emitter.on(CONNECTION_CONNECTED, () => {
@@ -89,19 +100,47 @@ const Header = ({ background }) => {
   }, []);
 
   useEffect(() => {
+    const getRequest = async () => {
+      setResults(null);
+      try {
+        const res = await api.search(debounceParam);
+        console.log(res);
+        setResults(res);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
     if (debounceParam !== '') {
-      console.log(debounceParam);
+      getRequest();
     }
+    if (param === '') {
+      setResults(null);
+    }
+
+    //cleanup when component unmount
+    return () => {
+      setResults(null);
+    };
   }, [debounceParam]);
 
+  const onPressEnter = () => {
+    if (param === '') {
+      return history.push(`/search`);
+    }
+
+    history.push(`/search?q=${encodeURI(param)}`);
+  };
+
   useEffect(() => {
-    if (
-      location.pathname === '/' ||
-      location.pathname === '/search' ||
-      background.pathname === '/' ||
-      background.pathname === '/search'
-    ) {
+    if (location.pathname === '/' || location.pathname === '/search') {
       return setIsInputHeaderShown(false);
+    }
+
+    if (background) {
+      if (background.pathname === '/' || background.pathname === '/search') {
+        return setIsInputHeaderShown(false);
+      }
     }
 
     setIsInputHeaderShown(true);
@@ -142,7 +181,26 @@ const Header = ({ background }) => {
                 onChange={setParam}
                 query={param}
                 location={location}
+                ref={searchRef}
+                onPressEnter={onPressEnter}
               />
+
+              {param !== '' && (
+                <NftSearchBarModal
+                  className='search-header-dropdown'
+                  isOpen={isOpen}
+                  results={results}
+                  query={param}
+                  location={location}
+                >
+                  {results && (
+                    <HeaderDropDownResults
+                      results={results}
+                      location={location}
+                    />
+                  )}
+                </NftSearchBarModal>
+              )}
             </div>
           </div>
         )}

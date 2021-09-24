@@ -10,10 +10,7 @@ const HotCollectionsBar = ({ hotCollections }) => {
       {hotCollections && (
         <ScrollContainer className='hot-collections'>
           {hotCollections.hotCollections.map((collection, i) => (
-            <a
-              href={`/collection/${collection.address}`}
-              key={collection.address}
-            >
+            <a href={`/collection/${collection.slug}`} key={collection.id}>
               <div className='hot-collection'>
                 <small>#{i + 1}</small>
                 {collection.state === 'up' ? (
