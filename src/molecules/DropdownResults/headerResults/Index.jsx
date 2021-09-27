@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { GoVerified } from 'react-icons/go';
 
 const HeaderResults = ({ results, location }) => {
   const featuredCollections = results.collections.filter(
@@ -33,7 +34,7 @@ const HeaderResults = ({ results, location }) => {
               <li>
                 <img src={collection.image} alt={collection.name} />
                 {collection.name}
-                <span className='badge bg-primary text-white'>Featured</span>
+                <GoVerified size={20} className='mx-2' color='#1f71ba' />
               </li>
             </a>
           ))}

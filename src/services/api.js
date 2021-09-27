@@ -31,8 +31,12 @@ export class Api {
     };
 
     this.collections = {
-      all: () => {
-        return this.request('get', 'collections');
+      all: (filter) => {
+        // console.log(filter);
+        const hasFilter = filter
+          ? `?filter=${encodeURIComponent(JSON.stringify(filter))}`
+          : '';
+        return this.request('get', `/api/Collections${hasFilter}`);
       },
 
       findOne: (slug) => {

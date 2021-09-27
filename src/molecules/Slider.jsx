@@ -35,7 +35,7 @@ export default function SlickSlider({ children, ...props }) {
   return (
     <Slider {...settings} {...props}>
       {children.map((x, i) => (
-        <div className='w-100 d-flex justify-content-center' key={i}>
+        <div className='w-75 d-flex justify-content-center' key={i}>
           {x}
         </div>
       ))}

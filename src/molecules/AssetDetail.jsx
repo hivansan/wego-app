@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Modal from '../atoms/Modal';
 import DarkPrimaryButton from '../atoms/darkPrimaryButton';
 import LightPrimaryButton from '../atoms/lightPrimaryButton';
+import ImageTypeDetect from './ImageTypeDetect';
 import { Api } from '../services/api';
 import { useLocation, useHistory, useParams } from 'react-router-dom';
 
@@ -31,8 +32,7 @@ const AssetDetailModal = ({
   const back = (e) => {
     e.stopPropagation();
     if (!location.key) {
-      history.push('/');
-      return false;
+      return history.push('/');
     }
 
     history.goBack();
@@ -55,9 +55,7 @@ const AssetDetailModal = ({
         <>
           <div className='asset-detail-modal-info-container'>
             <div className='asset-detail-modal-info'>
-              <header className='asset-detail-modal-info-header'>
-                Rarity Rank #22
-              </header>
+              <header className='asset-detail-modal-info-header'></header>
               {asset.animationUrl ? (
                 <video
                   autoPlay
@@ -71,9 +69,25 @@ const AssetDetailModal = ({
                   <source src={asset.animationUrl} type='video/mp4' />
                 </video>
               ) : (
-                <a href={asset.imageBig} target='_blank' rel='noreferrer'>
-                  <img src={asset.imageSmall} alt={name} className='img' />
-                </a>
+                <>
+                  {asset.imageBig ? (
+                    <a href={asset.imageBig} target='_blank' rel='noreferrer'>
+                      <div className='img-wrapper'>
+                        <ImageTypeDetect
+                          className='img'
+                          imageURL={asset.imageBig}
+                          alt={asset.name}
+                        />
+                      </div>
+                    </a>
+                  ) : (
+                    <ImageTypeDetect
+                      className='img'
+                      imageURL={asset.imageSmall}
+                      alt={asset.name}
+                    />
+                  )}
+                </>
               )}
 
               <p>

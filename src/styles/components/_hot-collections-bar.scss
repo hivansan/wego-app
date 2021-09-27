@@ -4,7 +4,7 @@
   display: flex;
   background-color: #fff;
   font-family: $default-font;
-  overflow-y: auto;
+  overflow-x: auto;
   .price {
     border-right: 1px solid $muted;
     padding: 0.3rem 1rem;
@@ -19,10 +19,12 @@
 
   .hot-collections {
     display: flex;
-    overflow-y: auto;
+    overflow-x: auto;
     cursor: pointer;
     min-height: 42px;
     a {
+      display: flex;
+      align-items: center;
       color: $secondary-color;
       .hot-collection {
         display: flex;
@@ -36,11 +38,13 @@
         p {
           margin: 0;
           margin: 0 0.3rem;
+          white-space: nowrap;
         }
 
         img {
-          width: 15px;
-          height: 15px;
+          width: 20px;
+          height: 20px;
+          border-radius: 50%;
         }
       }
 

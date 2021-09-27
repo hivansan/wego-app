@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import DataTable from 'react-data-table-component';
 
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -10,6 +10,7 @@ const CollectionsTable = ({
   setValue,
   debounceValue,
   setDebounceValue,
+  totalRows,
   ...props
 }) => {
   const handleOnChange = (e) => {
@@ -37,12 +38,15 @@ const CollectionsTable = ({
         ) : (
           <DataTable
             columns={columns}
-            data={data.collections}
+            data={data}
             noDataComponent={
               <div className='no-data-table'>
                 <h1>No collections found</h1>
               </div>
             }
+            pagination
+            totalRow={totalRows}
+            onChangePage={() => window.scrollTo(0, 0)}
           />
         )}
       </div>

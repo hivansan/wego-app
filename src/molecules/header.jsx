@@ -78,7 +78,7 @@ const Header = ({ background }) => {
 
   useEffect(() => {
     const getHotCollections = async () => {
-      const res = await api.collections.hotCollections();
+      const res = await api.collections.all({ limit: 10, offset: 80 });
       setHotCollections(res);
     };
 
@@ -153,7 +153,10 @@ const Header = ({ background }) => {
       <nav className={`header ${modalAssetLinkIsOpen}`}>
         {!isInputHeaderShown ? (
           <div className='hot-bar-header'>
-            <HotCollectionsBar hotCollections={hotCollections} />
+            <HotCollectionsBar
+              hotCollections={hotCollections}
+              isInputHeaderShown={isInputHeaderShown}
+            />
           </div>
         ) : (
           <div className='left-menu'>
@@ -239,7 +242,10 @@ const Header = ({ background }) => {
       {!isInputHeaderShown ? (
         ''
       ) : (
-        <HotCollectionsBar hotCollections={hotCollections} />
+        <HotCollectionsBar
+          hotCollections={hotCollections}
+          isInputHeaderShown={isInputHeaderShown}
+        />
       )}
     </div>
   );

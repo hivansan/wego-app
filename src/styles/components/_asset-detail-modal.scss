@@ -29,10 +29,14 @@
       height: 100%;
     }
 
-    .img {
-      width: 100%;
-      height: 100%;
-      cursor: zoom-in;
+    .img-wrapper {
+      min-height: 380px;
+
+      .img {
+        width: 100%;
+        height: 100%;
+        cursor: zoom-in;
+      }
     }
 
     p {
@@ -70,6 +74,8 @@
 
   .asset-detail-modal-stats {
     width: 300px;
+    max-height: 715px;
+    overflow-y: auto;
 
     .rarity-score {
       width: 100%;

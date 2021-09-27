@@ -60,6 +60,14 @@
         box-shadow: rgb(0 0 0 / 16%) 0px 4px 16px;
         background-color: rgb(255, 255, 255);
 
+        .loader-container {
+          width: 100%;
+          height: 100px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
         ul {
           margin: 0;
           padding: 0;

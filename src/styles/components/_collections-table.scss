@@ -12,7 +12,7 @@
       min-height: 0;
 
       .table-header {
-        padding: 1rem;
+        padding: 1.43rem 1rem;
 
         input {
           border: 1px solid #ccced3;
@@ -29,7 +29,7 @@
     }
 
     .table-loader {
-      height: 551px;
+      min-height: 536px;
 
       .MuiLinearProgress-colorPrimary {
         background-color: #6fb1eb;
@@ -40,7 +40,7 @@
     }
 
     .no-data-table {
-      min-height: 551px;
+      min-height: 536px;
       display: flex;
       align-items: center;
       h1 {
@@ -55,11 +55,7 @@
           font-weight: bold;
           color: $secondary-color;
           background-color: #f1f1f1;
-
-          &:first-child {
-            width: 30px;
-            min-width: 30px;
-          }
+          justify-content: center;
         }
 
         .rdt_TableCell {
@@ -77,8 +73,9 @@
         color: $primary-color;
         .table-collection-info {
           display: flex;
+          gap: 0.5rem;
           align-items: center;
-
+          white-space: nowrap;
           img {
             width: 25px;
             height: 25px;
@@ -95,18 +92,21 @@
       .rdt_TableCell {
         font-weight: 500;
         color: $secondary-color;
-        padding-right: 0;
         background-color: #f1f1f1;
+        justify-content: center;
 
         &:nth-child(2) {
           color: $primary-color;
           font-weight: bolder;
-          padding: 0;
+          justify-content: start;
         }
       }
     }
   }
 
+  .rdt_Pagination {
+    background-color: #f1f1f1;
+  }
   .table-footer {
     padding: 0.6rem;
     font-weight: 500;

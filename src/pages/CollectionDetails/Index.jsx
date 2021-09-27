@@ -23,6 +23,7 @@ const CollectionDetails = ({ setFooter }) => {
     setResult({});
     try {
       const collection = await api.collections.findOne(slug);
+      console.log(collection);
       setResult(collection);
     } catch (err) {
       throw err;
@@ -46,11 +47,11 @@ const CollectionDetails = ({ setFooter }) => {
   };
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     getCollection();
     getCollectionAssets();
     setFooter(slug);
   }, []);
-
   return (
     <div className='collection-container'>
       <CollectionHeader collection={result} />

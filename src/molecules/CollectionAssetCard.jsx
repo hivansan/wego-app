@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FaEthereum } from 'react-icons/fa';
+import ImageTypeDetect from './ImageTypeDetect';
 
 const CollectionAssetCard = ({
   price = '429.69',
@@ -27,7 +28,7 @@ const CollectionAssetCard = ({
           </p>
         </div>
         <div className='asset-card-image'>
-          <img src={asset.image_url} alt={asset.name} />
+          <ImageTypeDetect imageURL={asset.image_url} alt={asset.name} />
         </div>
         <div className='asset-card-info'>
           <p>{asset.name ? asset.name : asset.token_id}</p>

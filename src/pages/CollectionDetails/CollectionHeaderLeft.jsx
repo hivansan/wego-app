@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { FaLink, FaTwitter, FaDiscord, FaInstagram } from 'react-icons/fa';
-
+import { GoVerified } from 'react-icons/go';
 import moment from 'moment';
 
 const CollectionHeaderLeft = ({ collectionInfo }) => {
@@ -26,7 +26,16 @@ const CollectionHeaderLeft = ({ collectionInfo }) => {
                   )}
                   <div>
                     {collectionInfo.name ? (
-                      <p>{collectionInfo.name}</p>
+                      <>
+                        <p>{collectionInfo.name} </p>
+                        {collectionInfo.featuredCollection && (
+                          <GoVerified
+                            size={20}
+                            className='mx-2'
+                            color='#1f71ba'
+                          />
+                        )}
+                      </>
                     ) : (
                       <p>
                         {collectionInfo.slug && (
@@ -37,6 +46,13 @@ const CollectionHeaderLeft = ({ collectionInfo }) => {
                                 (a) => a.charAt(0).toUpperCase() + a.substr(1)
                               )
                               .join(' ')}
+                            {collectionInfo.featuredCollection && (
+                              <GoVerified
+                                size={20}
+                                className='mx-2'
+                                color='#1f71ba'
+                              />
+                            )}
                           </>
                         )}
                       </p>
@@ -100,7 +116,7 @@ const CollectionHeaderLeft = ({ collectionInfo }) => {
               <div className='social'>
                 {collectionInfo.instagram && (
                   <a
-                    href={collectionInfo.instagram}
+                    href={`https://www.instagram.com/${collectionInfo.instagram}`}
                     target='_blank'
                     rel='noreferrer'
                   >

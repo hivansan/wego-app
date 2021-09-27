@@ -1,13 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { GoVerified } from 'react-icons/go';
 
 const DropDownCollections = ({ results, location }) => {
-  const FilterA = results.filter((a, i) => i < 4);
-
+  const featuredCollections = results.filter(
+    (collection) => collection.featuredCollection
+  );
+  const noFeatured = results.filter(
+    (collection) => !collection.featuredCollection
+  );
+  const FilterFour = (ar) => ar.filter((a, i) => i < 4);
   return (
     <div className='drop-down-collections'>
       <header>Collections</header>
-      {FilterA.map((collection) => (
+      {FilterFour(featuredCollections).map((collection) => (
         <Link
           to={{
             pathname: `collection/${collection.slug}`,
@@ -18,10 +24,12 @@ const DropDownCollections = ({ results, location }) => {
             <div className='collection-info'>
               <img src={collection.image} alt={collection.name} />
               <div>
-                <p>{collection.name}</p>
+                <div className='d-flex'>
+                  <p>{collection.name}</p>
+                  <GoVerified size={20} className='mx-2' color='#1f71ba' />
+                </div>
                 <div className='trades'>
                   <p>429 trades</p>
-                  <small>{collection.totalItems} items</small>
                 </div>
               </div>
             </div>
