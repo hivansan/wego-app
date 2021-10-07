@@ -25,7 +25,7 @@ const AssetDetailModal = ({
 
   const getAsset = async () => {
     const res = await api.assets.findOne(address, tokenId);
-    console.log(res);
+
     setAsset(res);
   };
 
@@ -47,27 +47,38 @@ const AssetDetailModal = ({
     getAsset();
   }, []);
 
-  console.log(asset);
-
   return (
-    <Modal bodyStyles='asset-detail-modal-body' open={open} onClose={back}>
-      {asset && (
+    <Modal
+      bodyStyles='asset-detail-modal-body'
+      open={open}
+      onClose={back}
+      isLoading={asset}
+    >
+      {asset && !asset.status ? (
         <>
           <div className='asset-detail-modal-info-container'>
             <div className='asset-detail-modal-info'>
-              <header className='asset-detail-modal-info-header'></header>
+              <header className='asset-detail-modal-info-header'>
+                <p>
+                  {asset.name ? (
+                    <>{asset.name}</>
+                  ) : (
+                    <>
+                      {' '}
+                      {asset.slug
+                        .split('-')
+                        .map((a) => a.charAt(0).toUpperCase() + a.substr(1))
+                        .join(' ')}
+                    </>
+                  )}
+                </p>
+              </header>
               {asset.animationUrl ? (
-                <video
-                  autoPlay
-                  muted
-                  controls
-                  controlsList='nodownload'
-                  loop
-                  playsInline
+                <ImageTypeDetect
                   className='animation'
-                >
-                  <source src={asset.animationUrl} type='video/mp4' />
-                </video>
+                  imageURL={asset.animationUrl}
+                  alt={asset.name}
+                />
               ) : (
                 <>
                   {asset.imageBig ? (
@@ -81,23 +92,20 @@ const AssetDetailModal = ({
                       </div>
                     </a>
                   ) : (
-                    <ImageTypeDetect
-                      className='img'
-                      imageURL={asset.imageSmall}
-                      alt={asset.name}
-                    />
+                    <>
+                      {asset.imageSmall && (
+                        <ImageTypeDetect
+                          className='img'
+                          imageURL={asset.imageSmall}
+                          alt={asset.name}
+                        />
+                      )}
+                    </>
                   )}
                 </>
               )}
 
               <p>
-                {asset.name
-                  ? asset.name
-                  : asset.slug
-                      .split('-')
-                      .map((a) => a.charAt(0).toUpperCase() + a.substr(1))
-                      .join(' ')}
-
                 <small>
                   #
                   {asset.tokenId.length > 8 ? (
@@ -114,7 +122,9 @@ const AssetDetailModal = ({
                 </small>
               </p>
 
-              <a href='/#'>
+              <a
+                href={`https://opensea.io/assets/${asset.contractAddress}/${asset.tokenId}`}
+              >
                 <div className='asset-modal-opensea'>
                   <img
                     src='https://storage.googleapis.com/opensea-static/Logomark/Logomark-Blue.png'
@@ -132,7 +142,9 @@ const AssetDetailModal = ({
             <div className='rarity-score'>
               <div className='rarity-score-title'>Rarity Score</div>
               <div className='rarity-score-content'>
-                {asset.rariScore ? asset.rariScore : '0'}
+                {asset.rariScore
+                  ? asset.rariScore.toString().substring(0, 6)
+                  : '0'}
               </div>
             </div>
 
@@ -175,6 +187,8 @@ const AssetDetailModal = ({
             </div>
           </div>
         </>
+      ) : (
+        <h1>asset not found</h1>
       )}
     </Modal>
   );

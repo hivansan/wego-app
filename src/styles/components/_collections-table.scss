@@ -30,7 +30,11 @@
 
     .table-loader {
       min-height: 536px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
 
+      background-color: #f1f1f1;
       .MuiLinearProgress-colorPrimary {
         background-color: #6fb1eb;
         .MuiLinearProgress-barColorPrimary {
@@ -76,7 +80,7 @@
           gap: 0.5rem;
           align-items: center;
           white-space: nowrap;
-          img {
+          .table-collection-img {
             width: 25px;
             height: 25px;
             border-radius: 50%;
@@ -110,6 +114,23 @@
   .table-footer {
     padding: 0.6rem;
     font-weight: 500;
+
+    .table-pagination {
+      color: $secondary-color;
+      padding: 1rem 0;
+      .table-num-rows {
+        select {
+          margin-left: 10px;
+          border: none;
+          background-color: transparent;
+          color: #1962a1;
+          &:focus-within {
+            outline: none;
+          }
+        }
+      }
+    }
+
     p {
       margin: 0;
       font-size: 0.8rem;

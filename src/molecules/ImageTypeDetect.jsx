@@ -1,26 +1,35 @@
 import React from 'react';
 
 const ImageTypeDetect = ({ className, imageURL, alt }) => {
-  const urlSplit = imageURL.split('.');
+  const urlSplit = imageURL && imageURL.split('.');
   const hasClass = className ? className : '';
+
+  if (!imageURL) {
+    return (
+      <img
+        src='https://i.stack.imgur.com/y9DpT.jpg'
+        alt=''
+        className={className}
+      />
+    );
+  }
 
   if (urlSplit[urlSplit.length - 1] === 'mp4') {
     return (
       <video
         autoPlay
         muted
-        controls
         controlsList='nodownload'
         loop
         playsInline
-        className='animation'
+        className={className}
       >
         <source src={imageURL} type='video/mp4' />
       </video>
     );
   }
 
-  return <img src={imageURL} alt={alt} className={hasClass} />;
+  return <img src={imageURL} alt={alt} className={hasClass} loading='lazy' />;
 };
 
 export default ImageTypeDetect;

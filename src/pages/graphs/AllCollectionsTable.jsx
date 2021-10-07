@@ -6,67 +6,82 @@ import { useDebounce } from '../../atoms/hooks/useStateDebounce';
 import { Link } from 'react-router-dom';
 
 import CollectionsTable from '../../molecules/CollectionsTable';
+import { BiSortDown, BiSortUp } from 'react-icons/bi';
+import ImageTypeDetect from '../../molecules/ImageTypeDetect';
 
 const AllCollectionsTable = () => {
-  const [collections, setCollections] = useState(null);
+  const [collections, setCollections] = useState([]);
   const [value, setValue] = useState('');
   const [debounceValue, setDebounceValue] = useDebounce(value, 500);
+  const [totalRows, setTotalRows] = useState(0);
+  const [perPage, setPerPage] = useState(10);
+  const [page, setPage] = useState(0);
+  const [sortDirection, setSortDirection] = useState('');
+  const [sort, setSort] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState(null);
 
   const api = new Api();
 
-  const searchCollectionsByParam = async () => {
-    setCollections(null);
-    const res = await api.collections.all({
-      where: { name: { like: `%${debounceValue}%` } },
-      limit: 50,
-    });
-    setCollections(res);
-  };
+  const getCollections = async (page, q, sort, sortDirection) => {
+    setSort(sort);
+    console.log(sortDirection);
+    const hasParam = q === '' ? null : q;
+    const hasSort = sort === '' ? null : sort;
+    const hasdSortDirection = sortDirection === '' ? null : sortDirection;
+    setLoading(true);
+    const res = await api.collections.all(
+      perPage,
+      page,
+      hasParam,
+      hasSort,
+      hasdSortDirection
+    );
 
-  const getCollections = async () => {
-    const res = await api.collections.all({
-      limit: 500,
-      offset: 0,
-    });
-    setCollections(res);
+    setCollections(res.results);
+    setLoading(false);
   };
 
   useEffect(() => {
-    if (debounceValue !== '') {
-      return searchCollectionsByParam();
-    }
-
-    if (value === '') {
-      getCollections();
-    }
-
-    return () => {
-      setCollections(null);
-    };
+    getCollections(page, debounceValue, sort, sortDirection);
   }, [debounceValue]);
+
+  // useEffect(() => {
+  //   console.log(page);
+  // }, [page]);
+
+  useEffect(() => {
+    getCollections(page, debounceValue, sort, sortDirection);
+    window.scrollTo(0, 0);
+  }, [perPage]);
+
+  useEffect(() => {
+    getCollections(page, debounceValue, sort, sortDirection);
+  }, [sort, sortDirection]);
 
   const columns = [
     {
       name: '#',
-      selector: (row) => row.slug,
-      cell: (row, idx) => idx + 1,
+      selector: ({ value: row }) => row.slug,
+      right: true,
+      cell: ({ value: row }, idx) => {
+        const i = idx + 1;
+        return <>{i}</>;
+      },
     },
     {
       name: 'Collection',
-      selector: (row) => row.name,
-      cell: (row) => {
+      selector: ({ value: row }) => row.name,
+      cell: ({ value: row }) => {
         return (
           <Link to={`collection/${row.slug}`}>
             <div className='table-collection-info'>
-              {row.imgMain ? (
-                <img src={row.imgMain} alt={row.name} className='' />
-              ) : (
-                <img
-                  src='https://storage.googleapis.com/opensea-static/opensea-profile/2.png'
-                  alt={'default pic'}
-                  className=''
-                />
-              )}
+              <ImageTypeDetect
+                imageURL={row.imgMain}
+                alt={row.name}
+                className='table-collection-img'
+              />
+
               {row.name ? (
                 <>
                   {row.name.length > 15 ? (
@@ -105,10 +120,24 @@ const AllCollectionsTable = () => {
       },
     },
     {
-      name: 'Volume(7d)',
-      selector: (row) => row.sevenDayVolume,
+      name:
+        sort === 'sevenDayVolume' ? (
+          <strong className='text-primary'>
+            Volume(7d){' '}
+            {sortDirection === 'desc' ? (
+              <BiSortDown size={15} />
+            ) : (
+              <BiSortUp size={15} />
+            )}
+          </strong>
+        ) : (
+          <small>Volume(7d)</small>
+        ),
+      sortField: 'sevenDayVolume',
+      selector: ({ value: row }) => row.sevenDayVolume,
       sortable: true,
-      cell: (row) => {
+
+      cell: ({ value: row }) => {
         return (
           <>
             {row.sevenDayVolume.length > 10 ? (
@@ -121,15 +150,41 @@ const AllCollectionsTable = () => {
       },
     },
     {
-      name: 'Sales(7d)',
-      selector: (row) => row.sevenDaySales,
+      name:
+        sort === 'sevenDaySales' ? (
+          <strong className='text-primary'>
+            Sales(7d){' '}
+            {sortDirection === 'desc' ? (
+              <BiSortDown size={15} />
+            ) : (
+              <BiSortUp size={15} />
+            )}
+          </strong>
+        ) : (
+          <small>Sales(7d)</small>
+        ),
+      sortField: 'sevenDaySales',
+      selector: ({ value: row }) => row.sevenDaySales,
       sortable: true,
     },
     {
-      name: 'Avg Price(7d)',
-      selector: (row) => row.sevenDayAveragePrice,
+      name:
+        sort === 'sevenDayAveragePrice' ? (
+          <strong className='text-primary'>
+            Avg Price(7d){' '}
+            {sortDirection === 'desc' ? (
+              <BiSortDown size={15} />
+            ) : (
+              <BiSortUp size={15} />
+            )}
+          </strong>
+        ) : (
+          <small>Avg Price(7d)</small>
+        ),
+      sortField: 'sevenDayAveragePrice',
+      selector: ({ value: row }) => row.sevenDayAveragePrice,
       sortable: true,
-      cell: (row) => {
+      cell: ({ value: row }) => {
         return (
           <>
             {row.sevenDayAveragePrice.length > 10 ? (
@@ -142,20 +197,59 @@ const AllCollectionsTable = () => {
       },
     },
     {
-      name: 'Total Supply',
-      selector: (row) => row.totalSupply,
+      name:
+        sort === 'totalSupply' ? (
+          <strong className='text-primary'>
+            Total Supply{' '}
+            {sortDirection === 'desc' ? (
+              <BiSortDown size={15} />
+            ) : (
+              <BiSortUp size={15} />
+            )}
+          </strong>
+        ) : (
+          <small>Total Supply</small>
+        ),
+      sortField: 'totalSupply',
+      selector: ({ value: row }) => row.totalSupply,
       sortable: true,
     },
     {
-      name: 'Owners',
-      selector: (row) => row.numOwners,
+      name:
+        sort === 'numOwners' ? (
+          <strong className='text-primary'>
+            Owners{' '}
+            {sortDirection === 'desc' ? (
+              <BiSortDown size={15} />
+            ) : (
+              <BiSortUp size={15} />
+            )}
+          </strong>
+        ) : (
+          <small>Owners</small>
+        ),
+      sortField: 'numOwners',
+      selector: ({ value: row }) => row.numOwners,
       sortable: true,
     },
     {
-      name: 'Estimated MarketCap',
-      selector: (row) => row.marketCap,
+      name:
+        sort === 'marketCap' ? (
+          <strong className='text-primary'>
+            Estimated MarketCap{' '}
+            {sortDirection === 'desc' ? (
+              <BiSortDown size={15} />
+            ) : (
+              <BiSortUp size={15} />
+            )}
+          </strong>
+        ) : (
+          <small>Estimated MarketCap</small>
+        ),
+      sortField: 'marketCap',
+      selector: ({ value: row }) => row.marketCap,
       sortable: true,
-      cell: (row) => {
+      cell: ({ value: row }) => {
         return (
           <>
             {row.marketCap.length > 10 ? (
@@ -168,10 +262,23 @@ const AllCollectionsTable = () => {
       },
     },
     {
-      name: 'Volume(All time)',
-      selector: (row) => row.totalVolume,
+      name:
+        sort === 'totalVolume' ? (
+          <strong className='text-primary'>
+            Volume(All time){' '}
+            {sortDirection === 'desc' ? (
+              <BiSortDown size={15} />
+            ) : (
+              <BiSortUp size={15} />
+            )}
+          </strong>
+        ) : (
+          <small>Volume(All time)</small>
+        ),
+      sortField: 'totalVolume',
+      selector: ({ value: row }) => row.totalVolume,
       sortable: true,
-      cell: (row) => {
+      cell: ({ value: row }) => {
         return (
           <>
             {row.totalVolume.length > 10 ? (
@@ -184,10 +291,23 @@ const AllCollectionsTable = () => {
       },
     },
     {
-      name: 'Sales(All time)',
-      selector: (row) => row.totalSales,
+      name:
+        sort === 'totalSales' ? (
+          <strong className='text-primary'>
+            Sales(All time){' '}
+            {sortDirection === 'desc' ? (
+              <BiSortDown size={15} />
+            ) : (
+              <BiSortUp size={15} />
+            )}
+          </strong>
+        ) : (
+          <small>Sales(All time)</small>
+        ),
+      sortField: 'totalSales',
+      selector: ({ value: row }) => row.totalSales,
       sortable: true,
-      cell: (row) => {
+      cell: ({ value: row }) => {
         return (
           <>
             {row.totalSales.length > 5 ? (
@@ -204,12 +324,20 @@ const AllCollectionsTable = () => {
   return (
     <section className='all-collections-table-section'>
       <CollectionsTable
+        loading={loading}
+        getCollections={getCollections}
+        setPerPage={setPerPage}
         data={collections}
         columns={columns}
         value={value}
         setValue={setValue}
         debounceValue={debounceValue}
         setDebounceValue={setDebounceValue}
+        perPage={perPage}
+        setPage={setPage}
+        page={page}
+        setSort={setSort}
+        setSortDirection={setSortDirection}
       />
     </section>
   );

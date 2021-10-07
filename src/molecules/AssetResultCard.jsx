@@ -1,10 +1,37 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
+import ImageTypeDetect from './ImageTypeDetect';
 import { FaEthereum } from 'react-icons/fa';
+import { Api } from '../services/api';
 
 import { Link } from 'react-router-dom';
+import moment from 'moment';
 
-const AssetResultCard = ({ asset, location }) => {
+const AssetResultCard = ({ result, location }) => {
+  const { value: asset } = result;
+
+  const [assetScore, setAssetScore] = useState(null);
+
+  const api = new Api();
+
+  useEffect(() => {
+    const getAssetScore = async () => {
+      const address = asset.contractAddress
+        ? asset.contractAddress
+        : asset.asset_contract.address;
+
+      const tokenId = asset.tokenId ? asset.tokenId : asset.token_id;
+      const res = await api.assets.score(address, tokenId);
+      console.log(res);
+      setAssetScore(res);
+    };
+    getAssetScore();
+
+    return () => {
+      setAssetScore(null);
+    };
+  }, []);
+
   return (
     <div className='asset-result-card'>
       <header>Asset</header>
@@ -12,52 +39,78 @@ const AssetResultCard = ({ asset, location }) => {
         <div className='asset-info'>
           <div className='asset-result-card-info-container'>
             <div className='asset-result-card-info'>
-              <img src={asset.image} alt={asset.name} />
+              {asset.image_preview_url ? (
+                <ImageTypeDetect
+                  imageURL={asset.image_preview_url}
+                  alt={asset.name}
+                  className='asset-result-img'
+                />
+              ) : (
+                <img
+                  src='https://i.stack.imgur.com/y9DpT.jpg'
+                  alt=''
+                  className='asset-result-img'
+                />
+              )}
               <div className='info'>
                 <Link
                   to={{
-                    pathname: `assets/${asset.address}/${asset.tokenId}`,
+                    pathname: `assets/${
+                      asset.contractAddress
+                        ? asset.contractAddress
+                        : asset.asset_contract.address
+                    }/${asset.tokenId ? asset.tokenId : asset.token_id}`,
                     state: { background: location },
                   }}
                 >
                   <p>{asset.name}</p>
                 </Link>
-                <small>428 traded</small>
               </div>
             </div>
-            <div className='asset-card-info-stats'>
-              <p>
-                Release date: <strong>{asset.dateAdded}</strong>
-              </p>
-              <p>
-                Owners: <strong>{asset.owners}</strong>
-              </p>
-              <p>
-                Price history: <strong>stat</strong>
-              </p>
-            </div>
-          </div>
-          <div className='asset-result-card-stats'>
-            <p>
-              Total items: <strong>{asset.totalItems}</strong>
-            </p>
-            <p>
-              ETH Total Volume:{' '}
-              <strong>
-                {asset.totalItems} <FaEthereum size={15} />
-              </strong>
-            </p>
-            <p>
-              {' '}
-              7 day volume:{' '}
-              <strong>
-                {asset.totalItems}
-                <FaEthereum size={15} />
-              </strong>
-            </p>
-            <p>
-              Market overview: <strong>stat</strong>
-            </p>
+            {assetScore && (
+              <div className='asset-card-info-stats'>
+                <p>
+                  Rarity Score:{' '}
+                  <strong>
+                    {assetScore.rarityScore
+                      ? assetScore.rarityScore.toString().substring(0, 8)
+                      : '0'}
+                  </strong>
+                </p>
+                <p>
+                  Average Trait Rarity:{' '}
+                  <strong>
+                    {assetScore.avgTraitRarity
+                      ? assetScore.avgTraitRarity.toString().substring(0, 8) +
+                        '%'
+                      : '0'}
+                  </strong>
+                </p>
+                <p>
+                  Statistical Rarity:{' '}
+                  <strong>
+                    {assetScore.statisticalRarity
+                      ? assetScore.statisticalRarity
+                          .toString()
+                          .substring(0, 10) + '%'
+                      : '0'}
+                  </strong>
+                </p>
+                <p>
+                  Single Trait Rarity:{' '}
+                  <strong>
+                    {assetScore.singleTraitRarity
+                      ? assetScore.singleTraitRarity
+                          .toString()
+                          .substring(0, 8) + '%'
+                      : '0'}
+                  </strong>
+                </p>
+                <p>
+                  Total traits: <strong>{assetScore.traits.length}</strong>
+                </p>
+              </div>
+            )}
           </div>
         </div>
         <div className='asset-result-card-s'>
@@ -66,17 +119,29 @@ const AssetResultCard = ({ asset, location }) => {
               <p>Preview</p>
               <Link
                 to={{
-                  pathname: `assets/${asset.address}/${asset.tokenId}`,
+                  pathname: `assets/${
+                    asset.contractAddress
+                      ? asset.contractAddress
+                      : asset.asset_contract.address
+                  }/${asset.tokenId ? asset.tokenId : asset.token_id}`,
                   state: { background: location },
                 }}
               >
-                <img src={asset.image} alt={asset.name} />
+                {asset.image_preview_url ? (
+                  <ImageTypeDetect
+                    imageURL={asset.image_preview_url}
+                    alt={asset.name}
+                    className='asset-preview-img'
+                  />
+                ) : (
+                  <img
+                    src='https://i.stack.imgur.com/y9DpT.jpg'
+                    alt=''
+                    className='asset-preview-img'
+                  />
+                )}
               </Link>
             </div>
-          </div>
-          <div className='wego-score'>
-            <p>WEGO Score</p>
-            <small>89</small>
           </div>
         </div>
       </div>

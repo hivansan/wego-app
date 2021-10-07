@@ -1,0 +1,14 @@
+@import '../variables.scss';
+
+.checkbox-label {
+  font-family: $default-font;
+  display: flex;
+  align-items: center;
+  margin: 0.5rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.checkbox {
+  margin-right: 5px;
+}

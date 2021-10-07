@@ -3,13 +3,31 @@ import React, { useState } from 'react';
 import { FiFilter } from 'react-icons/fi';
 import { BiArrowToRight, BiArrowToLeft } from 'react-icons/bi';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
+import Checkbox from '../../atoms/Checkbox';
 import Filter from './Filter';
+import SearchFilters from './SearchFilters';
 
-const CollectionAssetsFilters = ({ isCollapse, setCollapse }) => {
+const CollectionAssetsFilters = ({
+  isCollapse,
+  setCollapse,
+  collectionTraits,
+  setCollectionTraits,
+  setFilters,
+  filters,
+  filtersMobileOpen,
+}) => {
   const setIsCollapse = () => setCollapse(!isCollapse);
+  const newArr = [];
+  const myObj = {};
 
-  const [statusCollapse, setStatusCollapse] = useState(true);
-  const [priceCollapse, setPriceCollapse] = useState(true);
+  if (collectionTraits) {
+    collectionTraits.forEach((el) => {
+      if (!(el.traitType in myObj)) {
+        myObj[el.traitType] = true;
+        newArr.push(el.traitType);
+      }
+    });
+  }
 
   if (isCollapse) {
     return (
@@ -23,23 +41,27 @@ const CollectionAssetsFilters = ({ isCollapse, setCollapse }) => {
 
   return (
     <div className='collection-assets-filters'>
-      <header onClick={setIsCollapse}>
-        <div className='header-collapsed-off'>
-          <div className='header-action-collapse'>Filter</div>
-        </div>
-        <BiArrowToLeft size={20} />
-      </header>
-
-      <Filter
-        title='Status'
-        isCollapsed={statusCollapse}
-        setIsCollapsed={setStatusCollapse}
-      ></Filter>
-      <Filter
-        title='Price'
-        isCollapsed={priceCollapse}
-        setIsCollapsed={setPriceCollapse}
-      ></Filter>
+      <div>
+        <header onClick={setIsCollapse}>
+          <div className='header-collapsed-off'>
+            <div className='header-action-collapse'>Filter</div>
+          </div>
+          <BiArrowToLeft size={20} />
+        </header>
+        <Filter title='Status' isCollapse={isCollapse}></Filter>
+        <Filter title='Price' isCollapse={isCollapse}></Filter>
+        {collectionTraits &&
+          newArr.map((traitType) => (
+            <Filter title={traitType} key={traitType} isCollapse={isCollapse}>
+              <SearchFilters
+                collectionTraits={collectionTraits}
+                traitType={traitType}
+                setFilters={setFilters}
+                filters={filters}
+              />
+            </Filter>
+          ))}
+      </div>
     </div>
   );
 };

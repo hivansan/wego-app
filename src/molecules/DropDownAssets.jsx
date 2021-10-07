@@ -1,44 +1,32 @@
 import React from 'react';
 
+import moment from 'moment';
 import { Link } from 'react-router-dom';
+import ImageTypeDetect from '../molecules/ImageTypeDetect';
+import DropDownAssetItem from './DropdownResults/homeResults/AssetsResults/DropDownAssetItem';
 
 const DropDownAssets = ({ results, location }) => {
-  const FilterA = results.filter((a, i) => i < 4);
+  const assetsFiltered = results.results
+    .filter((item) => item.meta.index === 'assets')
+    .filter((a, i) => i < 4);
+
+  console.log(assetsFiltered);
 
   return (
-    <div className='drop-down-assets'>
-      <header>Assets</header>
-      {FilterA.map((asset) => (
-        <Link
-          to={{
-            pathname: `assets/${asset.address}/${asset.tokenId}`,
-            state: { background: location },
-          }}
-          key={asset.id}
-        >
-          <div className='asset'>
-            <div className='asset-info-container'>
-              <img src={asset.image} alt={asset.name} />
-              <div className='asset-info'>
-                <p>{asset.name}</p>
-                <small>0.3 ETH</small>
-              </div>
-            </div>
-            <div className='asset-stats'>
-              <div className='stat'>
-                <small>
-                  Release date: <strong>{asset.dateAdded}</strong>
-                </small>
-                <small>
-                  Owners: <strong>{asset.owners}</strong>
-                </small>
-              </div>
-            </div>
-          </div>
-        </Link>
-      ))}
-      <a href='/#'>450 see more...</a>
-    </div>
+    <>
+      {assetsFiltered.length > 0 && (
+        <div className='drop-down-assets'>
+          <header>Assets</header>
+          {assetsFiltered.map(({ value: asset }, i) => (
+            <DropDownAssetItem
+              asset={asset}
+              location={location}
+              key={asset.id + i}
+            />
+          ))}
+        </div>
+      )}
+    </>
   );
 };
 

@@ -71,14 +71,13 @@ const Header = ({ background }) => {
 
   useEffect(() => {
     if (param !== '') {
-      searchRef.current.focus();
       setIsOpen(true);
     }
   }, [param, results]);
 
   useEffect(() => {
     const getHotCollections = async () => {
-      const res = await api.collections.all({ limit: 10, offset: 80 });
+      const res = await api.collections.all();
       setHotCollections(res);
     };
 
@@ -104,7 +103,6 @@ const Header = ({ background }) => {
       setResults(null);
       try {
         const res = await api.search(debounceParam);
-        console.log(res);
         setResults(res);
       } catch (err) {
         console.log(err);
@@ -130,6 +128,7 @@ const Header = ({ background }) => {
     }
 
     history.push(`/search?q=${encodeURI(param)}`);
+    setParam('');
   };
 
   useEffect(() => {

@@ -59,6 +59,7 @@
         overflow-y: auto;
         box-shadow: rgb(0 0 0 / 16%) 0px 4px 16px;
         background-color: rgb(255, 255, 255);
+        z-index: 9999;
 
         .loader-container {
           width: 100%;
@@ -80,11 +81,12 @@
           a {
             color: #000;
             li {
-              img {
+              .result-img {
                 width: 30px;
                 height: 30px;
                 border-radius: 50%;
                 margin-right: 10px;
+                object-fit: cover;
               }
               display: flex;
               align-items: center;

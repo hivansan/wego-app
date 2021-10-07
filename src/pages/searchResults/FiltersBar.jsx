@@ -10,25 +10,20 @@ const FiltersBar = () => {
       <ScrollContainer className='search-filters'>
         <ul>
           <li className='active'>All</li>
-          <li>Images</li>
           <li>Collections</li>
           <li>Assets</li>
-          <li>Market overview</li>
-          <li>Price change</li>
-          <li>Owners</li>
-          <li>Release date</li>
-          <li>
+          {/* <li>
             <div
               className='toggle-tools'
               onClick={() => setIsToolsBarOpen(!isToolsBarOpen)}
             >
               <p>Tools</p>
             </div>
-          </li>
+          </li> */}
         </ul>
       </ScrollContainer>
 
-      <ToolsBar isToolsBarOpen={isToolsBarOpen} />
+      {/* <ToolsBar isToolsBarOpen={isToolsBarOpen} /> */}
     </>
   );
 };

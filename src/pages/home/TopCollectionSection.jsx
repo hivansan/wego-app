@@ -12,8 +12,8 @@ const TopCollectionSection = ({ location }) => {
 
   useEffect(() => {
     const getTopCollections = async () => {
-      const res = await api.collections.all({ limit: 10 });
-      setTopCollections(res);
+      const { results } = await api.collections.all();
+      setTopCollections(results);
     };
     getTopCollections();
   }, []);

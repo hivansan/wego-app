@@ -15,36 +15,40 @@ export class Api {
       },
     });
 
+    //todo : asset instead assets
     this.assets = {
-      findByAddress: (address) => {
-        return this.request('get', `assets/${address}`);
-      },
-
       findOne: (address, tokenId) => {
-        return this.request('get', `api/Assets/${address}/${tokenId}`);
+        return this.request('get', `api/asset/${address}/${tokenId}`);
       },
-
-      findByContract: (address, offset) => {
-        const url = `https://api.opensea.io/api/v1/assets?asset_contract_address=${address}&order_direction=desc&offset=${offset}&limit=20`;
-        return this.request('get', url);
+      score: (address, tokenId) => {
+        return this.request('get', `api/asset/${address}/${tokenId}/score`);
       },
     };
 
     this.collections = {
-      all: (filter) => {
-        // console.log(filter);
-        const hasFilter = filter
-          ? `?filter=${encodeURIComponent(JSON.stringify(filter))}`
+      all: (limit, offset, q, sort, sortDirection) => {
+        const hasLimit = limit ? `?limit=${limit}` : '?limit=10';
+        const hasOffset = offset ? `&page=${offset}` : '&page=0';
+        const hasSearchQuery = q ? `&q=${q}` : '';
+        const hasSort = sort ? `&sort=${sort}` : '';
+        const hasSortDirection = sortDirection
+          ? `&sortOrder=${sortDirection}`
           : '';
-        return this.request('get', `/api/Collections${hasFilter}`);
+        console.log(
+          `api/Collections${hasLimit}${hasOffset}${hasSearchQuery}${hasSort}${hasSortDirection}`
+        );
+        return this.request(
+          'get',
+          `api/Collections${hasLimit}${hasOffset}${hasSearchQuery}${hasSort}${hasSortDirection}`
+        );
+      },
+
+      traits: (slug) => {
+        return this.request('get', `api/collections/${slug}/traits`);
       },
 
       findOne: (slug) => {
-        return this.request('get', `/api/Collections/get?q=${slug}`);
-      },
-
-      hotCollections: () => {
-        return this.request('get', 'hotCollections');
+        return this.request('get', `api/collections/${slug}`);
       },
 
       searchCollections: (param) => {
@@ -56,13 +60,24 @@ export class Api {
         return this.request('get', `collections/${address}`);
       },
 
-      assets: (slug, filter) => {
-        const encodeFilter = encodeURIComponent(JSON.stringify(filter));
-        return this.request(
-          'get',
-          `/api/Collections/${slug}/assets?filter=${encodeFilter}`
-        );
+      assets: (slug, limit, offset, sortBy, sortDirection, traits) => {
+        const hasSorts =
+          sortBy === 'none' || !sortBy ? '' : `&sortBy=${sortBy}`;
+        const hasTraits = !traits ? '' : `&traits=${JSON.stringify(traits)}`;
+        const hasSortDirection = !sortDirection
+          ? ''
+          : `&sortDirection=${sortDirection}`;
+        const collectionAssetsUrl = `api/assets?slug=${slug}&limit=${limit}&offset=${offset}${hasSortDirection}${hasSorts}${hasTraits}`;
+        return this.request('get', collectionAssetsUrl);
       },
+    };
+
+    this.search = (param) => {
+      const hasParams =
+        param === ''
+          ? `api/search`
+          : `api/search?q=${encodeURI(param)}&limit=20`;
+      return this.request('get', hasParams);
     };
   }
 
@@ -75,25 +90,15 @@ export class Api {
     }
   }
 
-  async search(param) {
-    const query = `search?q=${encodeURI(param)}`;
-    const searchUrl = baseURL + query;
+  // async search(param) {
+  //   const query = `search?q=${encodeURI(param)}`;
+  //   const searchUrl = baseURL + query;
 
-    try {
-      let res = await axios.get(searchUrl);
-      return res.data;
-    } catch (error) {
-      throw error;
-    }
-  }
-
-  async trending() {
-    const trendingUrl = baseURL + 'trending';
-    try {
-      let res = await axios.get(trendingUrl);
-      return res.data;
-    } catch (error) {
-      throw error;
-    }
-  }
+  //   try {
+  //     let res = await axios.get(searchUrl);
+  //     return res.data;
+  //   } catch (error) {
+  //     throw error;
+  //   }
+  // }
 }

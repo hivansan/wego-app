@@ -1,10 +1,8 @@
 @import '../variables.scss';
 
 .drop-down-collections {
-  width: 350px;
-  margin: 0 3rem;
+  width: 100%;
   overflow: auto;
-
   header {
     color: $primary-color;
     font-weight: 600;
@@ -16,52 +14,78 @@
     border-bottom: 1px solid #c0bfbf;
     padding-bottom: 0.5rem;
     margin-bottom: 1rem;
-    min-height: 106px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    min-height: 136px;
 
     &:hover {
       border-bottom: 1px solid $primary-color;
     }
-    .collection-info {
-      display: flex;
-      width: 100%;
-      gap: 0.5rem;
-      p {
-        color: $secondary-color;
-        margin: 0;
-        font-weight: 500;
-      }
-      img {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
+
+    .collection-left {
+      .collection-info {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        gap: 0.5rem;
+        p {
+          color: $secondary-color;
+          margin: 0;
+          font-weight: 500;
+        }
+        .collection-img {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+        }
+
+        .trades {
+          display: flex;
+          gap: 0.6rem;
+          line-height: 17px;
+          p {
+            color: $primary-color;
+          }
+          small {
+            color: $primary-color;
+            margin-left: 4rem;
+            &:last-child {
+            }
+          }
+        }
       }
 
-      .trades {
+      .collection-stats {
         display: flex;
-        gap: 0.6rem;
-        line-height: 17px;
-        p {
-          color: $primary-color;
-        }
+        width: 300px;
+        flex-wrap: wrap;
+        border: none;
+        margin-top: 8px;
         small {
-          color: $primary-color;
-          margin-left: 4rem;
-          &:last-child {
+          margin: 0.3rem;
+          strong {
+            font-weight: 400;
+            color: $primary-color;
+            font-size: 14px;
           }
         }
       }
     }
 
-    .collection-stats {
+    .assets-preview {
+      margin: 0 auto;
       display: flex;
       flex-direction: column;
-      border: none;
-      margin-top: 8px;
-      small {
-        strong {
-          font-weight: 400;
-          color: $primary-color;
-          font-size: 14px;
+      align-items: center;
+      .assets {
+        display: flex;
+        justify-content: center;
+        gap: 0.3rem;
+
+        img {
+          width: 55px;
+          height: auto;
         }
       }
     }
@@ -76,9 +100,34 @@
   }
 }
 
+@media screen and (max-width: 1288px) {
+  .drop-down-collections {
+    width: 100%;
+    margin-bottom: 0.8rem;
+
+    .collection {
+      .assets-preview {
+        .assets {
+          img {
+            width: 70px;
+          }
+        }
+      }
+    }
+  }
+}
+
 @media screen and (max-width: 576px) {
   .drop-down-collections {
-    width: auto;
+    width: 100%;
     margin-bottom: 0.8rem;
+
+    .collection {
+      .collection-left {
+        .collection-stats {
+          width: 100%;
+        }
+      }
+    }
   }
 }

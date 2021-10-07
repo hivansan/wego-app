@@ -32,18 +32,11 @@ const SearchScreen = () => {
 
   const getRequest = async (p) => {
     try {
-      setResults(null);
       const res = await api.search(p);
       setResults(res);
     } catch (err) {
       throw err;
     }
-  };
-
-  const getTrendingItems = async () => {
-    setResults(null);
-    const res = await api.trending();
-    setResults(res);
   };
 
   const onPressEnter = () => {
@@ -68,7 +61,7 @@ const SearchScreen = () => {
           const hasQuery = location.search === '' ? '' : q.get('q');
           setParam(hasQuery);
           if (hasQuery === '') {
-            return getTrendingItems();
+            return getRequest('');
           }
           getRequest(hasQuery);
         } else {
@@ -84,12 +77,8 @@ const SearchScreen = () => {
   }, [locationKeys]);
 
   useEffect(() => {
-    if (url === '') {
-      //Trending collections or assets and images fetch
-      return getTrendingItems();
-    }
     getRequest(url);
-
+    window.scrollTo(0, 0);
     return () => {
       setResults(null);
     };
@@ -112,9 +101,7 @@ const SearchScreen = () => {
           onPressEnter={onPressEnter}
           ref={searchRef}
         />
-        {results && results.totalResults && (
-          <small>about {results.totalResults} Results</small>
-        )}
+        {results && <small>about {results.meta.total} Results</small>}
       </header>
 
       <FiltersBar />
@@ -126,58 +113,42 @@ const SearchScreen = () => {
           </div>
         ) : (
           <div className='results'>
-            {results.collections.length === 0 && results.assets.length === 0 ? (
-              <div className='no-items-found-container'>
-                <div className='no-items-found'>
-                  <h3>No items found for this search</h3>
-                  <DarkPrimaryButton
-                    onClick={() => {
-                      history.push('/search');
-                      getTrendingItems();
-                      setParam('');
-                    }}
-                  >
-                    Back to all Items
-                  </DarkPrimaryButton>
-                </div>
-              </div>
-            ) : (
-              <>
-                <div className='match-found mobile-match'>
-                  {results.exactMatch && (
-                    <ExactMatchCard
-                      result={results.exactMatch}
-                      className='match'
-                    />
-                  )}
-                </div>
+            <div className='match-found mobile-match'>
+              <ExactMatchCard
+                results={results}
+                className='match'
+                location={location}
+              />
+            </div>
 
-                <div className='all-results'>
-                  {results.collections.map((collection) => (
+            <div className='all-results'>
+              {results.results.map((result, i) => {
+                if (result.meta.index === 'collections') {
+                  return (
                     <CollectionResultCard
-                      collection={collection}
-                      key={collection.id}
+                      result={result}
+                      key={result.value.id}
                       location={location}
                     />
-                  ))}
-                  {results.assets.map((asset) => (
+                  );
+                } else {
+                  return (
                     <AssetResultCard
-                      asset={asset}
-                      key={asset.id}
+                      result={result}
+                      key={result.value.id + i}
                       location={location}
                     />
-                  ))}
-                </div>
-                <div className='match-found desktop-match'>
-                  {results.exactMatch && (
-                    <ExactMatchCard
-                      result={results.exactMatch}
-                      className='match'
-                    />
-                  )}
-                </div>
-              </>
-            )}
+                  );
+                }
+              })}
+            </div>
+            <div className='match-found desktop-match'>
+              <ExactMatchCard
+                results={results}
+                className='match'
+                location={location}
+              />
+            </div>
           </div>
         )}
       </div>

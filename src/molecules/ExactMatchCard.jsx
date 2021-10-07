@@ -2,61 +2,129 @@ import React from 'react';
 
 import { FaEthereum } from 'react-icons/fa';
 import { AiFillLike, AiFillDislike } from 'react-icons/ai';
+import { Link } from 'react-router-dom';
+import moment from 'moment';
+import ImageTypeDetect from './ImageTypeDetect';
 
-const ExactMatchCard = ({ result, className, ...props }) => {
+const ExactMatchCard = ({ results, className, location, ...props }) => {
   const hasExtraClasess = className ? className : '';
 
+  const resultsHastExactMatch = results.results.filter(
+    (item) => Math.round(item.meta.score) >= 35
+  )[0];
+
+  console.log(resultsHastExactMatch);
+
   return (
-    <div {...props} className={`${hasExtraClasess} exact-match-card`}>
-      <header>Exact Match!</header>
-      <div className='exact-match-card-info-container'>
-        <img src={result.image} alt={result.name} />
-        <div className='exact-match-card-info'>
-          <p>{result.name}</p>
-          <div className='wego-score'>
-            <small>WEGO Score</small>
-            <p>{result.wegoScore}</p>
+    <>
+      {resultsHastExactMatch && (
+        <Link
+          to={
+            resultsHastExactMatch.meta.index === 'collections'
+              ? { pathname: `collection/${resultsHastExactMatch.value.slug}` }
+              : resultsHastExactMatch.value.asset_contract
+              ? {
+                  pathname: `assets/${resultsHastExactMatch.value.asset_contract.address}/${resultsHastExactMatch.value.token_id}`,
+                  state: { background: location },
+                }
+              : {
+                  pathname: `assets/${resultsHastExactMatch.value.contractAddress}/${resultsHastExactMatch.value.tokenId}`,
+                  state: { background: location },
+                }
+          }
+        >
+          <div {...props} className={`${hasExtraClasess} exact-match-card`}>
+            <header>Exact Match!</header>
+            <div className='exact-match-card-info-container'>
+              <ImageTypeDetect
+                imageURL={
+                  resultsHastExactMatch.meta.index === 'collections'
+                    ? resultsHastExactMatch.value.imgMain
+                    : resultsHastExactMatch.value.image_preview_url
+                    ? resultsHastExactMatch.value.image_preview_url
+                    : resultsHastExactMatch.value.imgSmall
+                }
+                className='exact-match-img'
+                alt={resultsHastExactMatch.value.name}
+              />
+              <div className='exact-match-card-info'>
+                <p>{resultsHastExactMatch.value.name}</p>
+                <div className='wego-score'>
+                  {resultsHastExactMatch.meta.index === 'collections' && (
+                    <>
+                      <small>WEGO Score</small>
+                      <p>{resultsHastExactMatch.value.wegoScore}</p>
+                    </>
+                  )}
+                </div>
+              </div>
+            </div>
+            <div className='date-add'>
+              Date added :{' '}
+              {moment(resultsHastExactMatch.value.createdAt).format('ll')}
+            </div>
+            {resultsHastExactMatch.meta.index === 'collections' ? (
+              <div className='stats'>
+                <div className='stat'>
+                  <p>ETH Total volume</p>
+                  <p>
+                    {resultsHastExactMatch.value.totalVolume}
+                    <FaEthereum size={15} />
+                  </p>
+                </div>
+                <div className='stat'>
+                  <p>Owners</p>
+                  <p>{resultsHastExactMatch.value.numOwners}</p>
+                </div>
+                <div className='stat'>
+                  <p>7 day volume</p>
+                  <p>
+                    {resultsHastExactMatch.value.sevenDayVolume}{' '}
+                    <FaEthereum size={15} />
+                  </p>
+                </div>
+                <div className='stat'>
+                  <p>Total Items</p>
+                  <p>{resultsHastExactMatch.value.totalSupply}</p>
+                </div>
+              </div>
+            ) : (
+              <>
+                <h5 className='text-center'>Traits</h5>
+                <div className='stats'>
+                  {resultsHastExactMatch.value.traits
+                    .filter((e, i) => i < 4)
+                    .map((trait) => (
+                      <div className='stat ' key={trait.value}>
+                        <p>{trait.trait_type}</p>
+                        <p>{trait.value}</p>
+                      </div>
+                    ))}
+                </div>
+              </>
+            )}
+            {/* <div className='community-trust'></div> */}
           </div>
-        </div>
-      </div>
-      <div className='date-add'>Date added : {result.dateAdded}</div>
-      <div className='stats'>
-        <div className='stat'>
-          <p>ETH Total volume</p>
-          <p>
-            {result.ethTotalVolume} <FaEthereum size={15} />
-          </p>
-        </div>
-        <div className='stat'>
-          <p>Owners</p>
-          <p>{result.owners}</p>
-        </div>
-        <div className='stat'>
-          <p>7 day volume</p>
-          <p>
-            {result.sevenDayVolume} <FaEthereum size={15} />
-          </p>
-        </div>
-        <div className='stat'>
-          <p>Total Items</p>
-          <p>{result.totalItems}</p>
-        </div>
-      </div>
-      <div className='community-trust'>
-        <small>Community trust(781 votes)</small>
-        <div className='reactions'>
-          <div className='reaction'>
-            <AiFillLike size={20} />
-            <small>{result.likes}</small>
-          </div>
-          <div className='reaction'>
-            <AiFillDislike size={20} />
-            <small>{result.disLikes}</small>
-          </div>
-        </div>
-      </div>
-    </div>
+        </Link>
+      )}
+    </>
   );
 };
 
 export default ExactMatchCard;
+
+{
+  /* <small>Community trust(781 votes)</small> */
+}
+{
+  /* <div className='reactions'>
+        <div className='reaction'>
+          <AiFillLike size={20} />
+          <small>{resultsHastExactMatch.likes}</small>
+        </div>
+        <div className='reaction'>
+          <AiFillDislike size={20} />
+          <small>{resultsHastExactMatch.disLikes}</small>
+        </div>
+      </div> */
+}

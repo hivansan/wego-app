@@ -3,9 +3,9 @@ import CollectionBanner from './CollectionBanner';
 import CollectionHeaderLeft from './CollectionHeaderLeft';
 import CollectionHeaderRight from './CollectionHeaderRight';
 
-const CollectionHeader = ({ collection }) => {
+const CollectionHeader = ({ collection, isFiltersMobileOpen }) => {
   return (
-    <div className='collection-header'>
+    <div className={`${isFiltersMobileOpen} collection-header`}>
       <div className='collection-header-info'>
         <CollectionHeaderLeft collectionInfo={collection} />
         <CollectionHeaderRight collectionInfo={collection} />

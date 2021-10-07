@@ -40,6 +40,10 @@
             height: 100%;
             display: flex;
 
+            .img-loader {
+              margin-right: 15px;
+            }
+
             img {
               width: auto;
               height: 80px;
@@ -76,11 +80,31 @@
 
         .collection-description {
           margin: 0.6rem 0;
+          display: flex;
+          flex-direction: column;
+
+          .xs {
+            width: 30%;
+          }
+
+          .s {
+            width: 70%;
+          }
+
+          .n {
+            width: 80%;
+          }
+
+          .l {
+            width: 100%;
+          }
+
           p {
-            color: $primary-color;
+            width: 100%;
+            color: $secondary-color;
             margin: 5px 0;
-            &:last-child {
-              color: $secondary-color;
+            &:first-child {
+              color: $primary-color;
               margin: 0;
             }
           }

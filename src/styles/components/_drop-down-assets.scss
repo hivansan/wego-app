@@ -1,8 +1,8 @@
 @import '../variables.scss';
 
 .drop-down-assets {
-  width: 350px;
-  margin: 0 3rem;
+  width: 70%;
+  margin: 0 1rem;
 
   header {
     color: $primary-color;
@@ -14,7 +14,7 @@
     border-bottom: 1px solid #c0bfbf;
     padding-bottom: 0.5rem;
     margin-bottom: 1rem;
-
+    min-height: 136px;
     &:hover {
       border-bottom: 1px solid $primary-color;
     }
@@ -22,11 +22,13 @@
     .asset-info-container {
       display: flex;
       gap: 0.5rem;
-      img {
+      .asset-img {
         width: 50px;
         height: 50px;
       }
       .asset-info {
+        display: flex;
+        align-items: center;
         line-height: 17px;
         p {
           color: $secondary-color;
@@ -42,15 +44,13 @@
 
     .asset-stats {
       margin-top: 5px;
-      .stat {
-        display: flex;
-        flex-direction: column;
-
-        small {
-          strong {
-            font-weight: 400;
-            color: $primary-color;
-          }
+      display: flex;
+      flex-wrap: wrap;
+      small {
+        margin: 0.3rem;
+        strong {
+          font-weight: 400;
+          color: $primary-color;
         }
       }
     }
@@ -65,9 +65,14 @@
   }
 }
 
+@media screen and (max-width: 993px) {
+  .drop-down-assets {
+    width: 100%;
+  }
+}
+
 @media screen and (max-width: 576px) {
   .drop-down-assets {
-    width: auto;
     margin-bottom: 0.8rem;
   }
 }

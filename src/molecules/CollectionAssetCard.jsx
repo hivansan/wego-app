@@ -1,43 +1,80 @@
 import React, { useEffect } from 'react';
+import { Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { FaEthereum } from 'react-icons/fa';
 import ImageTypeDetect from './ImageTypeDetect';
 
 const CollectionAssetCard = ({
-  price = '429.69',
   className,
   asset,
   location,
-  ...props
+  style,
+  index,
+  image,
+  isScrolling,
+  collectionImg,
 }) => {
   const hasExtraClasses = className ? className : '';
+
   return (
     <Link
+      key={asset[index].id}
       to={{
-        pathname: `/assets/${asset.asset_contract.address}/${asset.token_id}`,
+        pathname: `/assets/${
+          asset[index].asset_contract
+            ? asset[index].asset_contract.address
+            : asset[index].contractAddress
+        }/${asset[index].token_id}`,
         state: { background: location },
       }}
     >
-      <div {...props} className={`${hasExtraClasses} collection-asset-card`}>
-        <div className='asset-card-header'>
+      <article className={`${hasExtraClasses} collection-asset-card`}>
+        <section className='asset-card-header'>
           <p>
-            {asset.collection.slug
-              .split('-')
-              .map((a) => a.charAt(0).toUpperCase() + a.substr(1))
-              .join(' ')}
+            {asset[index].collection ? (
+              <>
+                {' '}
+                {asset[index].collection.name
+                  ? `${asset[index].collection.name}`
+                  : `${asset[index].collection.slug
+                      .split('-')
+                      .map((a) => a.charAt(0).toUpperCase() + a.substr(1))
+                      .join(' ')}`}
+              </>
+            ) : (
+              `${asset[index].slug
+                .split('-')
+                .map((a) => a.charAt(0).toUpperCase() + a.substr(1))
+                .join(' ')}`
+            )}
           </p>
-        </div>
-        <div className='asset-card-image'>
-          <ImageTypeDetect imageURL={asset.image_url} alt={asset.name} />
-        </div>
-        <div className='asset-card-info'>
-          <p>{asset.name ? asset.name : asset.token_id}</p>
+        </section>
+        <section className='asset-card-image'>
+          {asset[index].image_preview_url ? (
+            <img
+              src={asset[index].image_preview_url}
+              alt={asset[index].name}
+              className='w-100'
+            />
+          ) : (
+            <img
+              src={collectionImg}
+              alt={asset[index].slug}
+              className='w-100'
+            />
+          )}
+        </section>
+        <section className='asset-card-info'>
+          <p>{asset[index].name ? asset[index].name : asset[index].token_id}</p>
 
           {/* <p>
             {price} <FaEthereum size={20} />
+
+
+           
           </p> */}
-        </div>
-      </div>
+        </section>
+      </article>
     </Link>
   );
 };

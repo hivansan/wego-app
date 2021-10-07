@@ -85,33 +85,27 @@ const SearchBar = ({
         {results && (
           <>
             <div className='large-table-match'>
-              {results.exactMatch && (
-                <ExactMatchCard
-                  result={results.exactMatch}
-                  className='match mobile-match'
-                  location={location}
-                />
-              )}
+              <ExactMatchCard
+                results={results}
+                className='match mobile-match'
+                location={location}
+              />
             </div>
             <div className='drop-down-results'>
-              {results.exactMatch && (
-                <ExactMatchCard
-                  result={results.exactMatch}
-                  className='match mobile-match'
-                  location={location}
-                />
-              )}
+              <ExactMatchCard
+                results={results}
+                className='match mobile-match'
+                location={location}
+              />
 
-              <DropDownCollections results={results.collections} />
-              <DropDownAssets results={results.assets} location={location} />
-              {results.exactMatch && (
-                <ExactMatchCard
-                  result={results.exactMatch}
-                  className='match desktop-match'
-                  location={location}
-                />
-              )}
-            </div>{' '}
+              <DropDownCollections results={results} />
+              <DropDownAssets results={results} location={location} />
+              <ExactMatchCard
+                results={results}
+                className='match desktop-match'
+                location={location}
+              />
+            </div>
           </>
         )}
       </NftSearchBarModal>

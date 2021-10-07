@@ -1,94 +1,103 @@
 @import '../variables.scss';
 
-.exact-match-card {
-  width: 300px;
-  height: 350px;
-  border: 1px solid rgb(223, 223, 223);
-  border-radius: 10px;
-  overflow: hidden;
-  font-family: $default-font;
+a {
+  color: $secondary-color;
 
-  header {
-    padding: 0.5rem;
-    background-color: $primary-color;
-    color: #fff;
-    text-align: center;
+  &:hover {
+    color: $secondary-color;
   }
 
-  .exact-match-card-info-container {
-    display: flex;
-    padding: 0.3rem;
-    line-height: 20px;
-    gap: 0.6rem;
-    img {
-      width: 70px;
-      height: 70px;
-      border-radius: 50%;
+  .exact-match-card {
+    width: 300px;
+    height: 350px;
+    border: 1px solid rgb(223, 223, 223);
+    border-radius: 10px;
+    overflow: hidden;
+    font-family: $default-font;
+
+    header {
+      padding: 0.5rem;
+      background-color: $primary-color;
+      color: #fff;
+      text-align: center;
     }
 
-    .exact-match-card-info {
+    .exact-match-card-info-container {
       display: flex;
-      flex-direction: column;
-      justify-content: center;
-      p {
-        font-size: 20px;
-        margin: 0;
-        color: $secondary-color;
+      padding: 0.3rem;
+      line-height: 20px;
+      gap: 0.6rem;
+      .exact-match-img {
+        object-fit: cover;
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
       }
-      .wego-score {
-        width: 47%;
-        text-align: center;
 
-        small {
-          font-weight: 500;
-          color: $primary-color;
-        }
-        p {
-          color: #38b87d;
-        }
-      }
-    }
-  }
-
-  .date-add {
-    padding: 0.5rem;
-    color: $primary-color;
-  }
-
-  .stats {
-    width: 100%;
-    padding: 0.5rem;
-    display: flex;
-    flex-wrap: wrap;
-    .stat {
-      width: 50%;
-      p {
-        margin: 0;
-        color: $secondary-color;
-
-        &:last-child {
-          color: $primary-color;
-        }
-      }
-    }
-  }
-
-  .community-trust {
-    padding: 0.5rem;
-    .reactions {
-      display: flex;
-      gap: 0.4rem;
-      .reaction {
+      .exact-match-card-info {
         display: flex;
-        align-items: center;
-        color: #38b87d;
-
-        &:last-child {
-          color: rgb(240, 59, 59);
+        flex-direction: column;
+        justify-content: center;
+        p {
+          font-size: 20px;
+          margin: 0;
+          color: $secondary-color;
         }
+        .wego-score {
+          width: 47%;
+          text-align: center;
 
-        svg {
-          margin-right: 0.5rem;
+          small {
+            font-weight: 500;
+            color: $primary-color;
+          }
+          p {
+            color: #38b87d;
+          }
+        }
+      }
+    }
+
+    .date-add {
+      padding: 0.5rem;
+      color: $primary-color;
+    }
+
+    .stats {
+      width: 100%;
+      padding: 0.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      .stat {
+        width: 50%;
+        p {
+          margin: 0;
+          color: $secondary-color;
+
+          &:last-child {
+            color: $primary-color;
+          }
+        }
+      }
+    }
+
+    .community-trust {
+      padding: 0.5rem;
+      .reactions {
+        display: flex;
+        gap: 0.4rem;
+        .reaction {
+          display: flex;
+          align-items: center;
+          color: #38b87d;
+
+          &:last-child {
+            color: rgb(240, 59, 59);
+          }
+
+          svg {
+            margin-right: 0.5rem;
+          }
         }
       }
     }

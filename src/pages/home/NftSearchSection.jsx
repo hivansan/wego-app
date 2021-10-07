@@ -7,15 +7,16 @@ import { Api } from '../../services/api';
 const NftSearchSection = ({ location }) => {
   const [param, setParam] = useState('');
   const [debounceParam, setDebounceParam] = useDebounce(param, 500);
-  const [results, setResults] = useState(null);
+  const [searchResults, setSearchResults] = useState(null);
 
   const api = new Api();
 
   const getRequest = async () => {
-    setResults(null);
+    setSearchResults(null);
     try {
       const res = await api.search(debounceParam);
-      setResults(res);
+      console.log(res);
+      setSearchResults(res);
     } catch (err) {
       console.log(err);
     }
@@ -26,12 +27,12 @@ const NftSearchSection = ({ location }) => {
       getRequest();
     }
     if (param === '') {
-      setResults(null);
+      setSearchResults(null);
     }
 
     //cleanup when component unmount
     return () => {
-      setResults(null);
+      setSearchResults(null);
     };
   }, [debounceParam]);
 
@@ -49,7 +50,7 @@ const NftSearchSection = ({ location }) => {
         setDebounceParam={setDebounceParam}
         value={param}
         onChange={setParam}
-        results={results}
+        results={searchResults}
         query={param}
         location={location}
       />
