@@ -26,10 +26,10 @@ const SearchBar = ({
 
   const onPressEnter = () => {
     if (value === '') {
-      return history.push(`/search`);
+      return history.push(`/search?page=1`);
     }
 
-    history.push(`/search?q=${encodeURI(query)}`);
+    history.push(`/search?q=${encodeURI(query)}&page=1`);
   };
 
   useEffect(() => {

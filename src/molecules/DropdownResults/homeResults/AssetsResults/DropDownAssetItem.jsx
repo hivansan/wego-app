@@ -11,6 +11,8 @@ const DropDownAssetItem = ({ asset, location }) => {
 
   const api = new Api();
 
+  console.log(asset);
+
   useEffect(() => {
     const getAssetScore = async () => {
       const address = asset.contractAddress
@@ -72,7 +74,9 @@ const DropDownAssetItem = ({ asset, location }) => {
                 Rarity Score :
                 <strong>
                   {' '}
-                  {assetScore.rarityScore.toString().substring(0, 6)}
+                  {!assetScore.rarityScore
+                    ? '0'
+                    : `${assetScore.rarityScore.toString().substring(0, 6)}`}
                 </strong>
               </small>
 
@@ -80,7 +84,9 @@ const DropDownAssetItem = ({ asset, location }) => {
                 Average Trait Rarity:
                 <strong>
                   {' '}
-                  {assetScore.avgTraitRarity.toString().substring(0, 8)}
+                  {!assetScore.avgTraitRarity
+                    ? '0'
+                    : `${assetScore.avgTraitRarity.toString().substring(0, 8)}`}
                 </strong>
               </small>
 

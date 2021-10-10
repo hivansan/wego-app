@@ -14,15 +14,14 @@ const AssetResultCard = ({ result, location }) => {
 
   const api = new Api();
 
+  const address = asset.contractAddress
+    ? asset.contractAddress
+    : asset.asset_contract.address;
+
+  const tokenId = asset.tokenId ? asset.tokenId : asset.token_id;
   useEffect(() => {
     const getAssetScore = async () => {
-      const address = asset.contractAddress
-        ? asset.contractAddress
-        : asset.asset_contract.address;
-
-      const tokenId = asset.tokenId ? asset.tokenId : asset.token_id;
       const res = await api.assets.score(address, tokenId);
-      console.log(res);
       setAssetScore(res);
     };
     getAssetScore();
@@ -55,11 +54,7 @@ const AssetResultCard = ({ result, location }) => {
               <div className='info'>
                 <Link
                   to={{
-                    pathname: `assets/${
-                      asset.contractAddress
-                        ? asset.contractAddress
-                        : asset.asset_contract.address
-                    }/${asset.tokenId ? asset.tokenId : asset.token_id}`,
+                    pathname: `assets/${address}/${tokenId}`,
                     state: { background: location },
                   }}
                 >
@@ -119,11 +114,7 @@ const AssetResultCard = ({ result, location }) => {
               <p>Preview</p>
               <Link
                 to={{
-                  pathname: `assets/${
-                    asset.contractAddress
-                      ? asset.contractAddress
-                      : asset.asset_contract.address
-                  }/${asset.tokenId ? asset.tokenId : asset.token_id}`,
+                  pathname: `assets/${address}/${tokenId}}`,
                   state: { background: location },
                 }}
               >

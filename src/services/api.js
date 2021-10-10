@@ -34,9 +34,6 @@ export class Api {
         const hasSortDirection = sortDirection
           ? `&sortOrder=${sortDirection}`
           : '';
-        console.log(
-          `api/Collections${hasLimit}${hasOffset}${hasSearchQuery}${hasSort}${hasSortDirection}`
-        );
         return this.request(
           'get',
           `api/Collections${hasLimit}${hasOffset}${hasSearchQuery}${hasSort}${hasSortDirection}`
@@ -67,17 +64,20 @@ export class Api {
         const hasSortDirection = !sortDirection
           ? ''
           : `&sortDirection=${sortDirection}`;
+
         const collectionAssetsUrl = `api/assets?slug=${slug}&limit=${limit}&offset=${offset}${hasSortDirection}${hasSorts}${hasTraits}`;
+
         return this.request('get', collectionAssetsUrl);
       },
     };
 
-    this.search = (param) => {
-      const hasParams =
-        param === ''
-          ? `api/search`
-          : `api/search?q=${encodeURI(param)}&limit=20`;
-      return this.request('get', hasParams);
+    this.search = (param, page) => {
+      const hasParams = param === '' ? '' : `&q=${encodeURI(param)}`;
+      const hasPagination = page ? `&page=${page}` : '';
+      return this.request(
+        'get',
+        `api/search?limit=20${hasParams}${hasPagination}`
+      );
     };
   }
 

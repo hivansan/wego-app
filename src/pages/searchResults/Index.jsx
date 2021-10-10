@@ -2,7 +2,7 @@ import React, { useEffect, useState, createRef } from 'react';
 
 import { useHistory, useLocation, Link } from 'react-router-dom';
 import { Api } from '../../services/api';
-
+import ReactPaginate from 'react-paginate';
 import SearchInput from '../../molecules/SearchInput';
 
 import useQuery from '../../atoms/hooks/useQuery';
@@ -13,6 +13,8 @@ import AssetResultCard from '../../molecules/AssetResultCard';
 
 import FiltersBar from './FiltersBar';
 
+import Paginator from '../../molecules/Paginator';
+
 import DarkPrimaryButton from '../../atoms/darkPrimaryButton';
 
 const SearchScreen = () => {
@@ -22,17 +24,18 @@ const SearchScreen = () => {
   const history = useHistory();
   const searchRef = createRef();
   const prevQuery = query.get('q');
-
+  const page = query.get('page');
   const q = !prevQuery ? '' : prevQuery;
 
   const [param, setParam] = useState(q);
-  const [url, setUrl] = useState(q);
   const [results, setResults] = useState(null);
   const [locationKeys, setLocationKeys] = useState([]);
 
-  const getRequest = async (p) => {
+  const [url, setUrl] = useState({ query: q, page });
+
+  const getRequest = async (param, page) => {
     try {
-      const res = await api.search(p);
+      const res = await api.search(param, page);
       setResults(res);
     } catch (err) {
       throw err;
@@ -41,11 +44,11 @@ const SearchScreen = () => {
 
   const onPressEnter = () => {
     if (param === '') {
-      history.push(`/search`);
-      return setUrl('');
+      history.push(`/search?page=1`);
+      return setUrl({ query: '', page: 1 });
     }
-    history.push(`/search?q=${encodeURI(param)}`);
-    setUrl(param);
+    history.push(`/search?q=${encodeURI(param)}&page=1`);
+    setUrl({ query: param, page: 1 });
   };
 
   useEffect(() => {
@@ -59,6 +62,7 @@ const SearchScreen = () => {
           setLocationKeys((keys) => [location.key, ...keys]);
           const q = new URLSearchParams(location.search);
           const hasQuery = location.search === '' ? '' : q.get('q');
+          setUrl({ query: hasQuery, page: url.page });
           setParam(hasQuery);
           if (hasQuery === '') {
             return getRequest('');
@@ -69,7 +73,7 @@ const SearchScreen = () => {
           setLocationKeys((keys) => [location.key, ...keys]);
           const q = new URLSearchParams(location.search);
           const hasQuery = location.search === '' ? '' : q.get('q');
-          setUrl(hasQuery);
+          setUrl({ query: hasQuery, page: url.page });
           setParam(hasQuery);
         }
       }
@@ -77,8 +81,7 @@ const SearchScreen = () => {
   }, [locationKeys]);
 
   useEffect(() => {
-    getRequest(url);
-    window.scrollTo(0, 0);
+    getRequest(url.query, url.page);
     return () => {
       setResults(null);
     };
@@ -105,7 +108,6 @@ const SearchScreen = () => {
       </header>
 
       <FiltersBar />
-
       <div className='search-results-container'>
         {!results ? (
           <div className='loader-search'>
@@ -113,45 +115,78 @@ const SearchScreen = () => {
           </div>
         ) : (
           <div className='results'>
-            <div className='match-found mobile-match'>
-              <ExactMatchCard
-                results={results}
-                className='match'
-                location={location}
-              />
-            </div>
-
-            <div className='all-results'>
-              {results.results.map((result, i) => {
-                if (result.meta.index === 'collections') {
-                  return (
-                    <CollectionResultCard
-                      result={result}
-                      key={result.value.id}
-                      location={location}
-                    />
-                  );
-                } else {
-                  return (
-                    <AssetResultCard
-                      result={result}
-                      key={result.value.id + i}
-                      location={location}
-                    />
-                  );
-                }
-              })}
-            </div>
-            <div className='match-found desktop-match'>
-              <ExactMatchCard
-                results={results}
-                className='match'
-                location={location}
-              />
-            </div>
+            {results.results.length === 0 ? (
+              <div className='no-items-found-container'>
+                <div className='no-items-found'>
+                  <h3>No items found for this search</h3>
+                  <DarkPrimaryButton
+                    onClick={() => {
+                      setParam('');
+                      history.push(`/search?page=1`);
+                      setUrl({ query: '', page: 1 });
+                    }}
+                  >
+                    Back to all Items
+                  </DarkPrimaryButton>
+                </div>
+              </div>
+            ) : (
+              <>
+                <div className='match-found mobile-match'>
+                  <ExactMatchCard
+                    results={results}
+                    className='match'
+                    location={location}
+                  />
+                </div>
+                <div className='all-results'>
+                  {results.results.map((result, i) => {
+                    if (result.meta.index === 'collections') {
+                      return (
+                        <CollectionResultCard
+                          result={result}
+                          key={result.value.id + 1}
+                          location={location}
+                        />
+                      );
+                    } else {
+                      return (
+                        <AssetResultCard
+                          result={result}
+                          key={result.value.id + i}
+                          location={location}
+                        />
+                      );
+                    }
+                  })}
+                </div>
+                <div className='match-found desktop-match'>
+                  <ExactMatchCard
+                    results={results}
+                    className='match'
+                    location={location}
+                  />
+                </div>{' '}
+              </>
+            )}
           </div>
         )}
       </div>
+      {results && results.results.length > 0 && (
+        <div className='paginator-wrapper'>
+          <Paginator
+            limit={20}
+            totalItems={results.meta.total}
+            onPageChange={({ selected: selectedPage }) => {
+              history.push(
+                `/search?q=${encodeURI(param)}&page=${selectedPage + 1}`
+              );
+              setUrl({ query: url.query, page: selectedPage + 1 });
+            }}
+            forcePage={parseInt(url.page)}
+          />
+        </div>
+      )}
     </div>
   );
 };

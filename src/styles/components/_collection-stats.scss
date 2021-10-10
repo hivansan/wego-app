@@ -3,8 +3,11 @@
 .collection-additionals-stats {
   display: flex;
   margin: 1.5rem 0;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
   .stat {
-    margin: 0 1rem;
+    margin: 1rem;
     text-align: center;
     small {
       margin: 0;
@@ -23,6 +26,7 @@
   display: flex;
   border: 1px solid #e6e6e6;
   border-radius: 5px;
+  justify-content: center;
 
   .stat {
     cursor: pointer;

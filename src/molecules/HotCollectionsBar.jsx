@@ -1,10 +1,20 @@
 import React, { useState, useEffect } from 'react';
+import { useMediaQuery } from 'react-responsive';
 import Slider from '../molecules/Slider';
 
 import { FiArrowUpCircle } from 'react-icons/fi';
 
 const HotCollectionsBar = ({ hotCollections, isInputHeaderShown }) => {
   const widthCollectionsBar = isInputHeaderShown ? 6 : 4;
+
+  const isMobile = useMediaQuery({ query: '(max-width: 576px)' });
+  const isTablet = useMediaQuery({ query: '(max-width : 1200px)' });
+
+  const isInputShow = isInputHeaderShown
+    ? 'hot-bar-lg'
+    : isMobile
+    ? 'hot-bar-normal'
+    : 'hot-bar-lg';
 
   const sliderSettings = {
     dots: false,
@@ -24,9 +34,16 @@ const HotCollectionsBar = ({ hotCollections, isInputHeaderShown }) => {
         },
       },
       {
+        breakpoint: 1295,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+        },
+      },
+      {
         breakpoint: 1000,
         settings: {
-          slidesToShow: 3,
+          slidesToShow: 2,
           slidesToScroll: 1,
         },
       },
@@ -41,7 +58,7 @@ const HotCollectionsBar = ({ hotCollections, isInputHeaderShown }) => {
   };
 
   return (
-    <div className='hot-collections-bar'>
+    <div className={`${isInputShow} hot-collections-bar`}>
       {hotCollections && (
         <Slider className='hot-collections' {...sliderSettings}>
           {hotCollections.results.map(({ value: collection }, i) => (

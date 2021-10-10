@@ -15,6 +15,7 @@ const CollectionDetails = ({ setFooter }) => {
   const [isNextPageLoading, setIsNextPageLoading] = useState(false);
   const [filters, setFilters] = useState([]);
   const [traits, setTraits] = useState([]);
+
   const [assetsSort, setAssetsSort] = useState({
     orderBy: 'none',
     orderDirection: 'desc',
@@ -46,13 +47,22 @@ const CollectionDetails = ({ setFooter }) => {
       traits
     );
     if (traits) {
-      const foo = res.results.length === 0 ? null : res.results;
-      setResultAssets(foo);
+      const results = res.results.length === 0 ? null : res.results;
+      setResultAssets(results);
+
+      if (res.results.length < 20) {
+        setHasNextPage(false);
+      }
     } else {
       setResultAssets(res);
+
+      if (res.length < 20) {
+        setHasNextPage(false);
+      }
     }
     setIsNextPageLoading(() => true);
     setIsNextPageLoading(false);
+
     setTraits(traits);
   };
 
@@ -103,13 +113,13 @@ const CollectionDetails = ({ setFooter }) => {
   }, []);
 
   useEffect(() => {
-    var obj = filters.reduce(function (acc, cur, i) {
+    var traitObj = filters.reduce(function (acc, cur, i) {
       acc[cur.traitType] = acc[cur.traitType] || [];
       acc[cur.traitType].push(cur.value);
       return acc;
     }, {});
 
-    const hasTraits = Object.keys(obj).length === 0 ? null : obj;
+    const hasTraits = Object.keys(traitObj).length === 0 ? null : traitObj;
     setAssetsPage(0);
 
     getCollectionAssets(
