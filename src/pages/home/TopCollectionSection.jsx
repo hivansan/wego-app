@@ -1,19 +1,23 @@
+import { pipe, prop } from 'ramda';
 import React, { useEffect, useState } from 'react';
 import TopCollectionsCard from '../../molecules/TopCollectionsCard';
 import { Api } from '../../services/api';
-import topCollections from '../../db.json';
 
 const TopCollectionSection = ({ location }) => {
   const [totalVolumeCollections, setTotalVolumeCollections] = useState(null);
   const [byOwnerCountCollections, setByOwnerCountCollections] = useState(null);
   const [sevenDayAvgPrice, setSevenDayAvgPrice] = useState(null);
-  const [topCollections, setTopCollections] = useState(null);
   const api = new Api();
 
   useEffect(() => {
-    const getTopCollections = async () => {
-      const { results } = await api.collections.all();
-      setTopCollections(results);
+    const getTopCollections = () => {
+      return Promise.all(
+        [
+          ['numOwners', setByOwnerCountCollections],
+          ['sevenDayAveragePrice', setSevenDayAvgPrice],
+          ['totalVolume', setTotalVolumeCollections]
+        ].map(([sort, setter]) => api.collections.all({ sort }).then(pipe(prop('results'), setter)))
+      )
     };
     getTopCollections();
   }, []);
@@ -23,15 +27,15 @@ const TopCollectionSection = ({ location }) => {
       <h1 className='text-center mb-5'>Top Collections</h1>
       <div className='top-collections-section-container'>
         <TopCollectionsCard
-          topCollections={topCollections}
+          topCollections={totalVolumeCollections}
           title='By Total volume'
         />
         <TopCollectionsCard
-          topCollections={topCollections}
+          topCollections={sevenDayAvgPrice}
           title='By 7 Day Average Price'
         />
         <TopCollectionsCard
-          topCollections={topCollections}
+          topCollections={byOwnerCountCollections}
           title='By Owner Count'
         />
       </div>

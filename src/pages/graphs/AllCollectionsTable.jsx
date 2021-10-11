@@ -26,17 +26,14 @@ const AllCollectionsTable = () => {
   const getCollections = async (page, q, sort, sortDirection) => {
     setSort(sort);
     console.log(sortDirection);
-    const hasParam = q === '' ? null : q;
-    const hasSort = sort === '' ? null : sort;
-    const hasdSortDirection = sortDirection === '' ? null : sortDirection;
     setLoading(true);
-    const res = await api.collections.all(
-      perPage,
+    const res = await api.collections.all({
+      limit: perPage,
       page,
-      hasParam,
-      hasSort,
-      hasdSortDirection
-    );
+      q,
+      sort,
+      sortOrder: sortDirection
+    });
 
     setCollections(res.results);
     setLoading(false);
