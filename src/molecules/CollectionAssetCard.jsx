@@ -51,14 +51,14 @@ const CollectionAssetCard = ({
         </section>
         <section className='asset-card-image'>
           {asset[index].image_preview_url ? (
-            <img
-              src={asset[index].image_preview_url}
+            <ImageTypeDetect
+              imageURL={asset[index].image_preview_url}
               alt={asset[index].name}
               className='w-100'
             />
           ) : (
-            <img
-              src={collectionImg}
+            <ImageTypeDetect
+              imageURL={collectionImg}
               alt={asset[index].slug}
               className='w-100'
             />
