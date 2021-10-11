@@ -1,4 +1,6 @@
 import React, { forwardRef, useEffect, useState } from 'react';
+import { IoIosClose } from 'react-icons/io';
+import { BiSearch } from 'react-icons/bi';
 
 const SearchInput = forwardRef((props, ref) => {
   const [isFocus, setIsFocus] = useState(false);
@@ -28,18 +30,29 @@ const SearchInput = forwardRef((props, ref) => {
   // }, [isFocus, props.isModalFocus]);
 
   return (
-    <input
+    <div
       className={`${hasExtraClasses} search-input`}
-      type='text'
-      placeholder='Search Nft, Collections, or Keyword'
-      value={props.value}
-      onChange={handleChange}
-      ref={ref}
-      onKeyDown={(e) => e.key === 'Enter' && props.onPressEnter()}
-      onFocus={() => setIsFocus(true)}
-      onBlur={() => setIsFocus(false)}
-      autoFocus
-    />
+      onClick={() => ref.current.focus()}
+    >
+      <div className='input'>
+        <BiSearch />
+        <input
+          type='text'
+          placeholder='Search Nft, Collections, or Keyword'
+          value={props.value}
+          onChange={handleChange}
+          ref={ref}
+          onKeyDown={(e) => e.key === 'Enter' && props.onPressEnter()}
+          onFocus={() => setIsFocus(true)}
+          onBlur={() => setIsFocus(false)}
+          autoFocus
+        />
+      </div>
+
+      {props.value.length > 0 && (
+        <IoIosClose size={25} onClick={() => props.onChange('')} />
+      )}
+    </div>
   );
 });
 

@@ -23,10 +23,11 @@ const MainSwitch = () => {
   const [header, setHeader] = useState(true);
   const [footer, setFooter] = useState(true);
   const [collectionAddress, setCollectionAddress] = useState('');
+  const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
 
   const background = location.state && location.state.background;
-
+  const isMenuOpen = menuOpen ? 'menu-open' : '';
   useEffect(() => {
     if (location.pathname === `/collection/${collectionAddress}`) {
       return setFooter(false);
@@ -43,7 +44,13 @@ const MainSwitch = () => {
 
   return (
     <>
-      {header && <Header background={background} />}
+      {header && (
+        <Header
+          background={background}
+          menuOpen={menuOpen}
+          setMenuOpen={setMenuOpen}
+        />
+      )}
       <Switch location={background || location}>
         <Route
           exact
@@ -91,6 +98,7 @@ const MainSwitch = () => {
           <Home />
         </Route>
       </Switch>
+
       {footer && <Footer />}
       {background && (
         <Route path='/assets/:address/:tokenId' children={<AssetDetail />} />

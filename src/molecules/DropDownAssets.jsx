@@ -10,7 +10,7 @@ const DropDownAssets = ({ results, location }) => {
     .filter((item) => item.meta.index === 'assets')
     .filter((a, i) => i < 4);
 
-  console.log(assetsFiltered);
+  // console.log(assetsFiltered);
 
   return (
     <>

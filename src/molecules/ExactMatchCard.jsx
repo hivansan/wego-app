@@ -13,8 +13,6 @@ const ExactMatchCard = ({ results, className, location, ...props }) => {
     (item) => Math.round(item.meta.score) >= 35
   )[0];
 
-  console.log(resultsHastExactMatch);
-
   return (
     <>
       {resultsHastExactMatch && (

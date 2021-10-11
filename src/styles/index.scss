@@ -1,3 +1,5 @@
+@import './variables.scss';
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -6,5 +8,162 @@
 
 body {
   width: 100vw;
-  overflow-x: hidden;
+  overflow-x: hidden !important;
+}
+
+.view-wrapper {
+}
+
+/* Position and sizing of burger button */
+.bm-burger-button {
+  position: fixed;
+  width: 36px;
+  height: 30px;
+  right: 2px;
+  top: 20px;
+}
+
+/* Position and sizing of clickable cross button */
+.bm-cross-button {
+  height: 24px;
+  width: 24px;
+}
+
+/* Color/shape of close button cross */
+.bm-cross {
+  background: #bdc3c7;
+}
+
+/*
+Sidebar wrapper styles
+Note: Beware of modifying this element as it can break the animations - you should not need to touch it in most cases
+*/
+.bm-menu-wrap {
+  position: fixed;
+  height: 100%;
+  top: 110px !important;
+  z-index: 90 !important;
+  transition: none !important;
+}
+
+/* General sidebar styles */
+.bm-menu {
+  background: #fff;
+  padding: 2.5em 0;
+  padding-top: 1rem;
+  font-size: 1.15em;
+}
+
+/* Morph shape necessary with bubble or elastic */
+.bm-morph-shape {
+  fill: #373a47;
+}
+
+/* Wrapper for item list */
+.bm-item-list {
+  color: #b8b7ad;
+  display: flex;
+  flex-direction: column;
+
+  ul {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: auto;
+    list-style: none;
+    padding-bottom: 5rem;
+
+    li {
+      border-bottom: 1px solid $muted;
+      padding: 8px;
+    }
+
+    a {
+      color: #000;
+      li {
+        .result-img {
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          margin-right: 10px;
+          object-fit: cover;
+        }
+        display: flex;
+        align-items: center;
+        list-style: none;
+
+        .badge {
+          margin-left: 10px;
+          background-color: $primary-color !important;
+        }
+
+        &:hover {
+          transition: all 0.2s ease 0s;
+          box-shadow: rgb(4 17 29 / 25%) 0px 0px 8px 0px;
+        }
+      }
+    }
+
+    .all-results {
+      color: #b8b7ad;
+
+      li {
+        color: $primary-color;
+        display: flex;
+        justify-content: center;
+      }
+    }
+  }
+}
+
+/* Individual item */
+
+.bm-wallet {
+  display: flex !important;
+  color: #666666;
+}
+
+.bm-item {
+  cursor: pointer;
+  padding: 1rem;
+  font-weight: 500;
+  font-size: 20px;
+  display: flex !important;
+  color: #666666;
+
+  svg {
+    margin-right: 10px;
+  }
+}
+
+.bm-input {
+  border-radius: 0 !important;
+
+  &:focus {
+    border: none;
+  }
+}
+
+/* Styling of overlay */
+.bm-overlay {
+  top: 110px !important;
+  z-index: 50 !important;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.bm-position-woht {
+  top: 66px !important;
+}
+// @media screen and (max-width: 993px) {
+
+// }
+
+// //small screens
+@media screen and (max-width: 576px) {
+  .bm-menu-wrap {
+    width: 100% !important;
+  }
+  .bm-overlay {
+    width: 100% !important;
+  }
 }

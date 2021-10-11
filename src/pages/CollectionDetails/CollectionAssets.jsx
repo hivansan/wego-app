@@ -95,7 +95,7 @@ const CollectionAssets = ({
                     : assets.length;
                   const isItemLoaded = (index) => !!assets[index];
                   const ITEM_SIZE = 310;
-                  const itemsPerRow = Math.floor(width / ITEM_SIZE);
+                  const itemsPerRow = Math.floor(width / ITEM_SIZE) || 1;
                   const rowCount = Math.ceil(ITEMS_COUNT / itemsPerRow);
                   return (
                     <WindowScroller>

@@ -10,7 +10,7 @@
   font-family: $default-font;
   gap: 1rem;
   min-height: 674px;
-  min-width: 716px;
+  width: 716px;
   max-height: 1000px;
   .asset-detail-modal-info {
     width: 400px;
@@ -198,6 +198,7 @@
   .asset-detail-modal-body {
     flex-direction: column;
     overflow-y: auto;
+    width: initial;
     .asset-detail-modal-info {
       width: 300px;
     }

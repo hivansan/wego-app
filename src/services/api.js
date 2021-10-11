@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const baseURL =
-  process.env.NODE_ENV === 'production' ? '' : 'http://localhost:3000/';
+  process.env.NODE_ENV === 'production' ? 'http://ec2-54-160-232-251.compute-1.amazonaws.com/' : 'http://localhost:3000/';
 
 export class Api {
   /**
@@ -65,17 +65,20 @@ export class Api {
         const hasSortDirection = !sortDirection
           ? ''
           : `&sortDirection=${sortDirection}`;
+
         const collectionAssetsUrl = `api/assets?slug=${slug}&limit=${limit}&offset=${offset}${hasSortDirection}${hasSorts}${hasTraits}`;
+
         return this.request('get', collectionAssetsUrl);
       },
     };
 
-    this.search = (param) => {
-      const hasParams =
-        param === ''
-          ? `api/search`
-          : `api/search?q=${encodeURI(param)}&limit=20`;
-      return this.request('get', hasParams);
+    this.search = (param, page) => {
+      const hasParams = param === '' ? '' : `&q=${encodeURI(param)}`;
+      const hasPagination = page ? `&page=${page}` : '';
+      return this.request(
+        'get',
+        `api/search?limit=20${hasParams}${hasPagination}`
+      );
     };
   }
 

@@ -54,6 +54,13 @@
     }
   }
 }
+.hot-bar-normal {
+  width: 80%;
+}
+
+.hot-bar-lg {
+  width: 100%;
+}
 
 @media screen and (max-width: 1200px) {
   .hot-collections-bar {
@@ -63,7 +70,7 @@
   }
 }
 
-@media screen and (max-width: 993px) {
+@media screen and (max-width: 1200px) {
   .hot-collections-bar {
   }
 }

@@ -1,0 +1,29 @@
+@import '../variables.scss';
+
+.paginator {
+  display: flex;
+  list-style: none;
+  flex-wrap: wrap;
+  padding: 0;
+  margin: 0;
+  .paginator-disable {
+    display: none;
+  }
+
+  li {
+    margin: 0 0.5rem;
+    font-size: 20px;
+    border-bottom: 1px solid transparent;
+    &:hover {
+      border-bottom: 1px solid #000;
+    }
+  }
+
+  .paginator-active-page {
+    color: $primary-color;
+
+    &:hover {
+      border-bottom: 1px solid $primary-color;
+    }
+  }
+}
