@@ -26,18 +26,19 @@ export class Api {
     };
 
     this.collections = {
-      all: (limit, offset, q, sort, sortDirection) => {
-        const hasLimit = limit ? `?limit=${limit}` : '?limit=10';
-        const hasOffset = offset ? `&page=${offset}` : '&page=0';
-        const hasSearchQuery = q ? `&q=${q}` : '';
-        const hasSort = sort ? `&sort=${sort}` : '';
-        const hasSortDirection = sortDirection
-          ? `&sortOrder=${sortDirection}`
-          : '';
-        return this.request(
-          'get',
-          `api/Collections${hasLimit}${hasOffset}${hasSearchQuery}${hasSort}${hasSortDirection}`
-        );
+      all: ({ limit, page, q, sort, sortOrder } = {}) => {
+        const params = new URLSearchParams({
+          limit: limit || 10,
+          page: page || 0,
+          ...(!!sort ? { sort } : {}),
+          ...(!!sortOrder ? { sortOrder } : {}),
+          ...(!!q ? { q } : {})
+        }).toString();
+
+        const query = params ? `?${params}` : '';
+        console.log(`api/Collections${query}`);
+
+        return this.request('get', `api/Collections${query}`);
       },
 
       traits: (slug) => {
