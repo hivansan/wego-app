@@ -118,9 +118,9 @@ const Header = ({ background, menuOpen, setMenuOpen }) => {
   const modalAssetLinkIsOpen = assetModal && 'd-none';
 
   useEffect(() => {
-    if (!isMobile && !isTablet) {
+    if (!isMobile && !isTablet && menuOpen) {
       setMenuOpen(false);
-      document.body.style.cssText = '';
+      // document.body.style.cssText = '';
     }
   }, [isMobile, isTablet]);
 
@@ -132,8 +132,10 @@ const Header = ({ background, menuOpen, setMenuOpen }) => {
   }, [menuOpen]);
 
   useEffect(() => {
-    setMenuOpen(false);
-    document.body.style.cssText = '';
+    if (menuOpen) {
+      setMenuOpen(false);
+      document.body.style.cssText = '';
+    }
   }, [location]);
 
   return (

@@ -1,7 +1,9 @@
 import React from 'react';
 
 const ImageTypeDetect = ({ className, imageURL, alt }) => {
-  const urlSplit = imageURL && imageURL.split('.');
+  const urlSplit = imageURL
+    ? imageURL.split('.')
+    : 'https://i.stack.imgur.com/y9DpT.jpg';
   const hasClass = className ? className : '';
 
   if (!imageURL) {
@@ -14,7 +16,10 @@ const ImageTypeDetect = ({ className, imageURL, alt }) => {
     );
   }
 
-  if (urlSplit[urlSplit.length - 1] === 'mp4') {
+  if (
+    urlSplit[urlSplit.length - 1] === 'mp4' ||
+    urlSplit[urlSplit.length - 1] === 'mov'
+  ) {
     return (
       <video
         autoPlay
@@ -29,7 +34,14 @@ const ImageTypeDetect = ({ className, imageURL, alt }) => {
     );
   }
 
-  return <img src={imageURL} alt={alt} className={hasClass} loading='lazy' />;
+  return (
+    <img
+      src={imageURL === '' ? 'https://i.stack.imgur.com/y9DpT.jpg' : imageURL}
+      alt={alt}
+      className={hasClass}
+      loading='lazy'
+    />
+  );
 };
 
 export default ImageTypeDetect;

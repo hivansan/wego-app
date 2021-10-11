@@ -85,22 +85,32 @@ const CollectionResultCard = ({ result, location }) => {
             <div className='assets-container'>
               {assets && (
                 <>
-                  {assets.map((asset, i) => (
-                    <div className='asset' key={i}>
-                      <Link
-                        to={{
-                          pathname: `assets/${asset.address}/${asset.tokenId}`,
-                          state: { background: location },
-                        }}
-                      >
-                        <ImageTypeDetect
-                          imageURL={asset.image_preview_url}
-                          alt={''}
-                          className='asset-img'
-                        />
-                      </Link>
-                    </div>
-                  ))}
+                  {assets.map((asset, i) => {
+                    const address = asset.contractAddress
+                      ? asset.contractAddress
+                      : asset.asset_contract.address;
+
+                    const tokenId = asset.tokenId
+                      ? asset.tokenId
+                      : asset.token_id;
+
+                    return (
+                      <div className='asset' key={i}>
+                        <Link
+                          to={{
+                            pathname: `assets/${address}/${tokenId}`,
+                            state: { background: location },
+                          }}
+                        >
+                          <ImageTypeDetect
+                            imageURL={asset.image_preview_url}
+                            alt={''}
+                            className='asset-img'
+                          />
+                        </Link>
+                      </div>
+                    );
+                  })}
                 </>
               )}
             </div>

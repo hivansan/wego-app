@@ -19,6 +19,7 @@ const AssetResultCard = ({ result, location }) => {
     : asset.asset_contract.address;
 
   const tokenId = asset.tokenId ? asset.tokenId : asset.token_id;
+
   useEffect(() => {
     const getAssetScore = async () => {
       const res = await api.assets.score(address, tokenId);
@@ -114,7 +115,7 @@ const AssetResultCard = ({ result, location }) => {
               <p>Preview</p>
               <Link
                 to={{
-                  pathname: `assets/${address}/${tokenId}}`,
+                  pathname: `assets/${address}/${tokenId}`,
                   state: { background: location },
                 }}
               >

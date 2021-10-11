@@ -3,6 +3,7 @@ import { useMediaQuery } from 'react-responsive';
 import Slider from '../molecules/Slider';
 
 import { FiArrowUpCircle } from 'react-icons/fi';
+import ImageTypeDetect from './ImageTypeDetect';
 
 const HotCollectionsBar = ({ hotCollections, isInputHeaderShown }) => {
   const widthCollectionsBar = isInputHeaderShown ? 6 : 4;
@@ -78,7 +79,11 @@ const HotCollectionsBar = ({ hotCollections, isInputHeaderShown }) => {
                 ) : (
                   <p>{collection.slug}</p>
                 )}
-                <img src={collection.imgMain} alt={collection.name} />
+                <ImageTypeDetect
+                  imageURL={collection.imgMain}
+                  alt={collection.name}
+                  className='h-collection-img'
+                />
               </div>
             </a>
           ))}

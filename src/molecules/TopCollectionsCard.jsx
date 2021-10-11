@@ -2,6 +2,8 @@ import React from 'react';
 
 import { Link } from 'react-router-dom';
 
+import ImageTypeDetect from './ImageTypeDetect';
+
 const TopCollectionsCard = ({ topCollections, title, ...props }) => {
   return (
     <div className='top-collections-card shadow-sm' {...props}>
@@ -12,14 +14,10 @@ const TopCollectionsCard = ({ topCollections, title, ...props }) => {
             <Link to={`collection/${collection.slug}`} key={collection.slug}>
               <section className='collection-info'>
                 <p>{`#${idx + 1}`}</p>
-                <img
-                  src={
-                    collection.imgMain
-                      ? collection.imgMain
-                      : 'https://storage.googleapis.com/opensea-static/opensea-profile/2.png'
-                  }
-                  alt='collection pic'
+                <ImageTypeDetect
+                  imageURL={collection.imgMain}
                   className='collection-pic'
+                  alt='collection pic'
                 />
                 <div className='collection-data'>
                   <p>
