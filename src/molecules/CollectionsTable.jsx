@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import DataTable from 'react-data-table-component';
-import ReactPaginate from 'react-paginate';
+import Paginator from '../molecules/Paginator';
 
-import { BiSortDown } from 'react-icons/bi';
+import { GrPrevious, GrNext } from 'react-icons/gr';
 
 import LinearProgress from '@material-ui/core/LinearProgress';
 
 const CollectionsTable = ({
   data,
+  dataUtils,
   columns,
   value,
   setValue,
@@ -46,6 +47,13 @@ const CollectionsTable = ({
               value={value}
               onChange={handleOnChange}
             />
+            {dataUtils && (
+              <div className='results'>
+                <small className='text-muted'>
+                  About {dataUtils.meta.total} results
+                </small>
+              </div>
+            )}
           </div>
         </header>
         <DataTable
@@ -84,14 +92,24 @@ const CollectionsTable = ({
               <option value={50}>50</option>
             </select>
           </div>
+          {dataUtils && (
+            <div className='table-paginator'>
+              {dataUtils.meta.total >= perPage && (
+                <Paginator
+                  forcePage={page}
+                  nextLabel={<GrNext color='red' />}
+                  previousLabel={<GrPrevious color='red' />}
+                  limit={perPage}
+                  totalItems={dataUtils.meta.total}
+                  onPageChange={({ selected: selectedPage }) => {
+                    setPage(selectedPage + 1);
+                  }}
+                />
+              )}
+            </div>
+          )}
         </div>
-        {/* {data && (
-          <ReactPaginate
-            pageCount={Math.ceil(data.meta.total / perPage)}
-            pageRangeDisplayed={5}
-            onPageChange={({ selected: selectedPage }) => setPage(selectedPage)}
-          />
-        )} */}
+
         <p>* All data from OpenSea</p>
         <p>
           ** Est. Market Cap calculated by using 7 day average price * total

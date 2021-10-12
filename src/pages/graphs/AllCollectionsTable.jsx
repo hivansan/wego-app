@@ -15,7 +15,7 @@ const AllCollectionsTable = () => {
   const [debounceValue, setDebounceValue] = useDebounce(value, 500);
   const [totalRows, setTotalRows] = useState(0);
   const [perPage, setPerPage] = useState(10);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(150);
   const [sortDirection, setSortDirection] = useState('');
   const [sort, setSort] = useState('');
   const [loading, setLoading] = useState(false);
@@ -25,45 +25,58 @@ const AllCollectionsTable = () => {
 
   const getCollections = async (page, q, sort, sortDirection) => {
     setSort(sort);
-    console.log(sortDirection);
     setLoading(true);
     const res = await api.collections.all({
       limit: perPage,
       page,
       q,
       sort,
-      sortOrder: sortDirection
+      sortOrder: sortDirection,
     });
-
     setCollections(res.results);
+    setData(res);
     setLoading(false);
   };
 
   useEffect(() => {
     getCollections(page, debounceValue, sort, sortDirection);
+    setPage(1);
   }, [debounceValue]);
 
-  // useEffect(() => {
-  //   console.log(page);
-  // }, [page]);
-
   useEffect(() => {
-    getCollections(page, debounceValue, sort, sortDirection);
-    window.scrollTo(0, 0);
+    if (collections.length < parseInt(perPage)) {
+      getCollections(1, debounceValue, sort, sortDirection);
+      setPage(1);
+      window.scrollTo(0, 0);
+    } else {
+      getCollections(page, debounceValue, sort, sortDirection);
+      window.scrollTo(0, 0);
+    }
   }, [perPage]);
 
   useEffect(() => {
     getCollections(page, debounceValue, sort, sortDirection);
   }, [sort, sortDirection]);
 
+  useEffect(() => {
+    getCollections(page, debounceValue, sort, sortDirection);
+    if (perPage > 10) {
+      window.scrollTo(0, 0);
+    }
+  }, [page]);
+
   const columns = [
     {
       name: '#',
+      grow: 0,
       selector: ({ value: row }) => row.slug,
       right: true,
-      cell: ({ value: row }, idx) => {
-        const i = idx + 1;
-        return <>{i}</>;
+      cell: (row, index) => {
+        if (page === 1) {
+          return index + 1;
+        } else {
+          return page * perPage + (index + 1 - collections.length);
+        }
       },
     },
     {
@@ -137,10 +150,14 @@ const AllCollectionsTable = () => {
       cell: ({ value: row }) => {
         return (
           <>
-            {row.sevenDayVolume.length > 10 ? (
-              <> {row.sevenDayVolume.substring(0, 7)}</>
+            {row.sevenDayVolume ? (
+              row.sevenDayVolume.length > 10 ? (
+                <> {row.sevenDayVolume.substring(0, 7)}</>
+              ) : (
+                <>{row.sevenDayVolume}</>
+              )
             ) : (
-              <>{row.sevenDayVolume}</>
+              '0'
             )}
           </>
         );
@@ -161,7 +178,7 @@ const AllCollectionsTable = () => {
           <small>Sales(7d)</small>
         ),
       sortField: 'sevenDaySales',
-      selector: ({ value: row }) => row.sevenDaySales,
+      selector: ({ value: row }) => row.sevenDaySales || 0,
       sortable: true,
     },
     {
@@ -184,10 +201,14 @@ const AllCollectionsTable = () => {
       cell: ({ value: row }) => {
         return (
           <>
-            {row.sevenDayAveragePrice.length > 10 ? (
-              <> {row.sevenDayAveragePrice.substring(0, 7)}</>
+            {row.sevenDayAveragePrice ? (
+              row.sevenDayAveragePrice?.length > 10 ? (
+                <> {row.sevenDayAveragePrice.substring(0, 7)}</>
+              ) : (
+                <>{row.sevenDayAveragePrice}</>
+              )
             ) : (
-              <>{row.sevenDayAveragePrice}</>
+              '0'
             )}
           </>
         );
@@ -208,7 +229,7 @@ const AllCollectionsTable = () => {
           <small>Total Supply</small>
         ),
       sortField: 'totalSupply',
-      selector: ({ value: row }) => row.totalSupply,
+      selector: ({ value: row }) => row.totalSupply || 0,
       sortable: true,
     },
     {
@@ -226,7 +247,7 @@ const AllCollectionsTable = () => {
           <small>Owners</small>
         ),
       sortField: 'numOwners',
-      selector: ({ value: row }) => row.numOwners,
+      selector: ({ value: row }) => row.numOwners || 0,
       sortable: true,
     },
     {
@@ -249,10 +270,14 @@ const AllCollectionsTable = () => {
       cell: ({ value: row }) => {
         return (
           <>
-            {row.marketCap.length > 10 ? (
-              <> {row.marketCap.substring(0, 7)}</>
+            {row.marketCap ? (
+              row.marketCap?.length > 10 ? (
+                <> {row.marketCap.substring(0, 7)}</>
+              ) : (
+                <>{row.marketCap}</>
+              )
             ) : (
-              <>{row.marketCap}</>
+              '0'
             )}
           </>
         );
@@ -278,10 +303,14 @@ const AllCollectionsTable = () => {
       cell: ({ value: row }) => {
         return (
           <>
-            {row.totalVolume.length > 10 ? (
-              <> {row.totalVolume.substring(0, 7)}</>
+            {row.totalVolume ? (
+              row.totalVolume?.length > 10 ? (
+                <> {row.totalVolume.substring(0, 7)}</>
+              ) : (
+                <>{row.totalVolume}</>
+              )
             ) : (
-              <>{row.totalVolume}</>
+              '0'
             )}
           </>
         );
@@ -307,10 +336,47 @@ const AllCollectionsTable = () => {
       cell: ({ value: row }) => {
         return (
           <>
-            {row.totalSales.length > 5 ? (
-              <> {row.totalSales.substring(0, 5)}</>
+            {row.totalSales ? (
+              row.totalSales?.length > 5 ? (
+                <> {row.totalSales.substring(0, 5)}</>
+              ) : (
+                <>{row.totalSales}</>
+              )
             ) : (
-              <>{row.totalSales}</>
+              '0'
+            )}
+          </>
+        );
+      },
+    },
+    {
+      name:
+        sort === 'floorPrice' ? (
+          <strong className='text-primary'>
+            Floor Price
+            {sortDirection === 'desc' ? (
+              <BiSortDown size={15} />
+            ) : (
+              <BiSortUp size={15} />
+            )}
+          </strong>
+        ) : (
+          <small>Floor Price</small>
+        ),
+      sortField: 'floorPrice',
+      selector: ({ value: row }) => row.floorPrice,
+      sortable: true,
+      cell: ({ value: row }) => {
+        return (
+          <>
+            {row.floorPrice ? (
+              row.floorPrice.length > 5 ? (
+                <> {row.floorPrice?.substring(0, 5)}</>
+              ) : (
+                <>{row.floorPrice}</>
+              )
+            ) : (
+              '0'
             )}
           </>
         );
@@ -321,6 +387,7 @@ const AllCollectionsTable = () => {
   return (
     <section className='all-collections-table-section'>
       <CollectionsTable
+        dataUtils={data}
         loading={loading}
         getCollections={getCollections}
         setPerPage={setPerPage}

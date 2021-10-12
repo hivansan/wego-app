@@ -3,12 +3,14 @@ import ReactPaginate from 'react-paginate';
 import { useMediaQuery } from 'react-responsive';
 
 const Paginator = (
-  { totalItems, limit, onPageChange, forcePage },
+  { totalItems, limit, onPageChange, forcePage, nextLabel, previousLabel },
   ...props
 ) => {
   const hasForcePage = forcePage ? forcePage - 1 : 1;
-  const isMobile = useMediaQuery({ query: '(max-width: 576px)' });
+  const hasNextLabel = nextLabel || 'Next';
+  const hasPrevLabel = previousLabel || 'Previous';
 
+  const isMobile = useMediaQuery({ query: '(max-width: 576px)' });
   return (
     <ReactPaginate
       {...props}
@@ -21,6 +23,8 @@ const Paginator = (
       pageRangeDisplayed={isMobile ? 5 : 9}
       onPageChange={onPageChange}
       forcePage={hasForcePage}
+      nextLabel={hasNextLabel}
+      previousLabel={hasPrevLabel}
     />
   );
 };

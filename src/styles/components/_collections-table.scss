@@ -13,7 +13,8 @@
 
       .table-header {
         padding: 1.43rem 1rem;
-
+        display: flex;
+        flex-wrap: wrap;
         input {
           border: 1px solid #ccced3;
           border-radius: 10px;
@@ -24,6 +25,12 @@
           &:focus-visible {
             outline: none;
           }
+        }
+
+        .results {
+          display: flex;
+          align-items: flex-end;
+          margin-left: 0.5rem;
         }
       }
     }
@@ -108,9 +115,6 @@
     }
   }
 
-  .rdt_Pagination {
-    background-color: #f1f1f1;
-  }
   .table-footer {
     padding: 0.6rem;
     font-weight: 500;
@@ -118,15 +122,24 @@
     .table-pagination {
       color: $secondary-color;
       padding: 1rem 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
       .table-num-rows {
         select {
           margin-left: 10px;
           border: none;
           background-color: transparent;
+          margin-right: 10px;
           color: #1962a1;
           &:focus-within {
             outline: none;
           }
+        }
+      }
+
+      .table-paginator {
+        .paginator {
         }
       }
     }
@@ -135,6 +148,54 @@
       margin: 0;
       font-size: 0.8rem;
       color: $secondary-color;
+    }
+  }
+}
+
+// @media screen and (max-width: 993px) {
+
+// }
+
+// //small screens
+@media screen and (max-width: 576px) {
+  .table-container {
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    overflow: hidden;
+    border: 1px solid #dad9d9;
+    font-family: 'Raleway', sans-serif;
+
+    .rdt_Table {
+      .rdt_TableHeader {
+        min-height: 0;
+
+        .table-header {
+          justify-content: center;
+        }
+      }
+    }
+    .table-footer {
+      .table-pagination {
+        color: $secondary-color;
+        padding: 1rem 0;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        .table-num-rows {
+          margin-bottom: 0.7rem;
+        }
+
+        .table-paginator {
+          .paginator {
+          }
+        }
+      }
+
+      p {
+        margin: 0;
+        font-size: 0.8rem;
+        color: $secondary-color;
+      }
     }
   }
 }

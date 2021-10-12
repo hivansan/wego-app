@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 
 import { Switch, Route, useLocation, useRouteMatch } from 'react-router-dom';
 
-import Marketplace from '../pages/marketplace';
-import Stats from '../pages/stats';
 import GetListed from '../pages/getListed';
 import Home from '../pages/home/index';
 import NftDetails from '../pages/nftDetails';
@@ -58,22 +56,12 @@ const MainSwitch = () => {
           component={NftDetails}
         ></Route>
 
-        <Route path='/marketplace'>
-          <Marketplace />
-        </Route>
-
         <Route path='/analytics'>
           <Graphs />
         </Route>
-        <Route path='/stats'>
-          <Graphs />
-        </Route>
+
         <Route path='/getlisted'>
           <GetListed />
-        </Route>
-
-        <Route path='/graph'>
-          <Graphs />
         </Route>
         <Route exact path='/favorites'>
           <Favorites />

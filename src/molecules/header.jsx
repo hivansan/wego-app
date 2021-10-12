@@ -200,10 +200,8 @@ const Header = ({ background, menuOpen, setMenuOpen }) => {
           {/* right menu */}
           {!isMobile && !isTablet && (
             <div className='right-menu'>
-              <Link to='/marketplace'>Marketplace</Link>
               <Link to='/analytics'>Analytics</Link>
               <Link to='/getlisted'>Get Listed</Link>
-              <Link to='/stats'>Stats</Link>
               <div className='icons'>
                 <button
                   style={{
@@ -263,10 +261,6 @@ const Header = ({ background, menuOpen, setMenuOpen }) => {
           )}
           {param === '' ? (
             <>
-              <a href='/marketplace' className='bm-item'>
-                <AiFillShop size={28} />
-                Marketplace
-              </a>
               <a href='/analytics' className='bm-item'>
                 <IoAnalyticsSharp size={28} />
                 Analytics
@@ -274,10 +268,6 @@ const Header = ({ background, menuOpen, setMenuOpen }) => {
               <a href='/getlisted' className='bm-item'>
                 <AiOutlineForm size={28} />
                 Get Listed
-              </a>
-              <a href='/stats' className='bm-item'>
-                <IoIosStats size={28} />
-                Stats
               </a>
               <div className='bm-item' onClick={() => setModalOpen(true)}>
                 <FaWallet size={28} />

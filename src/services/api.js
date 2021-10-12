@@ -31,15 +31,13 @@ export class Api {
       all: ({ limit, page, q, sort, sortOrder } = {}) => {
         const params = new URLSearchParams({
           limit: limit || 10,
-          page: page || 0,
+          page: page || 1,
           ...(!!sort ? { sort } : {}),
           ...(!!sortOrder ? { sortOrder } : {}),
           ...(!!q ? { q } : {}),
         }).toString();
-
+        console.log(params);
         const query = params ? `?${params}` : '';
-        console.log(`api/Collections${query}`);
-
         return this.request('get', `api/Collections${query}`);
       },
 
