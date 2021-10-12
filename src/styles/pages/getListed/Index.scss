@@ -1,0 +1,100 @@
+@import '../../variables.scss';
+
+.get-listed-container {
+  width: 100vw;
+  font-family: $default-font;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 4rem;
+
+  .get-listed-header {
+    h1 {
+      color: $primary-color;
+      padding: 2rem;
+    }
+  }
+
+  form {
+    width: 50%;
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      margin: 1rem 0;
+
+      .form-check {
+        display: inline-block;
+
+        .form-check-input:checked {
+          background-color: $primary-color;
+          border-color: $primary-color;
+        }
+
+        .form-check-label {
+          color: #666666;
+        }
+      }
+
+      .required {
+        &::after {
+          content: '*';
+          color: red;
+        }
+      }
+
+      .get-listed-label {
+        font-weight: bolder;
+      }
+
+      .get-listed-input {
+        width: 100%;
+        color: $secondary-color;
+        margin-top: 0.5rem;
+        border-radius: 10px;
+        border: 1px solid #aaaaaa;
+        padding: 0.5rem;
+
+        &::placeholder {
+          color: #aaaaaa;
+        }
+
+        &:focus-within {
+          outline: none;
+          box-shadow: rgb(4 17 29 / 25%) 0px 0px 8px 0px;
+        }
+      }
+    }
+
+    .project-dates {
+      flex-direction: row;
+      justify-content: space-between;
+      flex-wrap: wrap;
+
+      .picker {
+        display: flex;
+        flex-direction: column;
+        margin: 0.5rem 0;
+
+        .date-picker {
+          margin-top: 0.5rem;
+          .react-date-picker__wrapper {
+            border-radius: 10px;
+            border: 1px solid #aaaaaa;
+            color: #666666;
+            &:focus-within {
+              outline: none;
+              box-shadow: rgb(4 17 29 / 25%) 0px 0px 8px 0px;
+            }
+          }
+        }
+      }
+    }
+
+    .get-listed-submit {
+      padding: 0.5rem 1rem;
+      border-color: #aaaaaa;
+    }
+  }
+}

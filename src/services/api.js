@@ -1,7 +1,9 @@
 import axios from 'axios';
 
 export const baseURL =
-  process.env.NODE_ENV === 'production' ? 'http://ec2-54-160-232-251.compute-1.amazonaws.com/' : 'http://localhost:3000/';
+  process.env.NODE_ENV === 'production'
+    ? 'http://ec2-54-160-232-251.compute-1.amazonaws.com/'
+    : 'http://localhost:3000/';
 
 export class Api {
   /**
@@ -32,7 +34,7 @@ export class Api {
           page: page || 0,
           ...(!!sort ? { sort } : {}),
           ...(!!sortOrder ? { sortOrder } : {}),
-          ...(!!q ? { q } : {})
+          ...(!!q ? { q } : {}),
         }).toString();
 
         const query = params ? `?${params}` : '';

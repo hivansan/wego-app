@@ -27,7 +27,7 @@ const Checkbox = ({
   //deseable obj  {traitType : [values]}
 
   useEffect(() => {
-    if (filters.includes(label)) {
+    if (filters.some((trait) => trait.value === label)) {
       setChecked(true);
     }
   }, []);
