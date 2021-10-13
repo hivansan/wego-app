@@ -367,13 +367,27 @@ Note: Beware of modifying this element as it can break the animations - you shou
     .search-header-container {
       margin-right: 0;
       .search-header {
-        width: 100%;
+        width: 60%;
       }
     }
   }
 }
 
 @media screen and (max-width: 1200px) {
+  .header {
+    padding: 0.5rem 4rem;
+    .search-header-container {
+      .search-header {
+      }
+    }
+
+    .right-menu {
+      margin-left: 10px;
+    }
+  }
+}
+
+@media screen and (max-width: 993px) {
   .header {
     padding: 0.5rem 4rem;
     .search-header-container {
@@ -386,9 +400,6 @@ Note: Beware of modifying this element as it can break the animations - you shou
       margin-left: 10px;
     }
   }
-}
-
-@media screen and (max-width: 993px) {
 }
 
 // //small screens
