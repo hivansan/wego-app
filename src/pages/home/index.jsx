@@ -16,7 +16,7 @@ import TrendingCollectionSection from './TrendingCollectionSection';
 
 import NftSearchSection from './NftSearchSection';
 
-const Home = (props) => {
+const Home = ({ isSearchResultsOpen }) => {
   const [nfts, setNfts] = useState([]);
   const location = useLocation();
 

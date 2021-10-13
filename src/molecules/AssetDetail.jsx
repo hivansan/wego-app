@@ -43,7 +43,7 @@ const AssetDetailModal = ({
     if (!location.key) {
       setFooter(location.pathname);
     }
-
+    localStorage.setItem('sR', location.state.searchResults);
     getAsset();
   }, []);
 

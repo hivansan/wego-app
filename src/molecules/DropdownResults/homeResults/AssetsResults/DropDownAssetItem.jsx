@@ -6,12 +6,10 @@ import moment from 'moment';
 
 import { Api } from '../../../../services/api';
 
-const DropDownAssetItem = ({ asset, location }) => {
+const DropDownAssetItem = ({ asset, location, isOpen }) => {
   const [assetScore, setAssetScore] = useState(null);
 
   const api = new Api();
-
-  console.log(asset);
 
   useEffect(() => {
     const getAssetScore = async () => {
@@ -38,7 +36,7 @@ const DropDownAssetItem = ({ asset, location }) => {
             ? asset.contractAddress
             : asset.asset_contract.address
         }/${asset.tokenId ? asset.tokenId : asset.token_id}`,
-        state: { background: location },
+        state: { background: location, searchResults: isOpen },
       }}
       key={asset.id}
     >

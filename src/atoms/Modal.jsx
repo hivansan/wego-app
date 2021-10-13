@@ -18,8 +18,6 @@ const CustomModal = ({
   modalStyles,
   ...props
 }) => {
-  console.log(isLoading);
-
   if (!isLoading) {
     return (
       <Dialog

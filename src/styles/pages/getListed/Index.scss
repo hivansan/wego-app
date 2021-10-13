@@ -98,3 +98,22 @@
     }
   }
 }
+// @media screen and (max-width: 993px) {
+
+// }
+
+// //small screens
+@media screen and (max-width: 576px) {
+  .get-listed-container {
+    .get-listed-header {
+      h1 {
+        color: $primary-color;
+        padding: 2rem 0;
+        width: 100%;
+      }
+    }
+    form {
+      width: 100%;
+    }
+  }
+}

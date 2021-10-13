@@ -36,7 +36,6 @@ export class Api {
           ...(!!sortOrder ? { sortOrder } : {}),
           ...(!!q ? { q } : {}),
         }).toString();
-        console.log(params);
         const query = params ? `?${params}` : '';
         return this.request('get', `api/Collections${query}`);
       },

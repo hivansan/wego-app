@@ -43,8 +43,7 @@ const SearchInput = forwardRef((props, ref) => {
           onChange={handleChange}
           ref={ref}
           onKeyDown={(e) => e.key === 'Enter' && props.onPressEnter()}
-          onFocus={() => setIsFocus(true)}
-          onBlur={() => setIsFocus(false)}
+          onFocus={() => (props.onFocus ? props.onFocus() : false)}
           autoFocus
         />
       </div>

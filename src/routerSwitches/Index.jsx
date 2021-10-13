@@ -25,7 +25,8 @@ const MainSwitch = () => {
   const location = useLocation();
 
   const background = location.state && location.state.background;
-  const isMenuOpen = menuOpen ? 'menu-open' : '';
+
+  const isSearchResultsOpen = location.state && location.state.searchResults;
   useEffect(() => {
     if (location.pathname === `/collection/${collectionAddress}`) {
       return setFooter(false);
@@ -47,6 +48,7 @@ const MainSwitch = () => {
           background={background}
           menuOpen={menuOpen}
           setMenuOpen={setMenuOpen}
+          isSearchResultsOpen={isSearchResultsOpen}
         />
       )}
       <Switch location={background || location}>
@@ -57,11 +59,11 @@ const MainSwitch = () => {
         ></Route>
 
         <Route path='/analytics'>
-          <Graphs />
+          <Graphs isSearchResultsOpen={isSearchResultsOpen} />
         </Route>
 
         <Route path='/getlisted'>
-          <GetListed />
+          <GetListed isSearchResultsOpen={isSearchResultsOpen} />
         </Route>
         <Route exact path='/favorites'>
           <Favorites />
@@ -76,14 +78,17 @@ const MainSwitch = () => {
           }
         />
         <Route path='/collection/:slug'>
-          <CollectionDetails setFooter={setCollectionAddress} />
+          <CollectionDetails
+            setFooter={setCollectionAddress}
+            isSearchResultsOpen={isSearchResultsOpen}
+          />
         </Route>
 
         <Route exact path='/:search'>
           <SearchResults />
         </Route>
         <Route path='/' exact>
-          <Home />
+          <Home isSearchResultsOpen={location} />
         </Route>
       </Switch>
 

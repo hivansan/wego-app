@@ -19,7 +19,7 @@ const SearchBar = ({
   ...props
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-
+  const [ignoreBlur, setIgnoreBlur] = useState(false);
   const searchRef = createRef();
 
   const history = useHistory();
@@ -33,82 +33,106 @@ const SearchBar = ({
   };
 
   useEffect(() => {
+    const isSearchResultsOpen = localStorage.getItem('sR');
+
+    if (isSearchResultsOpen) {
+      searchRef.current.focus();
+      setIsOpen(true);
+    }
+  }, [location]);
+
+  useEffect(() => {
     if (value !== '') {
       searchRef.current.focus();
       setIsOpen(true);
     }
   }, [value, results]);
 
-  if (value === '') {
-    return (
-      <div className='search-bar-wrapper' {...props}>
-        <div className='search-bar-control'>
-          <SearchInput
-            type='text'
-            placeholder='Search Nft, Collections, or Keyword'
-            onChange={onChange}
-            value={value}
-            ref={searchRef}
-            onPressEnter={onPressEnter}
-            setDebounceParam={setDebounceParam}
-            setDropDownOpen={setIsOpen}
-          />
-          <small>search collections, top assets, etc</small>
-          <DarkPrimaryButton onClick={onPressEnter}>Search</DarkPrimaryButton>
-        </div>
-      </div>
-    );
-  }
+  const setBlur = () => {
+    setIgnoreBlur(true);
+  };
+
+  const clearIgnoreBlur = () => {
+    setIgnoreBlur(false);
+  };
+
+  const handleBlur = () => {
+    if (ignoreBlur) return;
+    setIsOpen(false);
+  };
+
+  const onFocusInput = () => {
+    if (value !== '') {
+      setIsOpen(true);
+    }
+  };
 
   return (
-    <div className='search-bar-wrapper' {...props}>
+    <div
+      className='search-bar-wrapper'
+      {...props}
+      onMouseDown={setBlur}
+      onMouseUp={clearIgnoreBlur}
+      onMouseOut={clearIgnoreBlur}
+      onBlur={handleBlur}
+    >
       <div className='search-bar-control'>
         <SearchInput
           type='text'
           placeholder='Search Nft, Collections, or Keyword'
           onChange={onChange}
+          value={value}
           ref={searchRef}
           onPressEnter={onPressEnter}
-          value={value}
           setDebounceParam={setDebounceParam}
           setDropDownOpen={setIsOpen}
+          onFocus={onFocusInput}
         />
         <small>search collections, top assets, etc</small>
         <DarkPrimaryButton onClick={onPressEnter}>Search</DarkPrimaryButton>
       </div>
-      <NftSearchBarModal
-        isOpen={isOpen}
-        results={results}
-        query={query}
-        location={location}
-      >
-        {results && (
-          <>
-            <div className='large-table-match'>
-              <ExactMatchCard
-                results={results}
-                className='match mobile-match'
-                location={location}
-              />
-            </div>
-            <div className='drop-down-results'>
-              <ExactMatchCard
-                results={results}
-                className='match mobile-match'
-                location={location}
-              />
+      {value !== '' && (
+        <NftSearchBarModal
+          isOpen={isOpen}
+          results={results}
+          query={query}
+          location={location}
+        >
+          {results && (
+            <>
+              <div className='large-table-match'>
+                <ExactMatchCard
+                  results={results}
+                  className='match mobile-match'
+                  location={location}
+                  isOpen={isOpen}
+                />
+              </div>
+              <div className='drop-down-results'>
+                <ExactMatchCard
+                  results={results}
+                  className='match mobile-match'
+                  location={location}
+                  isOpen={isOpen}
+                />
 
-              <DropDownCollections results={results} />
-              <DropDownAssets results={results} location={location} />
-              <ExactMatchCard
-                results={results}
-                className='match desktop-match'
-                location={location}
-              />
-            </div>
-          </>
-        )}
-      </NftSearchBarModal>
+                <DropDownCollections results={results} />
+                <DropDownAssets
+                  results={results}
+                  location={location}
+                  isOpen={isOpen}
+                />
+                <ExactMatchCard
+                  results={results}
+                  className='match desktop-match'
+                  location={location}
+                  isOpen={isOpen}
+                />
+              </div>
+            </>
+          )}
+        </NftSearchBarModal>
+      )}
     </div>
   );
 };

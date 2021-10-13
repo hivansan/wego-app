@@ -5,8 +5,6 @@ import { Link } from 'react-router-dom';
 import ImageTypeDetect from './ImageTypeDetect';
 
 const TopCollectionsCard = ({ topCollections, title, ...props }) => {
-  console.log(topCollections);
-
   return (
     <div className='top-collections-card shadow-sm' {...props}>
       <h5 className='card-title'>{title}</h5>

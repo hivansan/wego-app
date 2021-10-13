@@ -1,6 +1,6 @@
 import React, { useEffect, useState, createRef } from 'react';
 
-import { useHistory, useLocation, Link } from 'react-router-dom';
+import { useHistory, useLocation, Link, useParams } from 'react-router-dom';
 import { Api } from '../../services/api';
 import ReactPaginate from 'react-paginate';
 import SearchInput from '../../molecules/SearchInput';
@@ -34,6 +34,7 @@ const SearchScreen = () => {
   const [url, setUrl] = useState({ query: q, page });
 
   const getRequest = async (param, page) => {
+    setResults(null);
     try {
       const res = await api.search(param, page);
       setResults(res);
@@ -45,10 +46,12 @@ const SearchScreen = () => {
   const onPressEnter = () => {
     if (param === '') {
       history.push(`/search?page=1`);
-      return setUrl({ query: '', page: 1 });
+      setUrl({ query: '', page: 1 });
+      return window.location.reload(false);
     }
     history.push(`/search?q=${encodeURI(param)}&page=1`);
     setUrl({ query: param, page: 1 });
+    window.location.reload(false);
   };
 
   useEffect(() => {
@@ -60,21 +63,26 @@ const SearchScreen = () => {
         if (locationKeys[1] === location.key) {
           // Handle forward event
           setLocationKeys((keys) => [location.key, ...keys]);
-          const q = new URLSearchParams(location.search);
-          const hasQuery = location.search === '' ? '' : q.get('q');
-          setUrl({ query: hasQuery, page: url.page });
-          setParam(hasQuery);
-          if (hasQuery === '') {
-            return getRequest('');
-          }
-          getRequest(hasQuery);
+          const params = new URLSearchParams(location.search);
+          const query = params.get('q') || '';
+          const page = params.get('page');
+          console.log(page);
+          setUrl({ query, page });
+          setParam(query);
+          window.location.reload(false);
         } else {
           // Handle back event
           setLocationKeys((keys) => [location.key, ...keys]);
-          const q = new URLSearchParams(location.search);
-          const hasQuery = location.search === '' ? '' : q.get('q');
-          setUrl({ query: hasQuery, page: url.page });
-          setParam(hasQuery);
+          const params = new URLSearchParams(location.search);
+          const query = params.get('q') || '';
+          const page = params.get('page');
+          if (url.query === query && url.page === page) {
+            return false;
+          }
+
+          setUrl({ query, page });
+          setParam(query);
+          window.location.reload(false);
         }
       }
     });
@@ -178,10 +186,16 @@ const SearchScreen = () => {
             limit={20}
             totalItems={results.meta.total}
             onPageChange={({ selected: selectedPage }) => {
+              if (param === '') {
+                history.push(`/search?page=${selectedPage + 1}`);
+                setUrl({ query: '', page: selectedPage + 1 });
+                return window.location.reload(false);
+              }
               history.push(
                 `/search?q=${encodeURI(param)}&page=${selectedPage + 1}`
               );
               setUrl({ query: url.query, page: selectedPage + 1 });
+              window.location.reload(false);
             }}
             forcePage={parseInt(url.page)}
           />

@@ -13,9 +13,8 @@ const AllCollectionsTable = () => {
   const [collections, setCollections] = useState([]);
   const [value, setValue] = useState('');
   const [debounceValue, setDebounceValue] = useDebounce(value, 500);
-  const [totalRows, setTotalRows] = useState(0);
   const [perPage, setPerPage] = useState(10);
-  const [page, setPage] = useState(150);
+  const [page, setPage] = useState(1);
   const [sortDirection, setSortDirection] = useState('');
   const [sort, setSort] = useState('');
   const [loading, setLoading] = useState(false);
@@ -44,10 +43,17 @@ const AllCollectionsTable = () => {
   }, [debounceValue]);
 
   useEffect(() => {
-    if (collections.length < parseInt(perPage)) {
-      getCollections(1, debounceValue, sort, sortDirection);
-      setPage(1);
-      window.scrollTo(0, 0);
+    if (collections.length < perPage) {
+      if (data) {
+        getCollections(
+          Math.ceil(data.meta.total / perPage),
+          debounceValue,
+          sort,
+          sortDirection
+        );
+        setPage(Math.ceil(data.meta.total / perPage));
+        window.scrollTo(0, 0);
+      }
     } else {
       getCollections(page, debounceValue, sort, sortDirection);
       window.scrollTo(0, 0);

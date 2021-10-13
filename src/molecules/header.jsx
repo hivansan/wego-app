@@ -33,6 +33,7 @@ const Header = ({ background, menuOpen, setMenuOpen }) => {
   const [isInputHeaderShown, setIsInputHeaderShown] = useState(false);
   const [results, setResults] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
+  const [ignoreBlur, setIgnoreBlur] = useState(false);
   const location = useLocation();
   const searchRef = createRef();
   const history = useHistory();
@@ -112,6 +113,13 @@ const Header = ({ background, menuOpen, setMenuOpen }) => {
       }
     }
 
+    const isSearchResultsOpen = localStorage.getItem('sR');
+
+    if (param !== '' && isSearchResultsOpen) {
+      searchRef.current.focus();
+      return setIsOpen(true);
+    }
+
     setIsInputHeaderShown(true);
   }, [location.pathname]);
 
@@ -132,11 +140,37 @@ const Header = ({ background, menuOpen, setMenuOpen }) => {
   }, [menuOpen]);
 
   useEffect(() => {
-    if (menuOpen) {
+    if (location.pathname === '/') {
+      if (menuOpen) {
+        document.body.style.cssText = '';
+        return setMenuOpen(false);
+      }
+    }
+
+    if (menuOpen && param === '') {
       setMenuOpen(false);
       document.body.style.cssText = '';
     }
   }, [location]);
+
+  const setBlur = () => {
+    setIgnoreBlur(true);
+  };
+
+  const clearIgnoreBlur = () => {
+    setIgnoreBlur(false);
+  };
+
+  const handleBlur = () => {
+    if (ignoreBlur) return;
+    setIsOpen(false);
+  };
+
+  const onFocusInput = () => {
+    if (param !== '') {
+      setIsOpen(true);
+    }
+  };
 
   return (
     <>
@@ -164,9 +198,16 @@ const Header = ({ background, menuOpen, setMenuOpen }) => {
           )}
           {isInputHeaderShown && (
             <div className='search-header-container'>
-              <div className='search-header'>
+              <div
+                className='search-header'
+                onMouseDown={setBlur}
+                onMouseUp={clearIgnoreBlur}
+                onMouseOut={clearIgnoreBlur}
+                onBlur={handleBlur}
+              >
                 <SearchInput
                   className='input'
+                  onFocus={onFocusInput}
                   type='text'
                   placeholder='Search Nft, Collections, or Keyword'
                   setDebounceParam={setDebounceParam}
@@ -188,6 +229,7 @@ const Header = ({ background, menuOpen, setMenuOpen }) => {
                   >
                     {results && (
                       <HeaderDropDownResults
+                        isOpen={isOpen}
                         results={results}
                         location={location}
                       />
@@ -200,8 +242,8 @@ const Header = ({ background, menuOpen, setMenuOpen }) => {
           {/* right menu */}
           {!isMobile && !isTablet && (
             <div className='right-menu'>
-              <Link to='/analytics'>Analytics</Link>
-              <Link to='/getlisted'>Get Listed</Link>
+              <a href='/analytics'>Analytics</a>
+              <a href='/getlisted'>Get Listed</a>
               <div className='icons'>
                 <button
                   style={{

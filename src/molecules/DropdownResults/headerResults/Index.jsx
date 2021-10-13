@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import ImageTypeDetect from '../../../molecules/ImageTypeDetect';
 import { GoVerified } from 'react-icons/go';
 
-const HeaderResults = ({ results, location }) => {
+const HeaderResults = ({ results, location, isOpen }) => {
   return (
     <>
       {results && (
@@ -29,8 +29,11 @@ const HeaderResults = ({ results, location }) => {
           {results.results
             .filter((result) => result.meta.index === 'collections')
             .filter((e, i) => i < 5)
-            .map(({ value: collection }) => (
-              <a href={`/collection/${collection.slug}`} key={collection.id}>
+            .map(({ value: collection }, i) => (
+              <a
+                href={`/collection/${collection.slug}`}
+                key={collection.id + i}
+              >
                 <li>
                   <ImageTypeDetect
                     imageURL={collection.imgMain}
@@ -45,7 +48,7 @@ const HeaderResults = ({ results, location }) => {
           {results.results
             .filter((result) => result.meta.index === 'assets')
             .filter((e, i) => i < 5)
-            .map(({ value: asset }) => (
+            .map(({ value: asset }, i) => (
               <Link
                 to={{
                   pathname: `/assets/${
@@ -53,9 +56,9 @@ const HeaderResults = ({ results, location }) => {
                       ? asset.contractAddress
                       : asset.asset_contract.address
                   }/${asset.tokenId ? asset.tokenId : asset.token_id}`,
-                  state: { background: location },
+                  state: { background: location, searchResults: isOpen },
                 }}
-                key={asset.id}
+                key={i}
               >
                 <li>
                   {asset.image_preview_url ? (
