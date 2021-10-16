@@ -4,6 +4,7 @@ import { useMediaQuery } from 'react-responsive';
 import HotCollectionsBar from './HotCollectionsBar';
 import SearchInput from './SearchInput';
 import { Link, useLocation, useHistory } from 'react-router-dom';
+import ToggleTheme from './header/ToggleTheme';
 import { useDebounce } from '../atoms/hooks/useStateDebounce';
 import { Api } from '../services/api';
 import UnlockModal from '../atoms/unlock/unlockModal';
@@ -14,8 +15,7 @@ import NftSearchBarModal from './NftSearchBarModal';
 import HeaderDropDownResults from './DropdownResults/headerResults/Index';
 import { AiFillShop, AiOutlineForm } from 'react-icons/ai';
 import { IoAnalyticsSharp } from 'react-icons/io5';
-import { IoIosStats, IoIosClose } from 'react-icons/io';
-import { BiSearch } from 'react-icons/bi';
+import { oneClickLogin, validateIsLogged } from '../util';
 
 import MenuSearchResults from './header/MenuSearchResults';
 import Menu from './header/Menu';
@@ -244,6 +244,14 @@ const Header = ({ background, menuOpen, setMenuOpen }) => {
             <div className='right-menu'>
               <a href='/analytics'>Analytics</a>
               <a href='/getlisted'>Get Listed</a>
+              {/* <div
+                onClick={() => {
+                  connected ? oneClickLogin() : setModalOpen(true);
+                }}
+              >
+                sign
+              </div> */}
+
               <div className='icons'>
                 <button
                   style={{
@@ -256,9 +264,7 @@ const Header = ({ background, menuOpen, setMenuOpen }) => {
                   <FaWallet size={28} className='header-icon' />
                 </button>
                 {connected && (
-                  <span style={{ color: 'black', fontSize: '10px' }}>
-                    {account?.address.substring(0, 5)}...
-                  </span>
+                  <span>{account?.address.substring(0, 5)}...</span>
                 )}
                 {modalOpen && (
                   <UnlockModal
@@ -267,6 +273,7 @@ const Header = ({ background, menuOpen, setMenuOpen }) => {
                   />
                 )}
               </div>
+              <ToggleTheme />
             </div>
           )}
         </nav>
@@ -319,16 +326,40 @@ const Header = ({ background, menuOpen, setMenuOpen }) => {
                   'Connect you wallet'
                 )}
               </div>
+              {/* <div
+                onClick={() => {
+                  connected ? oneClickLogin() : setModalOpen(true);
+                }}
+              >
+                Sign message
+              </div>
+              {/* {login ? (
+                <div onClick={() => localStorage.removeItem('token')}>
+                  Log out
+                </div>
+              ) : (
+                <div
+                  onClick={() => {
+                    connected ? oneClickLogin() : setModalOpen(true);
+                  }}
+                >
+                  login
+                </div>
+              )} */}
+
               {modalOpen && (
                 <UnlockModal
                   closeModal={() => setModalOpen(false)}
                   modalOpen={modalOpen}
                 />
               )}
+
+              <div className='bm-item theme-menu'>
+                <ToggleTheme />
+              </div>
             </>
           ) : (
             <>
-              {' '}
               {isMobile && (
                 <MenuSearchResults
                   results={results}

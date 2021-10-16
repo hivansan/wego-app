@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import DataTable from 'react-data-table-component';
 import Paginator from '../molecules/Paginator';
 
-import { GrPrevious, GrNext } from 'react-icons/gr';
+import { MdNavigateNext, MdNavigateBefore } from 'react-icons/md';
 
 import LinearProgress from '@material-ui/core/LinearProgress';
 
@@ -49,9 +49,7 @@ const CollectionsTable = ({
             />
             {dataUtils && (
               <div className='results'>
-                <small className='text-muted'>
-                  About {dataUtils.meta.total} results
-                </small>
+                <small>About {dataUtils.meta.total} results</small>
               </div>
             )}
           </div>
@@ -97,8 +95,8 @@ const CollectionsTable = ({
               {dataUtils.meta.total >= perPage && (
                 <Paginator
                   forcePage={page}
-                  nextLabel={<GrNext color='red' />}
-                  previousLabel={<GrPrevious color='red' />}
+                  nextLabel={<MdNavigateNext />}
+                  previousLabel={<MdNavigateBefore />}
                   limit={perPage}
                   totalItems={dataUtils.meta.total}
                   onPageChange={({ selected: selectedPage }) => {

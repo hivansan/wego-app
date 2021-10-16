@@ -14,6 +14,10 @@ export class Api {
       baseURL,
       headers: {
         accept: 'application/json, text/plain, */*',
+        'Content-Type': 'application/json;charset=UTF-8',
+        authorization: !localStorage.getItem('token')
+          ? ''
+          : localStorage.getItem('token'),
       },
     });
 
@@ -71,6 +75,29 @@ export class Api {
       },
     };
 
+    this.users = {
+      findOne: (publicAddress) => {
+        return this.request('get', `api/users/?publicAddress=${publicAddress}`);
+      },
+
+      isLogged: () => {
+        return this.request('get', `api/users/isLogged`);
+      },
+
+      register: (publicAddress) => {
+        return this.postRequest('post', 'api/users', {
+          publicAddress,
+        });
+      },
+
+      login: (publicAddress, sign) => {
+        return this.postRequest('post', 'api/users/login', {
+          publicAddress,
+          sign,
+        });
+      },
+    };
+
     this.search = (param, page) => {
       const hasParams = param === '' ? '' : `&q=${encodeURI(param)}`;
       const hasPagination = page ? `&page=${page}` : '';
@@ -87,6 +114,15 @@ export class Api {
       return res.data;
     } catch (error) {
       throw error;
+    }
+  }
+
+  async postRequest(method, url, data) {
+    try {
+      let res = await this.axios[method](url, data);
+      return res.data;
+    } catch (error) {
+      console.log(error);
     }
   }
 

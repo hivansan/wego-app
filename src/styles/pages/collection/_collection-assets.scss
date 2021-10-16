@@ -29,7 +29,7 @@
           display: flex;
         }
         p {
-          color: $primary-color;
+          color: var(--color-secondary);
           margin: 0;
           margin-right: 1rem;
         }
@@ -39,22 +39,17 @@
           padding: 0.5rem;
           border-radius: 9px;
           margin-right: 1rem;
-          border: 1px solid #aaaaaa;
-          color: $secondary-color;
+          border: 1px solid var(--border-default);
+          color: var(--color-secondary);
+          background-color: var(--bg-search-input);
 
           &:focus-within {
             outline: none;
           }
         }
 
-        input {
-          border: 1px solid #aaaaaa;
-          padding: 0.5rem;
-          border-radius: 9px;
-          color: $secondary-color;
-          &:focus-within {
-            outline: none;
-          }
+        .sort-direction {
+          color: var(--color-secondary);
         }
       }
     }
@@ -67,8 +62,8 @@
 
       .trait-filter {
         padding: 0.6rem;
-        border: 1px solid $primary-color;
-        color: $secondary-color;
+        border: 1px solid var(--color-primary);
+        color: var(--color-secondary);
         border-radius: 5px;
         cursor: pointer;
         margin: 0.5rem;
@@ -76,13 +71,13 @@
         align-items: center;
 
         &:hover {
-          color: $secondary-color-hover;
+          color: var(--color-secondary-hover);
         }
       }
       .clear-filters {
         margin-left: 0.5rem;
         cursor: pointer;
-        color: $primary-color;
+        color: var(--color-primary);
         font-weight: 600;
       }
     }
@@ -114,12 +109,20 @@
       .loading-item {
         width: 300px;
         height: 300px;
-        border: 1px solid #f0f0f1;
+        border: 1px solid var(--border-default);
+        background: var(--bg-canvas-default);
         padding: 0.8rem;
         border-radius: 10px;
 
         .loading-item-header {
           width: 50%;
+          background-color: var(--border-default);
+          background-image: linear-gradient(
+            90deg,
+            var(--bg-header),
+            var(--bg-header),
+            var(--bg-header)
+          );
         }
 
         .loading-item-image {
@@ -129,12 +132,21 @@
           overflow: hidden;
           border-radius: 5px;
           margin: 0.5rem 0;
+          background-color: var(--border-default);
+          background-image: linear-gradient(90deg, var(--bg-header));
         }
 
         .loading-item-token {
           display: flex;
           margin: 0 auto;
           width: 60%;
+          background-color: var(--border-default);
+          background-image: linear-gradient(
+            90deg,
+            var(--bg-header),
+            var(--bg-header),
+            var(--bg-header)
+          );
         }
       }
     }
@@ -164,15 +176,16 @@
   max-height: 80vh;
   overflow: auto;
   top: 130px;
+  background-color: var(--bg-header);
   header {
     cursor: pointer;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0.8rem;
-    color: $primary-color;
+    color: var(--color-primary);
     font-size: 25px;
-    border-bottom: 1px solid #aaaaaa;
+    border-bottom: 1px solid var(--border-default);
     user-select: none;
 
     .header-collapsed-off {
@@ -193,12 +206,12 @@
     width: 100%;
     .filter-header {
       padding: 0.8rem;
-      border-bottom: 1px solid #aaaaaa;
-      background-color: #fff;
+      border-bottom: 1px solid var(--border-default);
+      background-color: var(--bg-canvas-table);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      color: $secondary-color;
+      color: var(--color-secondary);
       user-select: none;
       cursor: pointer;
       p {
@@ -209,21 +222,17 @@
     }
 
     .filter-body {
-      border-bottom: 1px solid #aaaaaa;
+      border-bottom: 1px solid var(--border-default);
       padding: 0.5rem;
 
       input {
-        color: #666666;
-        background-color: #fff;
+        color: var(--color-secondary);
+        background-color: var(--bg-search-input);
         padding: 0.5rem;
         border-radius: 1rem;
-        border: 1px solid #c7c7c7;
+        border: 1px solid var(--border-default);
         &::placeholder {
           color: #aaaaaa;
-        }
-
-        &:focus {
-          border: 1px solid $primary-color;
         }
 
         &:focus-within {
@@ -236,7 +245,8 @@
 .filter-collapse {
   width: 50px;
   overflow-y: auto;
-  border: 1px solid #dbdbdb;
+  border: 1px solid var(--border-default);
+  background-color: var(--bg-header);
   border-left: none;
   border-bottom: none;
 
@@ -295,7 +305,7 @@
       .collection-assets-filters-mobile {
         header {
           font-size: 30px;
-          color: $primary-color;
+          color: var(--color-primary);
         }
 
         .filter {
@@ -384,7 +394,7 @@
     .filters-mobile {
       display: block;
       position: fixed;
-      background-color: $primary-color;
+      background-color: var(--color-primary);
       color: #f0f0f1;
       bottom: 0px;
       z-index: 900;

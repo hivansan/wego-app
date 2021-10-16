@@ -1,17 +1,17 @@
 @import '../../variables.scss';
 
-.top-collections-section{
-	padding: 3rem;
+.top-collections-section {
+  padding: 3rem;
 
-	h1{
-		color: $secondary-color;	
-		font-family: 'Raleway', sans-serif;
-	}
+  h1 {
+    color: var(--color-secondary);
+    font-family: 'Raleway', sans-serif;
+  }
 
-	.top-collections-section-container{
-		gap: 3vw;
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: center;
-	}
+  .top-collections-section-container {
+    gap: 3vw;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 }

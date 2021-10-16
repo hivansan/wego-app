@@ -110,6 +110,8 @@ class Store {
     );
   }
 
+  componentDidMount() {}
+
   getStore(key) {
     return this.store[key];
   }

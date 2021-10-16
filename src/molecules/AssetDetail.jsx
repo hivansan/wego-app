@@ -7,14 +7,7 @@ import ImageTypeDetect from './ImageTypeDetect';
 import { Api } from '../services/api';
 import { useLocation, useHistory, useParams } from 'react-router-dom';
 
-const AssetDetailModal = ({
-  name = 'Mutant Ape Yach Club',
-
-  dateAdded = '20 jul 2021',
-  owners = 300,
-  setModalLink,
-  setFooter,
-}) => {
+const AssetDetailModal = ({ setFooter }) => {
   const [open, setOpen] = useState(true);
   const [asset, setAsset] = useState(null);
 
@@ -40,10 +33,14 @@ const AssetDetailModal = ({
   };
 
   useEffect(() => {
+    if (location.state) {
+      localStorage.setItem('sR', location.state.searchResults);
+    }
+
     if (!location.key) {
       setFooter(location.pathname);
     }
-    localStorage.setItem('sR', location.state.searchResults);
+
     getAsset();
   }, []);
 
@@ -139,9 +136,7 @@ const AssetDetailModal = ({
                         src='https://storage.googleapis.com/opensea-static/Logomark/Logomark-Blue.png'
                         alt='open sea logo'
                       />
-                      <p>
-                        View on OpenSea <strong>1ETH</strong>
-                      </p>
+                      <p>View on OpenSea</p>
                     </div>
                   </a>
                 </div>
@@ -179,10 +174,7 @@ const AssetDetailModal = ({
                       >
                         <div className='asset-detail-filter-header'>
                           <small>{trait.trait_type}</small>
-                          <div className='asset-detail-filter-header-n'>
-                            <small>0.35 ETH</small>
-                            <small>+1157.41</small>
-                          </div>
+                          <div className='asset-detail-filter-header-n'></div>
                         </div>
                         <div className='asset-detail-filter-attribute'>
                           <small></small>

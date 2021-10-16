@@ -1,17 +1,15 @@
-@import '../variables.scss';
-
 .drop-down-collections {
   width: 100%;
   overflow: auto;
   header {
-    color: $primary-color;
+    color: var(--color-primary);
     font-weight: 600;
     margin: 0.6rem 0;
     margin-bottom: 11px;
   }
 
   .collection {
-    border-bottom: 1px solid #c0bfbf;
+    border-bottom: 1px solid var(--border-default);
     padding-bottom: 0.5rem;
     margin-bottom: 1rem;
     display: flex;
@@ -20,7 +18,7 @@
     min-height: 136px;
 
     &:hover {
-      border-bottom: 1px solid $primary-color;
+      border-bottom: 1px solid var(--color-primary);
     }
 
     .collection-left {
@@ -30,7 +28,7 @@
         align-items: center;
         gap: 0.5rem;
         p {
-          color: $secondary-color;
+          color: var(--color-secondary);
           margin: 0;
           font-weight: 500;
         }
@@ -45,10 +43,10 @@
           gap: 0.6rem;
           line-height: 17px;
           p {
-            color: $primary-color;
+            color: var(--color-primary);
           }
           small {
-            color: $primary-color;
+            color: var(--color-primary);
             margin-left: 4rem;
             &:last-child {
             }
@@ -66,7 +64,7 @@
           margin: 0.3rem;
           strong {
             font-weight: 400;
-            color: $primary-color;
+            color: var(--color-primary);
             font-size: 14px;
           }
         }
@@ -92,10 +90,10 @@
   }
 
   a {
-    color: #aaaaaa;
+    color: var(--color-secondary);
 
     &:hover {
-      color: $secondary-color-hover;
+      color: var(--color-secondary-hover);
     }
   }
 }

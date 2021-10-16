@@ -10,9 +10,7 @@ import * as Web3 from 'web3';
 
 import { infuraProvider } from '../../config/example.config';
 import { useState } from 'react';
-import FlagShipSection from './FlagshipSection';
 import TopCollectionSection from './TopCollectionSection';
-import TrendingCollectionSection from './TrendingCollectionSection';
 
 import NftSearchSection from './NftSearchSection';
 

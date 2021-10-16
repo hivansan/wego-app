@@ -43,21 +43,8 @@ const AllCollectionsTable = () => {
   }, [debounceValue]);
 
   useEffect(() => {
-    if (collections.length < perPage) {
-      if (data) {
-        getCollections(
-          Math.ceil(data.meta.total / perPage),
-          debounceValue,
-          sort,
-          sortDirection
-        );
-        setPage(Math.ceil(data.meta.total / perPage));
-        window.scrollTo(0, 0);
-      }
-    } else {
-      getCollections(page, debounceValue, sort, sortDirection);
-      window.scrollTo(0, 0);
-    }
+    getCollections(page, debounceValue, sort, sortDirection);
+    window.scrollTo(0, 0);
   }, [perPage]);
 
   useEffect(() => {

@@ -9,9 +9,7 @@
 body {
   width: 100vw;
   overflow-x: hidden !important;
-}
-
-.view-wrapper {
+  background-color: var(--bg-app);
 }
 
 /* Position and sizing of burger button */
@@ -21,6 +19,7 @@ body {
   height: 30px;
   right: 2px;
   top: 20px;
+  color: var(--color-secondary);
 }
 
 /* Position and sizing of clickable cross button */
@@ -48,7 +47,7 @@ Note: Beware of modifying this element as it can break the animations - you shou
 
 /* General sidebar styles */
 .bm-menu {
-  background: #fff;
+  background: var(--bg-header);
   padding: 2.5em 0;
   padding-top: 1rem;
   font-size: 1.15em;
@@ -74,12 +73,12 @@ Note: Beware of modifying this element as it can break the animations - you shou
     padding-bottom: 5rem;
 
     li {
-      border-bottom: 1px solid $muted;
+      border-bottom: 1px solid var(--border-default);
       padding: 8px;
     }
 
     a {
-      color: #000;
+      color: var(--color-secondary);
       li {
         .result-img {
           width: 30px;
@@ -129,11 +128,20 @@ Note: Beware of modifying this element as it can break the animations - you shou
   font-weight: 500;
   font-size: 20px;
   display: flex !important;
-  color: #666666;
+  color: var(--color-secondary);
 
   svg {
     margin-right: 10px;
+    color: var(--color-secondary);
   }
+
+  &:hover {
+    color: var(--color-secondary-hover);
+  }
+}
+
+.theme-menu {
+  justify-content: center;
 }
 
 .bm-input {

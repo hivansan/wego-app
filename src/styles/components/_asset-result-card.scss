@@ -5,11 +5,11 @@
   margin: 20px 0;
   font-family: $default-font;
   padding-bottom: 1rem;
-  border-bottom: 1px solid #e6e3e3;
+  border-bottom: 1px solid var(--border-default);
 
   header {
     padding: 1rem 0;
-    color: $primary-color;
+    color: var(--color-primary);
     font-size: 30px;
   }
 
@@ -42,17 +42,17 @@
               p {
                 font-weight: 600;
                 font-size: 20px;
-                color: #686767;
+                color: var(--color-secondary);
                 margin: 0;
 
                 &:hover {
-                  color: $secondary-color-hover;
+                  color: var(--color-secondary-hover);
                 }
               }
             }
 
             small {
-              color: $primary-color;
+              color: var(--color-primary);
             }
           }
         }
@@ -63,11 +63,11 @@
           width: 100%;
           line-height: 15px;
           p {
-            color: $secondary-color;
+            color: var(--color-secondary);
             margin: 0.3rem 0.5rem;
 
             strong {
-              color: $primary-color;
+              color: var(--color-primary);
               font-weight: 400;
             }
           }
@@ -89,6 +89,7 @@
             text-align: center;
             margin: 0;
             margin-bottom: 0.3rem;
+            color: var(--color-secondary);
           }
           .asset-preview-img {
             width: 120px;

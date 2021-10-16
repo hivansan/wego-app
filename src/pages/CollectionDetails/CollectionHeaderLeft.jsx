@@ -14,9 +14,12 @@ const CollectionHeaderLeft = ({ collectionInfo }) => {
           <div className='left-header-info'>
             <div className='d-flex'>
               {!collectionInfo.imgMain ? (
-                <div className='img-loader'>
-                  <Skeleton circle={true} height={80} width={80} />
-                </div>
+                <Skeleton
+                  circle={true}
+                  height={80}
+                  width={80}
+                  className='img-loader'
+                />
               ) : (
                 <img
                   src={collectionInfo.imgMain}
@@ -25,9 +28,7 @@ const CollectionHeaderLeft = ({ collectionInfo }) => {
               )}
               <div>
                 {!collectionInfo.name && !collectionInfo.slug ? (
-                  <div>
-                    <Skeleton height={30} />
-                  </div>
+                  <Skeleton height={30} className='loader-name' />
                 ) : (
                   <>
                     {collectionInfo.name ? (
@@ -66,15 +67,7 @@ const CollectionHeaderLeft = ({ collectionInfo }) => {
                 )}
                 <div className='collection-personal-stats'>
                   {!collectionInfo.imgMain ? (
-                    <Skeleton width={150} />
-                  ) : (
-                    <small className='wego-score'>
-                      Wego Score:{' '}
-                      <strong>{collectionInfo.stats.wegoScore}</strong>
-                    </small>
-                  )}
-                  {!collectionInfo.imgMain ? (
-                    <Skeleton width={200} />
+                    <Skeleton width={200} className='loader-personal-stats' />
                   ) : (
                     <small>
                       Date Added:

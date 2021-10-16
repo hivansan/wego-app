@@ -1,13 +1,70 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@502;600;800;900&display=swap');
 
+// LIGHT COLORS
+$bg-app: #fff;
+$bg-header: #fff;
 $primary-color: #1f71ba;
 $secondary-color: #666666;
 $success-color: #38b87d;
 $light-gray: #676767;
 $bg-primary: #fff;
-
 $muted: rgb(242, 243, 247);
-
 $secondary-color-hover: #4b4a4a;
-
 $default-font: 'Raleway', sans-serif;
+$bg-search-input: #fff;
+$border-default: #c7c7c7;
+$bg-canvas-default: #fff;
+$canvas-default-hover: #e6e6e6;
+$bg-footer: #1d1d1d;
+$bg-canvas-table: #f1f1f1;
+$bm-icon-color: #000;
+
+// DARK COLORS
+
+// rgb(33, 42, 58)
+$bg-app--dark: #181e25;
+$bg-header--dark: #151a20;
+$secondary-color--dark: #c8d1d9;
+$secondary-color-hover--dark: #b3bcc3;
+$bg-search-input--dark: #1e242a;
+$border-default--dark: #252a2e;
+$bg-canvas-default--dark: #181f27;
+$canvas-default-hover--dark: #202935;
+$bg-footer--dark: #151a20;
+$bg-canvas-table--dark: #13181f;
+$bm-icon-color--dark: #fff;
+
+:root {
+  --color-primary: #{$primary-color};
+  --color-muted: #{$muted};
+}
+
+body[theme='light'] {
+  --bg-app: #{$bg-app};
+  --bg-header: #{$bg-header};
+  --color-secondary: #{$secondary-color};
+  --color-secondary-hover: #{$secondary-color-hover};
+  --bg-search-input: #{$bg-search-input};
+  --border-default: #{$border-default};
+  --bg-canvas-default: #{$bg-canvas-default};
+  --canvas-default-hover: #{$canvas-default-hover};
+  --bg-footer: #{$bg-footer};
+  --bg-canvas-table: #{$bg-canvas-table};
+  --border-asset-detail: #{$primary-color};
+  --bm-icon-color: #{$bm-icon-color};
+}
+
+body[theme='dark'] {
+  --bg-app: #{$bg-app--dark};
+  --bg-header: #{$bg-header--dark};
+  --color-secondary: #{$secondary-color--dark};
+  --color-secondary-hover: #{$secondary-color-hover--dark};
+  --bg-search-input: #{$bg-search-input--dark};
+  --border-default: #{$border-default--dark};
+  --bg-canvas-default: #{$bg-canvas-default--dark};
+  --canvas-default-hover: #{$canvas-default-hover--dark};
+  --bg-footer: #{$bg-footer--dark};
+  --bg-canvas-table: #{$bg-canvas-table--dark};
+  --border-asset-detail: #{$border-default--dark};
+  --bm-icon-color: #{$bm-icon-color--dark};
+}

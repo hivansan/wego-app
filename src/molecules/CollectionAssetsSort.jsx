@@ -41,13 +41,13 @@ const CollectionAssetsSort = ({ setAssetsSort, assetsSort }) => {
           onChange={handleRadioChange}
         >
           <FormControlLabel
-            style={{ color: '#666666' }}
+            className='sort-direction'
             value='desc'
             control={<Radio color='default' style={{ color: '#1f71ba' }} />}
             label='Descending'
           />
           <FormControlLabel
-            style={{ color: '#666666' }}
+            className='sort-direction'
             value='asc'
             control={<Radio style={{ color: '#1f71ba' }} />}
             label='Ascending'

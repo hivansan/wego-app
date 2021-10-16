@@ -1,10 +1,10 @@
 @import '../variables.scss';
 
 .table-container {
-  background-color: #f1f1f1;
+  background-color: var(--bg-canvas-table);
   border-radius: 5px;
   overflow: hidden;
-  border: 1px solid #dad9d9;
+  border: 1px solid var(--border-default);
   font-family: 'Raleway', sans-serif;
 
   .rdt_Table {
@@ -16,11 +16,17 @@
         display: flex;
         flex-wrap: wrap;
         input {
-          border: 1px solid #ccced3;
+          border: 1px solid var(--border-default);
+          background-color: var(--bg-search-input);
           border-radius: 10px;
+          color: var(--color-secondary);
           width: 350px;
           padding: 0.2rem 0;
           padding-left: 1.5rem;
+
+          &::placeholder {
+            color: #aaaaaa;
+          }
 
           &:focus-visible {
             outline: none;
@@ -31,6 +37,7 @@
           display: flex;
           align-items: flex-end;
           margin-left: 0.5rem;
+          color: var(--color-secondary);
         }
       }
     }
@@ -41,12 +48,9 @@
       display: flex;
       justify-content: center;
 
-      background-color: #f1f1f1;
-      .MuiLinearProgress-colorPrimary {
-        background-color: #6fb1eb;
-        .MuiLinearProgress-barColorPrimary {
-          background-color: $primary-color;
-        }
+      background-color: var(--bg-canvas-table);
+      .spinner-border {
+        color: var(--color-secondary);
       }
     }
 
@@ -56,7 +60,7 @@
       align-items: center;
       h1 {
         margin: 0;
-        color: $primary-color;
+        color: var(--color-primary);
       }
     }
 
@@ -64,11 +68,19 @@
       .rdt_TableHeadRow {
         .rdt_TableCol {
           font-weight: bold;
-          color: $secondary-color;
-          background-color: #f1f1f1;
-          justify-content: center;
-        }
+          background-color: var(--bg-canvas-table);
 
+          justify-content: center;
+
+          .rdt_TableCol_Sortable {
+            color: var(--color-secondary);
+
+            &:hover {
+              color: var(--color-secondary-hover);
+            }
+          }
+        }
+        border-bottom: 1px solid var(--border-default);
         .rdt_TableCell {
         }
       }
@@ -78,10 +90,10 @@
       .rdt_TableRow {
         border-bottom-style: solid;
         border-bottom-width: 1px;
-        border-bottom-color: rgba(0, 0, 0, 0.12);
+        border-bottom-color: var(--border-default);
       }
       a {
-        color: $primary-color;
+        color: var(--color-primary);
         .table-collection-info {
           display: flex;
           gap: 0.5rem;
@@ -102,12 +114,12 @@
 
       .rdt_TableCell {
         font-weight: 500;
-        color: $secondary-color;
-        background-color: #f1f1f1;
+        color: var(--color-secondary);
+        background-color: var(--bg-canvas-table);
         justify-content: center;
 
         &:nth-child(2) {
-          color: $primary-color;
+          color: var(--color-primary);
           font-weight: bolder;
           justify-content: start;
         }
@@ -120,7 +132,7 @@
     font-weight: 500;
 
     .table-pagination {
-      color: $secondary-color;
+      color: var(--color-secondary);
       padding: 1rem 0;
       display: flex;
       flex-wrap: wrap;
@@ -140,6 +152,13 @@
 
       .table-paginator {
         .paginator {
+          li {
+            svg {
+              width: 30px;
+              height: 30px;
+              color: var(--color-secondary);
+            }
+          }
         }
       }
     }
@@ -147,7 +166,7 @@
     p {
       margin: 0;
       font-size: 0.8rem;
-      color: $secondary-color;
+      color: var(--color-secondary);
     }
   }
 }
@@ -159,12 +178,6 @@
 // //small screens
 @media screen and (max-width: 576px) {
   .table-container {
-    background-color: #f1f1f1;
-    border-radius: 5px;
-    overflow: hidden;
-    border: 1px solid #dad9d9;
-    font-family: 'Raleway', sans-serif;
-
     .rdt_Table {
       .rdt_TableHeader {
         min-height: 0;
@@ -176,7 +189,6 @@
     }
     .table-footer {
       .table-pagination {
-        color: $secondary-color;
         padding: 1rem 0;
         display: flex;
         flex-wrap: wrap;
@@ -194,7 +206,7 @@
       p {
         margin: 0;
         font-size: 0.8rem;
-        color: $secondary-color;
+        color: var(--color-secondary);
       }
     }
   }

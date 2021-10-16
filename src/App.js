@@ -50,12 +50,13 @@ class App extends Component {
 
   connectionConnected = () => {
     // console.log('connection connected');
+
+    localStorage.removeItem('token');
     this.setState({ account: store.getStore('account') });
     // dispatcher.dispatch({ type: CONFIGURE, content: {} });
   };
 
   connectionDisconnected = () => {
-    // console.log(store.getStore('account'));
     this.setState({ account: store.getStore('account') });
   };
 

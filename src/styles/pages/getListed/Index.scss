@@ -11,7 +11,7 @@
 
   .get-listed-header {
     h1 {
-      color: $primary-color;
+      color: var(--color-primary);
       padding: 2rem;
     }
   }
@@ -28,12 +28,12 @@
         display: inline-block;
 
         .form-check-input:checked {
-          background-color: $primary-color;
-          border-color: $primary-color;
+          background-color: var(--color-primary);
+          border-color: var(--color-primary);
         }
 
         .form-check-label {
-          color: #666666;
+          color: var(--color-secondary);
         }
       }
 
@@ -46,14 +46,16 @@
 
       .get-listed-label {
         font-weight: bolder;
+        color: var(--color-secondary);
       }
 
       .get-listed-input {
         width: 100%;
-        color: $secondary-color;
+        color: var(--color-secondary);
+        background-color: var(--bg-search-input);
         margin-top: 0.5rem;
         border-radius: 10px;
-        border: 1px solid #aaaaaa;
+        border: 1px solid var(--border-default);
         padding: 0.5rem;
 
         &::placeholder {
@@ -82,10 +84,38 @@
           .react-date-picker__wrapper {
             border-radius: 10px;
             border: 1px solid #aaaaaa;
-            color: #666666;
+            background-color: var(--bg-search-input);
+            color: var(--color-secondary);
             &:focus-within {
               outline: none;
               box-shadow: rgb(4 17 29 / 25%) 0px 0px 8px 0px;
+            }
+            .react-date-picker__inputGroup__input {
+              color: var(--color-secondary) !important;
+            }
+
+            button {
+              svg {
+                stroke: var(--color-secondary);
+              }
+            }
+          }
+          .react-date-picker__calendar .react-calendar {
+            color: var(--color-secondary);
+            background-color: var(--bg-canvas-default);
+
+            button {
+              color: var(--color-secondary);
+            }
+
+            .react-calendar__navigation {
+              button {
+                color: var(--color-secondary);
+
+                &:hover {
+                  background-color: var(--canvas-default-hover);
+                }
+              }
             }
           }
         }
@@ -94,7 +124,6 @@
 
     .get-listed-submit {
       padding: 0.5rem 1rem;
-      border-color: #aaaaaa;
     }
   }
 }

@@ -1,60 +1,9 @@
 @import '../variables.scss';
 
 .footer {
-  .footer-container {
-    width: 100%;
-    background-color: $primary-color;
-    color: #fff;
-    display: flex;
-    flex-direction: column;
-    box-sizing: border-box;
-    padding: 4rem 3rem;
-    font-family: 'Raleway', sans-serif;
-
-    h1 {
-      align-self: center;
-      font-weight: bold;
-    }
-
-    .footer-info {
-      display: flex;
-      justify-content: center;
-      margin-top: 20px;
-      font-size: 15px;
-
-      .newsletter {
-        p {
-          width: 437px;
-        }
-
-        form {
-          input {
-            border-radius: 6px;
-            border: 1px solid $secondary-color;
-            padding: 8px;
-            min-width: 250px;
-            margin-right: 2rem;
-
-            &:focus-visible {
-              outline: none;
-            }
-          }
-
-          button {
-            background-color: transparent;
-            color: #fff;
-            border: 1px solid gray;
-            padding: 8px 25px;
-            border-radius: 6px;
-          }
-        }
-      }
-    }
-  }
-
   .footer-c {
     width: 100%;
-    background-color: #1d1d1d;
+    background-color: var(--bg-footer);
     display: flex;
     justify-content: center;
     align-items: center;

@@ -2,20 +2,9 @@
 
 .hot-collections-bar {
   display: flex;
-  background-color: #fff;
+  background-color: var(--bg-header);
   font-family: $default-font;
   overflow-x: auto;
-  .price {
-    border-right: 1px solid $muted;
-    padding: 0.3rem 1rem;
-    display: flex;
-    align-items: center;
-    p {
-      color: #aaaaaa;
-      margin: 0;
-      white-space: nowrap;
-    }
-  }
 
   .hot-collections {
     display: flex;
@@ -25,7 +14,7 @@
     a {
       display: flex;
       align-items: center;
-      color: $secondary-color;
+      color: var(--color-secondary);
       .hot-collection {
         display: flex;
         align-items: center;
@@ -49,7 +38,7 @@
       }
 
       &:hover {
-        color: $secondary-color-hover;
+        color: var(--color-secondary-hover);
       }
     }
   }
