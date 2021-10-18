@@ -26,17 +26,19 @@ const SearchScreen = () => {
   const prevQuery = query.get('q');
   const page = query.get('page');
   const q = !prevQuery ? '' : prevQuery;
+  const urlTab = query.get('tab');
 
   const [param, setParam] = useState(q);
   const [results, setResults] = useState(null);
   const [locationKeys, setLocationKeys] = useState([]);
+  const [tab, setTab] = useState(urlTab || 'all');
 
-  const [url, setUrl] = useState({ query: q, page });
+  const [url, setUrl] = useState({ query: q, page, tab: urlTab });
 
-  const getRequest = async (param, page) => {
+  const getRequest = async (param, page, tab) => {
     setResults(null);
     try {
-      const res = await api.search(param, page);
+      const res = await api.search(param, page, tab);
       setResults(res);
     } catch (err) {
       throw err;
@@ -44,13 +46,15 @@ const SearchScreen = () => {
   };
 
   const onPressEnter = () => {
+    const selectedTab = tab === 'all' ? '' : `&tab=${tab}`;
+
     if (param === '') {
-      history.push(`/search?page=1`);
-      setUrl({ query: '', page: 1 });
+      history.push(`/search?page=1${selectedTab}`);
+      setUrl({ query: '', page: 1, tab });
       return window.location.reload(false);
     }
-    history.push(`/search?q=${encodeURI(param)}&page=1`);
-    setUrl({ query: param, page: 1 });
+    history.push(`/search?q=${encodeURI(param)}&page=1${selectedTab}`);
+    setUrl({ query: param, page: 1, tab });
     window.location.reload(false);
   };
 
@@ -66,8 +70,9 @@ const SearchScreen = () => {
           const params = new URLSearchParams(location.search);
           const query = params.get('q') || '';
           const page = params.get('page');
+          const tab = params.get('tab') || 'all';
           console.log(page);
-          setUrl({ query, page });
+          setUrl({ query, page, tab });
           setParam(query);
           window.location.reload(false);
         } else {
@@ -75,12 +80,14 @@ const SearchScreen = () => {
           setLocationKeys((keys) => [location.key, ...keys]);
           const params = new URLSearchParams(location.search);
           const query = params.get('q') || '';
-          const page = params.get('page');
-          if (url.query === query && url.page === page) {
+          const page = parseInt(params.get('page'));
+          const tab = params.get('tab') || 'all';
+          if (url.query === query && url.page === page && url.tab === tab) {
+            console.log('a');
             return false;
           }
 
-          setUrl({ query, page });
+          setUrl({ query, page, tab });
           setParam(query);
           window.location.reload(false);
         }
@@ -89,7 +96,7 @@ const SearchScreen = () => {
   }, [locationKeys]);
 
   useEffect(() => {
-    getRequest(url.query, url.page);
+    getRequest(url.query, url.page, tab);
     return () => {
       setResults(null);
     };
@@ -115,7 +122,13 @@ const SearchScreen = () => {
         {results && <small>about {results.meta.total} Results</small>}
       </header>
 
-      <FiltersBar />
+      <FiltersBar
+        tab={tab}
+        setTab={setTab}
+        setUrl={setUrl}
+        url={url}
+        param={param}
+      />
       <div className='search-results-container'>
         {!results ? (
           <div className='loader-search'>
@@ -186,15 +199,22 @@ const SearchScreen = () => {
             limit={20}
             totalItems={results.meta.total}
             onPageChange={({ selected: selectedPage }) => {
+              const selectedTab = tab === 'all' ? '' : `&tab=${tab}`;
               if (param === '') {
-                history.push(`/search?page=${selectedPage + 1}`);
-                setUrl({ query: '', page: selectedPage + 1 });
+                history.push(`/search?page=${selectedPage + 1}${selectedTab}`);
+                setUrl({ query: '', page: selectedPage + 1, tab });
                 return window.location.reload(false);
               }
               history.push(
-                `/search?q=${encodeURI(param)}&page=${selectedPage + 1}`
+                `/search?q=${encodeURI(param)}&page=${
+                  selectedPage + 1
+                }${selectedTab}`
               );
-              setUrl({ query: url.query, page: selectedPage + 1 });
+              setUrl({
+                query: url.query,
+                page: selectedPage + 1,
+                tab,
+              });
               window.location.reload(false);
             }}
             forcePage={parseInt(url.page)}

@@ -98,12 +98,14 @@ export class Api {
       },
     };
 
-    this.search = (param, page) => {
+    this.search = (param, page, tab) => {
       const hasParams = param === '' ? '' : `&q=${encodeURI(param)}`;
       const hasPagination = page ? `&page=${page}` : '';
+      const hasTab = tab === 'all' || !tab ? '' : `&tab=${tab}`;
+      console.log(`api/search?limit=20${hasParams}${hasPagination}${hasTab}`);
       return this.request(
         'get',
-        `api/search?limit=20${hasParams}${hasPagination}`
+        `api/search?limit=20${hasParams}${hasPagination}${hasTab}`
       );
     };
   }
