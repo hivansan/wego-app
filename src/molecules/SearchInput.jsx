@@ -38,7 +38,7 @@ const SearchInput = forwardRef((props, ref) => {
         <BiSearch />
         <input
           type='text'
-          placeholder='Search Nft, Collections, or Keyword'
+          placeholder='Search NFT, Collections, or Keyword'
           value={props.value}
           onChange={handleChange}
           ref={ref}
