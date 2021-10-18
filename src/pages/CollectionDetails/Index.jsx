@@ -3,6 +3,7 @@ import CollectionHeader from './CollectionHeader';
 import CollectionAssets from './CollectionAssets';
 
 import { useParams, useLocation } from 'react-router-dom';
+import Error404 from '../Error404';
 
 import { Api } from '../../services/api';
 
@@ -26,18 +27,16 @@ const CollectionDetails = ({ setFooter }) => {
   const api = new Api();
   const location = useLocation();
   const isFiltersMobileOpen = filtersMobileOpen ? 'd-none' : '';
+
   const getCollection = async () => {
-    setResult({});
-    try {
-      const collection = await api.collections.findOne(slug);
-      setResult(collection);
-    } catch (err) {
-      throw err;
-    }
+    const collection = await api.collections.findOne(slug);
+    console.log(collection);
+    setResult(collection);
   };
 
   const getCollectionAssets = async (sortBy, sortDirection, traits) => {
     setResultAssets([]);
+    setHasNextPage(true);
     const res = await api.collections.assets(
       slug,
       assetsPerPage,
@@ -103,7 +102,6 @@ const CollectionDetails = ({ setFooter }) => {
   useEffect(() => {
     window.scrollTo(0, 0);
     getCollection();
-    setFooter(slug);
     getCollectionTraits();
     return () => {
       setResultAssets([]);
@@ -111,6 +109,13 @@ const CollectionDetails = ({ setFooter }) => {
       setCollectionTraits(null);
     };
   }, []);
+
+  useEffect(() => {
+    if (!result.status) {
+      return setFooter(slug);
+    }
+    setFooter(true);
+  }, [result]);
 
   useEffect(() => {
     var traitObj = filters.reduce(function (acc, cur, i) {
@@ -128,6 +133,10 @@ const CollectionDetails = ({ setFooter }) => {
       hasTraits
     );
   }, [filters, assetsSort]);
+
+  if (result.status === 404) {
+    return <Error404 />;
+  }
 
   return (
     <div className='collection-container'>

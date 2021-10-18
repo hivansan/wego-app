@@ -7,7 +7,7 @@ import Home from '../pages/home/index';
 import NftDetails from '../pages/nftDetails';
 import CollectionDetails from '../pages/CollectionDetails/Index';
 import SearchResults from '../pages/searchResults/Index';
-
+import Error404 from '../pages/Error404';
 import Graphs from '../pages/graphs/Index';
 
 import Header from '../molecules/header';
@@ -32,7 +32,7 @@ const MainSwitch = () => {
       return setFooter(false);
     }
 
-    if (location.pathname === `${collectionAddress}`) {
+    if (location.pathname === collectionAddress) {
       setHeader(false);
       return setFooter(false);
     }
@@ -84,11 +84,16 @@ const MainSwitch = () => {
           />
         </Route>
 
-        <Route exact path='/:search'>
+        <Route exact path='/search'>
           <SearchResults />
         </Route>
+
         <Route path='/' exact>
           <Home isSearchResultsOpen={location} />
+        </Route>
+
+        <Route>
+          <Error404 />
         </Route>
       </Switch>
 

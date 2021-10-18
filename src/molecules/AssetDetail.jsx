@@ -19,6 +19,7 @@ const AssetDetailModal = ({ setFooter }) => {
 
   const getAsset = async () => {
     const res = await api.assets.findOne(address, tokenId);
+    console.log(res);
     setAsset(res);
   };
 

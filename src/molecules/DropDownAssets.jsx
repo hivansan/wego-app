@@ -22,7 +22,7 @@ const DropDownAssets = ({ results, location, isOpen }) => {
               isOpen={isOpen}
               asset={asset}
               location={location}
-              key={asset.id + i}
+              key={i}
             />
           ))}
         </div>

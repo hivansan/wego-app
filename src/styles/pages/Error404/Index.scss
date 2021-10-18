@@ -1,0 +1,40 @@
+.error-404-container {
+  width: 100vw;
+  height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  h1 {
+    font-size: 200px;
+    color: var(--bm-icon-color);
+    text-shadow: 0.05em 0.05em 0 rgba(0, 0, 0, 0.25);
+    margin-bottom: 0.5rem;
+    span {
+      animation: spooky 3s alternate infinite linear;
+      display: inline-block;
+
+      svg {
+        filter: drop-shadow(0.05em 0.05em 0 rgba(0, 0, 0, 0.25));
+      }
+    }
+  }
+
+  @keyframes spooky {
+    from {
+      transform: translatey(0em) scaley(0.95);
+    }
+
+    to {
+      transform: translatey(-0.15em);
+    }
+  }
+  h3 {
+    color: var(--bm-icon-color);
+  }
+
+  p {
+    color: var(--color-secondary);
+  }
+}

@@ -3,12 +3,22 @@ import { Api } from './services/api';
 
 const { emitter, store } = Store;
 const api = new Api();
-const authPath = new Api(localStorage.getItem('token'));
 
 export const validateIsLogged = async () => {
-  const isLogged = await authPath.users.isLogged();
-
-  console.log(isLogged);
+  const publicAddress = store.getStore('account').address;
+  const api = new Api();
+  const validateLogged = await api.users.isLoggedIn();
+  if (!validateLogged.isLogged) {
+    api.users
+      .findOne(publicAddress)
+      .then((res) => res)
+      .then(({ user }) => (user ? user : api.users.register(publicAddress)))
+      .then(handleSignMessage)
+      .then((res) => api.users.login(publicAddress, res))
+      .then((res) => res.token && localStorage.setItem('token', res.token));
+  } else {
+    console.log(' logged');
+  }
 };
 
 export const handleSignMessage = async ({ publicAddress, nonce }) => {
@@ -24,18 +34,4 @@ export const handleSignMessage = async ({ publicAddress, nonce }) => {
   }
 };
 
-export const oneClickLogin = async () => {
-  const publicAddress = store.getStore('account').address;
-
-  api.users
-    .findOne(publicAddress)
-    .then((res) => res)
-    .then(({ user }) => (user ? user : api.users.register(publicAddress)))
-    .then(handleSignMessage)
-    .then((res) => api.users.login(publicAddress, res))
-    .then((res) => {
-      if (res.token) {
-        localStorage.setItem('token', res.token);
-      }
-    });
-};
+export const oneClickLogin = async () => {};

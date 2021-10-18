@@ -8,11 +8,16 @@ import 'slick-carousel/slick/slick-theme.css';
 import { OpenSeaPort, Network, OpenSeaAPI } from 'opensea-js';
 import * as Web3 from 'web3';
 
+import Store from '../../stores/store';
 import { infuraProvider } from '../../config/example.config';
 import { useState } from 'react';
 import TopCollectionSection from './TopCollectionSection';
 
+import { oneClickLogin, validateIsLogged } from '../../util';
+
 import NftSearchSection from './NftSearchSection';
+
+const { emitter, store } = Store;
 
 const Home = ({ isSearchResultsOpen }) => {
   const [nfts, setNfts] = useState([]);
@@ -51,8 +56,17 @@ const Home = ({ isSearchResultsOpen }) => {
       {/* <FlagShipSection location={location} /> */}
 
       {/* <section className='dividing-section'>
-        <div className='divider'>
-          <h1>Get featured on the homepage</h1>
+        <div onClick={() => validateIsLogged()} className='divider'>
+          <h1>validate</h1>
+        </div>
+        <div
+          onClick={() => localStorage.removeItem('token')}
+          className='divider'
+        >
+          <h1>sign out</h1>
+        </div>
+        <div onClick={() => oneClickLogin()} className='divider'>
+          <h1>Sign your message</h1>
         </div>
       </section> */}
 
