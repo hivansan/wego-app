@@ -92,7 +92,7 @@ const MainSwitch = () => {
           <Home isSearchResultsOpen={location} />
         </Route>
 
-        <Route>
+        <Route path='*' status={404}>
           <Error404 />
         </Route>
       </Switch>

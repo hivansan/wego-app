@@ -23,10 +23,13 @@ const ImageTypeDetect = ({ className, imageURL, alt }) => {
       </video>
     );
   }
-
   return (
     <img
-      src={imageURL === '' ? 'https://i.stack.imgur.com/y9DpT.jpg' : imageURL}
+      src={
+        imageURL === '' || !imageURL
+          ? 'https://i.stack.imgur.com/y9DpT.jpg'
+          : imageURL
+      }
       alt={alt}
       className={hasClass}
       loading='lazy'

@@ -94,6 +94,8 @@ const CollectionResultCard = ({ result, location }) => {
                       ? asset.tokenId
                       : asset.token_id;
 
+                    console.log(collection.name, assets);
+
                     return (
                       <div className='asset' key={i}>
                         <Link

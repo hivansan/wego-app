@@ -40,7 +40,7 @@ const ExactMatchCard = ({ results, className, location, ...props }) => {
                     ? resultsHastExactMatch.value.imgMain
                     : resultsHastExactMatch.value.image_preview_url
                     ? resultsHastExactMatch.value.image_preview_url
-                    : resultsHastExactMatch.value.imgSmall
+                    : resultsHastExactMatch.value.imageSmall
                 }
                 className='exact-match-img'
                 alt={resultsHastExactMatch.value.name}

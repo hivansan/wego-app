@@ -65,46 +65,51 @@ const AssetResultCard = ({ result, location }) => {
             </div>
             {assetScore && (
               <div className='asset-card-info-stats'>
-                <p>
-                  Rarity Score:{' '}
-                  <strong>
-                    {assetScore.rarityScore
-                      ? assetScore.rarityScore.toString().substring(0, 8)
-                      : '0'}
-                  </strong>
-                </p>
-                <p>
-                  Average Trait Rarity:{' '}
-                  <strong>
-                    {assetScore.avgTraitRarity
-                      ? assetScore.avgTraitRarity.toString().substring(0, 8) +
-                        '%'
-                      : '0'}
-                  </strong>
-                </p>
-                <p>
-                  Statistical Rarity:{' '}
-                  <strong>
-                    {assetScore.statisticalRarity
-                      ? assetScore.statisticalRarity
-                          .toString()
-                          .substring(0, 10) + '%'
-                      : '0'}
-                  </strong>
-                </p>
-                <p>
-                  Single Trait Rarity:{' '}
-                  <strong>
-                    {assetScore.singleTraitRarity
-                      ? assetScore.singleTraitRarity
-                          .toString()
-                          .substring(0, 8) + '%'
-                      : '0'}
-                  </strong>
-                </p>
-                <p>
-                  Total traits: <strong>{assetScore.traits.length}</strong>
-                </p>
+                {!assetScore.status && (
+                  <>
+                    <p>
+                      Rarity Score:{' '}
+                      <strong>
+                        {assetScore.rarityScore
+                          ? assetScore.rarityScore.toString().substring(0, 8)
+                          : '0'}
+                      </strong>
+                    </p>
+                    <p>
+                      Average Trait Rarity:{' '}
+                      <strong>
+                        {assetScore.avgTraitRarity
+                          ? assetScore.avgTraitRarity
+                              .toString()
+                              .substring(0, 8) + '%'
+                          : '0'}
+                      </strong>
+                    </p>
+                    <p>
+                      Statistical Rarity:{' '}
+                      <strong>
+                        {assetScore.statisticalRarity
+                          ? assetScore.statisticalRarity
+                              .toString()
+                              .substring(0, 10) + '%'
+                          : '0'}
+                      </strong>
+                    </p>
+                    <p>
+                      Single Trait Rarity:{' '}
+                      <strong>
+                        {assetScore.singleTraitRarity
+                          ? assetScore.singleTraitRarity
+                              .toString()
+                              .substring(0, 8) + '%'
+                          : '0'}
+                      </strong>
+                    </p>
+                    <p>
+                      Total traits: <strong>{assetScore.traits.length}</strong>
+                    </p>
+                  </>
+                )}
               </div>
             )}
           </div>

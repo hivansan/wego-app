@@ -10,10 +10,11 @@ a {
   .exact-match-card {
     width: 300px;
     height: 350px;
-    border: 1px solid rgb(223, 223, 223);
+    border: 1px solid var(--border-default);
     border-radius: 10px;
     overflow: hidden;
     font-family: $default-font;
+    background-color: var(--bg-header);
 
     header {
       padding: 0.5rem;
@@ -41,7 +42,7 @@ a {
         p {
           font-size: 20px;
           margin: 0;
-          color: $secondary-color;
+          color: var(--color-secondary);
         }
         .wego-score {
           width: 47%;
@@ -49,7 +50,7 @@ a {
 
           small {
             font-weight: 500;
-            color: $primary-color;
+            color: var(--color-primary);
           }
           p {
             color: #38b87d;
@@ -60,7 +61,7 @@ a {
 
     .date-add {
       padding: 0.5rem;
-      color: $primary-color;
+      color: var(--color-primary);
     }
 
     .stats {
@@ -72,10 +73,10 @@ a {
         width: 50%;
         p {
           margin: 0;
-          color: $secondary-color;
+          color: var(--color-primary);
 
           &:last-child {
-            color: $primary-color;
+            color: var(--color-secondary);
           }
         }
       }

@@ -115,7 +115,7 @@ export class Api {
       let res = await this.axios[method](url);
       return res.data;
     } catch (error) {
-      throw error;
+      return error.response;
     }
   }
 

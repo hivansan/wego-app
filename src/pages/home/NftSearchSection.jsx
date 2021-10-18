@@ -18,7 +18,7 @@ const NftSearchSection = ({ location }) => {
       console.log(res);
       setSearchResults(res);
     } catch (err) {
-      console.log(err);
+      throw err;
     }
   };
 

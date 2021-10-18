@@ -68,30 +68,38 @@ const DropDownAssetItem = ({ asset, location, isOpen }) => {
         <div className='asset-stats'>
           {assetScore && (
             <>
-              <small>
-                Rarity Score :
-                <strong>
-                  {' '}
-                  {!assetScore.rarityScore
-                    ? '0'
-                    : `${assetScore.rarityScore.toString().substring(0, 6)}`}
-                </strong>
-              </small>
+              {!assetScore.status && (
+                <>
+                  <small>
+                    Rarity Score :
+                    <strong>
+                      {' '}
+                      {!assetScore.rarityScore
+                        ? '0'
+                        : `${assetScore.rarityScore
+                            .toString()
+                            .substring(0, 6)}`}
+                    </strong>
+                  </small>
 
-              <small>
-                Average Trait Rarity:
-                <strong>
-                  {' '}
-                  {!assetScore.avgTraitRarity
-                    ? '0'
-                    : `${assetScore.avgTraitRarity.toString().substring(0, 8)}`}
-                </strong>
-              </small>
+                  <small>
+                    Average Trait Rarity:
+                    <strong>
+                      {' '}
+                      {!assetScore.avgTraitRarity
+                        ? '0'
+                        : `${assetScore.avgTraitRarity
+                            .toString()
+                            .substring(0, 8)}`}
+                    </strong>
+                  </small>
 
-              <small>
-                Total traits:
-                <strong> {assetScore.traits.length}</strong>
-              </small>
+                  <small>
+                    Total traits:
+                    <strong> {assetScore.traits.length}</strong>
+                  </small>
+                </>
+              )}
             </>
           )}
           {/* <small>
