@@ -7,7 +7,7 @@ const CollectionHeaderRight = ({ collectionInfo }) => {
   return (
     <div className='right-section'>
       <div className='right-buttons'></div>
-      {collectionInfo && <CollectionStats collection={collectionInfo} />}
+      <CollectionStats collection={collectionInfo} />
     </div>
   );
 };

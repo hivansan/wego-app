@@ -1,14 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { flushSync } from 'react-dom';
 
-const Checkbox = ({
-  label,
-  onIsChecked,
-  onIsNotChecked,
-  setFilters,
-  filters,
-  traitType,
-}) => {
+const Checkbox = ({ label, setFilters, filters, traitType }) => {
   const [checked, setChecked] = useState(false);
 
   const onChange = () => {

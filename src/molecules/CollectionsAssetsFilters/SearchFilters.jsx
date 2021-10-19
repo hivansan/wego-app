@@ -14,7 +14,7 @@ const SearchFilters = ({
   let traitsObj = {};
 
   collectionTraits.map((trait, i) => {
-    if (trait.traitType === traitType) {
+    if (trait.trait_type === traitType) {
       traitsObj = { traitType, value: trait.value };
       traits.push(traitsObj);
     }
@@ -39,7 +39,7 @@ const SearchFilters = ({
     return (
       <>
         {collectionTraits.map((trait) => {
-          if (trait.traitType === traitType) {
+          if (trait.trait_type === traitType) {
             return (
               <Checkbox
                 traitType={traitType}
@@ -65,7 +65,7 @@ const SearchFilters = ({
       {param.length === 0 ? (
         <>
           {collectionTraits.map((trait) => {
-            if (trait.traitType === traitType) {
+            if (trait.trait_type === traitType) {
               return (
                 <Checkbox
                   traitType={traitType}

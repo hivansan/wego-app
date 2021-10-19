@@ -312,8 +312,8 @@
           width: 100%;
           .filter-header {
             padding: 0.8rem;
-            border-bottom: 1px solid #aaaaaa;
-            background-color: #fff;
+            border-bottom: 1px solid var(--border-default);
+            background-color: var(--bg-canvas-table);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -328,20 +328,16 @@
           }
 
           .filter-body {
-            border-bottom: 1px solid #aaaaaa;
+            border-bottom: 1px solid var(--border-default);
             padding: 0.5rem;
             input {
               color: #666666;
-              background-color: #fff;
+              background-color: var(--bg-search-input);
               padding: 0.5rem;
               border-radius: 1rem;
-              border: 1px solid #c7c7c7;
+              border: 1px solid var(--border-default);
               &::placeholder {
                 color: #aaaaaa;
-              }
-
-              &:focus {
-                border: 1px solid $primary-color;
               }
 
               &:focus-within {
@@ -397,7 +393,7 @@
       background-color: var(--color-primary);
       color: #f0f0f1;
       bottom: 0px;
-      z-index: 900;
+      z-index: 30;
       padding: 0.5rem 1.5rem;
       border-radius: 10px;
       left: 50%;

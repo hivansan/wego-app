@@ -5,6 +5,7 @@ import { GoVerified } from 'react-icons/go';
 import MarkDown from 'react-markdown';
 import moment from 'moment';
 import Skeleton from 'react-loading-skeleton';
+import ImageTypeDetect from '../../molecules/ImageTypeDetect';
 
 const CollectionHeaderLeft = ({ collectionInfo }) => {
   return (
@@ -13,7 +14,7 @@ const CollectionHeaderLeft = ({ collectionInfo }) => {
         <section className='left-section-header'>
           <div className='left-header-info'>
             <div className='d-flex'>
-              {!collectionInfo.imgMain ? (
+              {!collectionInfo ? (
                 <Skeleton
                   circle={true}
                   height={80}
@@ -21,8 +22,8 @@ const CollectionHeaderLeft = ({ collectionInfo }) => {
                   className='img-loader'
                 />
               ) : (
-                <img
-                  src={collectionInfo.imgMain}
+                <ImageTypeDetect
+                  imageURL={collectionInfo.imgMain}
                   alt={`${collectionInfo.slug} logo`}
                 />
               )}
@@ -66,7 +67,7 @@ const CollectionHeaderLeft = ({ collectionInfo }) => {
                   </>
                 )}
                 <div className='collection-personal-stats'>
-                  {!collectionInfo.imgMain ? (
+                  {!collectionInfo ? (
                     <Skeleton width={200} className='loader-personal-stats' />
                   ) : (
                     <small>
@@ -80,7 +81,7 @@ const CollectionHeaderLeft = ({ collectionInfo }) => {
           </div>
         </section>
         <section className='collection-description'>
-          {!collectionInfo.imgMain ? (
+          {!collectionInfo ? (
             <>
               <Skeleton className='desc-loading xs' />
               <Skeleton className='desc-loading n' />

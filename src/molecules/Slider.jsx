@@ -33,7 +33,7 @@ const settings = {
 
 export default function SlickSlider({ children, ...props }) {
   return (
-    <Slider {...settings} {...props}>
+    <Slider {...settings} {...props} pauseOnHover={true}>
       {children.map((x, i) => (
         <div className='w-75 d-flex justify-content-center' key={i}>
           {x}

@@ -18,13 +18,13 @@ const CollectionAssetsFilters = ({
 }) => {
   const setIsCollapse = () => setCollapse(!isCollapse);
   const newArr = [];
-  const myObj = {};
 
   if (collectionTraits) {
+    const myObj = {};
     collectionTraits.forEach((el) => {
-      if (!(el.traitType in myObj)) {
-        myObj[el.traitType] = true;
-        newArr.push(el.traitType);
+      if (!(el.trait_type in myObj)) {
+        myObj[el.trait_type] = true;
+        newArr.push(el.trait_type);
       }
     });
   }

@@ -26,6 +26,7 @@ const HotCollectionsBar = ({ hotCollections, isInputHeaderShown }) => {
     speed: 5000,
     autoplaySpeed: 1,
     cssEase: 'linear',
+    OnHover: true,
     responsive: [
       {
         breakpoint: 1480,

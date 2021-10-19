@@ -45,11 +45,13 @@ const CollectionDetails = ({ setFooter }) => {
       sortDirection,
       traits
     );
+
+    console.log(res);
     if (traits) {
       const results = res.results.length === 0 ? null : res.results;
       setResultAssets(results);
 
-      if (res.results.length < 20) {
+      if (res.results.length < 10) {
         setHasNextPage(false);
       }
     } else {
@@ -79,7 +81,7 @@ const CollectionDetails = ({ setFooter }) => {
     if (traits) {
       setAssetsPage(assetsPage + 10);
       setResultAssets([...resultAssets, ...res.results]);
-      if (res.results.length === 0 || res.results.length < 20) {
+      if (res.results.length === 0 || res.results.length < 10) {
         setHasNextPage(false);
       }
     } else {
@@ -96,6 +98,7 @@ const CollectionDetails = ({ setFooter }) => {
 
   const getCollectionTraits = async () => {
     const { results } = await api.collections.traits(slug);
+    console.log(results);
     setCollectionTraits(results);
   };
 
@@ -111,7 +114,7 @@ const CollectionDetails = ({ setFooter }) => {
   }, []);
 
   useEffect(() => {
-    if (!result.status) {
+    if (!result.msg) {
       return setFooter(slug);
     }
     setFooter(true);
@@ -134,7 +137,7 @@ const CollectionDetails = ({ setFooter }) => {
     );
   }, [filters, assetsSort]);
 
-  if (result.status === 404) {
+  if (result.msg) {
     return <Error404 />;
   }
 

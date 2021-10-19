@@ -1,9 +1,7 @@
 import React from 'react';
 import { FaEthereum } from 'react-icons/fa';
 
-const CollectionStats = ({ collection }) => {
-  const { stats } = collection;
-
+const CollectionStats = ({ collection: stats }) => {
   return (
     <>
       {stats && (
