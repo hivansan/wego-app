@@ -109,7 +109,7 @@ const SearchScreen = () => {
         </Link>
         <SearchInput
           type='text'
-          placeholder='Search Nft, Collections, or Keyword'
+          placeholder='Search NFT, Collections, or Keyword'
           onChange={setParam}
           value={param}
           onPressEnter={onPressEnter}

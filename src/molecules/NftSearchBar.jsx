@@ -79,7 +79,7 @@ const SearchBar = ({
       <div className='search-bar-control'>
         <SearchInput
           type='text'
-          placeholder='Search Nft, Collections, or Keyword'
+          placeholder='Search NFT, Collections, or Keyword'
           onChange={onChange}
           value={value}
           ref={searchRef}

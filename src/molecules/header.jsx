@@ -209,7 +209,7 @@ const Header = ({ background, menuOpen, setMenuOpen }) => {
                   className='input'
                   onFocus={onFocusInput}
                   type='text'
-                  placeholder='Search Nft, Collections, or Keyword'
+                  placeholder='Search NFT, Collections, or Keyword'
                   setDebounceParam={setDebounceParam}
                   value={param}
                   onChange={setParam}
@@ -298,7 +298,7 @@ const Header = ({ background, menuOpen, setMenuOpen }) => {
             <SearchInput
               className='bm-input'
               type='text'
-              placeholder='Search Nft, Collections, or Keyword'
+              placeholder='Search NFT, Collections, or Keyword'
               setDebounceParam={setDebounceParam}
               value={param}
               onChange={setParam}
