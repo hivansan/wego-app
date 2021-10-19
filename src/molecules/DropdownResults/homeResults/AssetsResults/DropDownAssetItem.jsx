@@ -50,7 +50,7 @@ const DropDownAssetItem = ({ asset, location, isOpen }) => {
           {asset.image_preview_url ? (
             <ImageTypeDetect
               imageURL={asset.image_preview_url}
-              alt={''}
+              alt={asset.name}
               className='asset-img'
             />
           ) : (

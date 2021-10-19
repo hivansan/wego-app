@@ -12,10 +12,10 @@ const DropDownCollections = ({ results, location }) => {
       {collectionsFiletered.length > 0 && (
         <div className='drop-down-collections'>
           <header>Collections</header>
-          {collectionsFiletered.map(({ value: collection }) => (
+          {collectionsFiletered.map(({ value: collection }, i) => (
             <DropDownCollectionItem
               collection={collection}
-              key={collection.id}
+              key={collection.id + i}
             />
           ))}
         </div>

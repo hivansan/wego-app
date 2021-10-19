@@ -34,8 +34,18 @@
 
       .img {
         width: 100%;
-        height: 100%;
+        height: 380px;
+        object-fit: cover;
         cursor: zoom-in;
+      }
+
+      .img-loading {
+        width: 380px;
+        height: 380px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: var(--color-primary);
       }
     }
 
@@ -196,6 +206,7 @@
     justify-content: center;
     display: flex;
     align-items: center;
+    color: var(--color-secondary);
   }
 }
 

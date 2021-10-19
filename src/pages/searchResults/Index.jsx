@@ -50,12 +50,10 @@ const SearchScreen = () => {
 
     if (param === '') {
       history.push(`/search?page=1${selectedTab}`);
-      setUrl({ query: '', page: 1, tab });
-      return window.location.reload(false);
+      return setUrl({ query: '', page: 1, tab });
     }
     history.push(`/search?q=${encodeURI(param)}&page=1${selectedTab}`);
     setUrl({ query: param, page: 1, tab });
-    window.location.reload(false);
   };
 
   useEffect(() => {
@@ -83,13 +81,11 @@ const SearchScreen = () => {
           const page = parseInt(params.get('page'));
           const tab = params.get('tab') || 'all';
           if (url.query === query && url.page === page && url.tab === tab) {
-            console.log('a');
             return false;
           }
 
           setUrl({ query, page, tab });
           setParam(query);
-          window.location.reload(false);
         }
       }
     });
@@ -166,7 +162,7 @@ const SearchScreen = () => {
                       return (
                         <CollectionResultCard
                           result={result}
-                          key={result.value.id + 1}
+                          key={i}
                           location={location}
                         />
                       );
@@ -174,7 +170,7 @@ const SearchScreen = () => {
                       return (
                         <AssetResultCard
                           result={result}
-                          key={result.value.id + i}
+                          key={i}
                           location={location}
                         />
                       );

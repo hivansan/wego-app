@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import moment from 'moment';
 import ImageTypeDetect from './ImageTypeDetect';
 
-const ExactMatchCard = ({ results, className, location, ...props }) => {
+const ExactMatchCard = ({ results, className, location, isOpen, ...props }) => {
   const hasExtraClasess = className ? className : '';
 
   const resultsHastExactMatch = results.results.filter(
@@ -23,11 +23,11 @@ const ExactMatchCard = ({ results, className, location, ...props }) => {
               : resultsHastExactMatch.value.asset_contract
               ? {
                   pathname: `assets/${resultsHastExactMatch.value.asset_contract.address}/${resultsHastExactMatch.value.token_id}`,
-                  state: { background: location },
+                  state: { background: location, searchResults: isOpen },
                 }
               : {
                   pathname: `assets/${resultsHastExactMatch.value.contractAddress}/${resultsHastExactMatch.value.tokenId}`,
-                  state: { background: location },
+                  state: { background: location, searchResults: isOpen },
                 }
           }
         >
@@ -47,14 +47,7 @@ const ExactMatchCard = ({ results, className, location, ...props }) => {
               />
               <div className='exact-match-card-info'>
                 <p>{resultsHastExactMatch.value.name}</p>
-                <div className='wego-score'>
-                  {resultsHastExactMatch.meta.index === 'collections' && (
-                    <>
-                      <small>WEGO Score</small>
-                      <p>{resultsHastExactMatch.value.wegoScore}</p>
-                    </>
-                  )}
-                </div>
+                <div className='wego-score'> </div>
               </div>
             </div>
             <div className='date-add'>
@@ -66,24 +59,36 @@ const ExactMatchCard = ({ results, className, location, ...props }) => {
                 <div className='stat'>
                   <p>ETH Total volume</p>
                   <p>
-                    {resultsHastExactMatch.value.totalVolume}
+                    {resultsHastExactMatch.value.totalVolume ||
+                      resultsHastExactMatch.value.stats.totalVolume
+                        .toString()
+                        .substring(0, 8)}
                     <FaEthereum size={15} />
                   </p>
                 </div>
                 <div className='stat'>
                   <p>Owners</p>
-                  <p>{resultsHastExactMatch.value.numOwners}</p>
+                  <p>
+                    {resultsHastExactMatch.value.numOwners ||
+                      resultsHastExactMatch.value.stats.numOwners}
+                  </p>
                 </div>
                 <div className='stat'>
                   <p>7 day volume</p>
                   <p>
-                    {resultsHastExactMatch.value.sevenDayVolume}{' '}
+                    {resultsHastExactMatch.value.sevenDayVolume ||
+                      resultsHastExactMatch.value.stats.sevenDayVolume
+                        .toString()
+                        .substring(0, 8)}{' '}
                     <FaEthereum size={15} />
                   </p>
                 </div>
                 <div className='stat'>
                   <p>Total Items</p>
-                  <p>{resultsHastExactMatch.value.totalSupply}</p>
+                  <p>
+                    {resultsHastExactMatch.value.totalSupply ||
+                      resultsHastExactMatch.value.stats.totalSupply}
+                  </p>
                 </div>
               </div>
             ) : (

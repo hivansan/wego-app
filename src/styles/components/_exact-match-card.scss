@@ -14,11 +14,11 @@ a {
     border-radius: 10px;
     overflow: hidden;
     font-family: $default-font;
-    background-color: var(--bg-header);
+    background-color: var(--bg-canvas-default);
 
     header {
       padding: 0.5rem;
-      background-color: $primary-color;
+      background-color: var(--color-primary);
       color: #fff;
       text-align: center;
     }
@@ -69,6 +69,7 @@ a {
       padding: 0.5rem;
       display: flex;
       flex-wrap: wrap;
+
       .stat {
         width: 50%;
         p {

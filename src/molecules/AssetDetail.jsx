@@ -77,11 +77,19 @@ const AssetDetailModal = ({ setFooter }) => {
                     </p>
                   </header>
                   {asset.animationUrl ? (
-                    <ImageTypeDetect
-                      className='animation'
-                      imageURL={asset.animationUrl}
-                      alt={asset.name}
-                    />
+                    <div className='img-wrapper'>
+                      <ImageTypeDetect
+                        className='animation'
+                        imageURL={asset.animationUrl}
+                        alt={asset.name}
+                        bigVideo={true}
+                        onLoading={
+                          <div className='img-loading'>
+                            <div className='spinner-border' role='status'></div>
+                          </div>
+                        }
+                      />
+                    </div>
                   ) : (
                     <>
                       {asset.imageBig ? (
@@ -95,6 +103,16 @@ const AssetDetailModal = ({ setFooter }) => {
                               className='img'
                               imageURL={asset.imageBig}
                               alt={asset.name}
+                              bigImage={true}
+                              bigVideo={true}
+                              onLoading={
+                                <div className='img-loading'>
+                                  <div
+                                    className='spinner-border'
+                                    role='status'
+                                  ></div>
+                                </div>
+                              }
                             />
                           </div>
                         </a>
@@ -105,6 +123,15 @@ const AssetDetailModal = ({ setFooter }) => {
                               className='img'
                               imageURL={asset.imageSmall}
                               alt={asset.name}
+                              bigImage={true}
+                              onLoading={
+                                <div className='img-loading'>
+                                  <div
+                                    className='spinner-border'
+                                    role='status'
+                                  ></div>
+                                </div>
+                              }
                             />
                           )}
                         </>
