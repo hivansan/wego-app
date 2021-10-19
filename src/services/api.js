@@ -3,7 +3,7 @@ import axios from 'axios';
 export const baseURL =
   process.env.NODE_ENV === 'production'
     ? 'http://ec2-54-160-232-251.compute-1.amazonaws.com/'
-    : 'http://localhost:3000/';
+    : 'http://localhost:3001/';
 
 export class Api {
   /**
