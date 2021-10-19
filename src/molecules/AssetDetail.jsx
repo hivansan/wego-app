@@ -82,6 +82,7 @@ const AssetDetailModal = ({ setFooter }) => {
                         className='animation'
                         imageURL={asset.animationUrl}
                         alt={asset.name}
+                        bigImage={true}
                         bigVideo={true}
                         onLoading={
                           <div className='img-loading'>
@@ -117,13 +118,14 @@ const AssetDetailModal = ({ setFooter }) => {
                           </div>
                         </a>
                       ) : (
-                        <>
+                        <div className='img-wrapper'>
                           {asset.imageSmall && (
                             <ImageTypeDetect
                               className='img'
                               imageURL={asset.imageSmall}
                               alt={asset.name}
                               bigImage={true}
+                              bigVideo={true}
                               onLoading={
                                 <div className='img-loading'>
                                   <div
@@ -134,7 +136,7 @@ const AssetDetailModal = ({ setFooter }) => {
                               }
                             />
                           )}
-                        </>
+                        </div>
                       )}
                     </>
                   )}
