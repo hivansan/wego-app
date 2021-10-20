@@ -9,34 +9,49 @@ const CollectionStats = ({ collection: stats }) => {
           <div className='collection-additionals-stats'>
             <div className='stat'>
               <small>7 Day Volume</small>
-              <small>{stats.sevenDayVolume} ETH</small>
+              <small>
+                {stats.stats
+                  ? stats.stats.sevenDayVolume
+                  : stats.sevenDayVolume}{' '}
+                ETH
+              </small>
             </div>
             <div className='stat'>
               <small>Total Volume</small>
-              <small>{stats.totalVolume} ETH</small>
+              <small>
+                {stats.stats ? stats.stats.totalVolume : stats.totalVolume} ETH
+              </small>
             </div>
             <div className='stat'>
               <small>7 Day Avg Price</small>
-              <small>{stats.sevenDayAveragePrice} ETH</small>
+              <small>
+                {stats.stats
+                  ? stats.stats.sevenDayAveragePrice
+                  : stats.sevenDayAveragePrice}
+                ETH
+              </small>
             </div>
             <div className='stat'>
               <small>Total Sales</small>
-              <small>{stats.totalSales}</small>
+              <small>
+                {stats.stats ? stats.stats.totalSales : stats.totalSales}
+              </small>
             </div>
           </div>
           <div className='collection-stats'>
             <div className='stat'>
-              <p>{stats.totalSupply}</p>
+              <p>{stats.stats ? stats.stats.totalSupply : stats.totalSupply}</p>
               <small>Total Items</small>
             </div>
             <div className='stat'>
               <p>
-                {stats.floorPrice} <FaEthereum size={20} />
+                {stats.stats ? stats.stats.floorPrice : stats.floorPrice}{' '}
+                <FaEthereum size={20} />
               </p>
               <small>Floor price</small>
             </div>
             <div className='stat'>
-              <p>{stats.numOwners}</p>
+              <p>{stats.stats ? stats.stats.numOwners : stats.numOwners}</p>
               <small>Owners</small>
             </div>
           </div>{' '}

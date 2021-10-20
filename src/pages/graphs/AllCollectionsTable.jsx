@@ -53,9 +53,7 @@ const AllCollectionsTable = () => {
 
   useEffect(() => {
     getCollections(page, debounceValue, sort, sortDirection);
-    if (perPage > 10) {
-      window.scrollTo(0, 0);
-    }
+    window.scrollTo(0, 0);
   }, [page]);
 
   const columns = [
@@ -137,17 +135,21 @@ const AllCollectionsTable = () => {
           <small>Volume(7d)</small>
         ),
       sortField: 'sevenDayVolume',
-      selector: ({ value: row }) => row.sevenDayVolume,
+      selector: ({ value: row }) =>
+        row.stats ? row.stats.sevenDayVolume : row.sevenDayVolume,
       sortable: true,
 
       cell: ({ value: row }) => {
+        const stat = row.stats ? row.stats.sevenDayVolume : row.sevenDayVolume;
+
+        console.log(row);
         return (
           <>
-            {row.sevenDayVolume ? (
-              row.sevenDayVolume.length > 10 ? (
-                <> {row.sevenDayVolume.substring(0, 7)}</>
+            {stat ? (
+              stat.toString().length > 10 ? (
+                <> {stat.toString().substring(0, 7)}</>
               ) : (
-                <>{row.sevenDayVolume}</>
+                <>{stat}</>
               )
             ) : (
               '0'
@@ -171,7 +173,8 @@ const AllCollectionsTable = () => {
           <small>Sales(7d)</small>
         ),
       sortField: 'sevenDaySales',
-      selector: ({ value: row }) => row.sevenDaySales || 0,
+      selector: ({ value: row }) =>
+        row.stats ? row.stats.sevenDaySales : row.sevenDaySales || 0,
       sortable: true,
     },
     {
@@ -189,16 +192,20 @@ const AllCollectionsTable = () => {
           <small>Avg Price(7d)</small>
         ),
       sortField: 'sevenDayAveragePrice',
-      selector: ({ value: row }) => row.sevenDayAveragePrice,
+      selector: ({ value: row }) =>
+        row.stats ? row.stats.sevenDayAveragePrice : row.sevenDayAveragePrice,
       sortable: true,
       cell: ({ value: row }) => {
+        const stat = row.stats
+          ? row.stats.sevenDayAveragePrice
+          : row.sevenDayAveragePrice;
         return (
           <>
-            {row.sevenDayAveragePrice ? (
-              row.sevenDayAveragePrice?.length > 10 ? (
-                <> {row.sevenDayAveragePrice.substring(0, 7)}</>
+            {stat ? (
+              stat.toString().length > 10 ? (
+                <> {stat.toString().substring(0, 7)}</>
               ) : (
-                <>{row.sevenDayAveragePrice}</>
+                <>{stat}</>
               )
             ) : (
               '0'
@@ -222,7 +229,8 @@ const AllCollectionsTable = () => {
           <small>Total Supply</small>
         ),
       sortField: 'totalSupply',
-      selector: ({ value: row }) => row.totalSupply || 0,
+      selector: ({ value: row }) =>
+        row.stats ? row.stats.totalSupply : row.totalSupply || 0,
       sortable: true,
     },
     {
@@ -240,7 +248,8 @@ const AllCollectionsTable = () => {
           <small>Owners</small>
         ),
       sortField: 'numOwners',
-      selector: ({ value: row }) => row.numOwners || 0,
+      selector: ({ value: row }) =>
+        row.stats ? row.stats.numOwners : row.numOwners || 0,
       sortable: true,
     },
     {
@@ -258,16 +267,18 @@ const AllCollectionsTable = () => {
           <small>Estimated MarketCap</small>
         ),
       sortField: 'marketCap',
-      selector: ({ value: row }) => row.marketCap,
+      selector: ({ value: row }) =>
+        row.stats ? row.stats.marketCap : row.marketCap || 0,
       sortable: true,
       cell: ({ value: row }) => {
+        const stat = row.stats ? row.stats.marketCap : row.marketCap;
         return (
           <>
-            {row.marketCap ? (
-              row.marketCap?.length > 10 ? (
-                <> {row.marketCap.substring(0, 7)}</>
+            {stat ? (
+              stat.toString().length > 10 ? (
+                <> {stat.toString().substring(0, 7)}</>
               ) : (
-                <>{row.marketCap}</>
+                <>{stat}</>
               )
             ) : (
               '0'
@@ -291,16 +302,18 @@ const AllCollectionsTable = () => {
           <small>Volume(All time)</small>
         ),
       sortField: 'totalVolume',
-      selector: ({ value: row }) => row.totalVolume,
+      selector: ({ value: row }) =>
+        row.stats ? row.stats.totalVolume : row.totalVolume || 0,
       sortable: true,
       cell: ({ value: row }) => {
+        const stat = row.stats ? row.stats.totalVolume : row.totalVolume;
         return (
           <>
-            {row.totalVolume ? (
-              row.totalVolume?.length > 10 ? (
-                <> {row.totalVolume.substring(0, 7)}</>
+            {stat ? (
+              stat.toString().length > 10 ? (
+                <> {stat.toString().substring(0, 7)}</>
               ) : (
-                <>{row.totalVolume}</>
+                <>{stat}</>
               )
             ) : (
               '0'
@@ -324,16 +337,18 @@ const AllCollectionsTable = () => {
           <small>Sales(All time)</small>
         ),
       sortField: 'totalSales',
-      selector: ({ value: row }) => row.totalSales,
+      selector: ({ value: row }) =>
+        row.stats ? row.stats.totalSales : row.totalSales || 0,
       sortable: true,
       cell: ({ value: row }) => {
+        const stat = row.stats ? row.stats.totalVolume : row.totalVolume;
         return (
           <>
-            {row.totalSales ? (
-              row.totalSales?.length > 5 ? (
-                <> {row.totalSales.substring(0, 5)}</>
+            {stat ? (
+              stat.toString().length > 5 ? (
+                <> {stat.toString().substring(0, 5)}</>
               ) : (
-                <>{row.totalSales}</>
+                <>{stat}</>
               )
             ) : (
               '0'
@@ -357,16 +372,18 @@ const AllCollectionsTable = () => {
           <small>Floor Price</small>
         ),
       sortField: 'floorPrice',
-      selector: ({ value: row }) => row.floorPrice,
+      selector: ({ value: row }) =>
+        row.stats ? row.stats.floorPrice : row.floorPrice || 0,
       sortable: true,
       cell: ({ value: row }) => {
+        const stat = row.stats ? row.stats.totalSales : row.totalSales;
         return (
           <>
-            {row.floorPrice ? (
-              row.floorPrice.length > 5 ? (
-                <> {row.floorPrice?.substring(0, 5)}</>
+            {stat ? (
+              stat.toString().length > 5 ? (
+                <> {stat.toString().substring(0, 5)}</>
               ) : (
-                <>{row.floorPrice}</>
+                <>{stat}</>
               )
             ) : (
               '0'

@@ -47,22 +47,35 @@ const DropDownCollectionItem = ({ collection }) => {
           </div>
           <div className='collection-stats'>
             <small>
-              TotalVolume :{' '}
+              Total Sales:{' '}
               <strong>
-                {collection.totalVolume}
-                <SiEthereum size={15} />
+                {collection.stats
+                  ? collection.stats.totalSales
+                  : collection.totalSales}
               </strong>
             </small>
             <small>
-              Items : <strong>{collection.totalSupply}</strong>
+              Items :{' '}
+              <strong>
+                {collection.stats
+                  ? collection.stats.totalSupply
+                  : collection.totalSupply}
+              </strong>
             </small>
             <small>
-              Owners : <strong>{collection.numOwners}</strong>
+              Owners :{' '}
+              <strong>
+                {collection.stats
+                  ? collection.stats.numOwners
+                  : collection.numOwners}
+              </strong>
             </small>
             <small>
               TotalVolume :{' '}
               <strong>
-                {collection.totalVolume}
+                {collection.stats
+                  ? collection.stats.totalVolume
+                  : collection.totalVolume}
                 <SiEthereum size={15} />
               </strong>
             </small>

@@ -30,6 +30,7 @@ const CollectionDetails = ({ setFooter }) => {
 
   const getCollection = async () => {
     const collection = await api.collections.findOne(slug);
+    console.log(collection);
     setResult(collection);
   };
 
