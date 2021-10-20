@@ -15,7 +15,6 @@ const NftSearchSection = ({ location }) => {
     setSearchResults(null);
     try {
       const res = await api.search(debounceParam);
-      console.log(res);
       setSearchResults(res);
     } catch (err) {
       throw err;

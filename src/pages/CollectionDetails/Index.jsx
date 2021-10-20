@@ -37,7 +37,7 @@ const CollectionDetails = ({ setFooter }) => {
   const getCollectionAssets = async (sortBy, sortDirection, traits) => {
     setResultAssets([]);
     setHasNextPage(true);
-    const res = await api.collections.assets(
+    const res = await api.assets.find(
       slug,
       assetsPerPage,
       0,
@@ -46,20 +46,13 @@ const CollectionDetails = ({ setFooter }) => {
       traits
     );
 
-    if (traits) {
-      const results = res.results.length === 0 ? null : res.results;
-      setResultAssets(results);
+    const results = res.results.length === 0 ? null : res.results;
+    setResultAssets(results);
 
-      if (res.results.length < 10) {
-        setHasNextPage(false);
-      }
-    } else {
-      setResultAssets(res);
-
-      if (res.length < 20) {
-        setHasNextPage(false);
-      }
+    if (res.results.length < 10) {
+      setHasNextPage(false);
     }
+
     setIsNextPageLoading(() => true);
     setIsNextPageLoading(false);
 
@@ -68,7 +61,7 @@ const CollectionDetails = ({ setFooter }) => {
 
   const loadNextAssetsPage = async (sortBy, sortDirection, traits) => {
     const isAssetsNew = assetsPage === 0 ? 20 : assetsPage + 20;
-    const res = await api.collections.assets(
+    const res = await api.assets.find(
       slug,
       assetsPerPage,
       isAssetsNew,
@@ -77,22 +70,10 @@ const CollectionDetails = ({ setFooter }) => {
       traits
     );
 
-    console.log(traits);
-
-    if (traits) {
-      if (traits.length > 0) {
-        setAssetsPage(assetsPage + 10);
-        setResultAssets([...resultAssets, res.results]);
-        if (res.results.length === 0 || res.results.length < 10) {
-          setHasNextPage(false);
-        }
-      }
-    } else {
-      setAssetsPage(assetsPage + 20);
-      setResultAssets([...resultAssets, ...res]);
-      if (res.length === 0 || res.length < 20) {
-        setHasNextPage(false);
-      }
+    setAssetsPage(assetsPage + 10);
+    setResultAssets([...resultAssets, ...res.results]);
+    if (res.results.length === 0 || res.results.length < 10) {
+      setHasNextPage(false);
     }
 
     setIsNextPageLoading(() => true);

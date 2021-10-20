@@ -97,6 +97,11 @@ const SearchBar = ({
           results={results}
           query={query}
           location={location}
+          noItemsFound={
+            <div className='search-bar-no-items-found'>
+              No items found for this search
+            </div>
+          }
         >
           {results && (
             <>

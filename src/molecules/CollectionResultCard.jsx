@@ -14,8 +14,8 @@ const CollectionResultCard = ({ result, location }) => {
 
   useEffect(() => {
     const getCollectionAssets = async () => {
-      const res = await api.collections.assets(collection.slug, 3, 0);
-      setAssets(res);
+      const { results } = await api.assets.find(collection.slug, 3, 0);
+      setAssets(results);
     };
     getCollectionAssets();
 

@@ -10,8 +10,9 @@ const DropDownCollectionItem = ({ collection }) => {
 
   useEffect(() => {
     const getCollectionAssets = async () => {
-      const res = await api.collections.assets(collection.slug, 2, 0);
-      setAssets(res);
+      const res = await api.assets.find(collection.slug, 2, 0);
+
+      setAssets(res.results);
     };
     getCollectionAssets();
 

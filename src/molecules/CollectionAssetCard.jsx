@@ -36,7 +36,7 @@ const CollectionAssetCard = ({
           asset[index].asset_contract
             ? asset[index].asset_contract.address
             : asset[index].contractAddress
-        }/${asset[index].token_id}`,
+        }/${asset[index].tokenId}`,
         state: { background: location },
       }}
     >
@@ -62,7 +62,7 @@ const CollectionAssetCard = ({
           </p>
         </section>
         <section className='asset-card-image'>
-          {asset[index].image_preview_url ? (
+          {asset[index].imageBig ? (
             <ImageTypeDetect
               imageURL={asset[index].image_preview_url}
               alt={asset[index].name}

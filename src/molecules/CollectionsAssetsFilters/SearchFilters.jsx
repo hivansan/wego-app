@@ -38,13 +38,13 @@ const SearchFilters = ({
   if (traits.length < 5)
     return (
       <>
-        {collectionTraits.map((trait) => {
+        {collectionTraits.map((trait, i) => {
           if (trait.trait_type === traitType) {
             return (
               <Checkbox
                 traitType={traitType}
                 label={trait.value}
-                key={trait.value}
+                key={i}
                 setFilters={setFilters}
                 filters={filters}
               />
@@ -64,13 +64,13 @@ const SearchFilters = ({
       />
       {param.length === 0 ? (
         <>
-          {collectionTraits.map((trait) => {
+          {collectionTraits.map((trait, i) => {
             if (trait.trait_type === traitType) {
               return (
                 <Checkbox
                   traitType={traitType}
                   label={trait.value}
-                  key={trait.value}
+                  key={i}
                   setFilters={setFilters}
                   filters={filters}
                 />
@@ -80,12 +80,12 @@ const SearchFilters = ({
         </>
       ) : (
         <>
-          {filteredTraits.map(({ value, traitType }) => {
+          {filteredTraits.map(({ value, traitType }, i) => {
             return (
               <Checkbox
                 typeTrait={traitType}
                 label={value}
-                key={value}
+                key={i}
                 setFilters={setFilters}
                 filters={filters}
               />

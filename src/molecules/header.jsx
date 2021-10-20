@@ -226,6 +226,11 @@ const Header = ({ background, menuOpen, setMenuOpen }) => {
                     results={results}
                     query={param}
                     location={location}
+                    noItemsFound={
+                      <div className='no-items-found'>
+                        No items found for this search
+                      </div>
+                    }
                   >
                     {results && (
                       <HeaderDropDownResults
