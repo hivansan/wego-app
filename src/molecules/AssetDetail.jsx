@@ -119,23 +119,21 @@ const AssetDetailModal = ({ setFooter }) => {
                         </a>
                       ) : (
                         <div className='img-wrapper'>
-                          {asset.imageSmall && (
-                            <ImageTypeDetect
-                              className='img'
-                              imageURL={asset.imageSmall}
-                              alt={asset.name}
-                              bigImage={true}
-                              bigVideo={true}
-                              onLoading={
-                                <div className='img-loading'>
-                                  <div
-                                    className='spinner-border'
-                                    role='status'
-                                  ></div>
-                                </div>
-                              }
-                            />
-                          )}
+                          <ImageTypeDetect
+                            className='img'
+                            imageURL={asset.imageSmall}
+                            alt={asset.name}
+                            bigImage={true}
+                            bigVideo={true}
+                            onLoading={
+                              <div className='img-loading'>
+                                <div
+                                  className='spinner-border'
+                                  role='status'
+                                ></div>
+                              </div>
+                            }
+                          />
                         </div>
                       )}
                     </>

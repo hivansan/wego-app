@@ -77,11 +77,15 @@ const CollectionDetails = ({ setFooter }) => {
       traits
     );
 
+    console.log(traits);
+
     if (traits) {
-      setAssetsPage(assetsPage + 10);
-      setResultAssets([...resultAssets, ...res.results]);
-      if (res.results.length === 0 || res.results.length < 10) {
-        setHasNextPage(false);
+      if (traits.length > 0) {
+        setAssetsPage(assetsPage + 10);
+        setResultAssets([...resultAssets, res.results]);
+        if (res.results.length === 0 || res.results.length < 10) {
+          setHasNextPage(false);
+        }
       }
     } else {
       setAssetsPage(assetsPage + 20);

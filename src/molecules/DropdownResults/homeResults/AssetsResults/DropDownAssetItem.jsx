@@ -8,7 +8,6 @@ import { Api } from '../../../../services/api';
 
 const DropDownAssetItem = ({ asset, location, isOpen }) => {
   const [assetScore, setAssetScore] = useState(null);
-
   const api = new Api();
 
   useEffect(() => {
@@ -62,7 +61,7 @@ const DropDownAssetItem = ({ asset, location, isOpen }) => {
           )}
 
           <div className='asset-info'>
-            <p>{asset.name}</p>
+            <p>{asset.name || asset.tokenId || asset.token_id}</p>
           </div>
         </div>
         <div className='asset-stats'>

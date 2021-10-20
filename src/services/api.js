@@ -52,11 +52,6 @@ export class Api {
         return this.request('get', `api/collections/${slug}`);
       },
 
-      searchCollections: (param) => {
-        const query = `search?q=${encodeURI(param)}`;
-        return this.request('get', `collections/${query}`);
-      },
-
       findByAddress: (address) => {
         return this.request('get', `collections/${address}`);
       },
