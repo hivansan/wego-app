@@ -37,7 +37,7 @@ const CollectionDetails = ({ setFooter }) => {
   const getCollectionAssets = async (sortBy, sortDirection, traits) => {
     setResultAssets([]);
     setHasNextPage(true);
-    const res = await api.collections.assets(
+    const res = await api.assets.find(
       slug,
       assetsPerPage,
       0,

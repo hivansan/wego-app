@@ -29,6 +29,18 @@ export class Api {
       score: (address, tokenId) => {
         return this.request('get', `api/asset/${address}/${tokenId}/score`);
       },
+      find: (slug, limit, offset, sortBy, sortDirection, traits) => {
+        const hasSorts =
+          sortBy === 'none' || !sortBy ? '' : `&sortBy=${sortBy}`;
+        const hasTraits = !traits ? '' : `&traits=${JSON.stringify(traits)}`;
+        const hasSortDirection = !sortDirection
+          ? ''
+          : `&sortDirection=${sortDirection}`;
+
+        const collectionAssetsUrl = `api/assets?slug=${slug}&limit=${limit}&offset=${offset}${hasSortDirection}${hasSorts}${hasTraits}`;
+
+        return this.request('get', collectionAssetsUrl);
+      },
     };
 
     this.collections = {
@@ -59,19 +71,6 @@ export class Api {
 
       findByAddress: (address) => {
         return this.request('get', `collections/${address}`);
-      },
-
-      assets: (slug, limit, offset, sortBy, sortDirection, traits) => {
-        const hasSorts =
-          sortBy === 'none' || !sortBy ? '' : `&sortBy=${sortBy}`;
-        const hasTraits = !traits ? '' : `&traits=${JSON.stringify(traits)}`;
-        const hasSortDirection = !sortDirection
-          ? ''
-          : `&sortDirection=${sortDirection}`;
-
-        const collectionAssetsUrl = `api/assets?slug=${slug}&limit=${limit}&offset=${offset}${hasSortDirection}${hasSorts}${hasTraits}`;
-
-        return this.request('get', collectionAssetsUrl);
       },
     };
 
