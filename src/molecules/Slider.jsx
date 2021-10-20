@@ -1,39 +1,16 @@
+import React, { forwardRef } from 'react';
 import Slider from 'react-slick';
 
 import 'slick-carousel/slick/slick.css';
 
 const settings = {
   arrows: false,
-  slidesToScroll: 1,
-  pauseOnHover: true,
-  slidesToShow: 3,
-  customPaging: function () {
-    return <button className='dots'></button>;
-  },
-  dots: true,
-  dotsClass: 'slick-dots slick-thumb',
-  responsive: [
-    {
-      breakpoint: 1300,
-      settings: {
-        slidesToShow: 5,
-        slidesToScroll: 1,
-      },
-    },
-
-    {
-      breakpoint: 857,
-      settings: {
-        slidesToShow: 5,
-        slidesToScroll: 1,
-      },
-    },
-  ],
+  dots: false,
 };
 
-export default function SlickSlider({ children, ...props }) {
+const SlickSlider = forwardRef(({ children, ...props }, ref) => {
   return (
-    <Slider {...settings} {...props} pauseOnHover={true}>
+    <Slider {...settings} {...props} ref={ref}>
       {children.map((x, i) => (
         <div className='w-75 d-flex justify-content-center' key={i}>
           {x}
@@ -41,4 +18,6 @@ export default function SlickSlider({ children, ...props }) {
       ))}
     </Slider>
   );
-}
+});
+
+export default SlickSlider;

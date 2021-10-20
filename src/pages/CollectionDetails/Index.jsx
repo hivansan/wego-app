@@ -30,7 +30,6 @@ const CollectionDetails = ({ setFooter }) => {
 
   const getCollection = async () => {
     const collection = await api.collections.findOne(slug);
-    console.log(collection);
     setResult(collection);
   };
 
@@ -46,7 +45,6 @@ const CollectionDetails = ({ setFooter }) => {
       traits
     );
 
-    console.log(res);
     if (traits) {
       const results = res.results.length === 0 ? null : res.results;
       setResultAssets(results);
@@ -98,7 +96,6 @@ const CollectionDetails = ({ setFooter }) => {
 
   const getCollectionTraits = async () => {
     const { results } = await api.collections.traits(slug);
-    console.log(results);
     setCollectionTraits(results);
   };
 

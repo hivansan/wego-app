@@ -4,7 +4,7 @@
   display: flex;
   background-color: var(--bg-header);
   font-family: $default-font;
-  overflow-x: auto;
+  overflow-x: hidden;
 
   .hot-collections {
     display: flex;
