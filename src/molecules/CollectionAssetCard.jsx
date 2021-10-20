@@ -24,7 +24,7 @@ const CollectionAssetCard = ({
           asset[index].asset_contract
             ? asset[index].asset_contract.address
             : asset[index].contractAddress
-        }/${asset[index].token_id}`,
+        }/${asset[index].tokenId}`,
         state: { background: location },
       }}
     >
