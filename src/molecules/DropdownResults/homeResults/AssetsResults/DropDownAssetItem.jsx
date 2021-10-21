@@ -46,19 +46,11 @@ const DropDownAssetItem = ({ asset, location, isOpen }) => {
           ) : (
             <img src={asset.} alt='' />
           )} */}
-          {asset.image_preview_url ? (
-            <ImageTypeDetect
-              imageURL={asset.image_preview_url}
-              alt={asset.name}
-              className='asset-img'
-            />
-          ) : (
-            <img
-              src='https://i.stack.imgur.com/y9DpT.jpg'
-              alt=''
-              className='asset-img'
-            />
-          )}
+          <ImageTypeDetect
+            imageURL={asset?.image_preview_url || asset.imageSmall}
+            alt={asset.name}
+            className='asset-img'
+          />
 
           <div className='asset-info'>
             <p>{asset.name || asset.tokenId || asset.token_id}</p>

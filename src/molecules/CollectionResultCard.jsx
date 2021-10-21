@@ -50,35 +50,28 @@ const CollectionResultCard = ({ result, location }) => {
               <p>
                 Owners:{' '}
                 <strong>
-                  {collection.stats
-                    ? collection.stats.numOwners
-                    : collection.numOwners}
+                  {collection?.stats?.numOwners || collection.numOwners}
                 </strong>
               </p>
               <p>
                 Total items:{' '}
                 <strong>
-                  {collection.stats
-                    ? collection.stats.totalSupply
-                    : collection.totalSupply}
+                  {collection?.stats?.totalSupply || collection.totalSupply}
                 </strong>
               </p>
               <p>
-                Total Sales:
+                12 Total Sales:
                 <strong>
                   {' '}
-                  {collection.stats
-                    ? collection.stats.totalSales
-                    : collection.totalSales}
+                  {collection?.stats?.totalSales || collection.totalSales}
                 </strong>
               </p>
               <p>
                 7 day volume:
                 <strong>
                   {' '}
-                  {collection.stats
-                    ? collection.stats.sevenDayVolume
-                    : collection.sevenDayVolume}
+                  {collection?.stats?.sevenDayVolume ||
+                    collection.sevenDayVolume}
                   <FaEthereum size={15} />
                 </strong>
               </p>
@@ -86,9 +79,7 @@ const CollectionResultCard = ({ result, location }) => {
                 Total Volume:
                 <strong>
                   {' '}
-                  {collection.stats
-                    ? collection.stats.totalVolume
-                    : collection.totalVolume}
+                  {collection?.stats?.totalVolume || collection.totalVolume}
                   <FaEthereum size={15} />
                 </strong>
               </p>
@@ -96,9 +87,7 @@ const CollectionResultCard = ({ result, location }) => {
                 Floor Price:
                 <strong>
                   {' '}
-                  {collection.stats
-                    ? collection.stats.floorPrice
-                    : collection.floorPrice}
+                  {collection?.stats?.floorPrice || collection.floorPrice}
                 </strong>
               </p>
             </div>
@@ -106,36 +95,32 @@ const CollectionResultCard = ({ result, location }) => {
         </div>
         <div className='collection-result-card-s'>
           <div className='assets'>
-            {assets && assets.length > 0 && <p>Assets</p>}
+            {assets?.length > 0 && <p>Assets</p>}
             <div className='assets-container'>
-              {assets && (
+              {assets?.length > 0 && (
                 <>
-                  {assets.length > 0 &&
-                    assets.map((asset, i) => {
-                      const address = asset.contractAddress
-                        ? asset.contractAddress
-                        : asset.asset_contract.address;
+                  {assets.map((asset, i) => {
+                    const address =
+                      asset?.contractAddress || asset.asset_contract.address;
 
-                      const tokenId = asset.tokenId
-                        ? asset.tokenId
-                        : asset.token_id;
-                      return (
-                        <div className='asset' key={i}>
-                          <Link
-                            to={{
-                              pathname: `assets/${address}/${tokenId}`,
-                              state: { background: location },
-                            }}
-                          >
-                            <ImageTypeDetect
-                              imageURL={asset.image_preview_url}
-                              alt={''}
-                              className='asset-img'
-                            />
-                          </Link>
-                        </div>
-                      );
-                    })}
+                    const tokenId = asset?.tokenId || asset.token_id;
+                    return (
+                      <div className='asset' key={i}>
+                        <Link
+                          to={{
+                            pathname: `assets/${address}/${tokenId}`,
+                            state: { background: location },
+                          }}
+                        >
+                          <ImageTypeDetect
+                            imageURL={asset.imageSmall}
+                            alt={''}
+                            className='asset-img'
+                          />
+                        </Link>
+                      </div>
+                    );
+                  })}
                 </>
               )}
             </div>

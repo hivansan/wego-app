@@ -205,7 +205,7 @@ const AssetDetailModal = ({ setFooter }) => {
                           <div className='asset-detail-filter-header-n'></div>
                         </div>
                         <div className='asset-detail-filter-attribute'>
-                          <small></small>
+                          <small>{trait.value}</small>
                           <div className='asset-detail-filter-a'>
                             <p>{trait.trait_count}</p>
                           </div>

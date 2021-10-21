@@ -141,8 +141,6 @@ const AllCollectionsTable = () => {
 
       cell: ({ value: row }) => {
         const stat = row.stats ? row.stats.sevenDayVolume : row.sevenDayVolume;
-
-        console.log(row);
         return (
           <>
             {stat ? (
@@ -341,7 +339,7 @@ const AllCollectionsTable = () => {
         row.stats ? row.stats.totalSales : row.totalSales || 0,
       sortable: true,
       cell: ({ value: row }) => {
-        const stat = row.stats ? row.stats.totalVolume : row.totalVolume;
+        const stat = row.stats ? row.stats.totalSales : row.totalSales;
         return (
           <>
             {stat ? (
@@ -376,7 +374,7 @@ const AllCollectionsTable = () => {
         row.stats ? row.stats.floorPrice : row.floorPrice || 0,
       sortable: true,
       cell: ({ value: row }) => {
-        const stat = row.stats ? row.stats.totalSales : row.totalSales;
+        const stat = row.stats ? row.stats.floorPrice : row.floorPrice;
         return (
           <>
             {stat ? (

@@ -39,7 +39,6 @@ const SearchScreen = () => {
     setResults(null);
     try {
       const res = await api.search(param, page, tab);
-      console.log(res);
       setResults(res);
     } catch (err) {
       throw err;

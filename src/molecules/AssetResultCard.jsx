@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 
 import ImageTypeDetect from './ImageTypeDetect';
 import { FaEthereum } from 'react-icons/fa';
@@ -11,26 +11,29 @@ const AssetResultCard = ({ result, location }) => {
   const { value: asset } = result;
 
   const [assetScore, setAssetScore] = useState(null);
-
+  const [didMount, setDidMount] = useState(false);
   const api = new Api();
 
-  const address = asset.contractAddress
-    ? asset.contractAddress
-    : asset.asset_contract.address;
+  const address = asset?.contractAddress || asset.asset_contract.address;
 
-  const tokenId = asset.tokenId ? asset.tokenId : asset.token_id;
-
+  const tokenId = asset?.tokenId || asset.token_id;
   useEffect(() => {
+    setDidMount(true);
+
     const getAssetScore = async () => {
       const res = await api.assets.score(address, tokenId);
       setAssetScore(res);
     };
-    getAssetScore();
 
+    getAssetScore();
     return () => {
-      setAssetScore(null);
+      setDidMount(false);
     };
   }, []);
+
+  if (!didMount) {
+    return null;
+  }
 
   return (
     <div className='asset-result-card'>
@@ -39,19 +42,12 @@ const AssetResultCard = ({ result, location }) => {
         <div className='asset-info'>
           <div className='asset-result-card-info-container'>
             <div className='asset-result-card-info'>
-              {asset.image_preview_url ? (
-                <ImageTypeDetect
-                  imageURL={asset.image_preview_url}
-                  alt={asset.name}
-                  className='asset-result-img'
-                />
-              ) : (
-                <img
-                  src='https://i.stack.imgur.com/y9DpT.jpg'
-                  alt=''
-                  className='asset-result-img'
-                />
-              )}
+              <ImageTypeDetect
+                imageURL={asset?.image_preview_url || asset.imageSmall}
+                alt={asset.name}
+                className='asset-result-img'
+              />
+
               <div className='info'>
                 <Link
                   to={{
@@ -124,19 +120,11 @@ const AssetResultCard = ({ result, location }) => {
                   state: { background: location },
                 }}
               >
-                {asset.image_preview_url ? (
-                  <ImageTypeDetect
-                    imageURL={asset.image_preview_url}
-                    alt={asset.name}
-                    className='asset-preview-img'
-                  />
-                ) : (
-                  <img
-                    src='https://i.stack.imgur.com/y9DpT.jpg'
-                    alt=''
-                    className='asset-preview-img'
-                  />
-                )}
+                <ImageTypeDetect
+                  imageURL={asset?.image_preview_url || asset.imageSmall}
+                  alt={asset.name}
+                  className='asset-preview-img'
+                />
               </Link>
             </div>
           </div>

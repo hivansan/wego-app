@@ -38,9 +38,8 @@ const ExactMatchCard = ({ results, className, location, isOpen, ...props }) => {
                 imageURL={
                   resultsHastExactMatch.meta.index === 'collections'
                     ? resultsHastExactMatch.value.imgMain
-                    : resultsHastExactMatch.value.image_preview_url
-                    ? resultsHastExactMatch.value.image_preview_url
-                    : resultsHastExactMatch.value.imageSmall
+                    : resultsHastExactMatch.value?.image_preview_url ||
+                      resultsHastExactMatch.value.imageSmall
                 }
                 className='exact-match-img'
                 alt={resultsHastExactMatch.value.name}

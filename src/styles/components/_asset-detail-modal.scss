@@ -40,7 +40,7 @@
       }
 
       .img-loading {
-        width: 380px;
+        width: 270px;
         height: 380px;
         display: flex;
         justify-content: center;
@@ -177,7 +177,7 @@
             }
 
             small {
-              color: #fff;
+              color: var(--bm-icon-color);
             }
 
             .asset-detail-filter-a {

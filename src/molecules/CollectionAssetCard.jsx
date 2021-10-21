@@ -33,9 +33,7 @@ const CollectionAssetCard = ({
       key={asset[index].id}
       to={{
         pathname: `/assets/${
-          asset[index].asset_contract
-            ? asset[index].asset_contract.address
-            : asset[index].contractAddress
+          asset[index].asset_contract?.address || asset[index].contractAddress
         }/${asset[index].tokenId}`,
         state: { background: location },
       }}
@@ -64,7 +62,7 @@ const CollectionAssetCard = ({
         <section className='asset-card-image'>
           {asset[index].imageBig ? (
             <ImageTypeDetect
-              imageURL={asset[index].image_preview_url}
+              imageURL={asset[index].imageSmall}
               alt={asset[index].name}
               className='img'
             />
@@ -82,8 +80,6 @@ const CollectionAssetCard = ({
           {/* <p>
             {price} <FaEthereum size={20} />
 
-
-           
           </p> */}
         </section>
       </article>
