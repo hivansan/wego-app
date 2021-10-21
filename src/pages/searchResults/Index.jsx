@@ -39,6 +39,7 @@ const SearchScreen = () => {
     setResults(null);
     try {
       const res = await api.search(param, page, tab);
+      console.log(res);
       setResults(res);
     } catch (err) {
       throw err;
@@ -115,7 +116,7 @@ const SearchScreen = () => {
           onPressEnter={onPressEnter}
           ref={searchRef}
         />
-        {results && <small>about {results.meta.total} Results</small>}
+        {results && <small>about {results?.meta?.total} Results</small>}
       </header>
 
       <FiltersBar

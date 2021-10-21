@@ -45,7 +45,7 @@ const CollectionDetails = ({ setFooter }) => {
       sortDirection,
       traits
     );
-
+    console.log(res);
     const results = res.results.length === 0 ? null : res.results;
     setResultAssets(results);
 

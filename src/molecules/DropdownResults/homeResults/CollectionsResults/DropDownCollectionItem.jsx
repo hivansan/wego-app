@@ -4,6 +4,7 @@ import ImageTypeDetect from '../../../ImageTypeDetect';
 import moment from 'moment';
 import { SiEthereum } from 'react-icons/si';
 import { Api } from '../../../../services/api';
+
 const DropDownCollectionItem = ({ collection }) => {
   const [assets, setAssets] = useState(null);
   const api = new Api();
@@ -11,7 +12,7 @@ const DropDownCollectionItem = ({ collection }) => {
   useEffect(() => {
     const getCollectionAssets = async () => {
       const res = await api.assets.find(collection.slug, 2, 0);
-
+      console.log(res.results);
       setAssets(res.results);
     };
     getCollectionAssets();
@@ -83,11 +84,16 @@ const DropDownCollectionItem = ({ collection }) => {
           </div>
         </div>
         <div className='assets-preview'>
-          <p>Assets Preview</p>
+          {assets && <p>Assets Preview</p>}
           <div className='assets'>
             {assets &&
               assets.map((asset) => (
-                <img src={asset.image_preview_url} alt='' key={asset.id} />
+                // <img src={asset.imageSmall} alt='' key={asset.id} />
+                <ImageTypeDetect
+                  imageURL={asset.imageSmall}
+                  alt={asset.tokenId}
+                  key={asset.id}
+                />
               ))}
           </div>
         </div>

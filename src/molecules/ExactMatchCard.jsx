@@ -10,7 +10,7 @@ const ExactMatchCard = ({ results, className, location, isOpen, ...props }) => {
   const hasExtraClasess = className ? className : '';
 
   const resultsHastExactMatch = results.results.filter(
-    (item) => Math.round(item.meta.score) >= 35
+    (item) => item.meta.isExact
   )[0];
 
   return (
