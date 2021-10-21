@@ -46,14 +46,14 @@ const CollectionDetails = ({ setFooter }) => {
       traits
     );
 
-    
+
     const results = res.results.length === 0 ? null : res.results;
     setResultAssets(results);
 
     if (res.results.length < 10) {
       setHasNextPage(false);
     }
-    
+
     setIsNextPageLoading(() => true);
     setIsNextPageLoading(false);
 
@@ -76,7 +76,7 @@ const CollectionDetails = ({ setFooter }) => {
     if (res.results.length === 0 || res.results.length < 10) {
       setHasNextPage(false);
     }
-  
+
     setIsNextPageLoading(() => true);
     setIsNextPageLoading(false);
   };
