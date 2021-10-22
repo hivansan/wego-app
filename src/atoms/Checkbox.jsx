@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { flushSync } from 'react-dom';
 
-const Checkbox = ({ label, setFilters, filters, traitType }) => {
+const Checkbox = ({ label, setFilters, filters, traitType, extra }) => {
   const [checked, setChecked] = useState(false);
 
   const onChange = () => {
@@ -33,14 +33,17 @@ const Checkbox = ({ label, setFilters, filters, traitType }) => {
 
   return (
     <label className='checkbox-label'>
-      <input
-        className='checkbox'
-        type='checkbox'
-        checked={checked}
-        onChange={onChange}
-        value={label}
-      />
-      {label}
+      <div>
+        <input
+          className='checkbox'
+          type='checkbox'
+          checked={checked}
+          onChange={onChange}
+          value={label}
+        />
+        {label}
+      </div>
+      {extra && <small>{extra}</small>}
     </label>
   );
 };

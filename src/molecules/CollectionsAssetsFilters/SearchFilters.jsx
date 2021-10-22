@@ -15,7 +15,11 @@ const SearchFilters = ({
 
   collectionTraits.map((trait, i) => {
     if (trait.trait_type === traitType) {
-      traitsObj = { traitType, value: trait.value };
+      traitsObj = {
+        traitType,
+        value: trait.value,
+        traitCount: trait.trait_count,
+      };
       traits.push(traitsObj);
     }
   });
@@ -47,6 +51,7 @@ const SearchFilters = ({
                 key={i}
                 setFilters={setFilters}
                 filters={filters}
+                extra={trait.trait_count}
               />
             );
           }
@@ -73,6 +78,7 @@ const SearchFilters = ({
                   key={i}
                   setFilters={setFilters}
                   filters={filters}
+                  extra={trait.trait_count}
                 />
               );
             }
@@ -80,7 +86,7 @@ const SearchFilters = ({
         </>
       ) : (
         <>
-          {filteredTraits.map(({ value, traitType }, i) => {
+          {filteredTraits.map(({ value, traitType, traitCount }, i) => {
             return (
               <Checkbox
                 typeTrait={traitType}
@@ -88,6 +94,7 @@ const SearchFilters = ({
                 key={i}
                 setFilters={setFilters}
                 filters={filters}
+                extra={traitCount}
               />
             );
           })}

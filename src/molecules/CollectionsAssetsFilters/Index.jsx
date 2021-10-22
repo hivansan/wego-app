@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { FiFilter } from 'react-icons/fi';
+import { HiFilter } from 'react-icons/hi';
 import { BiArrowToRight, BiArrowToLeft } from 'react-icons/bi';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 import Checkbox from '../../atoms/Checkbox';
@@ -33,7 +33,7 @@ const CollectionAssetsFilters = ({
     return (
       <div className='filter-collapse collection-assets-filters'>
         <header onClick={setIsCollapse}>
-          <BiArrowToRight size={20} />
+          <HiFilter size={20} />
         </header>
       </div>
     );

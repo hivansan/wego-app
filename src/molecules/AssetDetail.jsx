@@ -25,6 +25,7 @@ const AssetDetailModal = ({ setFooter }) => {
 
   const getAssetScore = async () => {
     const res = await api.assets.score(address, tokenId);
+    console.log(res);
     setAssetScore(res);
   };
 
