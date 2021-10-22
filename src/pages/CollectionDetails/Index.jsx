@@ -21,6 +21,7 @@ const CollectionDetails = ({ setFooter }) => {
     orderBy: 'none',
     orderDirection: 'desc',
   });
+
   const [filtersMobileOpen, setFiltersMobileOpen] = useState(false);
   const [assetsPerPage, setAssetsPerPage] = useState(20);
   const [assetsPage, setAssetsPage] = useState(0);
@@ -45,11 +46,10 @@ const CollectionDetails = ({ setFooter }) => {
       sortDirection,
       traits
     );
-    console.log(res);
     const results = res.results.length === 0 ? null : res.results;
     setResultAssets(results);
 
-    if (res.results.length < 10) {
+    if (res.results.length < 20) {
       setHasNextPage(false);
     }
 
@@ -70,9 +70,9 @@ const CollectionDetails = ({ setFooter }) => {
       traits
     );
 
-    setAssetsPage(assetsPage + 10);
+    setAssetsPage(assetsPage + 20);
     setResultAssets([...resultAssets, ...res.results]);
-    if (res.results.length === 0 || res.results.length < 10) {
+    if (res.results.length === 0 || res.results.length < 20) {
       setHasNextPage(false);
     }
 

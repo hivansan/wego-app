@@ -47,7 +47,7 @@ const HotCollectionsBar = ({ hotCollections, isInputHeaderShown }) => {
       {
         breakpoint: 1000,
         settings: {
-          slidesToShow: 3,
+          slidesToShow: 2,
           slidesToScroll: 1,
         },
       },

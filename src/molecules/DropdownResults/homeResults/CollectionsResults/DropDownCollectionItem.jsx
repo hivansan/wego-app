@@ -66,7 +66,10 @@ const DropDownCollectionItem = ({ collection }) => {
             <small>
               TotalVolume :{' '}
               <strong>
-                {collection?.stats?.totalVolume || collection.totalVolume}
+                {(collection?.stats?.totalVolume &&
+                  collection?.stats?.totalVolume.toString().substr(0, 5)) ||
+                  (collection.totalVolume &&
+                    collection.totalVolume.toString().substr(0, 8))}
                 <SiEthereum size={15} />
               </strong>
             </small>

@@ -25,6 +25,7 @@ const CollectionHeaderLeft = ({ collectionInfo }) => {
                 <ImageTypeDetect
                   imageURL={collectionInfo.imgMain}
                   alt={`${collectionInfo.slug} logo`}
+                  className='collection-img'
                 />
               )}
               <div>

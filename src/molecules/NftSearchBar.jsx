@@ -36,7 +36,6 @@ const SearchBar = ({
     const isSearchResultsOpen = localStorage.getItem('sR');
 
     if (isSearchResultsOpen) {
-      searchRef.current.focus();
       setIsOpen(true);
     }
   }, [location]);

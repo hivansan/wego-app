@@ -70,8 +70,12 @@ const CollectionResultCard = ({ result, location }) => {
                 7 day volume:
                 <strong>
                   {' '}
-                  {collection?.stats?.sevenDayVolume ||
-                    collection.sevenDayVolume}
+                  {(collection?.stats?.sevenDayVolume &&
+                    collection?.stats?.sevenDayVolume
+                      .toString()
+                      .substr(0, 8)) ||
+                    (collection.sevenDayVolume &&
+                      collection.sevenDayVolume.toString().substr(0, 8))}
                   <FaEthereum size={15} />
                 </strong>
               </p>
@@ -79,7 +83,10 @@ const CollectionResultCard = ({ result, location }) => {
                 Total Volume:
                 <strong>
                   {' '}
-                  {collection?.stats?.totalVolume || collection.totalVolume}
+                  {(collection?.stats?.totalVolume &&
+                    collection?.stats?.totalVolume.toString().substr(0, 6)) ||
+                    (collection.totalVolume &&
+                      collection.totalVolume.toString().substr(0, 6))}
                   <FaEthereum size={15} />
                 </strong>
               </p>
@@ -87,7 +94,10 @@ const CollectionResultCard = ({ result, location }) => {
                 Floor Price:
                 <strong>
                   {' '}
-                  {collection?.stats?.floorPrice || collection.floorPrice}
+                  {(collection?.stats?.floorPrice &&
+                    collection?.stats?.floorPrice.toString().substr(0, 6)) ||
+                    (collection.floorPrice &&
+                      collection.floorPrice.toString().substr(0, 6))}
                 </strong>
               </p>
             </div>

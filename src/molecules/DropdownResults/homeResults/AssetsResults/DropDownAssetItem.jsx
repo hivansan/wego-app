@@ -53,7 +53,7 @@ const DropDownAssetItem = ({ asset, location, isOpen }) => {
           />
 
           <div className='asset-info'>
-            <p>{asset.name || asset.tokenId || asset.token_id}</p>
+            <p>{asset.name || asset?.tokenId || asset.token_id}</p>
           </div>
         </div>
         <div className='asset-stats'>

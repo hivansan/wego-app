@@ -29,19 +29,16 @@ const CollectionAssets = ({
 }) => {
   const [isFiltersCollapse, setIsFiltersCollapse] = useState(true);
 
-  const isFiltersMobileOpenAssets = filtersMobileOpen ? 'd-none' : '';
-  const preventFetchOnMobileModal = filtersMobileOpen ? 'no-scroll d-none' : '';
-  const isFiltersMobileOpen = filtersMobileOpen ? 'd-block' : '';
-
   return (
     <div className='collection-assets-container'>
-      <div className={`${isFiltersMobileOpen} modal-filters`}>
-        <CollectionAssetsFiltersMobile
-          collectionTraits={collectionTraits}
-          setFilters={setFilters}
-          filters={filters}
-        />
-      </div>
+      <CollectionAssetsFiltersMobile
+        containerClassName='modal-filters'
+        isOpen={filtersMobileOpen}
+        setIsOpen={setFiltersMobileOpen}
+        collectionTraits={collectionTraits}
+        setFilters={setFilters}
+        filters={filters}
+      />
       <CollectionAssetsFilters
         filtersMobileOpen={filtersMobileOpen}
         collectionTraits={collectionTraits}
@@ -51,7 +48,7 @@ const CollectionAssets = ({
         setFilters={setFilters}
         filters={filters}
       />
-      <div className={`${isFiltersMobileOpenAssets} collection-assets`}>
+      <div className='collection-assets'>
         <div className='assets-header'>
           <CollectionAssetsSort
             setAssetsSort={setAssetsSort}
@@ -60,10 +57,10 @@ const CollectionAssets = ({
         </div>
         {filters.length > 0 && (
           <div className='assets-actual-filters'>
-            {filters.map(({ traitType, value: filter }) => (
+            {filters.map(({ traitType, value: filter }, i) => (
               <div
                 className='trait-filter'
-                key={filter}
+                key={i}
                 onClick={() =>
                   setFilters(() =>
                     filters.filter(({ value }) => value !== filter)
@@ -79,13 +76,13 @@ const CollectionAssets = ({
             </div>
           </div>
         )}
-        <div className={`${preventFetchOnMobileModal} assets-container`}>
+        <div className={` assets-container`}>
           {assets ? (
             <InfiniteScroll
               dataLength={assets.length}
               next={() => _loadNextPage(sortBy, sortDirection, traits)}
               hasMore={true}
-              className={`${preventFetchOnMobileModal} assets-container-infinite`}
+              className={` assets-container-infinite`}
               loader={<div style={{ height: '100px', width: '100%' }}></div>}
             >
               <AutoSizer className='auto'>

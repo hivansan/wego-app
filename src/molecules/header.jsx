@@ -74,7 +74,7 @@ const Header = ({ background, menuOpen, setMenuOpen }) => {
     const getRequest = async () => {
       setResults(null);
       try {
-        const res = await api.search(debounceParam);
+        const res = await api.search(debounceParam.trim());
         setResults(res);
       } catch (err) {
         console.log(err);
@@ -116,7 +116,6 @@ const Header = ({ background, menuOpen, setMenuOpen }) => {
     const isSearchResultsOpen = localStorage.getItem('sR');
 
     if (param !== '' && isSearchResultsOpen) {
-      searchRef.current.focus();
       return setIsOpen(true);
     }
 

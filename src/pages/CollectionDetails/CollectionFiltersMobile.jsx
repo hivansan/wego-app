@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
-
-import { FiFilter } from 'react-icons/fi';
-import { BiArrowToRight, BiArrowToLeft } from 'react-icons/bi';
-import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
-import Checkbox from '../../atoms/Checkbox';
+import { useMediaQuery } from 'react-responsive';
+import { IoIosClose } from 'react-icons/io';
+import { Dialog, DialogContent, DialogTitle } from '@material-ui/core';
 import Filter from '../../molecules/CollectionsAssetsFilters/Filter';
 import SearchFilters from '../../molecules/CollectionsAssetsFilters/SearchFilters';
 
@@ -11,8 +9,11 @@ const CollectionAssetsFiltersMobile = ({
   collectionTraits,
   setFilters,
   filters,
-  setTraits,
+
+  isOpen,
+  setIsOpen,
 }) => {
+  const isMobile = useMediaQuery({ query: '(max-width: 576px)' });
   const newArr = [];
   const myObj = {};
 
@@ -25,25 +26,37 @@ const CollectionAssetsFiltersMobile = ({
     });
   }
 
+  useEffect(() => {
+    if (!isMobile) {
+      setIsOpen(false);
+    }
+  }, [isMobile]);
+
   return (
-    <div className='collection-assets-filters-mobile'>
-      <header>
+    <Dialog fullScreen={true} open={isOpen}>
+      <header
+        onClick={() => setIsOpen(false)}
+        className='collection-assets-filters-mobile-header'
+      >
         <div>Filter</div>
+        <IoIosClose />
       </header>
-      {/* <Filter title='Status'></Filter>
+      <DialogContent className='collection-assets-filters-mobile'>
+        {/* <Filter title='Status'></Filter>
       <Filter title='Price'></Filter> */}
-      {collectionTraits &&
-        newArr.map((traitType) => (
-          <Filter title={traitType} key={traitType}>
-            <SearchFilters
-              collectionTraits={collectionTraits}
-              traitType={traitType}
-              setFilters={setFilters}
-              filters={filters}
-            />
-          </Filter>
-        ))}
-    </div>
+        {collectionTraits &&
+          newArr.map((traitType, i) => (
+            <Filter title={traitType} key={i}>
+              <SearchFilters
+                collectionTraits={collectionTraits}
+                traitType={traitType}
+                setFilters={setFilters}
+                filters={filters}
+              />
+            </Filter>
+          ))}
+      </DialogContent>
+    </Dialog>
   );
 };
 

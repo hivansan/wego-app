@@ -38,7 +38,7 @@ const SearchScreen = () => {
   const getRequest = async (param, page, tab) => {
     setResults(null);
     try {
-      const res = await api.search(param, page, tab);
+      const res = await api.search(param.trim(), page, tab);
       setResults(res);
     } catch (err) {
       throw err;
@@ -139,8 +139,9 @@ const SearchScreen = () => {
                   <DarkPrimaryButton
                     onClick={() => {
                       setParam('');
-                      history.push(`/search?page=1`);
-                      setUrl({ query: '', page: 1 });
+                      const selectedTab = tab === 'all' ? '' : `&tab=${tab}`;
+                      history.push(`/search?page=1${selectedTab}`);
+                      setUrl({ query: '', page: 1, tab });
                     }}
                   >
                     Back to all Items

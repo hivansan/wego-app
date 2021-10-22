@@ -48,8 +48,6 @@ const CollectionAssetsFilters = ({
           </div>
           <BiArrowToLeft size={20} />
         </header>
-        <Filter title='Status' isCollapse={isCollapse}></Filter>
-        <Filter title='Price' isCollapse={isCollapse}></Filter>
         {collectionTraits &&
           newArr.map((traitType) => (
             <Filter title={traitType} key={traitType} isCollapse={isCollapse}>
