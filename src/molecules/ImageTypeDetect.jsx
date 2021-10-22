@@ -83,7 +83,7 @@ const ImageTypeDetect = ({
           : imageURL
       }
       alt={alt}
-      loading='lazy'
+      loading='eager'
       className={hasClass}
       onError={(e) => {
         e.target.onerror = null;

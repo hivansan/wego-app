@@ -10,16 +10,22 @@ import { useLocation, useHistory, useParams } from 'react-router-dom';
 const AssetDetailModal = ({ setFooter }) => {
   const [open, setOpen] = useState(true);
   const [asset, setAsset] = useState(null);
+  const [assetScore, setAssetScore] = useState(null);
 
   const location = useLocation();
   const history = useHistory();
   const { address, tokenId } = useParams();
-  const params = useParams();
   const api = new Api();
 
   const getAsset = async () => {
     const res = await api.assets.findOne(address, tokenId);
+    console.log(res);
     setAsset(res);
+  };
+
+  const getAssetScore = async () => {
+    const res = await api.assets.score(address, tokenId);
+    setAssetScore(res);
   };
 
   const back = (e) => {
@@ -42,6 +48,7 @@ const AssetDetailModal = ({ setFooter }) => {
     }
 
     getAsset();
+    getAssetScore();
   }, []);
 
   return (
@@ -84,9 +91,11 @@ const AssetDetailModal = ({ setFooter }) => {
                         bigImage={true}
                         bigVideo={true}
                         onLoading={
-                          <div className='img-loading'>
-                            <div className='spinner-border' role='status'></div>
-                          </div>
+                          <ImageTypeDetect
+                            imageURL={asset.imageSmall}
+                            alt={asset.name}
+                            className='img'
+                          />
                         }
                       />
                     </div>
@@ -106,12 +115,11 @@ const AssetDetailModal = ({ setFooter }) => {
                               bigImage={true}
                               bigVideo={true}
                               onLoading={
-                                <div className='img-loading'>
-                                  <div
-                                    className='spinner-border'
-                                    role='status'
-                                  ></div>
-                                </div>
+                                <ImageTypeDetect
+                                  imageURL={asset.imageSmall}
+                                  alt={asset.name}
+                                  className='img'
+                                />
                               }
                             />
                           </div>
@@ -173,44 +181,47 @@ const AssetDetailModal = ({ setFooter }) => {
                 <div className='rarity-score'>
                   <div className='rarity-score-title'>Rarity Score</div>
                   <div className='rarity-score-content'>
-                    {asset.rariScore
-                      ? asset.rariScore.toString().substring(0, 6)
-                      : '0'}
+                    {assetScore?.rariScore?.toString()?.substring(0, 6) || 0}
                   </div>
                 </div>
 
-                <div className='asset-detail-modal-stats-filters-sorts'>
+                {/* <div className='asset-detail-modal-stats-filters-sorts'>
                   <DarkPrimaryButton>Sorted Traits</DarkPrimaryButton>
                   <LightPrimaryButton>By Category</LightPrimaryButton>
-                </div>
+                </div> */}
 
                 <div className='asset-detail-modal-stats-filters-container'>
-                  <ul>
+                  {/* <ul>
                     <li>Rarity Score</li>
                     <li>Highest Floor Price</li>
                     <li>Name</li>
-                  </ul>
+                  </ul> */}
 
                   {/* asset traits */}
 
                   <div className='asset-detail-modal-stats-filters'>
-                    {asset.traits.map((trait) => (
-                      <div
-                        className='asset-detail-modal-stats-filter'
-                        key={trait.trait_type}
-                      >
-                        <div className='asset-detail-filter-header'>
-                          <small>{trait.trait_type}</small>
-                          <div className='asset-detail-filter-header-n'></div>
-                        </div>
-                        <div className='asset-detail-filter-attribute'>
-                          <small>{trait.value}</small>
-                          <div className='asset-detail-filter-a'>
-                            <p>{trait.trait_count}</p>
+                    {assetScore &&
+                      assetScore.traits.map((trait) => (
+                        <div
+                          className='asset-detail-modal-stats-filter'
+                          key={trait.trait_type}
+                        >
+                          <div className='asset-detail-filter-header'>
+                            <small>{trait.trait_type}</small>
+                            <div className='asset-detail-filter-header-n'>
+                              <small>
+                                {trait?.traitScore?.toString()?.substr(0, 6)}
+                              </small>
+                            </div>
+                          </div>
+                          <div className='asset-detail-filter-attribute'>
+                            <small>{trait.value}</small>
+                            <div className='asset-detail-filter-a'>
+                              <p>{trait.trait_count}</p>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    ))}
+                      ))}
                   </div>
                 </div>
               </div>
