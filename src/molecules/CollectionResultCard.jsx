@@ -6,6 +6,7 @@ import { FaEthereum } from 'react-icons/fa';
 import moment from 'moment';
 import { Api } from '../services/api';
 import ImageTypeDetect from './ImageTypeDetect';
+import { GoVerified } from 'react-icons/go';
 
 const CollectionResultCard = ({ result, location }) => {
   const [assets, setAssets] = useState(null);
@@ -38,7 +39,12 @@ const CollectionResultCard = ({ result, location }) => {
               />
               <div className='info'>
                 <Link to={`collection/${collection.slug}`}>
-                  <p>{collection.name}</p>
+                  <p>
+                    {collection.name}{' '}
+                    {collection.featuredCollection && (
+                      <span className='badge'>Featured</span>
+                    )}
+                  </p>
                 </Link>
                 <small>
                   Release date:{' '}

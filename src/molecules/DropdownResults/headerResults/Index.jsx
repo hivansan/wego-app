@@ -16,7 +16,27 @@ const HeaderResults = ({ results, location, isOpen }) => {
             .filter((result) => result.meta.index === 'collections')
             .filter((e, i) => i < 5).length !== 0 && <li>Collections</li>}
           {results.results
+            .filter((result) => result.value.featuredCollection)
+            .filter((e, i) => i < 5)
+            .map((collection, i) => (
+              <a
+                href={`/collection/${collection.slug}`}
+                key={collection.id + i}
+              >
+                <li>
+                  <ImageTypeDetect
+                    imageURL={collection.imgMain}
+                    alt={collection.name}
+                    className='result-img'
+                  />
+                  {collection.name}
+                  <span className='badge'>Featured</span>
+                </li>
+              </a>
+            ))}
+          {results.results
             .filter((result) => result.meta.index === 'collections')
+            .filter((result) => !result.value.featuredCollection)
             .filter((e, i) => i < 5)
             .map(({ value: collection }, i) => (
               <a

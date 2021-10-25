@@ -104,6 +104,11 @@ const AssetResultCard = ({ result, location }) => {
                     <p>
                       Total traits: <strong>{assetScore.traits.length}</strong>
                     </p>
+                    {asset._lastPrice && (
+                      <p>
+                        Last Price Sold: <strong>{asset._lastPrice}</strong>
+                      </p>
+                    )}
                   </>
                 )}
               </div>

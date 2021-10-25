@@ -89,6 +89,11 @@ const DropDownAssetItem = ({ asset, location, isOpen }) => {
                     Total traits:
                     <strong> {assetScore.traits.length}</strong>
                   </small>
+                  {asset._lastPrice && (
+                    <small>
+                      Last Price Sold: <strong>{asset._lastPrice}</strong>
+                    </small>
+                  )}
                 </>
               )}
             </>

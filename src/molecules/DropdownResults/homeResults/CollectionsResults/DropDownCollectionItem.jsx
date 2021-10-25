@@ -35,7 +35,12 @@ const DropDownCollectionItem = ({ collection }) => {
               className='collection-img'
             />
             <div className='d-flex align-items-center flex-column'>
-              <p className='text-start'>{collection.name}</p>
+              <p className='text-start'>
+                {collection.name}{' '}
+                {collection.featuredCollection && (
+                  <span className='badge'>Featured</span>
+                )}
+              </p>
 
               <small>
                 Release date :{' '}
