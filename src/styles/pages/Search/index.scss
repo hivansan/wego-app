@@ -3,6 +3,7 @@
 .full-search-container {
   font-family: $default-font;
   padding: 2rem;
+  min-height: 100vh;
   .full-search-header {
     display: flex;
     background-color: var(--bg-app);

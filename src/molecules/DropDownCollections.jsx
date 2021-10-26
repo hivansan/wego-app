@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import DropDownCollectionItem from './DropdownResults/homeResults/CollectionsResults/DropDownCollectionItem';
 
 const DropDownCollections = ({ results, location }) => {
-  const collectionsFiletered = results.results
-    .filter((item) => item.meta.index === 'collections')
-    .filter((a, i) => i < 4);
+  const collectionsFiletered =
+    !results.status &&
+    results.results
+      .filter((item) => item.meta.index === 'collections')
+      .filter((a, i) => i < 4);
 
   return (
     <>

@@ -12,9 +12,8 @@ const ExactMatchCard = ({ results, className, location, isOpen, ...props }) => {
 
   const hasExtraClasess = className ? className : '';
 
-  const resultsHastExactMatch = results.results.filter(
-    (item) => item.meta.isExact
-  )[0];
+  const resultsHastExactMatch =
+    !results.status && results.results.filter((item) => item.meta.isExact)[0];
 
   const api = new Api();
 

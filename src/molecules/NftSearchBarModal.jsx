@@ -24,7 +24,7 @@ const NftSearchBarModal = ({
         </div>
       ) : (
         <>
-          {results.results.length === 0 ? (
+          {results.results && results.results.length === 0 ? (
             <>
               {noItemsFound || (
                 <div className='loader-container'>

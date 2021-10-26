@@ -48,10 +48,11 @@ const CollectionDetails = ({ setFooter }) => {
       traits
     );
     const results =
-      res.results.length === 0 || !res.results ? null : res.results;
+      res.results && res.results.length === 0 ? null : res.results;
+
     setResultAssets(results);
 
-    if (res.results.length < 20) {
+    if (res.results && res.results.length < 20) {
       setHasNextPage(false);
     }
 
@@ -101,7 +102,7 @@ const CollectionDetails = ({ setFooter }) => {
   }, []);
 
   useEffect(() => {
-    if (!result.msg) {
+    if (!result.status) {
       return setFooter(slug);
     }
     setFooter(true);
@@ -128,7 +129,7 @@ const CollectionDetails = ({ setFooter }) => {
     return null;
   }
 
-  if (result.msg) {
+  if (result.status) {
     return <Error404 />;
   }
 

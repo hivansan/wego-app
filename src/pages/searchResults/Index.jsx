@@ -39,6 +39,7 @@ const SearchScreen = () => {
     setResults(null);
     try {
       const res = await api.search(param.trim(), page, tab);
+      console.log(res);
       setResults(res);
     } catch (err) {
       throw err;
@@ -131,80 +132,85 @@ const SearchScreen = () => {
             <div className='spinner-border'></div>
           </div>
         ) : (
-          <div className='results'>
-            {results.results.length === 0 ? (
-              <div className='no-items-found-container'>
-                <div className='no-items-found'>
-                  <h3>No items found for this search</h3>
-                  <DarkPrimaryButton
-                    onClick={() => {
-                      setParam('');
-                      const selectedTab = tab === 'all' ? '' : `&tab=${tab}`;
-                      history.push(`/search?page=1${selectedTab}`);
-                      setUrl({ query: '', page: 1, tab });
-                    }}
-                  >
-                    Back to all Items
-                  </DarkPrimaryButton>
-                </div>
-              </div>
-            ) : (
-              <>
-                <div className='match-found mobile-match'>
-                  <ExactMatchCard
-                    results={results}
-                    className='match'
-                    location={location}
-                  />
-                </div>
-                <div className='all-results'>
-                  {/* featured collections display first in search results */}
-                  {results.results
-                    .filter((result) => result.value.featuredCollection)
-                    .map((result, i) => (
-                      <CollectionResultCard
-                        result={result}
-                        key={i}
+          <>
+            {!results.status && (
+              <div className='results'>
+                {results.results.length === 0 ? (
+                  <div className='no-items-found-container'>
+                    <div className='no-items-found'>
+                      <h3>No items found for this search</h3>
+                      <DarkPrimaryButton
+                        onClick={() => {
+                          setParam('');
+                          const selectedTab =
+                            tab === 'all' ? '' : `&tab=${tab}`;
+                          history.push(`/search?page=1${selectedTab}`);
+                          setUrl({ query: '', page: 1, tab });
+                        }}
+                      >
+                        Back to all Items
+                      </DarkPrimaryButton>
+                    </div>
+                  </div>
+                ) : (
+                  <>
+                    <div className='match-found mobile-match'>
+                      <ExactMatchCard
+                        results={results}
+                        className='match'
                         location={location}
                       />
-                    ))}
+                    </div>
+                    <div className='all-results'>
+                      {/* featured collections display first in search results */}
+                      {results.results
+                        .filter((result) => result.value.featuredCollection)
+                        .map((result, i) => (
+                          <CollectionResultCard
+                            result={result}
+                            key={i}
+                            location={location}
+                          />
+                        ))}
 
-                  {results.results.map((result, i) => {
-                    if (
-                      result.meta.index === 'collections' &&
-                      !result.value.featuredCollection
-                    ) {
-                      return (
-                        <CollectionResultCard
-                          result={result}
-                          key={i}
-                          location={location}
-                        />
-                      );
-                    } else {
-                      return (
-                        <AssetResultCard
-                          result={result}
-                          key={i}
-                          location={location}
-                        />
-                      );
-                    }
-                  })}
-                </div>
-                <div className='match-found desktop-match'>
-                  <ExactMatchCard
-                    results={results}
-                    className='match'
-                    location={location}
-                  />
-                </div>{' '}
-              </>
+                      {results.results.map((result, i) => {
+                        if (
+                          result.meta.index === 'collections' &&
+                          !result.value.featuredCollection
+                        ) {
+                          return (
+                            <CollectionResultCard
+                              result={result}
+                              key={i}
+                              location={location}
+                            />
+                          );
+                        } else {
+                          return (
+                            <AssetResultCard
+                              result={result}
+                              key={i}
+                              location={location}
+                            />
+                          );
+                        }
+                      })}
+                    </div>
+                    <div className='match-found desktop-match'>
+                      <ExactMatchCard
+                        results={results}
+                        className='match'
+                        location={location}
+                      />
+                    </div>{' '}
+                  </>
+                )}
+              </div>
             )}
-          </div>
+          </>
         )}
       </div>
-      {results && results.results.length > 0 && (
+      {results && !results.status && results.results.length > 0 && (
         <div className='paginator-wrapper'>
           <Paginator
             limit={20}

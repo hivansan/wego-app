@@ -6,9 +6,11 @@ import ImageTypeDetect from '../molecules/ImageTypeDetect';
 import DropDownAssetItem from './DropdownResults/homeResults/AssetsResults/DropDownAssetItem';
 
 const DropDownAssets = ({ results, location, isOpen }) => {
-  const assetsFiltered = results.results
-    .filter((item) => item.meta.index === 'assets')
-    .filter((a, i) => i < 4);
+  const assetsFiltered =
+    !results.status &&
+    results.results
+      .filter((item) => item.meta.index === 'assets')
+      .filter((a, i) => i < 4);
 
   // console.log(assetsFiltered);
 
