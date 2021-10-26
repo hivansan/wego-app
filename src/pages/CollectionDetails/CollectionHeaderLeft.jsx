@@ -1,6 +1,14 @@
 import React from 'react';
 
-import { FaLink, FaTwitter, FaDiscord, FaInstagram } from 'react-icons/fa';
+import {
+  FaLink,
+  FaRegEyeSlash,
+  FaStar,
+  FaSyncAlt,
+  FaTwitter,
+  FaDiscord,
+  FaInstagram,
+} from 'react-icons/fa';
 import { GoVerified } from 'react-icons/go';
 import MarkDown from 'react-markdown';
 import moment from 'moment';
@@ -143,6 +151,52 @@ const CollectionHeaderLeft = ({ collectionInfo }) => {
               </a>
             )}
           </div>
+          {localStorage.weGoAdmin === 'true' && (
+            <div className='admin'>
+              <form
+                method='POST'
+                action={`/api/collections/${collectionInfo.slug}/hide`}
+                target='_blank'
+              >
+                <button type='submit'>
+                  <FaRegEyeSlash /> Hide
+                </button>
+              </form>
+              |{' '}
+              {collectionInfo.stats &&
+              collectionInfo.stats.featuredCollection ? (
+                <form
+                  method='POST'
+                  action={`/api/collections/${collectionInfo.slug}/unfeature`}
+                  target='_blank'
+                >
+                  <button type='submit'>
+                    <FaStar /> Un-Feature
+                  </button>
+                </form>
+              ) : (
+                <form
+                  method='POST'
+                  action={`/api/collections/${collectionInfo.slug}/feature`}
+                  target='_blank'
+                >
+                  <button type='submit'>
+                    <FaStar /> Feature
+                  </button>
+                </form>
+              )}
+              |{' '}
+              <form
+                method='POST'
+                action={`/api/collections/${collectionInfo.slug}/reindex`}
+                target='_blank'
+              >
+                <button type='submit'>
+                  <FaSyncAlt /> Re-Index
+                </button>
+              </form>
+            </div>
+          )}
         </section>
       </>
     </div>

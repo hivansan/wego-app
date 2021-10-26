@@ -1,9 +1,6 @@
 import axios from 'axios';
 
-export const baseURL =
-  process.env.NODE_ENV === 'production'
-    ? 'http://ec2-54-160-232-251.compute-1.amazonaws.com/'
-    : 'http://localhost:3000/';
+export const baseURL = '/api';
 
 export class Api {
   /**
@@ -24,10 +21,10 @@ export class Api {
     //todo : asset instead assets
     this.assets = {
       findOne: (address, tokenId) => {
-        return this.request('get', `api/asset/${address}/${tokenId}`);
+        return this.request('get', `/asset/${address}/${tokenId}`);
       },
       score: (address, tokenId) => {
-        return this.request('get', `api/asset/${address}/${tokenId}/score`);
+        return this.request('get', `/asset/${address}/${tokenId}/score`);
       },
       find: (slug, limit, offset, sortBy, sortDirection, traits) => {
         const hasSorts =
@@ -37,7 +34,7 @@ export class Api {
           ? ''
           : `&sortDirection=${sortDirection}`;
 
-        const collectionAssetsUrl = `api/assets?slug=${slug}&limit=${limit}&offset=${offset}${hasSortDirection}${hasSorts}${hasTraits}`;
+        const collectionAssetsUrl = `/assets?slug=${slug}&limit=${limit}&offset=${offset}${hasSortDirection}${hasSorts}${hasTraits}`;
 
         return this.request('get', collectionAssetsUrl);
       },
@@ -53,15 +50,15 @@ export class Api {
           ...(!!q ? { q } : {}),
         }).toString();
         const query = params ? `?${params}` : '';
-        return this.request('get', `api/Collections${query}`);
+        return this.request('get', `/collections${query}`);
       },
 
       traits: (slug) => {
-        return this.request('get', `api/collections/${slug}/traits`);
+        return this.request('get', `/collections/${slug}/traits`);
       },
 
       findOne: (slug) => {
-        return this.request('get', `api/collections/${slug}`);
+        return this.request('get', `/collections/${slug}`);
       },
 
       findByAddress: (address) => {
@@ -71,21 +68,21 @@ export class Api {
 
     this.users = {
       findOne: (publicAddress) => {
-        return this.request('get', `api/users/?publicAddress=${publicAddress}`);
+        return this.request('get', `/users/?publicAddress=${publicAddress}`);
       },
 
       isLogged: () => {
-        return this.request('get', `api/users/isLogged`);
+        return this.request('get', `/users/isLogged`);
       },
 
       register: (publicAddress) => {
-        return this.postRequest('post', 'api/users', {
+        return this.postRequest('post', '/users', {
           publicAddress,
         });
       },
 
       login: (publicAddress, sign) => {
-        return this.postRequest('post', 'api/users/login', {
+        return this.postRequest('post', '/users/login', {
           publicAddress,
           sign,
         });
@@ -98,7 +95,7 @@ export class Api {
       const hasTab = tab === 'all' || !tab ? '' : `&tab=${tab}`;
       return this.request(
         'get',
-        `api/search?limit=20${hasParams}${hasPagination}${hasTab}`
+        `/search?limit=20${hasParams}${hasPagination}${hasTab}`
       );
     };
   }

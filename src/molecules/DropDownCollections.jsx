@@ -21,7 +21,7 @@ const DropDownCollections = ({ results, location }) => {
             .map(({ value: collection }, i) => (
               <DropDownCollectionItem
                 collection={collection}
-                key={collection.id + i}
+                key={collection.contractAddress + i}
               />
             ))}
         </div>
