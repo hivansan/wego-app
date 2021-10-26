@@ -38,17 +38,26 @@ const Footer = (props) => {
         </div>
         <div className='socials'>
           <div className='icons'>
-            <a href='https://wegobattle.com'>
+            <a
+              href='https://wegobattle.com'
+              target='_blank'
+              rel='noopener noreferrer'
+            >
               <FaLink size={35} />
             </a>
-            <a href='https://discord.com/invite/MDgmGTJFkD'>
+            <a
+              href='https://discord.com/invite/MDgmGTJFkD'
+              target='_blank'
+              rel='noopener noreferrer'
+            >
               <FaDiscord size={40} />
             </a>
-            <a href='https://twitter.com/wegobattle'>
+            <a
+              href='https://twitter.com/wegobattle'
+              target='_blank'
+              rel='noopener noreferrer'
+            >
               <FaTwitter size={40} />
-            </a>
-            <a href='/#'>
-              <FaInstagram size={40} />
             </a>
           </div>
         </div>

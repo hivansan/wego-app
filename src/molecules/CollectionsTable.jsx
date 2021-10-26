@@ -43,7 +43,7 @@ const CollectionsTable = ({
               value={value}
               onChange={handleOnChange}
             />
-            {dataUtils && (
+            {dataUtils && !dataUtils.status && (
               <div className='results'>
                 <small>About {dataUtils.meta.total} results</small>
               </div>
@@ -86,7 +86,7 @@ const CollectionsTable = ({
               <option value={50}>50</option>
             </select>
           </div>
-          {dataUtils && (
+          {dataUtils && !dataUtils.status && (
             <div className='table-paginator'>
               {dataUtils.meta.total >= perPage && (
                 <Paginator

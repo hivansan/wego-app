@@ -158,6 +158,8 @@ const AssetDetailModal = ({ setFooter }) => {
 
                   <a
                     href={`https://opensea.io/assets/${asset.contractAddress}/${asset.tokenId}`}
+                    target='_blank'
+                    rel='noopener noreferrer'
                   >
                     <div className='asset-modal-opensea'>
                       <img

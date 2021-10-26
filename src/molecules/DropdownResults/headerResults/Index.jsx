@@ -4,13 +4,9 @@ import ImageTypeDetect from '../../../molecules/ImageTypeDetect';
 import { GoVerified } from 'react-icons/go';
 
 const HeaderResults = ({ results, location, isOpen }) => {
-  const resultsHastExactMatch = results.results.filter(
-    (item) => item.meta.isExact
-  )[0];
-
   return (
     <>
-      {results && (
+      {results && !results.status && (
         <ul>
           {results.results
             .filter((result) => result.meta.index === 'collections')
