@@ -12,7 +12,7 @@ const SlickSlider = forwardRef(({ children, ...props }, ref) => {
   return (
     <Slider {...settings} {...props} ref={ref}>
       {children.map((x, i) => (
-        <div className='w-75 d-flex justify-content-center' key={i}>
+        <div className='' key={i}>
           {x}
         </div>
       ))}

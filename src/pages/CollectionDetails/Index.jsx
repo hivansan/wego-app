@@ -16,6 +16,7 @@ const CollectionDetails = ({ setFooter }) => {
   const [isNextPageLoading, setIsNextPageLoading] = useState(false);
   const [filters, setFilters] = useState([]);
   const [traits, setTraits] = useState([]);
+  const [isMounted, setIsMounted] = useState(false);
 
   const [assetsSort, setAssetsSort] = useState({
     orderBy: 'none',
@@ -46,7 +47,8 @@ const CollectionDetails = ({ setFooter }) => {
       sortDirection,
       traits
     );
-    const results = res.results.length === 0 ? null : res.results;
+    const results =
+      res.results.length === 0 || !res.results ? null : res.results;
     setResultAssets(results);
 
     if (res.results.length < 20) {
@@ -81,18 +83,20 @@ const CollectionDetails = ({ setFooter }) => {
   };
 
   const getCollectionTraits = async () => {
-    const { results } = await api.collections.traits(slug);
-    setCollectionTraits(results);
+    const res = await api.collections.traits(slug);
+    setCollectionTraits(res?.results || []);
   };
 
   useEffect(() => {
     window.scrollTo(0, 0);
     getCollection();
     getCollectionTraits();
+    setIsMounted(true);
     return () => {
       setResultAssets([]);
       setResult({});
       setCollectionTraits(null);
+      setIsMounted(false);
     };
   }, []);
 
@@ -119,6 +123,10 @@ const CollectionDetails = ({ setFooter }) => {
       hasTraits
     );
   }, [filters, assetsSort]);
+
+  if (!isMounted) {
+    return null;
+  }
 
   if (result.msg) {
     return <Error404 />;

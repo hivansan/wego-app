@@ -58,6 +58,7 @@
       min-height: 536px;
       display: flex;
       align-items: center;
+      background-color: var(--bg-canvas-table);
       h1 {
         margin: 0;
         color: var(--color-primary);
@@ -169,6 +170,10 @@
       color: var(--color-secondary);
     }
   }
+}
+
+.fUMqnv {
+  background-color: var(--bg-canvas-table) !important;
 }
 
 // @media screen and (max-width: 993px) {

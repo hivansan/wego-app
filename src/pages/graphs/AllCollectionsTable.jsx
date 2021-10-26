@@ -33,7 +33,7 @@ const AllCollectionsTable = () => {
       sort,
       sortOrder: sortDirection,
     });
-    setCollections(res.results);
+    setCollections(res?.results || []);
     setData(res);
     setLoading(false);
   };

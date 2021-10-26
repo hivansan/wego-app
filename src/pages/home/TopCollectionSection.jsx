@@ -15,9 +15,11 @@ const TopCollectionSection = ({ location }) => {
         [
           ['numOwners', setByOwnerCountCollections],
           ['sevenDayAveragePrice', setSevenDayAvgPrice],
-          ['totalVolume', setTotalVolumeCollections]
-        ].map(([sort, setter]) => api.collections.all({ sort }).then(pipe(prop('results'), setter)))
-      )
+          ['totalVolume', setTotalVolumeCollections],
+        ].map(([sort, setter]) =>
+          api.collections.all({ sort }).then(pipe(prop('results'), setter))
+        )
+      );
     };
     getTopCollections();
   }, []);

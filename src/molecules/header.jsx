@@ -50,7 +50,7 @@ const Header = ({ background, menuOpen, setMenuOpen }) => {
   useEffect(() => {
     const getHotCollections = async () => {
       const res = await api.collections.all();
-      setHotCollections(res);
+      setHotCollections(res?.results || []);
     };
 
     getHotCollections();

@@ -4,8 +4,6 @@ import Paginator from '../molecules/Paginator';
 
 import { MdNavigateNext, MdNavigateBefore } from 'react-icons/md';
 
-import LinearProgress from '@material-ui/core/LinearProgress';
-
 const CollectionsTable = ({
   data,
   dataUtils,
@@ -31,8 +29,6 @@ const CollectionsTable = ({
   };
 
   const handleSort = async (column, sortDirection) => {
-    /// reach out to some API and get new data using or sortField and sortDirection
-    // e.g. https://api.github.com/search/repositories?q=blog&sort=${column.sortField}&order=${sortDirection}
     setSort(column.sortField);
     setSortDirection(sortDirection);
   };

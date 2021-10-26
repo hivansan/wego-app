@@ -23,12 +23,15 @@ const HotCollectionsBar = ({ hotCollections, isInputHeaderShown }) => {
     dots: false,
     infinite: true,
     slidesToShow: widthCollectionsBar,
-    slidesToScroll: 1,
+    slidesToScroll: 0.5,
     autoplay: pause,
     speed: 5000,
     autoplaySpeed: 0,
     cssEase: 'linear',
     mobileFirst: true,
+    centerMode: true,
+    variableWidth: true,
+    adaptiveHeight: true,
     responsive: [
       {
         breakpoint: 1480,
@@ -75,11 +78,10 @@ const HotCollectionsBar = ({ hotCollections, isInputHeaderShown }) => {
     >
       {hotCollections && (
         <Slider className='hot-collections' {...sliderSettings} ref={sliderRef}>
-          {hotCollections.results.map(({ value: collection }, i) => (
+          {hotCollections.map(({ value: collection }, i) => (
             <a
               href={`/collection/${collection.slug}`}
-              key={collection.id}
-              className='mx-5'
+              key={collection.contractAddress + i}
             >
               <div className='hot-collection'>
                 <FiArrowUpCircle size={15} color={'green'} />

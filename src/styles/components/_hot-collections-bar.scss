@@ -4,13 +4,19 @@
   display: flex;
   background-color: var(--bg-header);
   font-family: $default-font;
-  overflow-x: hidden;
-
+  overflow: hidden;
+  align-items: center;
   .hot-collections {
     display: flex;
     overflow-x: auto;
+    align-items: center;
     cursor: pointer;
     min-height: 42px;
+
+    .slick-slide {
+      width: auto !important;
+    }
+
     a {
       display: flex;
       align-items: center;

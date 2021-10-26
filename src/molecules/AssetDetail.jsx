@@ -9,19 +9,13 @@ import { useLocation, useHistory, useParams } from 'react-router-dom';
 
 const AssetDetailModal = ({ setFooter }) => {
   const [open, setOpen] = useState(true);
-  const [asset, setAsset] = useState(null);
-  const [assetScore, setAssetScore] = useState(null);
+
+  const [asset, setAssetScore] = useState(null);
 
   const location = useLocation();
   const history = useHistory();
   const { address, tokenId } = useParams();
   const api = new Api();
-
-  const getAsset = async () => {
-    const res = await api.assets.findOne(address, tokenId);
-    console.log(res);
-    setAsset(res);
-  };
 
   const getAssetScore = async () => {
     const res = await api.assets.score(address, tokenId);
@@ -47,8 +41,6 @@ const AssetDetailModal = ({ setFooter }) => {
     if (!location.key) {
       setFooter(location.pathname);
     }
-
-    getAsset();
     getAssetScore();
   }, []);
 
@@ -182,7 +174,7 @@ const AssetDetailModal = ({ setFooter }) => {
                 <div className='rarity-score'>
                   <div className='rarity-score-title'>Rarity Score</div>
                   <div className='rarity-score-content'>
-                    {assetScore?.rariScore?.toString()?.substring(0, 6) || 0}
+                    {asset?.rarityScore?.toString()?.substring(0, 6) || 0}
                   </div>
                 </div>
 
@@ -201,8 +193,8 @@ const AssetDetailModal = ({ setFooter }) => {
                   {/* asset traits */}
 
                   <div className='asset-detail-modal-stats-filters'>
-                    {assetScore &&
-                      assetScore.traits.map((trait) => (
+                    {asset &&
+                      asset.traits.map((trait) => (
                         <div
                           className='asset-detail-modal-stats-filter'
                           key={trait.trait_type}
