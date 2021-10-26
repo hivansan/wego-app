@@ -64,19 +64,11 @@ const MenuSearchResults = ({ results, location, query }) => {
                     key={i}
                   >
                     <li>
-                      {asset.image_preview_url ? (
-                        <ImageTypeDetect
-                          imageURL={asset.image_preview_url}
-                          alt={''}
-                          className='result-img'
-                        />
-                      ) : (
-                        <img
-                          src='https://i.stack.imgur.com/y9DpT.jpg'
-                          alt=''
-                          className='result-img'
-                        />
-                      )}{' '}
+                      <ImageTypeDetect
+                        imageURL={asset?.image_preview_url || asset.imageSmall}
+                        alt={''}
+                        className='result-img'
+                      />
                       {asset.name}
                     </li>
                   </Link>

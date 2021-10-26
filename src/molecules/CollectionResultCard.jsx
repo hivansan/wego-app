@@ -6,6 +6,7 @@ import { FaEthereum } from 'react-icons/fa';
 import moment from 'moment';
 import { Api } from '../services/api';
 import ImageTypeDetect from './ImageTypeDetect';
+import { GoVerified } from 'react-icons/go';
 
 const CollectionResultCard = ({ result, location }) => {
   const [assets, setAssets] = useState(null);
@@ -38,7 +39,12 @@ const CollectionResultCard = ({ result, location }) => {
               />
               <div className='info'>
                 <Link to={`collection/${collection.slug}`}>
-                  <p>{collection.name}</p>
+                  <p>
+                    {collection.name}{' '}
+                    {collection.featuredCollection && (
+                      <span className='badge'>Featured</span>
+                    )}
+                  </p>
                 </Link>
                 <small>
                   Release date:{' '}
@@ -50,35 +56,32 @@ const CollectionResultCard = ({ result, location }) => {
               <p>
                 Owners:{' '}
                 <strong>
-                  {collection.stats
-                    ? collection.stats.numOwners
-                    : collection.numOwners}
+                  {collection?.stats?.numOwners || collection.numOwners}
                 </strong>
               </p>
               <p>
                 Total items:{' '}
                 <strong>
-                  {collection.stats
-                    ? collection.stats.totalSupply
-                    : collection.totalSupply}
+                  {collection?.stats?.totalSupply || collection.totalSupply}
                 </strong>
               </p>
               <p>
-                Total Sales:
+                12 Total Sales:
                 <strong>
                   {' '}
-                  {collection.stats
-                    ? collection.stats.totalSales
-                    : collection.totalSales}
+                  {collection?.stats?.totalSales || collection.totalSales}
                 </strong>
               </p>
               <p>
                 7 day volume:
                 <strong>
                   {' '}
-                  {collection.stats
-                    ? collection.stats.sevenDayVolume
-                    : collection.sevenDayVolume}
+                  {(collection?.stats?.sevenDayVolume &&
+                    collection?.stats?.sevenDayVolume
+                      .toString()
+                      .substr(0, 8)) ||
+                    (collection.sevenDayVolume &&
+                      collection.sevenDayVolume.toString().substr(0, 8))}
                   <FaEthereum size={15} />
                 </strong>
               </p>
@@ -86,9 +89,10 @@ const CollectionResultCard = ({ result, location }) => {
                 Total Volume:
                 <strong>
                   {' '}
-                  {collection.stats
-                    ? collection.stats.totalVolume
-                    : collection.totalVolume}
+                  {(collection?.stats?.totalVolume &&
+                    collection?.stats?.totalVolume.toString().substr(0, 6)) ||
+                    (collection.totalVolume &&
+                      collection.totalVolume.toString().substr(0, 6))}
                   <FaEthereum size={15} />
                 </strong>
               </p>
@@ -96,9 +100,10 @@ const CollectionResultCard = ({ result, location }) => {
                 Floor Price:
                 <strong>
                   {' '}
-                  {collection.stats
-                    ? collection.stats.floorPrice
-                    : collection.floorPrice}
+                  {(collection?.stats?.floorPrice &&
+                    collection?.stats?.floorPrice.toString().substr(0, 6)) ||
+                    (collection.floorPrice &&
+                      collection.floorPrice.toString().substr(0, 6))}
                 </strong>
               </p>
             </div>
@@ -106,36 +111,32 @@ const CollectionResultCard = ({ result, location }) => {
         </div>
         <div className='collection-result-card-s'>
           <div className='assets'>
-            {assets && assets.length > 0 && <p>Assets</p>}
+            {assets?.length > 0 && <p>Assets</p>}
             <div className='assets-container'>
-              {assets && (
+              {assets?.length > 0 && (
                 <>
-                  {assets.length > 0 &&
-                    assets.map((asset, i) => {
-                      const address = asset.contractAddress
-                        ? asset.contractAddress
-                        : asset.asset_contract.address;
+                  {assets.map((asset, i) => {
+                    const address =
+                      asset?.contractAddress || asset.asset_contract.address;
 
-                      const tokenId = asset.tokenId
-                        ? asset.tokenId
-                        : asset.token_id;
-                      return (
-                        <div className='asset' key={i}>
-                          <Link
-                            to={{
-                              pathname: `assets/${address}/${tokenId}`,
-                              state: { background: location },
-                            }}
-                          >
-                            <ImageTypeDetect
-                              imageURL={asset.image_preview_url}
-                              alt={''}
-                              className='asset-img'
-                            />
-                          </Link>
-                        </div>
-                      );
-                    })}
+                    const tokenId = asset?.tokenId || asset.token_id;
+                    return (
+                      <div className='asset' key={i}>
+                        <Link
+                          to={{
+                            pathname: `assets/${address}/${tokenId}`,
+                            state: { background: location },
+                          }}
+                        >
+                          <ImageTypeDetect
+                            imageURL={asset.imageSmall}
+                            alt={''}
+                            className='asset-img'
+                          />
+                        </Link>
+                      </div>
+                    );
+                  })}
                 </>
               )}
             </div>

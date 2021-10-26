@@ -8,7 +8,6 @@ import { Api } from '../../../../services/api';
 
 const DropDownAssetItem = ({ asset, location, isOpen }) => {
   const [assetScore, setAssetScore] = useState(null);
-
   const api = new Api();
 
   useEffect(() => {
@@ -47,22 +46,14 @@ const DropDownAssetItem = ({ asset, location, isOpen }) => {
           ) : (
             <img src={asset.} alt='' />
           )} */}
-          {asset.image_preview_url ? (
-            <ImageTypeDetect
-              imageURL={asset.image_preview_url}
-              alt={asset.name}
-              className='asset-img'
-            />
-          ) : (
-            <img
-              src='https://i.stack.imgur.com/y9DpT.jpg'
-              alt=''
-              className='asset-img'
-            />
-          )}
+          <ImageTypeDetect
+            imageURL={asset?.image_preview_url || asset.imageSmall}
+            alt={asset.name}
+            className='asset-img'
+          />
 
           <div className='asset-info'>
-            <p>{asset.name}</p>
+            <p>{asset.name || asset?.tokenId || asset.token_id}</p>
           </div>
         </div>
         <div className='asset-stats'>
@@ -98,6 +89,11 @@ const DropDownAssetItem = ({ asset, location, isOpen }) => {
                     Total traits:
                     <strong> {assetScore.traits.length}</strong>
                   </small>
+                  {asset._lastPrice && (
+                    <small>
+                      Last Price Sold: <strong>{asset._lastPrice}</strong>
+                    </small>
+                  )}
                 </>
               )}
             </>

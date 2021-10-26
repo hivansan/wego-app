@@ -11,6 +11,7 @@ const NftSearchBarModal = ({
   children,
   setIsFocus,
   className,
+  noItemsFound,
 }) => {
   const hasExtraClasses = className ? className : '';
   const modalIsOpen = isOpen ? '' : 'd-none';
@@ -24,9 +25,14 @@ const NftSearchBarModal = ({
       ) : (
         <>
           {results.results.length === 0 ? (
-            <div className='loader-container'>
-              <h1>No items found</h1>
-            </div>
+            <>
+              {noItemsFound || (
+                <div className='loader-container'>
+                  {' '}
+                  <h1>No items found</h1>{' '}
+                </div>
+              )}
+            </>
           ) : (
             <>
               {children}

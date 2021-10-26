@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import CollectionsTable from '../../molecules/CollectionsTable';
 import { BiSortDown, BiSortUp } from 'react-icons/bi';
 import ImageTypeDetect from '../../molecules/ImageTypeDetect';
+import { IoIosCloseCircleOutline } from 'react-icons/io';
 
 const AllCollectionsTable = () => {
   const [collections, setCollections] = useState([]);
@@ -123,14 +124,21 @@ const AllCollectionsTable = () => {
     {
       name:
         sort === 'sevenDayVolume' ? (
-          <strong className='text-primary'>
-            Volume(7d){' '}
-            {sortDirection === 'desc' ? (
-              <BiSortDown size={15} />
-            ) : (
-              <BiSortUp size={15} />
-            )}
-          </strong>
+          <div className='text-primary d-flex align-items-center justify-content-between'>
+            <div>
+              <small>Volume(7d) </small>
+              {sortDirection === 'desc' ? (
+                <>
+                  <BiSortDown size={15} />
+                </>
+              ) : (
+                <BiSortUp size={15} />
+              )}
+            </div>
+            <div className='text-danger mx-1' onClick={() => setSort('')}>
+              <IoIosCloseCircleOutline size={20} />
+            </div>
+          </div>
         ) : (
           <small>Volume(7d)</small>
         ),
@@ -141,8 +149,6 @@ const AllCollectionsTable = () => {
 
       cell: ({ value: row }) => {
         const stat = row.stats ? row.stats.sevenDayVolume : row.sevenDayVolume;
-
-        console.log(row);
         return (
           <>
             {stat ? (
@@ -161,14 +167,21 @@ const AllCollectionsTable = () => {
     {
       name:
         sort === 'sevenDaySales' ? (
-          <strong className='text-primary'>
-            Sales(7d){' '}
-            {sortDirection === 'desc' ? (
-              <BiSortDown size={15} />
-            ) : (
-              <BiSortUp size={15} />
-            )}
-          </strong>
+          <div className='text-primary d-flex align-items-center justify-content-between'>
+            <div>
+              <small> Sales(7d) </small>
+              {sortDirection === 'desc' ? (
+                <>
+                  <BiSortDown size={15} />
+                </>
+              ) : (
+                <BiSortUp size={15} />
+              )}
+            </div>
+            <div className='text-danger mx-1' onClick={() => setSort('')}>
+              <IoIosCloseCircleOutline size={20} />
+            </div>
+          </div>
         ) : (
           <small>Sales(7d)</small>
         ),
@@ -180,14 +193,21 @@ const AllCollectionsTable = () => {
     {
       name:
         sort === 'sevenDayAveragePrice' ? (
-          <strong className='text-primary'>
-            Avg Price(7d){' '}
-            {sortDirection === 'desc' ? (
-              <BiSortDown size={15} />
-            ) : (
-              <BiSortUp size={15} />
-            )}
-          </strong>
+          <div className='text-primary d-flex align-items-center justify-content-between'>
+            <div>
+              <small>Avg Price(7d)</small>
+              {sortDirection === 'desc' ? (
+                <>
+                  <BiSortDown size={15} />
+                </>
+              ) : (
+                <BiSortUp size={15} />
+              )}
+            </div>
+            <div className='text-danger mx-1' onClick={() => setSort('')}>
+              <IoIosCloseCircleOutline size={20} />
+            </div>
+          </div>
         ) : (
           <small>Avg Price(7d)</small>
         ),
@@ -217,14 +237,21 @@ const AllCollectionsTable = () => {
     {
       name:
         sort === 'totalSupply' ? (
-          <strong className='text-primary'>
-            Total Supply{' '}
-            {sortDirection === 'desc' ? (
-              <BiSortDown size={15} />
-            ) : (
-              <BiSortUp size={15} />
-            )}
-          </strong>
+          <div className='text-primary d-flex align-items-center justify-content-between'>
+            <div>
+              <small>Total Supply</small>
+              {sortDirection === 'desc' ? (
+                <>
+                  <BiSortDown size={15} />
+                </>
+              ) : (
+                <BiSortUp size={15} />
+              )}
+            </div>
+            <div className='text-danger mx-1' onClick={() => setSort('')}>
+              <IoIosCloseCircleOutline size={20} />
+            </div>
+          </div>
         ) : (
           <small>Total Supply</small>
         ),
@@ -236,14 +263,21 @@ const AllCollectionsTable = () => {
     {
       name:
         sort === 'numOwners' ? (
-          <strong className='text-primary'>
-            Owners{' '}
-            {sortDirection === 'desc' ? (
-              <BiSortDown size={15} />
-            ) : (
-              <BiSortUp size={15} />
-            )}
-          </strong>
+          <div className='text-primary d-flex align-items-center justify-content-between'>
+            <div>
+              <small>Owners</small>
+              {sortDirection === 'desc' ? (
+                <>
+                  <BiSortDown size={15} />
+                </>
+              ) : (
+                <BiSortUp size={15} />
+              )}
+            </div>
+            <div className='text-danger mx-1' onClick={() => setSort('')}>
+              <IoIosCloseCircleOutline size={20} />
+            </div>
+          </div>
         ) : (
           <small>Owners</small>
         ),
@@ -255,14 +289,21 @@ const AllCollectionsTable = () => {
     {
       name:
         sort === 'marketCap' ? (
-          <strong className='text-primary'>
-            Estimated MarketCap{' '}
-            {sortDirection === 'desc' ? (
-              <BiSortDown size={15} />
-            ) : (
-              <BiSortUp size={15} />
-            )}
-          </strong>
+          <div className='text-primary d-flex align-items-center justify-content-between'>
+            <div>
+              <small>Estimated MarketCap</small>
+              {sortDirection === 'desc' ? (
+                <>
+                  <BiSortDown size={15} />
+                </>
+              ) : (
+                <BiSortUp size={15} />
+              )}
+            </div>
+            <div className='text-danger mx-1' onClick={() => setSort('')}>
+              <IoIosCloseCircleOutline size={20} />
+            </div>
+          </div>
         ) : (
           <small>Estimated MarketCap</small>
         ),
@@ -290,14 +331,21 @@ const AllCollectionsTable = () => {
     {
       name:
         sort === 'totalVolume' ? (
-          <strong className='text-primary'>
-            Volume(All time){' '}
-            {sortDirection === 'desc' ? (
-              <BiSortDown size={15} />
-            ) : (
-              <BiSortUp size={15} />
-            )}
-          </strong>
+          <div className='text-primary d-flex align-items-center justify-content-between'>
+            <div>
+              <small>Volume(All time)</small>
+              {sortDirection === 'desc' ? (
+                <>
+                  <BiSortDown size={15} />
+                </>
+              ) : (
+                <BiSortUp size={15} />
+              )}
+            </div>
+            <div className='text-danger mx-1' onClick={() => setSort('')}>
+              <IoIosCloseCircleOutline size={20} />
+            </div>
+          </div>
         ) : (
           <small>Volume(All time)</small>
         ),
@@ -325,14 +373,21 @@ const AllCollectionsTable = () => {
     {
       name:
         sort === 'totalSales' ? (
-          <strong className='text-primary'>
-            Sales(All time){' '}
-            {sortDirection === 'desc' ? (
-              <BiSortDown size={15} />
-            ) : (
-              <BiSortUp size={15} />
-            )}
-          </strong>
+          <div className='text-primary d-flex align-items-center justify-content-between'>
+            <div>
+              <small>Sales(All time)</small>
+              {sortDirection === 'desc' ? (
+                <>
+                  <BiSortDown size={15} />
+                </>
+              ) : (
+                <BiSortUp size={15} />
+              )}
+            </div>
+            <div className='text-danger mx-1' onClick={() => setSort('')}>
+              <IoIosCloseCircleOutline size={20} />
+            </div>
+          </div>
         ) : (
           <small>Sales(All time)</small>
         ),
@@ -341,7 +396,7 @@ const AllCollectionsTable = () => {
         row.stats ? row.stats.totalSales : row.totalSales || 0,
       sortable: true,
       cell: ({ value: row }) => {
-        const stat = row.stats ? row.stats.totalVolume : row.totalVolume;
+        const stat = row.stats ? row.stats.totalSales : row.totalSales;
         return (
           <>
             {stat ? (
@@ -360,14 +415,21 @@ const AllCollectionsTable = () => {
     {
       name:
         sort === 'floorPrice' ? (
-          <strong className='text-primary'>
-            Floor Price
-            {sortDirection === 'desc' ? (
-              <BiSortDown size={15} />
-            ) : (
-              <BiSortUp size={15} />
-            )}
-          </strong>
+          <div className='text-primary d-flex align-items-center justify-content-between'>
+            <div>
+              <small>Floor Price</small>
+              {sortDirection === 'desc' ? (
+                <>
+                  <BiSortDown size={15} />
+                </>
+              ) : (
+                <BiSortUp size={15} />
+              )}
+            </div>
+            <div className='text-danger mx-1' onClick={() => setSort('')}>
+              <IoIosCloseCircleOutline size={20} />
+            </div>
+          </div>
         ) : (
           <small>Floor Price</small>
         ),
@@ -376,7 +438,7 @@ const AllCollectionsTable = () => {
         row.stats ? row.stats.floorPrice : row.floorPrice || 0,
       sortable: true,
       cell: ({ value: row }) => {
-        const stat = row.stats ? row.stats.totalSales : row.totalSales;
+        const stat = row.stats ? row.stats.floorPrice : row.floorPrice;
         return (
           <>
             {stat ? (

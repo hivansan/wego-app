@@ -38,7 +38,8 @@ const SearchScreen = () => {
   const getRequest = async (param, page, tab) => {
     setResults(null);
     try {
-      const res = await api.search(param, page, tab);
+      const res = await api.search(param.trim(), page, tab);
+      console.log(res);
       setResults(res);
     } catch (err) {
       throw err;
@@ -115,7 +116,7 @@ const SearchScreen = () => {
           onPressEnter={onPressEnter}
           ref={searchRef}
         />
-        {results && <small>about {results.meta.total} Results</small>}
+        {results && <small>about {results?.meta?.total} Results</small>}
       </header>
 
       <FiltersBar
@@ -139,8 +140,9 @@ const SearchScreen = () => {
                   <DarkPrimaryButton
                     onClick={() => {
                       setParam('');
-                      history.push(`/search?page=1`);
-                      setUrl({ query: '', page: 1 });
+                      const selectedTab = tab === 'all' ? '' : `&tab=${tab}`;
+                      history.push(`/search?page=1${selectedTab}`);
+                      setUrl({ query: '', page: 1, tab });
                     }}
                   >
                     Back to all Items
@@ -157,8 +159,22 @@ const SearchScreen = () => {
                   />
                 </div>
                 <div className='all-results'>
+                  {/* featured collections display first in search results */}
+                  {results.results
+                    .filter((result) => result.value.featuredCollection)
+                    .map((result, i) => (
+                      <CollectionResultCard
+                        result={result}
+                        key={i}
+                        location={location}
+                      />
+                    ))}
+
                   {results.results.map((result, i) => {
-                    if (result.meta.index === 'collections') {
+                    if (
+                      result.meta.index === 'collections' &&
+                      !result.value.featuredCollection
+                    ) {
                       return (
                         <CollectionResultCard
                           result={result}

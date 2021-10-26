@@ -15,15 +15,25 @@ const CollectionAssetCard = ({
   collectionImg,
 }) => {
   const hasExtraClasses = className ? className : '';
+  const tokenIdTrimmed =
+    asset[index].token_id > 8 ? (
+      <>
+        {asset[index].token_id.substring(0, 8)}...
+        {asset[index].token_id.substring(
+          asset[index].token_id.length - 5,
+          asset[index].token_id.length - 1
+        )}
+      </>
+    ) : (
+      <>{asset[index].token_id}</>
+    );
 
   return (
     <Link
       key={asset[index].id}
       to={{
         pathname: `/assets/${
-          asset[index].asset_contract
-            ? asset[index].asset_contract.address
-            : asset[index].contractAddress
+          asset[index].asset_contract?.address || asset[index].contractAddress
         }/${asset[index].tokenId}`,
         state: { background: location },
       }}
@@ -50,28 +60,26 @@ const CollectionAssetCard = ({
           </p>
         </section>
         <section className='asset-card-image'>
-          {asset[index].image_preview_url ? (
+          {asset[index].imageBig ? (
             <ImageTypeDetect
-              imageURL={asset[index].image_preview_url}
+              imageURL={asset[index].imageSmall}
               alt={asset[index].name}
-              className='w-100'
+              className='img'
             />
           ) : (
             <ImageTypeDetect
               imageURL={collectionImg}
               alt={asset[index].slug}
-              className='w-100'
+              className='img'
             />
           )}
         </section>
         <section className='asset-card-info'>
-          <p>{asset[index].name ? asset[index].name : asset[index].token_id}</p>
+          <p>{asset[index].name ? asset[index].name : tokenIdTrimmed}</p>
 
           {/* <p>
             {price} <FaEthereum size={20} />
 
-
-           
           </p> */}
         </section>
       </article>

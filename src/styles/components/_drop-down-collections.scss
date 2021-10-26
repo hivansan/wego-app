@@ -31,6 +31,12 @@
           color: var(--color-secondary);
           margin: 0;
           font-weight: 500;
+          span {
+            margin-left: 0.5rem;
+            background-color: var(--color-primary);
+            padding: 0.2rem 0.4rem;
+            font-size: small;
+          }
         }
         .collection-img {
           width: 40px;
@@ -82,8 +88,8 @@
         gap: 0.3rem;
 
         img {
-          width: 55px;
-          height: auto;
+          width: auto;
+          height: 80px;
         }
       }
     }

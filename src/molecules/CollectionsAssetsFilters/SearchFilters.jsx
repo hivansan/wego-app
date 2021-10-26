@@ -15,7 +15,11 @@ const SearchFilters = ({
 
   collectionTraits.map((trait, i) => {
     if (trait.trait_type === traitType) {
-      traitsObj = { traitType, value: trait.value };
+      traitsObj = {
+        traitType,
+        value: trait.value,
+        traitCount: trait.trait_count,
+      };
       traits.push(traitsObj);
     }
   });
@@ -38,15 +42,16 @@ const SearchFilters = ({
   if (traits.length < 5)
     return (
       <>
-        {collectionTraits.map((trait) => {
+        {collectionTraits.map((trait, i) => {
           if (trait.trait_type === traitType) {
             return (
               <Checkbox
                 traitType={traitType}
                 label={trait.value}
-                key={trait.value}
+                key={i}
                 setFilters={setFilters}
                 filters={filters}
+                extra={trait.trait_count}
               />
             );
           }
@@ -64,15 +69,16 @@ const SearchFilters = ({
       />
       {param.length === 0 ? (
         <>
-          {collectionTraits.map((trait) => {
+          {collectionTraits.map((trait, i) => {
             if (trait.trait_type === traitType) {
               return (
                 <Checkbox
                   traitType={traitType}
                   label={trait.value}
-                  key={trait.value}
+                  key={i}
                   setFilters={setFilters}
                   filters={filters}
+                  extra={trait.trait_count}
                 />
               );
             }
@@ -80,14 +86,15 @@ const SearchFilters = ({
         </>
       ) : (
         <>
-          {filteredTraits.map(({ value, traitType }) => {
+          {filteredTraits.map(({ value, traitType, traitCount }, i) => {
             return (
               <Checkbox
                 typeTrait={traitType}
                 label={value}
-                key={value}
+                key={i}
                 setFilters={setFilters}
                 filters={filters}
+                extra={traitCount}
               />
             );
           })}

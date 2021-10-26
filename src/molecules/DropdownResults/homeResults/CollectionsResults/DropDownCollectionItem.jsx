@@ -4,6 +4,7 @@ import ImageTypeDetect from '../../../ImageTypeDetect';
 import moment from 'moment';
 import { SiEthereum } from 'react-icons/si';
 import { Api } from '../../../../services/api';
+
 const DropDownCollectionItem = ({ collection }) => {
   const [assets, setAssets] = useState(null);
   const api = new Api();
@@ -11,13 +12,11 @@ const DropDownCollectionItem = ({ collection }) => {
   useEffect(() => {
     const getCollectionAssets = async () => {
       const res = await api.assets.find(collection.slug, 2, 0);
-      setAssets(res);
+      setAssets(res.results);
     };
     getCollectionAssets();
 
-    return () => {
-      setAssets(null);
-    };
+    return () => setAssets(null);
   }, []);
 
   return (
@@ -36,7 +35,12 @@ const DropDownCollectionItem = ({ collection }) => {
               className='collection-img'
             />
             <div className='d-flex align-items-center flex-column'>
-              <p className='text-start'>{collection.name}</p>
+              <p className='text-start'>
+                {collection.name}{' '}
+                {collection.featuredCollection && (
+                  <span className='badge'>Featured</span>
+                )}
+              </p>
 
               <small>
                 Release date :{' '}
@@ -49,44 +53,44 @@ const DropDownCollectionItem = ({ collection }) => {
             <small>
               Total Sales:{' '}
               <strong>
-                {collection.stats
-                  ? collection.stats.totalSales
-                  : collection.totalSales}
+                {collection?.stats?.totalSales || collection.totalSales}
               </strong>
             </small>
             <small>
               Items :{' '}
               <strong>
-                {collection.stats
-                  ? collection.stats.totalSupply
-                  : collection.totalSupply}
+                {collection?.stats?.totalSupply || collection.totalSupply}
               </strong>
             </small>
             <small>
               Owners :{' '}
               <strong>
-                {collection.stats
-                  ? collection.stats.numOwners
-                  : collection.numOwners}
+                {collection?.stats?.numOwners || collection.numOwners}
               </strong>
             </small>
             <small>
               TotalVolume :{' '}
               <strong>
-                {collection.stats
-                  ? collection.stats.totalVolume
-                  : collection.totalVolume}
+                {(collection?.stats?.totalVolume &&
+                  collection?.stats?.totalVolume.toString().substr(0, 5)) ||
+                  (collection.totalVolume &&
+                    collection.totalVolume.toString().substr(0, 8))}
                 <SiEthereum size={15} />
               </strong>
             </small>
           </div>
         </div>
         <div className='assets-preview'>
-          <p>Assets Preview</p>
+          {assets?.length > 0 && <p>Assets Preview</p>}
           <div className='assets'>
-            {assets &&
-              assets.map((asset) => (
-                <img src={asset.image_preview_url} alt='' key={asset.id} />
+            {assets?.length > 0 &&
+              assets.map((asset, i) => (
+                // <img src={asset.imageSmall} alt='' key={asset.id} />
+                <ImageTypeDetect
+                  imageURL={asset.imageSmall}
+                  alt={asset.tokenId}
+                  key={i}
+                />
               ))}
           </div>
         </div>

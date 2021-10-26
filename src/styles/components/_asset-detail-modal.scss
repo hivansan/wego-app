@@ -2,7 +2,7 @@
 
 .asset-detail-modal-body {
   background-color: var(--bg-header);
-  border: 5px solid var(--bg-canvas-default);
+  border: 5px solid var(--border-asset-detail);
   display: flex;
   font-family: $default-font;
   gap: 1rem;
@@ -40,7 +40,7 @@
       }
 
       .img-loading {
-        width: 380px;
+        width: 270px;
         height: 380px;
         display: flex;
         justify-content: center;
@@ -147,7 +147,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-
+            width: 100%;
             small {
               font-size: medium;
               color: var(--color-primary);
@@ -177,7 +177,7 @@
             }
 
             small {
-              color: #fff;
+              color: var(--bm-icon-color);
             }
 
             .asset-detail-filter-a {

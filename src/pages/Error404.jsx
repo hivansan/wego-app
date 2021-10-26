@@ -20,7 +20,7 @@ const Error404 = () => {
         </h1>
 
         <h3>Page not found</h3>
-        <p>The resource request could not not be found</p>
+        <p>The resource request could not be found</p>
 
         <DarkPrimaryButton onClick={() => history.push('/')}>
           GO TO HOME PAGE

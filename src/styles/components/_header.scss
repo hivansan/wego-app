@@ -56,6 +56,10 @@
         box-shadow: rgb(0 0 0 / 16%) 0px 4px 16px;
         z-index: 9999;
 
+        .no-items-found {
+          padding: 0.5rem;
+        }
+
         .loader-container {
           width: 100%;
           height: 100px;
