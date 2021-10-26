@@ -1,0 +1,13 @@
+@import './variables.scss';
+
+.admin {
+  form {
+    display: inline;
+    padding: 0px 10px;
+
+    button[type=submit] {
+      border: 0;
+      background: transparent;
+    }
+  }
+}
