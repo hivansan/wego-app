@@ -27,11 +27,13 @@ const CollectionAssetsSort = ({ setAssetsSort, assetsSort }) => {
           <option value='none' defaultValue>
             None
           </option>
-          <option value='sale_date'>Sale Date</option>
-          <option value='sale_count'>Sale Count</option>
-          <option value='sale_price'>Sale date</option>
-          <option value='token_id'>Token ID</option>
+          {/* <option value='sale_date'>Sale Date</option>
+          <option value='sale_count'>Sale Count</option> */}
           <option value='rarityScore'>Rarity Score</option>
+          <option value='rarityScoreRank'>Rarity Score Rank</option>
+          <option value='traitsCount'>traits Count</option>
+          <option value='currentPrice'>Current Price</option>
+          <option value='lastSalePrice'>Last Sale Price</option>
         </select>
 
         <RadioGroup

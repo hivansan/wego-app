@@ -25,6 +25,10 @@ const AssetDetailModal = ({ setFooter }) => {
     console.log(res);
     setAssetScore(res);
   };
+  // const a = async () => {
+  //   const res = await api.assets.score(address, tokenId);
+  //   console.log(res);
+  // };
 
   const back = (e) => {
     e.stopPropagation();
@@ -49,6 +53,7 @@ const AssetDetailModal = ({ setFooter }) => {
       setFooter(location.pathname);
     }
     getAssetScore();
+    // a();
 
     if (location.state) {
       setGoBackPath(location.state.background.pathname);
