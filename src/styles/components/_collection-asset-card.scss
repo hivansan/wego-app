@@ -16,12 +16,13 @@ a {
       justify-content: space-between;
 
       p {
-        color: var(--color-primary);
-        margin-bottom: 0.5rem;
+        color: var(--color-secondary);
+        font-size: 15px;
 
-        &:last-child {
-          color: var(--color-secondary);
-          font-size: 15px;
+        &:first-child {
+          color: var(--color-primary);
+          margin-bottom: 0.5rem;
+          font-size: 13.3px;
         }
       }
     }
@@ -32,11 +33,14 @@ a {
       max-height: 210px;
       overflow: hidden;
       border-radius: 5px;
+      display: flex;
+      justify-content: center;
 
       .img {
         object-fit: cover;
         width: 100%;
         height: 100%;
+        border-radius: 5px;
         // min-height: 234.63px;
       }
     }
@@ -47,9 +51,23 @@ a {
     }
 
     .asset-card-info {
-      text-align: center;
+      display: flex;
       font-size: 15px;
       width: 100%;
+      margin-top: 0.2rem;
+      align-items: center;
+
+      small {
+        color: var(--muted);
+
+        strong {
+          small {
+            color: var(--color-primary);
+            font-weight: 10;
+          }
+        }
+      }
+
       p {
         &:first-child {
           color: var(--color-primary);

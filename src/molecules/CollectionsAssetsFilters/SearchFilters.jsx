@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Checkbox from '../../atoms/Checkbox';
 
+import Range from './Range';
+
 const SearchFilters = ({
   traitType,
   collectionTraits,
@@ -9,20 +11,22 @@ const SearchFilters = ({
 }) => {
   const [param, setParam] = useState('');
   const [filteredTraits, setFilteredTraits] = useState([]);
+  const [traits, setTraits] = useState([]);
 
-  const traits = [];
-  let traitsObj = {};
-
-  collectionTraits.map((trait, i) => {
-    if (trait.trait_type === traitType) {
-      traitsObj = {
-        traitType,
-        value: trait.value,
-        traitCount: trait.trait_count,
-      };
-      traits.push(traitsObj);
-    }
-  });
+  useEffect(() => {
+    collectionTraits.map((trait, i) => {
+      let traitsObj = {};
+      if (trait.trait_type === traitType) {
+        traitsObj = {
+          traitType,
+          value: trait.value,
+          traitCount: trait.trait_count,
+          displayType: trait?.display_type,
+        };
+        setTraits((prevTraits) => [...prevTraits, traitsObj]);
+      }
+    });
+  }, []);
 
   const handleOnChange = (e) => {
     setParam(e.target.value);
@@ -39,7 +43,7 @@ const SearchFilters = ({
     setFilteredTraits([]);
   }, [param]);
 
-  if (traits.length < 5)
+  if (traits.length < 5 && traits.some((trait) => !trait.displayType))
     return (
       <>
         {collectionTraits.map((trait, i) => {
@@ -58,6 +62,24 @@ const SearchFilters = ({
         })}
       </>
     );
+
+  if (
+    traits.some(
+      (trait) =>
+        trait.displayType === 'number' ||
+        trait.displayType === 'date' ||
+        typeof trait.value === 'number'
+    )
+  ) {
+    return (
+      <Range
+        traits={traits}
+        filters={filters}
+        setFilters={setFilters}
+        traitType={traitType}
+      />
+    );
+  }
 
   return (
     <>

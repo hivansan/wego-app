@@ -6,11 +6,14 @@ import LightPrimaryButton from '../atoms/lightPrimaryButton';
 import ImageTypeDetect from './ImageTypeDetect';
 import { Api } from '../services/api';
 import { useLocation, useHistory, useParams } from 'react-router-dom';
+import Trait from './AssetDetailModal/Trait';
 
 const AssetDetailModal = ({ setFooter }) => {
   const [open, setOpen] = useState(true);
 
   const [asset, setAssetScore] = useState(null);
+  const [filters, setFilters] = useState([]);
+  const [goBackPath, setGoBackPath] = useState('');
 
   const location = useLocation();
   const history = useHistory();
@@ -18,7 +21,7 @@ const AssetDetailModal = ({ setFooter }) => {
   const api = new Api();
 
   const getAssetScore = async () => {
-    const res = await api.assets.score(address, tokenId);
+    const res = await api.assets.findOne(address, tokenId);
     console.log(res);
     setAssetScore(res);
   };
@@ -29,9 +32,13 @@ const AssetDetailModal = ({ setFooter }) => {
       return history.push('/');
     }
 
-    history.goBack();
+    history.push(goBackPath, { filters });
     setOpen(false);
   };
+
+  useEffect(() => {
+    console.log(filters);
+  }, [filters]);
 
   useEffect(() => {
     if (location.state) {
@@ -42,6 +49,11 @@ const AssetDetailModal = ({ setFooter }) => {
       setFooter(location.pathname);
     }
     getAssetScore();
+
+    if (location.state) {
+      setGoBackPath(location.state.background.pathname);
+      setFilters(location.state?.filters || []);
+    }
   }, []);
 
   return (
@@ -61,7 +73,7 @@ const AssetDetailModal = ({ setFooter }) => {
               <div className='asset-detail-modal-info-container'>
                 <div className='asset-detail-modal-info'>
                   <header className='asset-detail-modal-info-header'>
-                    <p>
+                    {/* <p>
                       {asset.name ? (
                         <>{asset.name}</>
                       ) : (
@@ -73,6 +85,13 @@ const AssetDetailModal = ({ setFooter }) => {
                             .join(' ')}
                         </>
                       )}
+                    </p> */}
+                    <p>
+                      {asset.name
+                        ? asset.name.length > 27
+                          ? asset.name.substring(0, 26)
+                          : asset.name
+                        : asset.tokenId}
                     </p>
                   </header>
                   {asset.animationUrl ? (
@@ -138,8 +157,18 @@ const AssetDetailModal = ({ setFooter }) => {
                       )}
                     </>
                   )}
-
-                  <p>
+                  {asset._lastSalePrice ? (
+                    <p className='last-p'>
+                      Last sold:{' '}
+                      <small>
+                        <span>$</span>
+                        {asset._lastSalePrice.toLocaleString()}
+                      </small>{' '}
+                    </p>
+                  ) : (
+                    <p className='last-p'></p>
+                  )}
+                  {/* <p>
                     <small>
                       #
                       {asset.tokenId.length > 8 ? (
@@ -154,7 +183,7 @@ const AssetDetailModal = ({ setFooter }) => {
                         <>{asset.tokenId}</>
                       )}
                     </small>
-                  </p>
+                  </p> */}
 
                   <a
                     href={`https://opensea.io/assets/${asset.contractAddress}/${asset.tokenId}`}
@@ -196,26 +225,14 @@ const AssetDetailModal = ({ setFooter }) => {
 
                   <div className='asset-detail-modal-stats-filters'>
                     {asset &&
-                      asset.traits.map((trait) => (
-                        <div
-                          className='asset-detail-modal-stats-filter'
-                          key={trait.trait_type}
-                        >
-                          <div className='asset-detail-filter-header'>
-                            <small>{trait.trait_type}</small>
-                            <div className='asset-detail-filter-header-n'>
-                              <small>
-                                {trait?.traitScore?.toString()?.substr(0, 6)}
-                              </small>
-                            </div>
-                          </div>
-                          <div className='asset-detail-filter-attribute'>
-                            <small>{trait.value}</small>
-                            <div className='asset-detail-filter-a'>
-                              <p>{trait.trait_count}</p>
-                            </div>
-                          </div>
-                        </div>
+                      asset.traits.map((trait, i) => (
+                        <Trait
+                          filters={filters}
+                          setFilters={setFilters}
+                          trait={trait}
+                          bgFilters={location.state.filters || []}
+                          key={i}
+                        />
                       ))}
                   </div>
                 </div>

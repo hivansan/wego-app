@@ -61,6 +61,12 @@ const AssetResultCard = ({ result, location }) => {
             </div>
             {assetScore && (
               <div className='asset-card-info-stats'>
+                {asset._lastSalePrice && (
+                  <p>
+                    Last Price Sold:{' '}
+                    <strong>{asset._lastSalePrice.toLocaleString()}$</strong>
+                  </p>
+                )}
                 {!assetScore.status && (
                   <>
                     <p>
@@ -102,13 +108,8 @@ const AssetResultCard = ({ result, location }) => {
                       </strong>
                     </p>
                     <p>
-                      Total traits: <strong>{assetScore.traits.length}</strong>
+                      Total traits: <strong>{asset.traits.length}</strong>
                     </p>
-                    {asset._lastPrice && (
-                      <p>
-                        Last Price Sold: <strong>{asset._lastPrice}</strong>
-                      </p>
-                    )}
                   </>
                 )}
               </div>

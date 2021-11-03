@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { HiFilter } from 'react-icons/hi';
 import { BiArrowToRight, BiArrowToLeft } from 'react-icons/bi';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 import Checkbox from '../../atoms/Checkbox';
+import Range from './Range';
 import Filter from './Filter';
 import SearchFilters from './SearchFilters';
 
@@ -11,12 +12,11 @@ const CollectionAssetsFilters = ({
   isCollapse,
   setCollapse,
   collectionTraits,
-  setCollectionTraits,
   setFilters,
   filters,
-  filtersMobileOpen,
 }) => {
   const setIsCollapse = () => setCollapse(!isCollapse);
+  const [traitTypes, setTraitTypes] = useState([]);
   const newArr = [];
 
   if (collectionTraits) {
@@ -29,38 +29,46 @@ const CollectionAssetsFilters = ({
     });
   }
 
-  if (isCollapse) {
-    return (
-      <div className='filter-collapse collection-assets-filters'>
+  return (
+    <>
+      <div
+        className={`${
+          isCollapse ? 'd-block' : 'd-none'
+        } filter-collapse collection-assets-filters`}
+      >
         <header onClick={setIsCollapse}>
           <HiFilter size={20} />
         </header>
       </div>
-    );
-  }
 
-  return (
-    <div className='collection-assets-filters'>
-      <div>
-        <header onClick={setIsCollapse}>
-          <div className='header-collapsed-off'>
-            <div className='header-action-collapse'>Filter</div>
-          </div>
-          <BiArrowToLeft size={20} />
-        </header>
-        {collectionTraits &&
-          newArr.map((traitType) => (
-            <Filter title={traitType} key={traitType} isCollapse={isCollapse}>
-              <SearchFilters
-                collectionTraits={collectionTraits}
-                traitType={traitType}
-                setFilters={setFilters}
-                filters={filters}
-              />
-            </Filter>
-          ))}
+      <div
+        className={`${
+          isCollapse ? 'd-none' : 'd-block'
+        } collection-assets-filters`}
+      >
+        <div>
+          <header onClick={setIsCollapse}>
+            <div className='header-collapsed-off'>
+              <div className='header-action-collapse'>Filter</div>
+            </div>
+            <BiArrowToLeft size={20} />
+          </header>
+
+          {collectionTraits &&
+            newArr.map((traitType) => (
+              <Filter title={traitType} key={traitType} isCollapse={isCollapse}>
+                <SearchFilters
+                  collectionTraits={collectionTraits}
+                  traitType={traitType}
+                  setFilters={setFilters}
+                  filters={filters}
+                  key={traitType}
+                />
+              </Filter>
+            ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

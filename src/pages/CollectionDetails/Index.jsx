@@ -7,7 +7,7 @@ import Error404 from '../Error404';
 
 import { Api } from '../../services/api';
 
-const CollectionDetails = ({ setFooter }) => {
+const CollectionDetails = ({ setFooter, locationState }) => {
   const { slug } = useParams();
   const [result, setResult] = useState({});
   const [resultAssets, setResultAssets] = useState([]);
@@ -48,8 +48,8 @@ const CollectionDetails = ({ setFooter }) => {
       traits
     );
     const results =
-      res.results && res.results.length === 0 ? null : res.results;
-
+      res && res.results && res.results.length === 0 ? null : res.results;
+    console.log(res);
     setResultAssets(results);
 
     if (res.results && res.results.length < 20) {
@@ -85,6 +85,7 @@ const CollectionDetails = ({ setFooter }) => {
 
   const getCollectionTraits = async () => {
     const res = await api.collections.traits(slug);
+    console.log(res.results);
     setCollectionTraits(res?.results || []);
   };
 
@@ -93,6 +94,7 @@ const CollectionDetails = ({ setFooter }) => {
     getCollection();
     getCollectionTraits();
     setIsMounted(true);
+    locationState = [];
     return () => {
       setResultAssets([]);
       setResult({});
@@ -107,6 +109,10 @@ const CollectionDetails = ({ setFooter }) => {
     }
     setFooter(true);
   }, [result]);
+
+  useEffect(() => {
+    setFilters(locationState);
+  }, [location]);
 
   useEffect(() => {
     var traitObj = filters.reduce(function (acc, cur, i) {

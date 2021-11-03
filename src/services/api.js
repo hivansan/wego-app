@@ -1,7 +1,8 @@
 import axios from 'axios';
 
-export const baseURL = '/api';
-
+export const baseURL = 'http://localhost:3000/api';
+// 'http://ec2-54-160-232-251.compute-1.amazonaws.com:81/api';
+// 'http://localhost:3000/api';
 export class Api {
   /**
    * @param {string} auth - user:password

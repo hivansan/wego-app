@@ -68,3 +68,18 @@ body[theme='dark'] {
   --border-asset-detail: #{$border-default--dark};
   --bm-icon-color: #{$bm-icon-color--dark};
 }
+
+body[theme=''] {
+  --bg-app: #{$bg-app--dark};
+  --bg-header: #{$bg-header--dark};
+  --color-secondary: #{$secondary-color--dark};
+  --color-secondary-hover: #{$secondary-color-hover--dark};
+  --bg-search-input: #{$bg-search-input--dark};
+  --border-default: #{$border-default--dark};
+  --bg-canvas-default: #{$bg-canvas-default--dark};
+  --canvas-default-hover: #{$canvas-default-hover--dark};
+  --bg-footer: #{$bg-footer--dark};
+  --bg-canvas-table: #{$bg-canvas-table--dark};
+  --border-asset-detail: #{$border-default--dark};
+  --bm-icon-color: #{$bm-icon-color--dark};
+}

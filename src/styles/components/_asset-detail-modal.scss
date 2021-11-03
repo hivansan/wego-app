@@ -17,10 +17,21 @@
     box-shadow: rgb(4 17 29 / 25%) 0px 0px 3px 0px;
     .asset-detail-modal-info-header {
       padding: 0.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       padding-top: 0;
       color: var(--color-primary);
       font-weight: 600;
       font-size: 18px;
+
+      small {
+        color: #56585a;
+        strong {
+          font-weight: 600;
+          color: var(--color-secondary);
+        }
+      }
     }
 
     .animation {
@@ -55,6 +66,16 @@
       margin: 0;
       font-weight: 600;
       font-size: 18px;
+    }
+
+    .last-p {
+      color: var(--color-secondary);
+
+      small {
+        span {
+          color: var(--color-primary);
+        }
+      }
     }
 
     a {
@@ -172,10 +193,6 @@
             align-items: center;
             padding: 2px;
 
-            &:hover {
-              background-color: rgba(107, 114, 128, 1);
-            }
-
             small {
               color: var(--bm-icon-color);
             }
@@ -194,6 +211,10 @@
                 color: var(--color-secondary);
               }
             }
+          }
+
+          .checked {
+            background-color: rgba(107, 114, 128, 1);
           }
         }
       }

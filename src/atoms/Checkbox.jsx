@@ -17,18 +17,23 @@ const Checkbox = ({ label, setFilters, filters, traitType, extra }) => {
     setChecked(true);
   };
 
-  //deseable obj  {traitType : [values]}
-
   useEffect(() => {
-    if (filters.some((trait) => trait.value === label)) {
+    if (
+      filters.some((trait) => trait.value === label) &&
+      filters.some((el) => el.traitType === traitType)
+    ) {
       setChecked(true);
     }
   }, []);
 
   useEffect(() => {
-    if (!filters.some((trait) => trait.value === label)) {
-      setChecked(false);
+    if (
+      filters.some((trait) => trait.value === label) &&
+      filters.some((el) => el.traitType === traitType)
+    ) {
+      return setChecked(true);
     }
+    setChecked(false);
   }, [filters]);
 
   return (

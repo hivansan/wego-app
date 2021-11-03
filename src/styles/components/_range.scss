@@ -1,0 +1,28 @@
+.range {
+  width: 80% !important;
+  margin: 1rem auto;
+}
+
+.range-number-inputs {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  align-items: center;
+  input {
+    width: 50%;
+    margin: 0;
+  }
+
+  input[type='number'] {
+    -moz-appearance: textfield;
+  }
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+  small {
+    color: var(--color-secondary);
+  }
+  margin-bottom: 0.5rem;
+}

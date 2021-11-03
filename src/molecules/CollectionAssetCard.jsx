@@ -10,22 +10,23 @@ const CollectionAssetCard = ({
   location,
   style,
   index,
-  image,
-  isScrolling,
+
   collectionImg,
+  setFilters,
+  filters,
 }) => {
   const hasExtraClasses = className ? className : '';
   const tokenIdTrimmed =
-    asset[index].token_id > 8 ? (
+    asset[index].tokenId > 26 ? (
       <>
-        {asset[index].token_id.substring(0, 8)}...
-        {asset[index].token_id.substring(
-          asset[index].token_id.length - 5,
-          asset[index].token_id.length - 1
+        {asset[index].tokenId.substring(0, 8)}...
+        {asset[index].tokenId.substring(
+          asset[index].tokenId.length - 5,
+          asset[index].tokenId.length - 1
         )}
       </>
     ) : (
-      <>{asset[index].token_id}</>
+      <>{asset[index].tokenId}</>
     );
 
   return (
@@ -35,12 +36,12 @@ const CollectionAssetCard = ({
         pathname: `/assets/${
           asset[index].asset_contract?.address || asset[index].contractAddress
         }/${asset[index].tokenId}`,
-        state: { background: location },
+        state: { background: location, filters: filters },
       }}
     >
       <article className={`${hasExtraClasses} collection-asset-card`}>
         <section className='asset-card-header'>
-          <p>
+          {/* <p>
             {asset[index].collection ? (
               <>
                 {' '}
@@ -57,6 +58,13 @@ const CollectionAssetCard = ({
                 .map((a) => a.charAt(0).toUpperCase() + a.substr(1))
                 .join(' ')}`
             )}
+          </p> */}
+          <p>
+            {asset[index].name
+              ? asset[index].name.length > 27
+                ? asset[index].name.substring(0, 26)
+                : asset[index].name
+              : asset[index].tokenId}
           </p>
         </section>
         <section className='asset-card-image'>
@@ -75,12 +83,21 @@ const CollectionAssetCard = ({
           )}
         </section>
         <section className='asset-card-info'>
-          <p>{asset[index].name ? asset[index].name : tokenIdTrimmed}</p>
+          {/* <p>{asset[index].name ? asset[index].name : tokenIdTrimmed}</p> */}
 
           {/* <p>
             {price} <FaEthereum size={20} />
 
           </p> */}
+          {asset[index]._lastSalePrice && (
+            <small>
+              Last{' '}
+              <strong>
+                <small>$</small>{' '}
+                {Math.round(asset[index]._lastSalePrice).toLocaleString()}
+              </strong>
+            </small>
+          )}
         </section>
       </article>
     </Link>

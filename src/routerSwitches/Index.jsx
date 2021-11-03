@@ -25,6 +25,7 @@ const MainSwitch = () => {
   const location = useLocation();
 
   const background = location.state && location.state.background;
+  const filters = location.state && location.state.filters;
 
   const isSearchResultsOpen = location.state && location.state.searchResults;
   useEffect(() => {
@@ -79,6 +80,7 @@ const MainSwitch = () => {
         />
         <Route path='/collection/:slug'>
           <CollectionDetails
+            locationState={filters}
             setFooter={setCollectionAddress}
             isSearchResultsOpen={isSearchResultsOpen}
           />
