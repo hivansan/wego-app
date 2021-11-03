@@ -66,6 +66,8 @@ const CollectionAssetCard = ({
                 : asset[index].name
               : asset[index].tokenId}
           </p>
+
+          <p>#{asset[index].rarityScoreRank}</p>
         </section>
         <section className='asset-card-image'>
           {asset[index].imageBig ? (
@@ -89,12 +91,12 @@ const CollectionAssetCard = ({
             {price} <FaEthereum size={20} />
 
           </p> */}
-          {asset[index]._lastSalePrice && (
+          {asset[index].lastSalePriceUSD && (
             <small>
               Last{' '}
               <strong>
                 <small>$</small>{' '}
-                {Math.round(asset[index]._lastSalePrice).toLocaleString()}
+                {Math.round(asset[index].lastSalePriceUSD).toLocaleString()}
               </strong>
             </small>
           )}

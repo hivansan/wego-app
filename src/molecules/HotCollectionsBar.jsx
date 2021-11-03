@@ -1,5 +1,6 @@
 import React, { useState, useEffect, createRef } from 'react';
 import { useMediaQuery } from 'react-responsive';
+import Marquee from 'react-fast-marquee';
 import Slider from '../molecules/Slider';
 
 import { FiArrowUpCircle } from 'react-icons/fi';
@@ -71,13 +72,14 @@ const HotCollectionsBar = ({ hotCollections, isInputHeaderShown }) => {
   };
 
   return (
-    <div
-      className={`${isInputShow} hot-collections-bar`}
-      onMouseOver={stop}
-      onMouseLeave={play}
-    >
+    <div className={`${isInputShow} hot-collections-bar`}>
       {hotCollections && (
-        <Slider className='hot-collections' {...sliderSettings} ref={sliderRef}>
+        <Marquee
+          className='hot-collections'
+          pauseOnHover={true}
+          gradient={false}
+          speed={50}
+        >
           {hotCollections.map(({ value: collection }, i) => (
             <a
               href={`/collection/${collection.slug}`}
@@ -102,7 +104,7 @@ const HotCollectionsBar = ({ hotCollections, isInputHeaderShown }) => {
               </div>
             </a>
           ))}
-        </Slider>
+        </Marquee>
       )}
     </div>
   );

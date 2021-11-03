@@ -30,14 +30,14 @@ const CollectionAssets = ({
   const [isFiltersCollapse, setIsFiltersCollapse] = useState(true);
   return (
     <div className='collection-assets-container'>
-      {/* <CollectionAssetsFiltersMobile
+      <CollectionAssetsFiltersMobile
         containerClassName='modal-filters'
         isOpen={filtersMobileOpen}
         setIsOpen={setFiltersMobileOpen}
         collectionTraits={collectionTraits}
         setFilters={setFilters}
         filters={filters}
-      /> */}
+      />
       <CollectionAssetsFilters
         filtersMobileOpen={filtersMobileOpen}
         collectionTraits={collectionTraits}

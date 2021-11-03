@@ -98,6 +98,8 @@ const AssetDetailModal = ({ setFooter }) => {
                           : asset.name
                         : asset.tokenId}
                     </p>
+
+                    {asset.rarityScoreRank && <p>#{asset.rarityScoreRank}</p>}
                   </header>
                   {asset.animationUrl ? (
                     <div className='img-wrapper'>
@@ -235,7 +237,7 @@ const AssetDetailModal = ({ setFooter }) => {
                           filters={filters}
                           setFilters={setFilters}
                           trait={trait}
-                          bgFilters={location.state.filters || []}
+                          bgFilters={location?.state?.filters || []}
                           key={i}
                         />
                       ))}

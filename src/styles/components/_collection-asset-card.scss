@@ -16,14 +16,9 @@ a {
       justify-content: space-between;
 
       p {
-        color: var(--color-secondary);
-        font-size: 15px;
-
-        &:first-child {
-          color: var(--color-primary);
-          margin-bottom: 0.5rem;
-          font-size: 13.3px;
-        }
+        color: var(--color-primary);
+        margin-bottom: 0.5rem;
+        font-size: 13.3px;
       }
     }
 
