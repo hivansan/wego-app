@@ -15,6 +15,8 @@ const ExactMatchCard = ({ results, className, location, isOpen, ...props }) => {
   const resultsHastExactMatch =
     !results.status && results.results.filter((item) => item.meta.isExact)[0];
 
+  console.log(resultsHastExactMatch);
+
   const api = new Api();
 
   useEffect(() => {
@@ -121,52 +123,64 @@ const ExactMatchCard = ({ results, className, location, isOpen, ...props }) => {
                 </div>
               </div>
             ) : (
-              <>
-                {assetScore && (
-                  <div className='stats'>
-                    <div className='stat'>
-                      <p>Rarity Score</p>
-                      <p>
-                        {assetScore.rarityScore
-                          ? assetScore.rarityScore.toString().substring(0, 8)
-                          : '0'}{' '}
-                        <FaEthereum size={15} />
-                      </p>
-                    </div>
-                    <div className='stat'>
-                      <p>Avg Trait Rarity</p>
-                      <p>
-                        {assetScore.avgTraitRarity
-                          ? assetScore.avgTraitRarity.toString().substring(0, 8)
-                          : '0'}{' '}
-                        <FaEthereum size={15} />
-                      </p>
-                    </div>
-                    <div className='stat'>
-                      <p>Statistical Rarity</p>
-                      <p>
-                        {assetScore.statisticalRarity
-                          ? assetScore.statisticalRarity
-                              .toString()
-                              .substring(0, 8)
-                          : '0'}{' '}
-                        <FaEthereum size={15} />
-                      </p>
-                    </div>
-                    <div className='stat'>
-                      <p>Single Trait Rarity</p>
-                      <p>
-                        {assetScore.singleTraitRarity
-                          ? assetScore.singleTraitRarity
-                              .toString()
-                              .substring(0, 8)
-                          : '0'}{' '}
-                        <FaEthereum size={15} />
-                      </p>
-                    </div>
+              <div className='stats'>
+                {resultsHastExactMatch.value._lastSalePrice && (
+                  <div className='stat'>
+                    <p>Las sold</p>
+                    <p>{resultsHastExactMatch.value._lastSalePrice}</p>
                   </div>
                 )}
-              </>
+
+                <div className='stat'>
+                  <p>Total Traits</p>
+                  <p>{resultsHastExactMatch.value.traits.length}</p>
+                </div>
+
+                {assetScore && (
+                  <>
+                    {assetScore.rarityScore ? (
+                      <div className='stat'>
+                        <p>Rarity Score: </p>
+                        <p>
+                          {' '}
+                          {assetScore.rarityScore.toString().substring(0, 8)}
+                        </p>
+                      </div>
+                    ) : null}
+                    {assetScore.avgTraitRarity ? (
+                      <div className='stat'>
+                        <p>Avg Trait Rarity: </p>
+                        <p>
+                          {' '}
+                          {assetScore.avgTraitRarity.toString().substring(0, 8)}
+                        </p>
+                      </div>
+                    ) : null}
+                    {assetScore.statisticalRarity ? (
+                      <div className='stat'>
+                        <p>Statistical Rarity: </p>
+                        <p>
+                          {' '}
+                          {assetScore.statisticalRarity
+                            .toString()
+                            .substring(0, 8)}
+                        </p>
+                      </div>
+                    ) : null}
+                    {assetScore.singleTraitRarity ? (
+                      <div className='stat'>
+                        <p>Single Trait Rarity: </p>
+                        <p>
+                          {' '}
+                          {assetScore.singleTraitRarity
+                            .toString()
+                            .substring(0, 8)}
+                        </p>
+                      </div>
+                    ) : null}
+                  </>
+                )}
+              </div>
             )}
             {/* <div className='community-trust'></div> */}
           </div>

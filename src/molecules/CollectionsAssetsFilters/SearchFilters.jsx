@@ -111,7 +111,7 @@ const SearchFilters = ({
           {filteredTraits.map(({ value, traitType, traitCount }, i) => {
             return (
               <Checkbox
-                typeTrait={traitType}
+                traitType={traitType}
                 label={value}
                 key={i}
                 setFilters={setFilters}
