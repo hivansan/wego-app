@@ -66,8 +66,9 @@ const CollectionAssetCard = ({
                 : asset[index].name
               : asset[index].tokenId}
           </p>
-
-          <p>#{asset[index].rarityScoreRank}</p>
+          {asset[index].rarityScoreRank && (
+            <p>#{asset[index].rarityScoreRank}</p>
+          )}
         </section>
         <section className='asset-card-image'>
           {asset[index].imageBig ? (

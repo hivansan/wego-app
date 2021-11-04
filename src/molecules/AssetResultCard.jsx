@@ -56,64 +56,69 @@ const AssetResultCard = ({ result, location }) => {
                   }}
                 >
                   <p>{asset.name}</p>
+                  {/* <small>{asset.tokenId}</small> */}
                 </Link>
               </div>
             </div>
-            {assetScore && (
-              <div className='asset-card-info-stats'>
-                {asset._lastSalePrice && (
-                  <p>
-                    Last Price Sold:{' '}
-                    <strong>{asset._lastSalePrice.toLocaleString()}$</strong>
-                  </p>
-                )}
-                {!assetScore.status && (
-                  <>
-                    <p>
-                      Rarity Score:{' '}
-                      <strong>
-                        {assetScore.rarityScore
-                          ? assetScore.rarityScore.toString().substring(0, 8)
-                          : '0'}
-                      </strong>
-                    </p>
-                    <p>
-                      Average Trait Rarity:{' '}
-                      <strong>
-                        {assetScore.avgTraitRarity
-                          ? assetScore.avgTraitRarity
+            <div className='asset-card-info-stats'>
+              {asset._lastSalePrice && (
+                <p>
+                  Last Price Sold:{' '}
+                  <strong>${asset._lastSalePrice.toLocaleString()}</strong>
+                </p>
+              )}
+              <p>
+                Total traits: <strong>{asset?.traits?.length || 0}</strong>
+              </p>
+
+              {assetScore && (
+                <>
+                  {!assetScore.status && (
+                    <>
+                      {assetScore.rarityScore ? (
+                        <p>
+                          Rarity Score:{' '}
+                          <strong>
+                            {assetScore.rarityScore.toString().substring(0, 8)}
+                          </strong>
+                        </p>
+                      ) : null}
+
+                      {assetScore.avgTraitRarity ? (
+                        <p>
+                          Average Trait Rarity:{' '}
+                          <strong>
+                            {assetScore.avgTraitRarity
                               .toString()
-                              .substring(0, 8) + '%'
-                          : '0'}
-                      </strong>
-                    </p>
-                    <p>
-                      Statistical Rarity:{' '}
-                      <strong>
-                        {assetScore.statisticalRarity
-                          ? assetScore.statisticalRarity
+                              .substring(0, 8) + '%'}
+                          </strong>
+                        </p>
+                      ) : null}
+                      {assetScore.statisticalRarity ? (
+                        <p>
+                          Statistical Rarity:{' '}
+                          <strong>
+                            {assetScore.statisticalRarity
                               .toString()
-                              .substring(0, 10) + '%'
-                          : '0'}
-                      </strong>
-                    </p>
-                    <p>
-                      Single Trait Rarity:{' '}
-                      <strong>
-                        {assetScore.singleTraitRarity
-                          ? assetScore.singleTraitRarity
+                              .substring(0, 10) + '%'}
+                          </strong>
+                        </p>
+                      ) : null}
+                      {assetScore.singleTraitRarity ? (
+                        <p>
+                          Single Trait Rarity:{' '}
+                          <strong>
+                            {assetScore.singleTraitRarity
                               .toString()
-                              .substring(0, 8) + '%'
-                          : '0'}
-                      </strong>
-                    </p>
-                    <p>
-                      Total traits: <strong>{asset.traits.length}</strong>
-                    </p>
-                  </>
-                )}
-              </div>
-            )}
+                              .substring(0, 8) + '%'}
+                          </strong>
+                        </p>
+                      ) : null}
+                    </>
+                  )}
+                </>
+              )}
+            </div>
           </div>
         </div>
         <div className='asset-result-card-s'>

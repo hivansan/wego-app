@@ -85,7 +85,6 @@ const CollectionDetails = ({ setFooter, locationState }) => {
 
   const getCollectionTraits = async () => {
     const res = await api.collections.traits(slug);
-    console.log(res.results);
     setCollectionTraits(res?.results || []);
   };
 

@@ -66,29 +66,24 @@ const DropDownAssetItem = ({ asset, location, isOpen }) => {
             <>
               {!assetScore.status && (
                 <>
-                  <small>
-                    Rarity Score :
-                    <strong>
-                      {' '}
-                      {!assetScore.rarityScore
-                        ? '0'
-                        : `${assetScore.rarityScore
-                            .toString()
-                            .substring(0, 6)}`}
-                    </strong>
-                  </small>
+                  {assetScore.rarityScore ? (
+                    <small>
+                      Rarity Score:{' '}
+                      <strong>
+                        {assetScore.rarityScore.toString().substring(0, 8)}
+                      </strong>
+                    </small>
+                  ) : null}
 
-                  <small>
-                    Average Trait Rarity:
-                    <strong>
-                      {' '}
-                      {!assetScore.avgTraitRarity
-                        ? '0'
-                        : `${assetScore.avgTraitRarity
-                            .toString()
-                            .substring(0, 8)}`}
-                    </strong>
-                  </small>
+                  {assetScore.avgTraitRarity ? (
+                    <small>
+                      Average Trait Rarity:{' '}
+                      <strong>
+                        {assetScore.avgTraitRarity.toString().substring(0, 8) +
+                          '%'}
+                      </strong>
+                    </small>
+                  ) : null}
 
                   <small>
                     Total traits:
