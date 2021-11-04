@@ -38,7 +38,11 @@ const RangeFilters = ({ filter }) => {
         />
       </div>
       <div className='btn-range'>
-        <DarkPrimaryButton onClick={onApply}>Apply</DarkPrimaryButton>
+        <DarkPrimaryButton
+          onClick={value[0] !== '' && value[1] !== '' ? onApply : null}
+        >
+          Apply
+        </DarkPrimaryButton>
       </div>
     </>
   );
