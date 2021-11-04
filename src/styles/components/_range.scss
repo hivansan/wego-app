@@ -5,7 +5,7 @@
 
 .range-number-inputs {
   display: flex;
-  gap: 0.5rem;
+  gap: 0.2rem;
   justify-content: center;
   align-items: center;
   input {
@@ -15,6 +15,10 @@
 
   input[type='number'] {
     -moz-appearance: textfield;
+
+    &::placeholder {
+      font-size: small;
+    }
   }
 
   input::-webkit-outer-spin-button,
@@ -25,4 +29,19 @@
     color: var(--color-secondary);
   }
   margin-bottom: 0.5rem;
+}
+
+.btn-range {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  button {
+    padding: 0.5rem 1.3rem;
+    font-size: 15px;
+    border-radius: 10px;
+
+    &:active {
+      background-color: #1b609d;
+    }
+  }
 }

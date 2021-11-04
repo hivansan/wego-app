@@ -31,8 +31,6 @@ const Trait = ({ filters, setFilters, trait, bgFilters }) => {
     }
   }, []);
 
-  console.log(bgFilters);
-
   return (
     <div className='asset-detail-modal-stats-filter' onClick={handleFilter}>
       <div className='asset-detail-filter-header'>

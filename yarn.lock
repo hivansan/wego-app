@@ -16735,6 +16735,11 @@
     "merge-class-names" "^1.1.1"
     "prop-types" "^15.6.0"
 
+"react-crypto-icons@^1.0.5":
+  "integrity" "sha512-kh8O55ze+ib2dJOAORcmhCB9a1SuBdj3f1Q6GGzVez/yL8NXklRKz32hKAVAJPCDuR8iXRuG51DrxVGouNdIEw=="
+  "resolved" "https://registry.npmjs.org/react-crypto-icons/-/react-crypto-icons-1.0.5.tgz"
+  "version" "1.0.5"
+
 "react-data-table-component@^6.11.8":
   "integrity" "sha512-ukKJKaKNDU5+jEEZFo16+4zwQPRvw1Z13S7FOj4dr73JWRf/lKkE108jciK2tj1JPMub3qXG2h0zXDn5y2WUfQ=="
   "resolved" "https://registry.npmjs.org/react-data-table-component/-/react-data-table-component-6.11.8.tgz"

@@ -54,7 +54,7 @@ const CollectionAssets = ({
             assetsSort={assetsSort}
           />
         </div>
-        {filters.length > 0 && (
+        {filters && filters.length > 0 && (
           <div className='assets-actual-filters'>
             {filters.map(({ traitType, value: filter }, i) => (
               <div
@@ -90,7 +90,7 @@ const CollectionAssets = ({
                     ? assets.length + 10
                     : assets.length;
                   const isItemLoaded = (index) => !!assets[index];
-                  const ITEM_SIZE = 310;
+                  const ITEM_SIZE = 350;
                   const itemsPerRow = Math.floor(width / ITEM_SIZE) || 1;
                   const rowCount = Math.ceil(ITEMS_COUNT / itemsPerRow);
                   return (
@@ -161,7 +161,8 @@ const CollectionAssets = ({
         className='filters-mobile'
         onClick={() => setFiltersMobileOpen(!filtersMobileOpen)}
       >
-        Filters {filters.length} {filtersMobileOpen && <GrFormClose />}
+        Filters {filters && filters.length}{' '}
+        {filtersMobileOpen && <GrFormClose />}
       </div>
     </div>
   );

@@ -38,12 +38,7 @@ const CustomRange = ({ traits, traitType }) => {
       return setValue([value[0], value[1]]);
     }
     setValue([e.target.value, value[1]]);
-    console.log({
-      traitType,
-      range: [parseFloat(e.target.value), value[1]],
-      min: parseFloat(e.target.value),
-      max: value[1],
-    });
+    console.log({ [traitType]: { gt: value[0], lt: value[1] } });
   };
 
   const handleMaxChange = (e) => {
@@ -55,10 +50,9 @@ const CustomRange = ({ traits, traitType }) => {
     } else {
       setValue([value[0], e.target.value]);
       console.log({
-        traitType,
-        range: [value[0], parseFloat(e.target.value)],
-        min: value[0],
-        max: parseFloat(e.target.value),
+        [traitType]: [{ gt: value[0], lt: parseFloat(e.target.value) }],
+        // range: [value[0], parseFloat(e.target.value)],
+        // min: value[0],
       });
     }
   };
@@ -80,10 +74,9 @@ const CustomRange = ({ traits, traitType }) => {
           max={Math.max.apply(null, getValues(traits))}
           onAfterChange={(value) =>
             console.log({
-              traitType,
-              range: value,
-              min: value[0],
-              max: value[1],
+              [traitType]: { gt: value[0], lt: value[1] },
+              // range: [value[0], parseFloat(e.target.value)],
+              // min: value[0],
             })
           }
           value={value}
@@ -141,23 +134,23 @@ const CustomRange = ({ traits, traitType }) => {
         onChange={handleChange}
         min={Math.min.apply(null, getValues(traits))}
         max={Math.max.apply(null, getValues(traits))}
-        onAfterChange={(value) => console.log(value)}
+        onAfterChange={(value) =>
+          console.log({ [traitType]: { gt: value[0], lt: value[1] } })
+        }
         value={value}
         step={0.001}
       />
       <div className='range-number-inputs'>
         <input
-          type='text'
-          value={value[0]}
+          type='number'
+          value={minValue}
           onKeyDown={(e) => e.key === 'Enter' && handleMinChange(e)}
-          onChange={(e) => {
-            setMinValue(e.target.value);
-          }}
+          onChange={(e) => setMinValue(e.target.value)}
         />
         <small>-</small>
         <input
-          type='text'
-          value={value[1]}
+          type='number'
+          value={maxValue}
           onKeyDown={(e) => e.key === 'Enter' && handleMaxChange(e)}
           onChange={(e) => setMaxValue(e.target.value)}
         />

@@ -109,8 +109,8 @@
       gap: 0.7rem;
 
       .loading-item {
-        width: 300px;
-        height: 300px;
+        width: 340px;
+        height: 340px;
         border: 1px solid var(--border-default);
         background: var(--bg-canvas-default);
         padding: 0.8rem;
@@ -177,6 +177,7 @@
   margin-right: 0;
   max-height: 80vh;
   overflow: auto;
+  overflow-x: hidden;
   top: 130px;
   background-color: var(--bg-header);
   header {
@@ -226,6 +227,10 @@
     .filter-body {
       border-bottom: 1px solid var(--border-default);
       padding: 0.5rem;
+
+      input[type='text'] {
+        width: 100%;
+      }
 
       input {
         color: var(--color-secondary);

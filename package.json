@@ -40,6 +40,7 @@
     "react": "^17.0.2",
     "react-bootstrap": "^2.0.0-beta.4",
     "react-burger-menu": "^3.0.6",
+    "react-crypto-icons": "^1.0.5",
     "react-data-table-component": "^6.11.8",
     "react-date-picker": "^8.3.2",
     "react-dom": "^17.0.2",

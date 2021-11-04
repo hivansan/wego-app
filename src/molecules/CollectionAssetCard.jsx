@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { FaEthereum } from 'react-icons/fa';
+import Icon from 'react-crypto-icons';
+import CryptoIcon from '../atoms/CryptoIcon';
 import ImageTypeDetect from './ImageTypeDetect';
 
 const CollectionAssetCard = ({
@@ -10,7 +12,6 @@ const CollectionAssetCard = ({
   location,
   style,
   index,
-
   collectionImg,
   setFilters,
   filters,
@@ -92,7 +93,7 @@ const CollectionAssetCard = ({
             {price} <FaEthereum size={20} />
 
           </p> */}
-          {asset[index].lastSalePriceUSD && (
+          {/* {asset[index].lastSalePriceUSD && (
             <small>
               Last{' '}
               <strong>
@@ -100,7 +101,33 @@ const CollectionAssetCard = ({
                 {Math.round(asset[index].lastSalePriceUSD).toLocaleString()}
               </strong>
             </small>
-          )}
+          )} */}
+
+          <small>#{asset[index]?.tokenId?.substr(0, 25)}</small>
+          <div className='asset-price'>
+            {asset[index].currentPrice && (
+              <>
+                <p>Price </p>
+                <span>
+                  <CryptoIcon token={'ETH'} />
+                  <small>{asset[index].currentPrice}</small>
+                </span>
+              </>
+            )}
+            {asset[index].lastSalePrice && (
+              <span>
+                <small>Last </small>
+                {asset[index]?.lastSale?.payment_token?.symbol && (
+                  <CryptoIcon
+                    token={
+                      asset[index]?.lastSale?.payment_token?.symbol || 'eth'
+                    }
+                  />
+                )}
+                <small> {asset[index].lastSalePrice.toLocaleString()}</small>
+              </span>
+            )}
+          </div>
         </section>
       </article>
     </Link>

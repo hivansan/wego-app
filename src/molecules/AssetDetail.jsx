@@ -7,6 +7,7 @@ import ImageTypeDetect from './ImageTypeDetect';
 import { Api } from '../services/api';
 import { useLocation, useHistory, useParams } from 'react-router-dom';
 import Trait from './AssetDetailModal/Trait';
+import CryptoIcon from '../atoms/CryptoIcon';
 
 const AssetDetailModal = ({ setFooter }) => {
   const [open, setOpen] = useState(true);
@@ -20,7 +21,7 @@ const AssetDetailModal = ({ setFooter }) => {
   const { address, tokenId } = useParams();
   const api = new Api();
 
-  const getAssetScore = async () => {
+  const getAsset = async () => {
     const res = await api.assets.findOne(address, tokenId);
     console.log(res);
     setAssetScore(res);
@@ -41,10 +42,6 @@ const AssetDetailModal = ({ setFooter }) => {
   };
 
   useEffect(() => {
-    console.log(filters);
-  }, [filters]);
-
-  useEffect(() => {
     if (location.state) {
       localStorage.setItem('sR', location.state.searchResults);
     }
@@ -52,7 +49,7 @@ const AssetDetailModal = ({ setFooter }) => {
     if (!location.key) {
       setFooter(location.pathname);
     }
-    getAssetScore();
+    getAsset();
     // a();
 
     if (location.state) {
@@ -164,17 +161,40 @@ const AssetDetailModal = ({ setFooter }) => {
                       )}
                     </>
                   )}
-                  {asset._lastSalePrice ? (
-                    <p className='last-p'>
-                      Last sold:{' '}
-                      <small>
-                        <span>$</span>
-                        {asset._lastSalePrice.toLocaleString()}
-                      </small>{' '}
-                    </p>
-                  ) : (
-                    <p className='last-p'></p>
-                  )}
+                  <div className='asset-detail-info'>
+                    <p>#{asset?.tokenId?.substr(0, 26)}</p>
+                    <div className='asset-price'>
+                      {asset.currentPrice && (
+                        <>
+                          <p>Price </p>
+                          <span>
+                            {asset?.lastSale?.payment_token?.symbol && (
+                              <CryptoIcon
+                                token={
+                                  asset?.lastSale?.payment_token?.symbol ||
+                                  'eth'
+                                }
+                              />
+                            )}
+                            <small>{asset.currentPrice}</small>
+                          </span>
+                        </>
+                      )}
+                      {asset.lastSalePrice && (
+                        <span>
+                          <small>Last </small>
+                          {asset?.lastSale?.payment_token?.symbol && (
+                            <CryptoIcon
+                              token={
+                                asset?.lastSale?.payment_token?.symbol || 'eth'
+                              }
+                            />
+                          )}
+                          <small>{asset.lastSalePrice.toLocaleString()}</small>
+                        </span>
+                      )}
+                    </div>
+                  </div>
                   {/* <p>
                     <small>
                       #

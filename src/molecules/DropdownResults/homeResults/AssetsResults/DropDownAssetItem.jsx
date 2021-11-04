@@ -10,23 +10,6 @@ const DropDownAssetItem = ({ asset, location, isOpen }) => {
   const [assetScore, setAssetScore] = useState(null);
   const api = new Api();
 
-  useEffect(() => {
-    const getAssetScore = async () => {
-      const address = asset.contractAddress
-        ? asset.contractAddress
-        : asset.asset_contract.address;
-
-      const tokenId = asset.tokenId ? asset.tokenId : asset.token_id;
-      const res = await api.assets.score(address, tokenId);
-      setAssetScore(res);
-    };
-    getAssetScore();
-
-    return () => {
-      setAssetScore(null);
-    };
-  }, []);
-
   return (
     <Link
       to={{
@@ -62,7 +45,7 @@ const DropDownAssetItem = ({ asset, location, isOpen }) => {
               Last Price Sold: <strong>${asset._lastSalePrice}</strong>
             </small>
           )}
-          {assetScore && (
+          {/* {assetScore && (
             <>
               {!assetScore.status && (
                 <>
@@ -92,7 +75,7 @@ const DropDownAssetItem = ({ asset, location, isOpen }) => {
                 </>
               )}
             </>
-          )}
+          )} */}
           {/* <small>
               Release date:{' '}
               <strong> {moment(asset.createdAt).format('ll')}</strong>

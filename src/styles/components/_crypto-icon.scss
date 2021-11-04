@@ -1,0 +1,29 @@
+.token-c {
+  position: relative;
+
+  .token-symbol {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--bg-header);
+    padding: 0.3rem;
+    border-radius: 10px;
+    border: 1px solid var(--border-default);
+    color: var(--color-secondary);
+  }
+}
+
+.token {
+}
+
+.token-red {
+  path {
+    fill: rgb(162, 78, 78);
+  }
+}
+.token-secondary {
+  path {
+    fill: var(--color-secondary);
+  }
+}

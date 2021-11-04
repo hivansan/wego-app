@@ -7,6 +7,8 @@ import Checkbox from '../../atoms/Checkbox';
 import Range from './Range';
 import Filter from './Filter';
 import SearchFilters from './SearchFilters';
+import DarkPrimaryButton from '../../atoms/darkPrimaryButton';
+import RangeFilters from './RangeFilters';
 
 const CollectionAssetsFilters = ({
   isCollapse,
@@ -54,6 +56,17 @@ const CollectionAssetsFilters = ({
             <BiArrowToLeft size={20} />
           </header>
 
+          {/* price filter */}
+          <Filter title='Price usd' isCollapse={isCollapse}>
+            <RangeFilters filter='priceUsd' />
+          </Filter>
+
+          {/* rank filter */}
+          <Filter title='Rarity' isCollapse={isCollapse}>
+            <RangeFilters filter='Rarity' />
+          </Filter>
+
+          {/* traits filters */}
           {collectionTraits &&
             newArr.map((traitType) => (
               <Filter title={traitType} key={traitType} isCollapse={isCollapse}>

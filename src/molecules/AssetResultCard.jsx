@@ -20,12 +20,6 @@ const AssetResultCard = ({ result, location }) => {
   useEffect(() => {
     setDidMount(true);
 
-    const getAssetScore = async () => {
-      const res = await api.assets.score(address, tokenId);
-      setAssetScore(res);
-    };
-
-    getAssetScore();
     return () => {
       setDidMount(false);
     };
@@ -71,53 +65,39 @@ const AssetResultCard = ({ result, location }) => {
                 Total traits: <strong>{asset?.traits?.length || 0}</strong>
               </p>
 
-              {assetScore && (
-                <>
-                  {!assetScore.status && (
-                    <>
-                      {assetScore.rarityScore ? (
-                        <p>
-                          Rarity Score:{' '}
-                          <strong>
-                            {assetScore.rarityScore.toString().substring(0, 8)}
-                          </strong>
-                        </p>
-                      ) : null}
+              {asset.rarityScore ? (
+                <p>
+                  Rarity Score:{' '}
+                  <strong>
+                    {asset.rarityScore.toString().substring(0, 8)}
+                  </strong>
+                </p>
+              ) : null}
 
-                      {assetScore.avgTraitRarity ? (
-                        <p>
-                          Average Trait Rarity:{' '}
-                          <strong>
-                            {assetScore.avgTraitRarity
-                              .toString()
-                              .substring(0, 8) + '%'}
-                          </strong>
-                        </p>
-                      ) : null}
-                      {assetScore.statisticalRarity ? (
-                        <p>
-                          Statistical Rarity:{' '}
-                          <strong>
-                            {assetScore.statisticalRarity
-                              .toString()
-                              .substring(0, 10) + '%'}
-                          </strong>
-                        </p>
-                      ) : null}
-                      {assetScore.singleTraitRarity ? (
-                        <p>
-                          Single Trait Rarity:{' '}
-                          <strong>
-                            {assetScore.singleTraitRarity
-                              .toString()
-                              .substring(0, 8) + '%'}
-                          </strong>
-                        </p>
-                      ) : null}
-                    </>
-                  )}
-                </>
-              )}
+              {asset.avgTraitRarity ? (
+                <p>
+                  Average Trait Rarity:{' '}
+                  <strong>
+                    {asset.avgTraitRarity.toString().substring(0, 8) + '%'}
+                  </strong>
+                </p>
+              ) : null}
+              {asset.statisticalRarity ? (
+                <p>
+                  Statistical Rarity:{' '}
+                  <strong>
+                    {asset.statisticalRarity.toString().substring(0, 10) + '%'}
+                  </strong>
+                </p>
+              ) : null}
+              {asset.singleTraitRarity ? (
+                <p>
+                  Single Trait Rarity:{' '}
+                  <strong>
+                    {asset.singleTraitRarity.toString().substring(0, 8) + '%'}
+                  </strong>
+                </p>
+              ) : null}
             </div>
           </div>
         </div>
