@@ -73,11 +73,12 @@ const CustomRange = ({ traits, traitType }) => {
           min={Math.min.apply(null, getValues(traits))}
           max={Math.max.apply(null, getValues(traits))}
           onAfterChange={(value) =>
-            console.log({
-              [traitType]: { gt: value[0], lt: value[1] },
+            console.log(
+              `http://localhost:3000/api/assets?slug=forgottenruneswizardscult&limit=20&offset=0&sortDirection=desc&traits={%22${traitType}%22:{%22min%22:${value[0]},%22max%22:${value[1]}}}`
+              // [traitType]: { gt: value[0], lt: value[1] },
               // range: [value[0], parseFloat(e.target.value)],
               // min: value[0],
-            })
+            )
           }
           value={value}
         />

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import DarkPrimaryButton from '../../atoms/darkPrimaryButton';
 
-const RangeFilters = ({ filter }) => {
-  const [value, setValue] = useState(['', '']);
+const RangeFilters = ({ filter, max, range, setRange }) => {
+  const [value, setValue] = useState([1, '']);
 
   const handleChangeMinValue = (e) => {
     setValue([e.target.value, value[1]]);
@@ -13,12 +13,20 @@ const RangeFilters = ({ filter }) => {
   };
 
   const onApply = () => {
-    console.log({
-      [filter]: { gt: value[0], lt: value[1] },
-      // range: [value[0], parseFloat(e.target.value)],
-      // min: value[0],
-    });
+    setRange({ gte: parseInt(value[0]), lte: parseInt(value[1]) });
   };
+
+  useEffect(() => {
+    if (max) {
+      setValue([1, max || '']);
+    }
+  }, [max]);
+
+  useEffect(() => {
+    if (!range) {
+      setValue([1, max || '']);
+    }
+  }, [range]);
 
   return (
     <>

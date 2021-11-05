@@ -4,6 +4,8 @@ import Icon from 'react-crypto-icons';
 const CryptoIcon = ({ token }) => {
   const [showSymbol, setShowSymbol] = useState(false);
 
+  const [isMounted, setIsMounted] = useState(false);
+
   const wrappedTokens = () => {
     const tokenSymbol = token.toLowerCase();
     const splitToken = tokenSymbol.split('');
@@ -14,6 +16,18 @@ const CryptoIcon = ({ token }) => {
     }
     return [tokenSymbol, 'secondary'];
   };
+
+  useEffect(() => {
+    setIsMounted(true);
+    return () => {
+      setShowSymbol(false);
+      setIsMounted(false);
+    };
+  }, []);
+
+  if (!isMounted) {
+    return null;
+  }
 
   return (
     <div

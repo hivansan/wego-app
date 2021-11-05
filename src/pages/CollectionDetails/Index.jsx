@@ -17,6 +17,9 @@ const CollectionDetails = ({ setFooter, locationState }) => {
   const [filters, setFilters] = useState([]);
   const [traits, setTraits] = useState([]);
   const [isMounted, setIsMounted] = useState(false);
+  const [priceRange, setPriceRange] = useState(false);
+  const [rankRange, setRankRange] = useState(false);
+  const [totalAssets, setTotalAssets] = useState(null);
 
   const [assetsSort, setAssetsSort] = useState({
     orderBy: 'none',
@@ -36,7 +39,13 @@ const CollectionDetails = ({ setFooter, locationState }) => {
     setResult(collection);
   };
 
-  const getCollectionAssets = async (sortBy, sortDirection, traits) => {
+  const getCollectionAssets = async (
+    sortBy,
+    sortDirection,
+    traits,
+    priceRange,
+    rankRange
+  ) => {
     setResultAssets([]);
     setHasNextPage(true);
     const res = await api.assets.find(
@@ -45,13 +54,16 @@ const CollectionDetails = ({ setFooter, locationState }) => {
       0,
       sortBy,
       sortDirection,
-      traits
+      traits,
+      priceRange,
+      rankRange
     );
     const results =
       res && res.results && res.results.length === 0 ? null : res.results;
-    console.log(res);
     setResultAssets(results);
 
+    console.log(res);
+    setTotalAssets(res);
     if (res.results && res.results.length < 20) {
       setHasNextPage(false);
     }
@@ -62,7 +74,13 @@ const CollectionDetails = ({ setFooter, locationState }) => {
     setTraits(traits);
   };
 
-  const loadNextAssetsPage = async (sortBy, sortDirection, traits) => {
+  const loadNextAssetsPage = async (
+    sortBy,
+    sortDirection,
+    traits,
+    priceRange,
+    rankRange
+  ) => {
     const isAssetsNew = assetsPage === 0 ? 20 : assetsPage + 20;
     const res = await api.assets.find(
       slug,
@@ -70,7 +88,9 @@ const CollectionDetails = ({ setFooter, locationState }) => {
       isAssetsNew,
       sortBy,
       sortDirection,
-      traits
+      traits,
+      priceRange,
+      rankRange
     );
 
     setAssetsPage(assetsPage + 20);
@@ -121,14 +141,18 @@ const CollectionDetails = ({ setFooter, locationState }) => {
     }, {});
 
     const hasTraits = Object.keys(traitObj).length === 0 ? null : traitObj;
+    const pr = priceRange ? priceRange : null;
+    const rr = rankRange ? rankRange : null;
     setAssetsPage(0);
-
     getCollectionAssets(
       assetsSort.orderBy,
       assetsSort.orderDirection,
-      hasTraits
+      hasTraits,
+      pr,
+      rr
     );
-  }, [filters, assetsSort]);
+    window.scrollTo(0, 0);
+  }, [filters, assetsSort, rankRange, priceRange]);
 
   if (!isMounted) {
     return null;
@@ -145,6 +169,12 @@ const CollectionDetails = ({ setFooter, locationState }) => {
         isFiltersMobileOpen={isFiltersMobileOpen}
       />
       <CollectionAssets
+        totalAssets={totalAssets}
+        setPriceRange={setPriceRange}
+        priceRange={priceRange}
+        rankRange={rankRange}
+        setRankRange={setRankRange}
+        collectionSlug={slug}
         traits={traits}
         sortBy={assetsSort.orderBy}
         sortDirection={assetsSort.orderDirection}

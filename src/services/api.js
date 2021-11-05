@@ -27,15 +27,31 @@ export class Api {
       score: (address, tokenId) => {
         return this.request('get', `/asset/${address}/${tokenId}/score`);
       },
-      find: (slug, limit, offset, sortBy, sortDirection, traits) => {
+      find: (
+        slug,
+        limit,
+        offset,
+        sortBy,
+        sortDirection,
+        traits,
+        priceRange,
+        rankRange
+      ) => {
         const hasSorts =
           sortBy === 'none' || !sortBy ? '' : `&sortBy=${sortBy}`;
         const hasTraits = !traits ? '' : `&traits=${JSON.stringify(traits)}`;
         const hasSortDirection = !sortDirection
           ? ''
           : `&sortDirection=${sortDirection}`;
+        const hasPriceRange = !priceRange
+          ? ''
+          : `&priceRange=${JSON.stringify(priceRange)}`;
 
-        const collectionAssetsUrl = `/assets?slug=${slug}&limit=${limit}&offset=${offset}${hasSortDirection}${hasSorts}${hasTraits}`;
+        const hasRankRange = !rankRange
+          ? ''
+          : `&rankRange=${JSON.stringify(rankRange)}`;
+        // http://localhost:3000/api/assets?slug=boonjiproject&priceRange={"lte": 22, "gte": 20}
+        const collectionAssetsUrl = `/assets?slug=${slug}&limit=${limit}&offset=${offset}${hasSortDirection}${hasSorts}${hasTraits}${hasPriceRange}${hasRankRange}`;
 
         return this.request('get', collectionAssetsUrl);
       },

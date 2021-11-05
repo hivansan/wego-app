@@ -117,7 +117,7 @@ a {
 
         span {
           display: flex;
-          justify-content: end;
+          justify-content: space-between;
           gap: 0.2rem;
           align-items: center;
           width: 100%;
@@ -125,6 +125,11 @@ a {
             &:last-child {
               color: var(--color-secondary);
             }
+          }
+
+          .last-price {
+            display: flex;
+            gap: 0.1rem;
           }
         }
       }

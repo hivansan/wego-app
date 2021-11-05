@@ -164,10 +164,23 @@ const AssetDetailModal = ({ setFooter }) => {
                   <div className='asset-detail-info'>
                     <p>#{asset?.tokenId?.substr(0, 26)}</p>
                     <div className='asset-price'>
-                      {asset.currentPrice && (
+                      {asset.currentPriceUSD && (
                         <>
                           <p>Price </p>
                           <span>
+                            <CryptoIcon token={'USD'} />
+                            <small>
+                              {asset.currentPriceUSD
+                                .toLocaleString()
+                                .substr(0, 10)}
+                            </small>
+                          </span>
+                        </>
+                      )}
+                      {asset.lastSalePrice && (
+                        <span>
+                          <small>Last </small>
+                          <div className='last-price'>
                             {asset?.lastSale?.payment_token?.symbol && (
                               <CryptoIcon
                                 token={
@@ -176,21 +189,10 @@ const AssetDetailModal = ({ setFooter }) => {
                                 }
                               />
                             )}
-                            <small>{asset.currentPrice}</small>
-                          </span>
-                        </>
-                      )}
-                      {asset.lastSalePrice && (
-                        <span>
-                          <small>Last </small>
-                          {asset?.lastSale?.payment_token?.symbol && (
-                            <CryptoIcon
-                              token={
-                                asset?.lastSale?.payment_token?.symbol || 'eth'
-                              }
-                            />
-                          )}
-                          <small>{asset.lastSalePrice.toLocaleString()}</small>
+                            <small>
+                              {asset.lastSalePrice.toLocaleString()}
+                            </small>
+                          </div>
                         </span>
                       )}
                     </div>

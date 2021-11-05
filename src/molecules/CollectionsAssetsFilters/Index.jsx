@@ -2,13 +2,11 @@ import React, { useState, useEffect } from 'react';
 
 import { HiFilter } from 'react-icons/hi';
 import { BiArrowToRight, BiArrowToLeft } from 'react-icons/bi';
-import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
-import Checkbox from '../../atoms/Checkbox';
-import Range from './Range';
 import Filter from './Filter';
 import SearchFilters from './SearchFilters';
-import DarkPrimaryButton from '../../atoms/darkPrimaryButton';
 import RangeFilters from './RangeFilters';
+
+import { Api } from '../../services/api';
 
 const CollectionAssetsFilters = ({
   isCollapse,
@@ -16,20 +14,56 @@ const CollectionAssetsFilters = ({
   collectionTraits,
   setFilters,
   filters,
+  collectionSlug,
+  collection,
+  setPriceRange,
+  priceRange,
+  rankRange,
+  setRankRange,
 }) => {
   const setIsCollapse = () => setCollapse(!isCollapse);
-  const [traitTypes, setTraitTypes] = useState([]);
-  const newArr = [];
+  const [maxPrice, setMaxPrice] = useState(null);
+  const [maxRank, setMaxRank] = useState(null);
+  const traits = [];
+
+  const api = new Api();
 
   if (collectionTraits) {
     const myObj = {};
     collectionTraits.forEach((el) => {
       if (!(el.trait_type in myObj)) {
         myObj[el.trait_type] = true;
-        newArr.push(el.trait_type);
+        traits.push(el.trait_type);
       }
     });
   }
+
+  const getCollectionAsset = async () => {
+    const res = await api.assets.find(
+      collectionSlug,
+      1,
+      0,
+      'currentPriceUSD',
+      'desc'
+    );
+    setMaxPrice(res?.results[0]?.currentPriceUSD);
+  };
+
+  const getMaxRariRank = async () => {
+    const res = await api.assets.find(
+      collectionSlug,
+      1,
+      0,
+      'rarityScoreRank',
+      'desc'
+    );
+    setMaxRank(res?.results[0]?.rarityScoreRank);
+  };
+
+  useEffect(() => {
+    getCollectionAsset();
+    getMaxRariRank();
+  }, []);
 
   return (
     <>
@@ -58,17 +92,29 @@ const CollectionAssetsFilters = ({
 
           {/* price filter */}
           <Filter title='Price usd' isCollapse={isCollapse}>
-            <RangeFilters filter='priceUsd' />
+            <RangeFilters
+              filter='priceRange'
+              setRange={setPriceRange}
+              range={priceRange}
+              max={maxPrice}
+              min={1}
+            />
           </Filter>
 
           {/* rank filter */}
-          <Filter title='Rarity' isCollapse={isCollapse}>
-            <RangeFilters filter='Rarity' />
+          <Filter title='Rarity Rank' isCollapse={isCollapse}>
+            <RangeFilters
+              filter='rarityScoreRankFilter'
+              min={1}
+              range={rankRange}
+              setRange={setRankRange}
+              max={maxRank}
+            />
           </Filter>
 
           {/* traits filters */}
           {collectionTraits &&
-            newArr.map((traitType) => (
+            traits.map((traitType) => (
               <Filter title={traitType} key={traitType} isCollapse={isCollapse}>
                 <SearchFilters
                   collectionTraits={collectionTraits}

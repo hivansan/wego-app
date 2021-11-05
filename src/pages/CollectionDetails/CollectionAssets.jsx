@@ -25,9 +25,16 @@ const CollectionAssets = ({
   assetsSort,
   sortDirection,
   sortBy,
+  collectionSlug,
   traits,
+  setPriceRange,
+  priceRange,
+  rankRange,
+  totalAssets,
+  setRankRange,
 }) => {
   const [isFiltersCollapse, setIsFiltersCollapse] = useState(true);
+
   return (
     <div className='collection-assets-container'>
       <CollectionAssetsFiltersMobile
@@ -37,8 +44,19 @@ const CollectionAssets = ({
         collectionTraits={collectionTraits}
         setFilters={setFilters}
         filters={filters}
+        setPriceRange={setPriceRange}
+        priceRange={priceRange}
+        rankRange={rankRange}
+        setRankRange={setRankRange}
+        collectionSlug={collectionSlug}
       />
       <CollectionAssetsFilters
+        setPriceRange={setPriceRange}
+        priceRange={priceRange}
+        rankRange={rankRange}
+        setRankRange={setRankRange}
+        collectionSlug={collectionSlug}
+        collection={collection}
         filtersMobileOpen={filtersMobileOpen}
         collectionTraits={collectionTraits}
         setCollectionTraits={setCollectionTraits}
@@ -54,32 +72,69 @@ const CollectionAssets = ({
             assetsSort={assetsSort}
           />
         </div>
-        {filters && filters.length > 0 && (
-          <div className='assets-actual-filters'>
-            {filters.map(({ traitType, value: filter }, i) => (
-              <div
-                className='trait-filter'
-                key={i}
-                onClick={() =>
-                  setFilters(() =>
-                    filters.filter(({ value }) => value !== filter)
-                  )
-                }
-              >
-                {traitType}: {filter}
-                <GrFormClose />
-              </div>
-            ))}
-            <div className='clear-filters' onClick={() => setFilters([])}>
-              Clear All
+
+        <div className='total-results'>
+          {totalAssets && totalAssets.meta && (
+            <small>{totalAssets.meta.total.toLocaleString()} results</small>
+          )}
+        </div>
+
+        <div className='assets-actual-filters'>
+          {priceRange && (
+            <div className='trait-filter' onClick={() => setPriceRange(false)}>
+              PriceUSD: {priceRange.gte} - {priceRange.lte}
+              <GrFormClose />
             </div>
-          </div>
-        )}
+          )}
+          {rankRange && (
+            <div className='trait-filter' onClick={() => setRankRange(false)}>
+              Rarity Rank: {rankRange.gte} - {rankRange.lte}
+              <GrFormClose />
+            </div>
+          )}
+          {filters && filters.length > 0 && (
+            <>
+              {filters.map(({ traitType, value: filter }, i) => (
+                <div
+                  className='trait-filter'
+                  key={i}
+                  onClick={() =>
+                    setFilters(() =>
+                      filters.filter(({ value }) => value !== filter)
+                    )
+                  }
+                >
+                  {traitType}: {filter}
+                  <GrFormClose />
+                </div>
+              ))}
+              <div
+                className='clear-filters'
+                onClick={() => {
+                  setFilters([]);
+                  setPriceRange(false);
+                  setRankRange(false);
+                }}
+              >
+                Clear All
+              </div>
+            </>
+          )}
+        </div>
+
         <div className={` assets-container`}>
           {assets ? (
             <InfiniteScroll
               dataLength={assets.length}
-              next={() => _loadNextPage(sortBy, sortDirection, traits)}
+              next={() =>
+                _loadNextPage(
+                  sortBy,
+                  sortDirection,
+                  traits,
+                  priceRange,
+                  rankRange
+                )
+              }
               hasMore={true}
               className={` assets-container-infinite`}
               loader={<div style={{ height: '100px', width: '100%' }}></div>}

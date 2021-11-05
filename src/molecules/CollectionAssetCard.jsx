@@ -109,22 +109,26 @@ const CollectionAssetCard = ({
               <>
                 <p>Price </p>
                 <span>
-                  <CryptoIcon token={'ETH'} />
-                  <small>{asset[index].currentPrice}</small>
+                  <CryptoIcon token={'USD'} />
+                  <small>
+                    {asset[index].currentPriceUSD
+                      .toLocaleString()
+                      .substr(0, 10)}
+                  </small>
                 </span>
               </>
             )}
             {asset[index].lastSalePrice && (
               <span>
                 <small>Last </small>
-                {asset[index]?.lastSale?.payment_token?.symbol && (
-                  <CryptoIcon
-                    token={
-                      asset[index]?.lastSale?.payment_token?.symbol || 'eth'
-                    }
-                  />
-                )}
-                <small> {asset[index].lastSalePrice.toLocaleString()}</small>
+                <div className='last-price'>
+                  {asset[index]?.lastSale?.payment_token?.symbol && (
+                    <CryptoIcon
+                      token={asset[index]?.lastSale?.payment_token?.symbol}
+                    />
+                  )}
+                  <small> {asset[index].lastSalePrice.toLocaleString()}</small>
+                </div>
               </span>
             )}
           </div>
