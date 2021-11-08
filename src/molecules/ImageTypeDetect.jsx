@@ -51,6 +51,20 @@ const ImageTypeDetect = ({
     );
   }
 
+  //  AUDIO RENDER
+  if (urlSplit[urlSplit.length - 1] === 'mp3') {
+    return (
+      <>
+        {onLoading}
+        <audio controls>
+          <source src={imageURL} type='audio/mp3' />
+          Your browser does not support the audio element.
+        </audio>
+      </>
+    );
+  }
+
+  // BIG PICTURE RENDER
   if (bigImage) {
     return (
       <div>
@@ -75,6 +89,7 @@ const ImageTypeDetect = ({
     );
   }
 
+  //NORMAL PICTURE RENDER
   return (
     <img
       src={

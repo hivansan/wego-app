@@ -107,11 +107,25 @@ const AssetDetailModal = ({ setFooter }) => {
                         bigImage={true}
                         bigVideo={true}
                         onLoading={
-                          <ImageTypeDetect
-                            imageURL={asset.imageSmall}
-                            alt={asset.name}
-                            className='img'
-                          />
+                          <a
+                            href={asset.imageBig}
+                            target='_blank'
+                            rel='noreferrer'
+                          >
+                            <ImageTypeDetect
+                              imageURL={asset.imageBig}
+                              alt={asset.name}
+                              className='img'
+                              bigImage={true}
+                              onLoading={
+                                <ImageTypeDetect
+                                  imageURL={asset.imageSmall}
+                                  alt={asset.name}
+                                  className='img'
+                                />
+                              }
+                            />
+                          </a>
                         }
                       />
                     </div>
@@ -166,8 +180,8 @@ const AssetDetailModal = ({ setFooter }) => {
                     <div className='asset-price'>
                       {asset.currentPriceUSD && (
                         <>
-                          <p>Price </p>
                           <span>
+                            <p>Price </p>
                             <CryptoIcon token={'USD'} />
                             <small>
                               {asset.currentPriceUSD

@@ -107,8 +107,8 @@ const CollectionAssetCard = ({
           <div className='asset-price'>
             {asset[index].currentPrice && (
               <>
-                <p>Price </p>
                 <span>
+                  <p>Price </p>
                   <CryptoIcon token={'USD'} />
                   <small>
                     {asset[index].currentPriceUSD
