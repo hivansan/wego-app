@@ -82,13 +82,14 @@ const CollectionAssets = ({
         <div className='assets-actual-filters'>
           {priceRange && (
             <div className='trait-filter' onClick={() => setPriceRange(false)}>
-              PriceUSD: {priceRange.gte} - {priceRange.lte}
+              {priceRange.param === 'priceUsdRange' ? 'USD: ' : 'ETH: '}
+              {priceRange.range.gte} - {priceRange.range.lte}
               <GrFormClose />
             </div>
           )}
           {rankRange && (
             <div className='trait-filter' onClick={() => setRankRange(false)}>
-              Rarity Rank: {rankRange.gte} - {rankRange.lte}
+              Rarity Rank: {rankRange.range.gte} - {rankRange.range.lte}
               <GrFormClose />
             </div>
           )}
@@ -108,18 +109,20 @@ const CollectionAssets = ({
                   <GrFormClose />
                 </div>
               ))}
-              <div
-                className='clear-filters'
-                onClick={() => {
-                  setFilters([]);
-                  setPriceRange(false);
-                  setRankRange(false);
-                }}
-              >
-                Clear All
-              </div>
             </>
           )}
+          {filters.length > 0 || priceRange || rankRange ? (
+            <div
+              className='clear-filters'
+              onClick={() => {
+                setFilters([]);
+                setPriceRange(false);
+                setRankRange(false);
+              }}
+            >
+              Clear All
+            </div>
+          ) : null}
         </div>
 
         <div className={` assets-container`}>

@@ -84,7 +84,7 @@ const CollectionAssetsFiltersMobile = ({
         {/* price filter */}
         <Filter title='Price usd'>
           <RangeFilters
-            filter='priceRange'
+            filter='priceUsdRange'
             setRange={setPriceRange}
             range={priceRange}
             max={maxPrice}

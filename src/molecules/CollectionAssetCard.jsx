@@ -105,16 +105,21 @@ const CollectionAssetCard = ({
             <p>#{asset[index].rarityScoreRank}</p>
           )}
           <div className='asset-price'>
-            {asset[index].currentPrice && (
+            {asset[index].currentPriceUSD && (
               <>
                 <span>
                   <p>Price </p>
                   <CryptoIcon token={'USD'} />
-                  <small>
-                    {asset[index].currentPriceUSD
-                      .toLocaleString()
-                      .substr(0, 10)}
-                  </small>
+                  <small>{asset[index].currentPriceUSD}</small>
+                </span>
+              </>
+            )}
+            {asset[index].currentPrice && (
+              <>
+                <span>
+                  <p>Price </p>
+                  <CryptoIcon token={'ETH'} />
+                  <small>{asset[index].currentPrice}</small>
                 </span>
               </>
             )}

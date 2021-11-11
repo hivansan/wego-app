@@ -17,7 +17,7 @@ const CollectionDetails = ({ setFooter, locationState }) => {
   const [filters, setFilters] = useState([]);
   const [traits, setTraits] = useState([]);
   const [isMounted, setIsMounted] = useState(false);
-  const [priceRange, setPriceRange] = useState(false);
+  const [priceUsdRange, setPriceUsdRange] = useState(false);
   const [rankRange, setRankRange] = useState(false);
   const [totalAssets, setTotalAssets] = useState(null);
 
@@ -141,7 +141,7 @@ const CollectionDetails = ({ setFooter, locationState }) => {
     }, {});
 
     const hasTraits = Object.keys(traitObj).length === 0 ? null : traitObj;
-    const pr = priceRange ? priceRange : null;
+    const pr = priceUsdRange ? priceUsdRange : null;
     const rr = rankRange ? rankRange : null;
     setAssetsPage(0);
     getCollectionAssets(
@@ -152,7 +152,7 @@ const CollectionDetails = ({ setFooter, locationState }) => {
       rr
     );
     window.scrollTo(0, 0);
-  }, [filters, assetsSort, rankRange, priceRange]);
+  }, [filters, assetsSort, rankRange, priceUsdRange]);
 
   if (!isMounted) {
     return null;
@@ -170,8 +170,8 @@ const CollectionDetails = ({ setFooter, locationState }) => {
       />
       <CollectionAssets
         totalAssets={totalAssets}
-        setPriceRange={setPriceRange}
-        priceRange={priceRange}
+        setPriceRange={setPriceUsdRange}
+        priceRange={priceUsdRange}
         rankRange={rankRange}
         setRankRange={setRankRange}
         collectionSlug={slug}

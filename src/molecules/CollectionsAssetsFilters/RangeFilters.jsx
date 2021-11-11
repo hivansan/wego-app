@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import DarkPrimaryButton from '../../atoms/darkPrimaryButton';
 
-const RangeFilters = ({ filter, max, range, setRange }) => {
+const RangeFilters = ({ filter, max, range, setRange, price, setPrice }) => {
   const [value, setValue] = useState([1, '']);
 
   const handleChangeMinValue = (e) => {
@@ -13,7 +13,10 @@ const RangeFilters = ({ filter, max, range, setRange }) => {
   };
 
   const onApply = () => {
-    setRange({ gte: parseInt(value[0]), lte: parseInt(value[1]) });
+    setRange({
+      param: price || filter,
+      range: { gte: parseInt(value[0]), lte: parseInt(value[1]) },
+    });
   };
 
   useEffect(() => {
@@ -28,8 +31,25 @@ const RangeFilters = ({ filter, max, range, setRange }) => {
     }
   }, [range]);
 
+  const onSelectPriceHandler = (e) => {
+    setPrice(e.target.value);
+  };
+
+  // console.log(price);
   return (
     <>
+      {filter === 'price' && (
+        <div className='range-select-container'>
+          <select onChange={onSelectPriceHandler} className='range-select'>
+            {/* <option value='sale_date'>Sale Date</option>
+          <option value='sale_count'>Sale Count</option> */}
+            <option value='priceUsdRange' defaultValue>
+              Price USD
+            </option>
+            <option value='priceRange'>Price ETH</option>
+          </select>
+        </div>
+      )}
       <div className='range-number-inputs'>
         <input
           type='number'

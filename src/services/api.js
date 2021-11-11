@@ -1,8 +1,12 @@
 import axios from 'axios';
 
 export const baseURL = 'http://localhost:3000/api';
+// ('http://ec2-35-175-219-168.compute-1.amazonaws.com/api');
+
+// 'http://localhost:3000/api';
 // 'http://ec2-54-160-232-251.compute-1.amazonaws.com:81/api';
 // 'http://localhost:3000/api';
+// http://ec2-35-175-219-168.compute-1.amazonaws.com/api/asset/0xf7143ba42d40eaeb49b88dac0067e54af042e963/709
 export class Api {
   /**
    * @param {string} auth - user:password
@@ -45,12 +49,11 @@ export class Api {
           : `&sortDirection=${sortDirection}`;
         const hasPriceRange = !priceRange
           ? ''
-          : `&priceRange=${JSON.stringify(priceRange)}`;
+          : `&${priceRange.param}=${JSON.stringify(priceRange.range)}`;
 
         const hasRankRange = !rankRange
           ? ''
-          : `&rankRange=${JSON.stringify(rankRange)}`;
-        // http://localhost:3000/api/assets?slug=boonjiproject&priceRange={"lte": 22, "gte": 20}
+          : `&${rankRange.param}=${JSON.stringify(rankRange.range)}`;
         const collectionAssetsUrl = `/assets?slug=${slug}&limit=${limit}&offset=${offset}${hasSortDirection}${hasSorts}${hasTraits}${hasPriceRange}${hasRankRange}`;
 
         return this.request('get', collectionAssetsUrl);

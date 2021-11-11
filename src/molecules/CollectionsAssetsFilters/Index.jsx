@@ -24,6 +24,7 @@ const CollectionAssetsFilters = ({
   const setIsCollapse = () => setCollapse(!isCollapse);
   const [maxPrice, setMaxPrice] = useState(null);
   const [maxRank, setMaxRank] = useState(null);
+  const [price, setPrice] = useState('priceUsdRange');
   const traits = [];
 
   const api = new Api();
@@ -38,15 +39,20 @@ const CollectionAssetsFilters = ({
     });
   }
 
-  const getCollectionAsset = async () => {
+  const getMaxPrice = async () => {
+    const priceSelected =
+      price === 'priceUsdRange' ? 'currentPriceUSD' : 'currentPrice';
+    console.log(priceSelected);
+
     const res = await api.assets.find(
       collectionSlug,
       1,
       0,
-      'currentPriceUSD',
+      priceSelected,
       'desc'
     );
-    setMaxPrice(res?.results[0]?.currentPriceUSD);
+
+    setMaxPrice(res?.results[0]?.[priceSelected] || null);
   };
 
   const getMaxRariRank = async () => {
@@ -61,9 +67,12 @@ const CollectionAssetsFilters = ({
   };
 
   useEffect(() => {
-    getCollectionAsset();
     getMaxRariRank();
   }, []);
+
+  useEffect(() => {
+    getMaxPrice();
+  }, [price]);
 
   return (
     <>
@@ -91,12 +100,14 @@ const CollectionAssetsFilters = ({
           </header>
 
           {/* price filter */}
-          <Filter title='Price usd' isCollapse={isCollapse}>
+          <Filter title='Price' isCollapse={isCollapse}>
             <RangeFilters
-              filter='priceRange'
+              filter='price'
               setRange={setPriceRange}
               range={priceRange}
               max={maxPrice}
+              setPrice={setPrice}
+              price={price}
               min={1}
             />
           </Filter>
@@ -104,7 +115,7 @@ const CollectionAssetsFilters = ({
           {/* rank filter */}
           <Filter title='Rarity Rank' isCollapse={isCollapse}>
             <RangeFilters
-              filter='rarityScoreRankFilter'
+              filter='rankRange'
               min={1}
               range={rankRange}
               setRange={setRankRange}

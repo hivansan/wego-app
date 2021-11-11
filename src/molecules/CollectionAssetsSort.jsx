@@ -32,8 +32,8 @@ const CollectionAssetsSort = ({ setAssetsSort, assetsSort }) => {
           <option value='rarityScore'>Rarity Score</option>
           <option value='rarityScoreRank'>Rarity Score Rank</option>
           <option value='traitsCount'>Traits Count</option>
-          <option value='currentPriceUSD'>Current Price</option>
-          <option value='lastSalePriceUSD'>Last Sale Price</option>
+          <option value='currentPrice'>Current Price</option>
+          <option value='lastSalePrice'>Last Sale Price</option>
         </select>
 
         <RadioGroup
