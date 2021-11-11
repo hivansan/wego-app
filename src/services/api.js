@@ -39,7 +39,8 @@ export class Api {
         sortDirection,
         traits,
         priceRange,
-        rankRange
+        rankRange,
+        traitsCountRange
       ) => {
         const hasSorts =
           sortBy === 'none' || !sortBy ? '' : `&sortBy=${sortBy}`;
@@ -54,7 +55,12 @@ export class Api {
         const hasRankRange = !rankRange
           ? ''
           : `&${rankRange.param}=${JSON.stringify(rankRange.range)}`;
-        const collectionAssetsUrl = `/assets?slug=${slug}&limit=${limit}&offset=${offset}${hasSortDirection}${hasSorts}${hasTraits}${hasPriceRange}${hasRankRange}`;
+        const hasTraitsCountRange = !traitsCountRange
+          ? ''
+          : `&${traitsCountRange.param}=${JSON.stringify(
+              traitsCountRange.range
+            )}`;
+        const collectionAssetsUrl = `/assets?slug=${slug}&limit=${limit}&offset=${offset}${hasSortDirection}${hasSorts}${hasTraits}${hasPriceRange}${hasRankRange}${hasTraitsCountRange}`;
 
         return this.request('get', collectionAssetsUrl);
       },

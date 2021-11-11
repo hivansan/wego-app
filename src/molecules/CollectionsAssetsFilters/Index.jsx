@@ -20,10 +20,13 @@ const CollectionAssetsFilters = ({
   priceRange,
   rankRange,
   setRankRange,
+  setTraitsCountRange,
+  traitsCountRange,
 }) => {
   const setIsCollapse = () => setCollapse(!isCollapse);
   const [maxPrice, setMaxPrice] = useState(null);
   const [maxRank, setMaxRank] = useState(null);
+  const [maxTraitsCount, setMaxTraitsCount] = useState(null);
   const [price, setPrice] = useState('priceUsdRange');
   const traits = [];
 
@@ -65,9 +68,20 @@ const CollectionAssetsFilters = ({
     );
     setMaxRank(res?.results[0]?.rarityScoreRank);
   };
+  const getMaxTraitsCount = async () => {
+    const res = await api.assets.find(
+      collectionSlug,
+      1,
+      0,
+      'traitsCount',
+      'desc'
+    );
+    setMaxTraitsCount(res?.results[0]?.traitsCount);
+  };
 
   useEffect(() => {
     getMaxRariRank();
+    getMaxTraitsCount();
   }, []);
 
   useEffect(() => {
@@ -120,6 +134,15 @@ const CollectionAssetsFilters = ({
               range={rankRange}
               setRange={setRankRange}
               max={maxRank}
+            />
+          </Filter>
+          <Filter title='Traits Count' isCollapse={isCollapse}>
+            <RangeFilters
+              filter='traitsCountRange'
+              setRange={setTraitsCountRange}
+              range={traitsCountRange}
+              max={maxTraitsCount}
+              min={0}
             />
           </Filter>
 

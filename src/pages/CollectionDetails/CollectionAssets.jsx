@@ -32,6 +32,8 @@ const CollectionAssets = ({
   rankRange,
   totalAssets,
   setRankRange,
+  setTraitsCountRange,
+  traitsCountRange,
 }) => {
   const [isFiltersCollapse, setIsFiltersCollapse] = useState(true);
 
@@ -39,6 +41,8 @@ const CollectionAssets = ({
     <div className='collection-assets-container'>
       <CollectionAssetsFiltersMobile
         containerClassName='modal-filters'
+        setTraitsCountRange={setTraitsCountRange}
+        traitsCountRange={traitsCountRange}
         isOpen={filtersMobileOpen}
         setIsOpen={setFiltersMobileOpen}
         collectionTraits={collectionTraits}
@@ -52,6 +56,8 @@ const CollectionAssets = ({
       />
       <CollectionAssetsFilters
         setPriceRange={setPriceRange}
+        setTraitsCountRange={setTraitsCountRange}
+        traitsCountRange={traitsCountRange}
         priceRange={priceRange}
         rankRange={rankRange}
         setRankRange={setRankRange}
@@ -135,7 +141,8 @@ const CollectionAssets = ({
                   sortDirection,
                   traits,
                   priceRange,
-                  rankRange
+                  rankRange,
+                  traitsCountRange
                 )
               }
               hasMore={true}

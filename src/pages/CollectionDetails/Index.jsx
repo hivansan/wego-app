@@ -20,6 +20,7 @@ const CollectionDetails = ({ setFooter, locationState }) => {
   const [priceUsdRange, setPriceUsdRange] = useState(false);
   const [rankRange, setRankRange] = useState(false);
   const [totalAssets, setTotalAssets] = useState(null);
+  const [traitsCountRange, setTraitsCountRange] = useState(false);
 
   const [assetsSort, setAssetsSort] = useState({
     orderBy: 'none',
@@ -44,7 +45,8 @@ const CollectionDetails = ({ setFooter, locationState }) => {
     sortDirection,
     traits,
     priceRange,
-    rankRange
+    rankRange,
+    traitsCountRange
   ) => {
     setResultAssets([]);
     setHasNextPage(true);
@@ -56,7 +58,8 @@ const CollectionDetails = ({ setFooter, locationState }) => {
       sortDirection,
       traits,
       priceRange,
-      rankRange
+      rankRange,
+      traitsCountRange
     );
     const results =
       res && res.results && res.results.length === 0 ? null : res.results;
@@ -79,7 +82,8 @@ const CollectionDetails = ({ setFooter, locationState }) => {
     sortDirection,
     traits,
     priceRange,
-    rankRange
+    rankRange,
+    traitsCountRange
   ) => {
     const isAssetsNew = assetsPage === 0 ? 20 : assetsPage + 20;
     const res = await api.assets.find(
@@ -90,7 +94,8 @@ const CollectionDetails = ({ setFooter, locationState }) => {
       sortDirection,
       traits,
       priceRange,
-      rankRange
+      rankRange,
+      traitsCountRange
     );
 
     setAssetsPage(assetsPage + 20);
@@ -143,16 +148,18 @@ const CollectionDetails = ({ setFooter, locationState }) => {
     const hasTraits = Object.keys(traitObj).length === 0 ? null : traitObj;
     const pr = priceUsdRange ? priceUsdRange : null;
     const rr = rankRange ? rankRange : null;
+    const tr = traitsCountRange ? traitsCountRange : null;
     setAssetsPage(0);
     getCollectionAssets(
       assetsSort.orderBy,
       assetsSort.orderDirection,
       hasTraits,
       pr,
-      rr
+      rr,
+      tr
     );
     window.scrollTo(0, 0);
-  }, [filters, assetsSort, rankRange, priceUsdRange]);
+  }, [filters, assetsSort, rankRange, priceUsdRange, traitsCountRange]);
 
   if (!isMounted) {
     return null;
@@ -170,6 +177,8 @@ const CollectionDetails = ({ setFooter, locationState }) => {
       />
       <CollectionAssets
         totalAssets={totalAssets}
+        traitsCountRange={traitsCountRange}
+        setTraitsCountRange={setTraitsCountRange}
         setPriceRange={setPriceUsdRange}
         priceRange={priceUsdRange}
         rankRange={rankRange}
