@@ -1,8 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
-import 'react-logshine/lib/LogShine.css';
-
 import axios from 'axios';
 import { adminKey } from '../services/auth';
 
