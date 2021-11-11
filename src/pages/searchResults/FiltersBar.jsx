@@ -28,7 +28,7 @@ const FiltersBar = ({ tab, setTab, setUrl, url, param }) => {
 
   return (
     <>
-      <ScrollContainer className='search-filters'>
+      <ScrollContainer className='full-search-filters'>
         <ul>
           <li
             className={`${tab === 'all' ? 'active' : ''}`}

@@ -4,6 +4,10 @@ import ImageTypeDetect from '../../../molecules/ImageTypeDetect';
 import { GoVerified } from 'react-icons/go';
 
 const HeaderResults = ({ results, location, isOpen }) => {
+  const assetsFiltered =
+    !results.status &&
+    results.results.filter((item) => item.meta.index === 'assets');
+
   return (
     <>
       {results && !results.status && (
@@ -49,7 +53,7 @@ const HeaderResults = ({ results, location, isOpen }) => {
                 </li>
               </a>
             ))}
-          <li>Assets</li>
+          {assetsFiltered.length !== 0 && <li>Assets</li>}
           {results.results
             .filter((result) => result.meta.index === 'assets')
             .filter((e, i) => i < 5)
