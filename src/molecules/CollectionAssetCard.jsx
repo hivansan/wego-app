@@ -67,9 +67,6 @@ const CollectionAssetCard = ({
                 : asset[index].name
               : asset[index].tokenId}
           </p>
-          {asset[index].rarityScoreRank && (
-            <p>#{asset[index].rarityScoreRank}</p>
-          )}
         </section>
         <section className='asset-card-image'>
           {asset[index].imageBig ? (
@@ -103,7 +100,10 @@ const CollectionAssetCard = ({
             </small>
           )} */}
 
-          <small>#{asset[index]?.tokenId?.substr(0, 25)}</small>
+          {/* <small>#{asset[index]?.tokenId?.substr(0, 25)}</small> */}
+          {asset[index].rarityScoreRank && (
+            <p>#{asset[index].rarityScoreRank}</p>
+          )}
           <div className='asset-price'>
             {asset[index].currentPrice && (
               <>

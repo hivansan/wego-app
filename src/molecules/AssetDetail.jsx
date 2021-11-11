@@ -95,8 +95,6 @@ const AssetDetailModal = ({ setFooter }) => {
                           : asset.name
                         : asset.tokenId}
                     </p>
-
-                    {asset.rarityScoreRank && <p>#{asset.rarityScoreRank}</p>}
                   </header>
                   {asset.animationUrl ? (
                     <div className='img-wrapper'>
@@ -176,7 +174,10 @@ const AssetDetailModal = ({ setFooter }) => {
                     </>
                   )}
                   <div className='asset-detail-info'>
-                    <p>#{asset?.tokenId?.substr(0, 26)}</p>
+                    {/* <p>#{asset?.tokenId?.substr(0, 26)}</p> */}
+                    {asset.rarityScoreRank && (
+                      <p>Rarity Rank #{asset.rarityScoreRank}</p>
+                    )}
                     <div className='asset-price'>
                       {asset.currentPriceUSD && (
                         <>
