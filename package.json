@@ -70,7 +70,6 @@
   },
   "scripts": {
     "start": "parcel ./public/index.html -p 3001",
-    "explorer": "parcel ./public/explorer.html",
     "build": "parcel build ./public/index.html --dist-dir='../api/public'",
     "build:admin": "parcel build ./src/admin/index.tsx --dist-dir='../api/admin'",
     "test": "react-scripts test",
