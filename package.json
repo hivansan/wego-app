@@ -3,10 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "3d-force-graph": "^1.70.5",
     "@ethersproject/providers": "^5.4.4",
     "@material-ui/core": "^4.12.3",
     "@material-ui/icons": "^4.11.2",
     "@mierak/react-virtualized-grid": "^0.0.5-ALPHA",
+    "@svgr/parcel-plugin-svgr": "^5.5.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -26,6 +28,7 @@
     "axios": "^0.21.4",
     "bootstrap": "5.0.2",
     "calendar-link": "^2.1.1",
+    "cryptocurrency-icons": "^0.18.0",
     "flux": "^4.0.1",
     "formik": "^2.2.9",
     "human-date": "^1.4.0",
@@ -33,14 +36,12 @@
     "lodash.debounce": "^4.0.8",
     "millify": "^4.0.0",
     "moment": "^2.29.1",
-    "opensea-js": "^1.1.12",
     "pure-react-carousel": "^1.27.6",
     "ramda": "^0.27.1",
     "rc-slider": "^9.7.4",
     "react": "^17.0.2",
     "react-bootstrap": "^2.0.0-beta.4",
     "react-burger-menu": "^3.0.6",
-    "react-crypto-icons": "^1.0.5",
     "react-data-table-component": "^6.11.8",
     "react-date-picker": "^8.3.2",
     "react-dom": "^17.0.2",
@@ -68,8 +69,10 @@
     "yup": "^0.32.10"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "BUILD_PATH='../api/public' react-scripts build",
+    "start": "parcel ./public/index.html -p 3001",
+    "explorer": "parcel ./public/explorer.html",
+    "build": "parcel build ./public/index.html --dist-dir='../api/public'",
+    "build:admin": "parcel build ./src/admin/index.tsx --dist-dir='../api/admin'",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -90,5 +93,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.0.0",
+    "parcel": "^2.0.0"
   }
 }

@@ -30,7 +30,7 @@ const TopCollectionSection = ({ location }) => {
       <div className='top-collections-section-container'>
         <TopCollectionsCard
           topCollections={totalVolumeCollections}
-          title='By Total volume'
+          title='By Total Volume'
         />
         <TopCollectionsCard
           topCollections={sevenDayAvgPrice}

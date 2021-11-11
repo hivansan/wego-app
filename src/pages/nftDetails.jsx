@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
 import * as Web3 from 'web3';
-import { OpenSeaPort, Network } from 'opensea-js';
-import { OrderSide } from 'opensea-js/lib/types';
 import { InputGroup, Dropdown, Form, Accordion, Button } from 'react-bootstrap';
 
 import moment from 'moment';
@@ -274,15 +272,15 @@ const NftDetails = (props) => {
                     (acc, t) =>
                       acc +
                       1 /
-                        ((t.trait_count * (1 / asset.traits.length)) /
-                          asset.collection.stats.total_supply),
+                      ((t.trait_count * (1 / asset.traits.length)) /
+                        asset.collection.stats.total_supply),
                     0
                   )
                   .toLocaleString()}`}
                 <hr />
                 <div className=''>
                   {asset?.owner?.address !==
-                  '0x0000000000000000000000000000000000000000' ? (
+                    '0x0000000000000000000000000000000000000000' ? (
                     <>
                       <span>
                         <img
@@ -488,7 +486,7 @@ const NftDetails = (props) => {
                               />
                               {order.base_price /
                                 10 **
-                                  order.payment_token_contract.decimals}{' '}
+                                order.payment_token_contract.decimals}{' '}
                               (
                               {`$${(
                                 (order.base_price /

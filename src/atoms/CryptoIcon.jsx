@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Icon from 'react-crypto-icons';
+import USD from 'cryptocurrency-icons/svg/color/usd.svg';
+import ETH from 'cryptocurrency-icons/svg/color/eth.svg';
 
 const CryptoIcon = ({ token }) => {
   const [showSymbol, setShowSymbol] = useState(false);
@@ -36,11 +37,12 @@ const CryptoIcon = ({ token }) => {
       onMouseLeave={() => setShowSymbol(false)}
     >
       {showSymbol && <div className='token-symbol'>{token}</div>}
-      <Icon
+      SHOW ICON: {wrappedTokens()}
+      {/* <Icon
         name={wrappedTokens()[0]}
         size={14}
         className={`token token-${wrappedTokens()[1]}`}
-      />
+      /> */}
     </div>
   );
 };

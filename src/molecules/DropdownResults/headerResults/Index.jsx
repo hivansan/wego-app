@@ -8,28 +8,31 @@ const HeaderResults = ({ results, location, isOpen }) => {
     <>
       {results && !results.status && (
         <ul>
-          {results.results
-            .filter((result) => result.meta.index === 'collections')
-            .filter((e, i) => i < 5).length !== 0 && <li>Collections</li>}
-          {results.results
-            .filter((result) => result.value.featuredCollection)
-            .filter((e, i) => i < 5)
-            .map((collection, i) => (
-              <a
-                href={`/collection/${collection.slug}`}
-                key={collection.id + i}
-              >
-                <li>
-                  <ImageTypeDetect
-                    imageURL={collection.imgMain}
-                    alt={collection.name}
-                    className='result-img'
-                  />
-                  {collection.name}
-                  <span className='badge'>Featured</span>
-                </li>
-              </a>
-            ))}
+          {
+            results.results
+              .filter((result) => result.meta.index === 'collections')
+              .filter((e, i) => i < 5).length !== 0 && <li>Collections</li>
+          }
+          {
+            results.results
+              .filter((result) => result.value.featuredCollection)
+              .filter((e, i) => i < 5)
+              .map((collection, i) => (
+                <a
+                  href={`/collection/${collection.slug}`}
+                  key={collection.id + i}
+                >
+                  <li>
+                    <ImageTypeDetect
+                      imageURL={collection.imgMain}
+                      alt={collection.name}
+                      className='result-img'
+                    />
+                    {collection.name}
+                    <span className='badge'>Featured</span>
+                  </li>
+                </a>
+              ))}
           {results.results
             .filter((result) => result.meta.index === 'collections')
             .filter((result) => !result.value.featuredCollection)
@@ -56,9 +59,8 @@ const HeaderResults = ({ results, location, isOpen }) => {
             .map(({ value: asset }, i) => (
               <Link
                 to={{
-                  pathname: `/assets/${
-                    asset?.contractAddress || asset.asset_contract.address
-                  }/${asset?.tokenId || asset.token_id}`,
+                  pathname: `/assets/${asset?.contractAddress || asset.asset_contract.address
+                    }/${asset?.tokenId || asset.token_id}`,
                   state: { background: location, searchResults: isOpen },
                 }}
                 key={i}
@@ -74,7 +76,8 @@ const HeaderResults = ({ results, location, isOpen }) => {
               </Link>
             ))}
         </ul>
-      )}
+      )
+      }
     </>
   );
 };

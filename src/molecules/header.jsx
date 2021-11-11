@@ -19,6 +19,7 @@ import { oneClickLogin, validateIsLogged } from '../util';
 
 import MenuSearchResults from './header/MenuSearchResults';
 import Menu from './header/Menu';
+import logo from '../assets/logo/blue&gray.png';
 
 const { emitter, store } = Store;
 
@@ -186,11 +187,7 @@ const Header = ({ background, menuOpen, setMenuOpen }) => {
             <div className='left-menu'>
               <div className='d-flex'>
                 <Link to='/'>
-                  <img
-                    src={require('../assets/logo/blue&gray.png').default}
-                    alt=''
-                    className='logo'
-                  />
+                  <img src={logo} alt='WeGo Main Logo' className='logo' />
                 </Link>
               </div>
             </div>
