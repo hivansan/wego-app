@@ -110,11 +110,13 @@ const CollectionAssetCard = ({
                 <span>
                   <p>Price </p>
                   <CryptoIcon token={'USD'} />
-                  <small>{asset[index].currentPriceUSD}</small>
+                  <small>
+                    {asset[index]?.currentPriceUSD?.toLocaleString()}
+                  </small>
                 </span>
               </>
             )}
-            {asset[index].currentPrice && (
+            {/* {asset[index].currentPrice && (
               <>
                 <span>
                   <p>Price </p>
@@ -122,7 +124,7 @@ const CollectionAssetCard = ({
                   <small>{asset[index].currentPrice}</small>
                 </span>
               </>
-            )}
+            )} */}
             {asset[index].lastSalePrice && (
               <span>
                 <small>Last </small>

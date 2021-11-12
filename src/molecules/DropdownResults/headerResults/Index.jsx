@@ -19,10 +19,7 @@ const HeaderResults = ({ results, location, isOpen }) => {
             .filter((result) => result.value.featuredCollection)
             .filter((e, i) => i < 5)
             .map((collection, i) => (
-              <a
-                href={`/collection/${collection.slug}`}
-                key={collection.id + i}
-              >
+              <a href={`/collection/${collection.slug}`} key={i}>
                 <li>
                   <ImageTypeDetect
                     imageURL={collection.imgMain}
@@ -39,10 +36,7 @@ const HeaderResults = ({ results, location, isOpen }) => {
             .filter((result) => !result.value.featuredCollection)
             .filter((e, i) => i < 5)
             .map(({ value: collection }, i) => (
-              <a
-                href={`/collection/${collection.slug}`}
-                key={collection.id + i}
-              >
+              <a href={`/collection/${collection.slug}`} key={i}>
                 <li>
                   <ImageTypeDetect
                     imageURL={collection.imgMain}

@@ -7,6 +7,8 @@ import SearchFilters from './SearchFilters';
 import RangeFilters from './RangeFilters';
 
 import { Api } from '../../services/api';
+import DarkPrimaryButton from '../../atoms/darkPrimaryButton';
+import LightPrimaryButton from '../../atoms/lightPrimaryButton';
 
 const CollectionAssetsFilters = ({
   isCollapse,
@@ -45,7 +47,6 @@ const CollectionAssetsFilters = ({
   const getMaxPrice = async () => {
     const priceSelected =
       price === 'priceUsdRange' ? 'currentPriceUSD' : 'currentPrice';
-    console.log(priceSelected);
 
     const res = await api.assets.find(
       collectionSlug,
@@ -112,6 +113,10 @@ const CollectionAssetsFilters = ({
             </div>
             <BiArrowToLeft size={20} />
           </header>
+          <Filter title='Status' isCollapse={isCollapse}>
+            <DarkPrimaryButton>Buy now</DarkPrimaryButton>
+            <LightPrimaryButton>Auction</LightPrimaryButton>
+          </Filter>
 
           {/* price filter */}
           <Filter title='Price' isCollapse={isCollapse}>

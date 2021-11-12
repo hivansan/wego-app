@@ -44,9 +44,9 @@ const RangeFilters = ({ filter, max, range, setRange, price, setPrice }) => {
             {/* <option value='sale_date'>Sale Date</option>
           <option value='sale_count'>Sale Count</option> */}
             <option value='priceUsdRange' defaultValue>
-              Price USD
+              USD
             </option>
-            <option value='priceRange'>Price ETH</option>
+            <option value='priceRange'>ETH</option>
           </select>
         </div>
       )}

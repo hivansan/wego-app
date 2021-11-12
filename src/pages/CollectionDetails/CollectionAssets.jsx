@@ -99,6 +99,16 @@ const CollectionAssets = ({
               <GrFormClose />
             </div>
           )}
+          {traitsCountRange && (
+            <div
+              className='trait-filter'
+              onClick={() => setTraitsCountRange(false)}
+            >
+              Traits count: {traitsCountRange.range.gte} -{' '}
+              {traitsCountRange.range.lte}
+              <GrFormClose />
+            </div>
+          )}
           {filters && filters.length > 0 && (
             <>
               {filters.map(({ traitType, value: filter }, i) => (
@@ -117,7 +127,7 @@ const CollectionAssets = ({
               ))}
             </>
           )}
-          {filters.length > 0 || priceRange || rankRange ? (
+          {filters.length > 0 || priceRange || rankRange || traitsCountRange ? (
             <div
               className='clear-filters'
               onClick={() => {
