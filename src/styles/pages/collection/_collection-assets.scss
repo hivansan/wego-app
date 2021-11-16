@@ -255,6 +255,26 @@
           outline: none;
         }
       }
+
+      .filter-status {
+        display: flex;
+        justify-content: center;
+
+        .light-primary-btn {
+          padding: 0.5rem 1.3rem;
+          font-size: 15px;
+          border-radius: 10px;
+        }
+
+        .unselected {
+          background-color: rgba(65, 137, 230, 0.084);
+        }
+
+        .selected {
+          background-color: var(--color-primary);
+          color: #fff;
+        }
+      }
     }
   }
 }

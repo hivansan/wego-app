@@ -34,6 +34,8 @@ const CollectionAssets = ({
   setRankRange,
   setTraitsCountRange,
   traitsCountRange,
+  setBuyNow,
+  buyNow,
 }) => {
   const [isFiltersCollapse, setIsFiltersCollapse] = useState(true);
 
@@ -44,6 +46,8 @@ const CollectionAssets = ({
         setTraitsCountRange={setTraitsCountRange}
         traitsCountRange={traitsCountRange}
         isOpen={filtersMobileOpen}
+        setBuyNow={setBuyNow}
+        buyNow={buyNow}
         setIsOpen={setFiltersMobileOpen}
         collectionTraits={collectionTraits}
         setFilters={setFilters}
@@ -56,6 +60,8 @@ const CollectionAssets = ({
       />
       <CollectionAssetsFilters
         setPriceRange={setPriceRange}
+        setBuyNow={setBuyNow}
+        buyNow={buyNow}
         setTraitsCountRange={setTraitsCountRange}
         traitsCountRange={traitsCountRange}
         priceRange={priceRange}
@@ -109,6 +115,12 @@ const CollectionAssets = ({
               <GrFormClose />
             </div>
           )}
+          {buyNow && (
+            <div className='trait-filter' onClick={() => setBuyNow(false)}>
+              Buy Now
+              <GrFormClose />
+            </div>
+          )}
           {filters && filters.length > 0 && (
             <>
               {filters.map(({ traitType, value: filter }, i) => (
@@ -127,13 +139,18 @@ const CollectionAssets = ({
               ))}
             </>
           )}
-          {filters.length > 0 || priceRange || rankRange || traitsCountRange ? (
+          {filters.length > 0 ||
+          priceRange ||
+          rankRange ||
+          traitsCountRange ||
+          buyNow ? (
             <div
               className='clear-filters'
               onClick={() => {
                 setFilters([]);
                 setPriceRange(false);
                 setRankRange(false);
+                setBuyNow(false);
               }}
             >
               Clear All
@@ -152,7 +169,8 @@ const CollectionAssets = ({
                   traits,
                   priceRange,
                   rankRange,
-                  traitsCountRange
+                  traitsCountRange,
+                  buyNow
                 )
               }
               hasMore={true}

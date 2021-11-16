@@ -24,6 +24,8 @@ const CollectionAssetsFilters = ({
   setRankRange,
   setTraitsCountRange,
   traitsCountRange,
+  setBuyNow,
+  buyNow,
 }) => {
   const setIsCollapse = () => setCollapse(!isCollapse);
   const [maxPrice, setMaxPrice] = useState(null);
@@ -113,9 +115,19 @@ const CollectionAssetsFilters = ({
             </div>
             <BiArrowToLeft size={20} />
           </header>
+
           <Filter title='Status' isCollapse={isCollapse}>
-            <DarkPrimaryButton>Buy now</DarkPrimaryButton>
-            <LightPrimaryButton>Auction</LightPrimaryButton>
+            <div className='filter-status'>
+              <LightPrimaryButton
+                className={`${buyNow ? 'selected' : 'unselected'}`}
+                onClick={
+                  buyNow ? () => setBuyNow(false) : () => setBuyNow({ gte: 1 })
+                }
+              >
+                Buy now
+              </LightPrimaryButton>
+              {/* <LightPrimaryButton>Auction</LightPrimaryButton> */}
+            </div>
           </Filter>
 
           {/* price filter */}

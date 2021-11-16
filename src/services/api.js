@@ -40,7 +40,8 @@ export class Api {
         traits,
         priceRange,
         rankRange,
-        traitsCountRange
+        traitsCountRange,
+        buyNow
       ) => {
         const hasSorts =
           sortBy === 'none' || !sortBy ? '' : `&sortBy=${sortBy}`;
@@ -60,7 +61,8 @@ export class Api {
           : `&${traitsCountRange.param}=${JSON.stringify(
               traitsCountRange.range
             )}`;
-        const collectionAssetsUrl = `/assets?slug=${slug}&limit=${limit}&offset=${offset}${hasSortDirection}${hasSorts}${hasTraits}${hasPriceRange}${hasRankRange}${hasTraitsCountRange}`;
+        const isBuyNow = !buyNow ? '' : `&buyNowOnly=${JSON.stringify(buyNow)}`;
+        const collectionAssetsUrl = `/assets?slug=${slug}&limit=${limit}&offset=${offset}${hasSortDirection}${hasSorts}${hasTraits}${hasPriceRange}${hasRankRange}${hasTraitsCountRange}${isBuyNow}`;
 
         return this.request('get', collectionAssetsUrl);
       },
