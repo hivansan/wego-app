@@ -15,18 +15,28 @@
     background-color: var(--bg-canvas-default);
     padding: 0.5rem;
     box-shadow: rgb(4 17 29 / 25%) 0px 0px 3px 0px;
+
     .asset-detail-modal-info-header {
       padding: 0.5rem;
       display: flex;
-      justify-content: space-between;
-      align-items: center;
+      // justify-content: space-between;
+      flex-direction: column;
+
       padding-top: 0;
       color: var(--color-primary);
       font-weight: 600;
       font-size: 18px;
 
+      a {
+        color: var(--color-primary);
+
+        &:hover {
+          color: #1d64a2;
+        }
+      }
+
       small {
-        color: #56585a;
+        color: var(--color-secondary);
         strong {
           font-weight: 600;
           color: var(--color-secondary);

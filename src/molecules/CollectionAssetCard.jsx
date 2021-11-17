@@ -116,7 +116,7 @@ const CollectionAssetCard = ({
                 </span>
               </>
             )}
-            {asset[index].currentPrice && (
+            {/* {asset[index].currentPrice && (
               <>
                 <span>
                   <p>Price </p>
@@ -124,7 +124,7 @@ const CollectionAssetCard = ({
                   <small>{asset[index].currentPrice}</small>
                 </span>
               </>
-            )}
+            )} */}
             {asset[index].lastSalePrice && (
               <span>
                 <small>Last </small>

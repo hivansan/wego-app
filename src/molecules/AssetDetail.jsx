@@ -12,7 +12,8 @@ import CryptoIcon from '../atoms/CryptoIcon';
 const AssetDetailModal = ({ setFooter }) => {
   const [open, setOpen] = useState(true);
 
-  const [asset, setAssetScore] = useState(null);
+  const [asset, setAsset] = useState(null);
+  const [assetScore, setAssetScore] = useState(null);
   const [filters, setFilters] = useState([]);
   const [goBackPath, setGoBackPath] = useState('');
 
@@ -23,6 +24,11 @@ const AssetDetailModal = ({ setFooter }) => {
 
   const getAsset = async () => {
     const res = await api.assets.findOne(address, tokenId);
+    console.log(res);
+    setAsset(res);
+  };
+  const getAssetScore = async () => {
+    const res = await api.assets.score(address, tokenId);
     console.log(res);
     setAssetScore(res);
   };
@@ -50,6 +56,7 @@ const AssetDetailModal = ({ setFooter }) => {
       setFooter(location.pathname);
     }
     getAsset();
+    getAssetScore();
     // a();
 
     if (location.state) {
@@ -88,13 +95,19 @@ const AssetDetailModal = ({ setFooter }) => {
                         </>
                       )}
                     </p> */}
-                    <p>
+
+                    {assetScore && assetScore.collection && (
+                      <a href={`/collection/${assetScore.collection.slug}`}>
+                        <p>{assetScore.collection.name}</p>
+                      </a>
+                    )}
+                    <small>
                       {asset.name
-                        ? asset.name.length > 27
-                          ? asset.name.substring(0, 26)
+                        ? asset.name.length > 36
+                          ? asset.name.substring(0, 36) + '...'
                           : asset.name
                         : asset.tokenId}
-                    </p>
+                    </small>
                   </header>
                   {asset.animationUrl ? (
                     <div className='img-wrapper'>

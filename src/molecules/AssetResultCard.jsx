@@ -2,7 +2,6 @@ import React, { useEffect, useState, useRef } from 'react';
 
 import ImageTypeDetect from './ImageTypeDetect';
 import { FaEthereum } from 'react-icons/fa';
-import { Api } from '../services/api';
 
 import { Link } from 'react-router-dom';
 import moment from 'moment';
@@ -10,9 +9,7 @@ import moment from 'moment';
 const AssetResultCard = ({ result, location }) => {
   const { value: asset } = result;
 
-  const [assetScore, setAssetScore] = useState(null);
   const [didMount, setDidMount] = useState(false);
-  const api = new Api();
 
   const address = asset?.contractAddress || asset.asset_contract.address;
 
