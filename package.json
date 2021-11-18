@@ -73,8 +73,7 @@
     "build": "parcel build ./public/index.html --dist-dir='../api/public'",
     "build:admin": "parcel build ./src/admin/index.tsx --dist-dir='../api/admin'",
     "build:all": "yarn build:admin; yarn build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "watch": "parcel watch ./public/index.html --dist-dir='../api/public'"
   },
   "eslintConfig": {
     "extends": [
