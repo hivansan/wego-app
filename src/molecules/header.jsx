@@ -75,7 +75,7 @@ const Header = ({ background, menuOpen, setMenuOpen }) => {
     const getRequest = async () => {
       setResults(null);
       try {
-        const res = await api.search(debounceParam.trim());
+        const res = await api.search(debounceParam.trim(), 1, 'collections');
         setResults(res);
       } catch (err) {
         console.log(err);

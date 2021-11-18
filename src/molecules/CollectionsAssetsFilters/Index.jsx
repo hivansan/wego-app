@@ -7,6 +7,8 @@ import SearchFilters from './SearchFilters';
 import RangeFilters from './RangeFilters';
 
 import { Api } from '../../services/api';
+import DarkPrimaryButton from '../../atoms/darkPrimaryButton';
+import LightPrimaryButton from '../../atoms/lightPrimaryButton';
 
 const CollectionAssetsFilters = ({
   isCollapse,
@@ -20,10 +22,16 @@ const CollectionAssetsFilters = ({
   priceRange,
   rankRange,
   setRankRange,
+  setTraitsCountRange,
+  traitsCountRange,
+  setBuyNow,
+  buyNow,
 }) => {
   const setIsCollapse = () => setCollapse(!isCollapse);
   const [maxPrice, setMaxPrice] = useState(null);
   const [maxRank, setMaxRank] = useState(null);
+  const [maxTraitsCount, setMaxTraitsCount] = useState(null);
+  const [price, setPrice] = useState('priceUsdRange');
   const traits = [];
 
   const api = new Api();
@@ -38,15 +46,19 @@ const CollectionAssetsFilters = ({
     });
   }
 
-  const getCollectionAsset = async () => {
+  const getMaxPrice = async () => {
+    const priceSelected =
+      price === 'priceUsdRange' ? 'currentPriceUSD' : 'currentPrice';
+
     const res = await api.assets.find(
       collectionSlug,
       1,
       0,
-      'currentPriceUSD',
+      priceSelected,
       'desc'
     );
-    setMaxPrice(res?.results[0]?.currentPriceUSD);
+
+    setMaxPrice(res?.results[0]?.[priceSelected] || null);
   };
 
   const getMaxRariRank = async () => {
@@ -59,11 +71,25 @@ const CollectionAssetsFilters = ({
     );
     setMaxRank(res?.results[0]?.rarityScoreRank);
   };
+  const getMaxTraitsCount = async () => {
+    const res = await api.assets.find(
+      collectionSlug,
+      1,
+      0,
+      'traitsCount',
+      'desc'
+    );
+    setMaxTraitsCount(res?.results[0]?.traitsCount);
+  };
 
   useEffect(() => {
-    getCollectionAsset();
     getMaxRariRank();
+    getMaxTraitsCount();
   }, []);
+
+  useEffect(() => {
+    getMaxPrice();
+  }, [price]);
 
   return (
     <>
@@ -90,13 +116,29 @@ const CollectionAssetsFilters = ({
             <BiArrowToLeft size={20} />
           </header>
 
+          <Filter title='Status' isCollapse={isCollapse}>
+            <div className='filter-status'>
+              <LightPrimaryButton
+                className={`${buyNow ? 'selected' : 'unselected'}`}
+                onClick={
+                  buyNow ? () => setBuyNow(false) : () => setBuyNow({ gte: 1 })
+                }
+              >
+                Buy now
+              </LightPrimaryButton>
+              {/* <LightPrimaryButton>Auction</LightPrimaryButton> */}
+            </div>
+          </Filter>
+
           {/* price filter */}
-          <Filter title='Price usd' isCollapse={isCollapse}>
+          <Filter title='Price' isCollapse={isCollapse}>
             <RangeFilters
-              filter='priceRange'
+              filter='price'
               setRange={setPriceRange}
               range={priceRange}
               max={maxPrice}
+              setPrice={setPrice}
+              price={price}
               min={1}
             />
           </Filter>
@@ -104,11 +146,20 @@ const CollectionAssetsFilters = ({
           {/* rank filter */}
           <Filter title='Rarity Rank' isCollapse={isCollapse}>
             <RangeFilters
-              filter='rarityScoreRankFilter'
+              filter='rankRange'
               min={1}
               range={rankRange}
               setRange={setRankRange}
               max={maxRank}
+            />
+          </Filter>
+          <Filter title='Traits Count' isCollapse={isCollapse}>
+            <RangeFilters
+              filter='traitsCountRange'
+              setRange={setTraitsCountRange}
+              range={traitsCountRange}
+              max={maxTraitsCount}
+              min={0}
             />
           </Filter>
 

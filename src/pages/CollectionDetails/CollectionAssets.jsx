@@ -32,6 +32,10 @@ const CollectionAssets = ({
   rankRange,
   totalAssets,
   setRankRange,
+  setTraitsCountRange,
+  traitsCountRange,
+  setBuyNow,
+  buyNow,
 }) => {
   const [isFiltersCollapse, setIsFiltersCollapse] = useState(true);
 
@@ -39,7 +43,11 @@ const CollectionAssets = ({
     <div className='collection-assets-container'>
       <CollectionAssetsFiltersMobile
         containerClassName='modal-filters'
+        setTraitsCountRange={setTraitsCountRange}
+        traitsCountRange={traitsCountRange}
         isOpen={filtersMobileOpen}
+        setBuyNow={setBuyNow}
+        buyNow={buyNow}
         setIsOpen={setFiltersMobileOpen}
         collectionTraits={collectionTraits}
         setFilters={setFilters}
@@ -52,6 +60,10 @@ const CollectionAssets = ({
       />
       <CollectionAssetsFilters
         setPriceRange={setPriceRange}
+        setBuyNow={setBuyNow}
+        buyNow={buyNow}
+        setTraitsCountRange={setTraitsCountRange}
+        traitsCountRange={traitsCountRange}
         priceRange={priceRange}
         rankRange={rankRange}
         setRankRange={setRankRange}
@@ -82,13 +94,30 @@ const CollectionAssets = ({
         <div className='assets-actual-filters'>
           {priceRange && (
             <div className='trait-filter' onClick={() => setPriceRange(false)}>
-              PriceUSD: {priceRange.gte} - {priceRange.lte}
+              {priceRange.param === 'priceUsdRange' ? 'USD: ' : 'ETH: '}
+              {priceRange.range.gte} - {priceRange.range.lte}
               <GrFormClose />
             </div>
           )}
           {rankRange && (
             <div className='trait-filter' onClick={() => setRankRange(false)}>
-              Rarity Rank: {rankRange.gte} - {rankRange.lte}
+              Rarity Rank: {rankRange.range.gte} - {rankRange.range.lte}
+              <GrFormClose />
+            </div>
+          )}
+          {traitsCountRange && (
+            <div
+              className='trait-filter'
+              onClick={() => setTraitsCountRange(false)}
+            >
+              Traits count: {traitsCountRange.range.gte} -{' '}
+              {traitsCountRange.range.lte}
+              <GrFormClose />
+            </div>
+          )}
+          {buyNow && (
+            <div className='trait-filter' onClick={() => setBuyNow(false)}>
+              Buy Now
               <GrFormClose />
             </div>
           )}
@@ -108,18 +137,25 @@ const CollectionAssets = ({
                   <GrFormClose />
                 </div>
               ))}
-              <div
-                className='clear-filters'
-                onClick={() => {
-                  setFilters([]);
-                  setPriceRange(false);
-                  setRankRange(false);
-                }}
-              >
-                Clear All
-              </div>
             </>
           )}
+          {filters.length > 0 ||
+          priceRange ||
+          rankRange ||
+          traitsCountRange ||
+          buyNow ? (
+            <div
+              className='clear-filters'
+              onClick={() => {
+                setFilters([]);
+                setPriceRange(false);
+                setRankRange(false);
+                setBuyNow(false);
+              }}
+            >
+              Clear All
+            </div>
+          ) : null}
         </div>
 
         <div className={` assets-container`}>
@@ -132,7 +168,9 @@ const CollectionAssets = ({
                   sortDirection,
                   traits,
                   priceRange,
-                  rankRange
+                  rankRange,
+                  traitsCountRange,
+                  buyNow
                 )
               }
               hasMore={true}

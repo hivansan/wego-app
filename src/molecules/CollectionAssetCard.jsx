@@ -65,9 +65,6 @@ const CollectionAssetCard = ({
                 : asset[index].name
               : asset[index].tokenId}
           </p>
-          {asset[index].rarityScoreRank && (
-            <p>#{asset[index].rarityScoreRank}</p>
-          )}
         </section>
         <section className='asset-card-image'>
           {asset[index].imageBig ? (
@@ -101,21 +98,31 @@ const CollectionAssetCard = ({
             </small>
           )} */}
 
-          <small>#{asset[index]?.tokenId?.substr(0, 25)}</small>
+          {/* <small>#{asset[index]?.tokenId?.substr(0, 25)}</small> */}
+          {asset[index].rarityScoreRank && (
+            <p>#{asset[index].rarityScoreRank}</p>
+          )}
           <div className='asset-price'>
-            {asset[index].currentPrice && (
+            {asset[index].currentPriceUSD && (
               <>
                 <span>
                   <p>Price </p>
                   <CryptoIcon token={'USD'} />
                   <small>
-                    {asset[index].currentPriceUSD
-                      .toLocaleString()
-                      .substr(0, 10)}
+                    {asset[index]?.currentPriceUSD?.toLocaleString()}
                   </small>
                 </span>
               </>
             )}
+            {/* {asset[index].currentPrice && (
+              <>
+                <span>
+                  <p>Price </p>
+                  <CryptoIcon token={'ETH'} />
+                  <small>{asset[index].currentPrice}</small>
+                </span>
+              </>
+            )} */}
             {asset[index].lastSalePrice && (
               <span>
                 <small>Last </small>

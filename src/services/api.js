@@ -1,8 +1,12 @@
 import axios from 'axios';
 
 export const baseURL = 'http://localhost:3000/api';
+// ('http://ec2-35-175-219-168.compute-1.amazonaws.com/api');
+
+// 'http://localhost:3000/api';
 // 'http://ec2-54-160-232-251.compute-1.amazonaws.com:81/api';
 // 'http://localhost:3000/api';
+// http://ec2-35-175-219-168.compute-1.amazonaws.com/api/asset/0xf7143ba42d40eaeb49b88dac0067e54af042e963/709
 export class Api {
   /**
    * @param {string} auth - user:password
@@ -35,7 +39,9 @@ export class Api {
         sortDirection,
         traits,
         priceRange,
-        rankRange
+        rankRange,
+        traitsCountRange,
+        buyNow
       ) => {
         const hasSorts =
           sortBy === 'none' || !sortBy ? '' : `&sortBy=${sortBy}`;
@@ -45,13 +51,18 @@ export class Api {
           : `&sortDirection=${sortDirection}`;
         const hasPriceRange = !priceRange
           ? ''
-          : `&priceRange=${JSON.stringify(priceRange)}`;
+          : `&${priceRange.param}=${JSON.stringify(priceRange.range)}`;
 
         const hasRankRange = !rankRange
           ? ''
-          : `&rankRange=${JSON.stringify(rankRange)}`;
-        // http://localhost:3000/api/assets?slug=boonjiproject&priceRange={"lte": 22, "gte": 20}
-        const collectionAssetsUrl = `/assets?slug=${slug}&limit=${limit}&offset=${offset}${hasSortDirection}${hasSorts}${hasTraits}${hasPriceRange}${hasRankRange}`;
+          : `&${rankRange.param}=${JSON.stringify(rankRange.range)}`;
+        const hasTraitsCountRange = !traitsCountRange
+          ? ''
+          : `&${traitsCountRange.param}=${JSON.stringify(
+              traitsCountRange.range
+            )}`;
+        const isBuyNow = !buyNow ? '' : `&buyNowOnly=${JSON.stringify(buyNow)}`;
+        const collectionAssetsUrl = `/assets?slug=${slug}&limit=${limit}&offset=${offset}${hasSortDirection}${hasSorts}${hasTraits}${hasPriceRange}${hasRankRange}${hasTraitsCountRange}${isBuyNow}`;
 
         return this.request('get', collectionAssetsUrl);
       },

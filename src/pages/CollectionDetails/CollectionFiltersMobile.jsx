@@ -19,11 +19,15 @@ const CollectionAssetsFiltersMobile = ({
   setRankRange,
   isOpen,
   setIsOpen,
+  setTraitsCountRange,
+  traitsCountRange,
 }) => {
   const isMobile = useMediaQuery({ query: '(max-width: 576px)' });
   const newArr = [];
   const [maxPrice, setMaxPrice] = useState(null);
   const [maxRank, setMaxRank] = useState(null);
+  const [maxTraitsCount, setMaxTraitsCount] = useState(null);
+  const [price, setPrice] = useState('priceUsdRange');
   const api = new Api();
   const myObj = {};
 
@@ -36,6 +40,21 @@ const CollectionAssetsFiltersMobile = ({
     });
   }
 
+  const getMaxPrice = async () => {
+    const priceSelected =
+      price === 'priceUsdRange' ? 'currentPriceUSD' : 'currentPrice';
+
+    const res = await api.assets.find(
+      collectionSlug,
+      1,
+      0,
+      priceSelected,
+      'desc'
+    );
+
+    setMaxPrice(res?.results[0]?.[priceSelected] || null);
+  };
+
   const getMaxRariRank = async () => {
     const res = await api.assets.find(
       collectionSlug,
@@ -46,22 +65,25 @@ const CollectionAssetsFiltersMobile = ({
     );
     setMaxRank(res?.results[0]?.rarityScoreRank);
   };
-
-  useEffect(() => {
-    getCollectionAsset();
-    getMaxRariRank();
-  }, []);
-
-  const getCollectionAsset = async () => {
+  const getMaxTraitsCount = async () => {
     const res = await api.assets.find(
       collectionSlug,
       1,
       0,
-      'currentPriceUSD',
+      'traitsCount',
       'desc'
     );
-    setMaxPrice(res?.results[0]?.currentPriceUSD);
+    setMaxTraitsCount(res?.results[0]?.traitsCount);
   };
+
+  useEffect(() => {
+    getMaxRariRank();
+    getMaxTraitsCount();
+  }, []);
+
+  useEffect(() => {
+    getMaxPrice();
+  }, [price]);
 
   useEffect(() => {
     if (!isMobile) {
@@ -82,12 +104,14 @@ const CollectionAssetsFiltersMobile = ({
         {/* <Filter title='Status'></Filter>
       <Filter title='Price'></Filter> */}
         {/* price filter */}
-        <Filter title='Price usd'>
+        <Filter title='Price'>
           <RangeFilters
-            filter='priceRange'
+            filter='price'
             setRange={setPriceRange}
             range={priceRange}
             max={maxPrice}
+            setPrice={setPrice}
+            price={price}
             min={1}
           />
         </Filter>
@@ -95,11 +119,20 @@ const CollectionAssetsFiltersMobile = ({
         {/* rank filter */}
         <Filter title='Rarity Rank'>
           <RangeFilters
-            filter='rarityScoreRankFilter'
+            filter='rankRange'
             min={1}
             range={rankRange}
             setRange={setRankRange}
             max={maxRank}
+          />
+        </Filter>
+        <Filter title='Traits Count'>
+          <RangeFilters
+            filter='traitsCountRange'
+            setRange={setTraitsCountRange}
+            range={traitsCountRange}
+            max={maxTraitsCount}
+            min={0}
           />
         </Filter>
         {newArr.map((traitType, i) => (

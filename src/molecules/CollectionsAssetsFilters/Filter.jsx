@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 
 const Filter = ({ title, children }) => {
-  const [isCollapsed, setIsCollapsed] = useState(true);
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
   const setCollapsed = () => setIsCollapsed(!isCollapsed);
 

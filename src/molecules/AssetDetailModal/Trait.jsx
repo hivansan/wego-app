@@ -36,7 +36,9 @@ const Trait = ({ filters, setFilters, trait, bgFilters }) => {
       <div className='asset-detail-filter-header'>
         <small>{trait.trait_type}</small>
         <div className='asset-detail-filter-header-n'>
-          <small>{trait?.traitScore?.toString()?.substr(0, 6)}</small>
+          {trait.traitScore && (
+            <small>+{trait.traitScore.toString()?.substr(0, 6)}</small>
+          )}
         </div>
       </div>
       <div

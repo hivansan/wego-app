@@ -17,9 +17,11 @@ const CollectionDetails = ({ setFooter, locationState }) => {
   const [filters, setFilters] = useState([]);
   const [traits, setTraits] = useState([]);
   const [isMounted, setIsMounted] = useState(false);
-  const [priceRange, setPriceRange] = useState(false);
+  const [priceUsdRange, setPriceUsdRange] = useState(false);
   const [rankRange, setRankRange] = useState(false);
   const [totalAssets, setTotalAssets] = useState(null);
+  const [traitsCountRange, setTraitsCountRange] = useState(false);
+  const [buyNow, setBuyNow] = useState(false);
 
   const [assetsSort, setAssetsSort] = useState({
     orderBy: 'none',
@@ -44,7 +46,9 @@ const CollectionDetails = ({ setFooter, locationState }) => {
     sortDirection,
     traits,
     priceRange,
-    rankRange
+    rankRange,
+    traitsCountRange,
+    buyNow
   ) => {
     setResultAssets([]);
     setHasNextPage(true);
@@ -56,7 +60,9 @@ const CollectionDetails = ({ setFooter, locationState }) => {
       sortDirection,
       traits,
       priceRange,
-      rankRange
+      rankRange,
+      traitsCountRange,
+      buyNow
     );
     const results =
       res && res.results && res.results.length === 0 ? null : res.results;
@@ -79,7 +85,9 @@ const CollectionDetails = ({ setFooter, locationState }) => {
     sortDirection,
     traits,
     priceRange,
-    rankRange
+    rankRange,
+    traitsCountRange,
+    buyNow
   ) => {
     const isAssetsNew = assetsPage === 0 ? 20 : assetsPage + 20;
     const res = await api.assets.find(
@@ -90,7 +98,9 @@ const CollectionDetails = ({ setFooter, locationState }) => {
       sortDirection,
       traits,
       priceRange,
-      rankRange
+      rankRange,
+      traitsCountRange,
+      buyNow
     );
 
     setAssetsPage(assetsPage + 20);
@@ -141,18 +151,22 @@ const CollectionDetails = ({ setFooter, locationState }) => {
     }, {});
 
     const hasTraits = Object.keys(traitObj).length === 0 ? null : traitObj;
-    const pr = priceRange ? priceRange : null;
-    const rr = rankRange ? rankRange : null;
+    const PriceUsdFilter = priceUsdRange ? priceUsdRange : null;
+    const rankFilter = rankRange ? rankRange : null;
+    const traitsCountFilter = traitsCountRange ? traitsCountRange : null;
+    const buyNowfilter = buyNow ? buyNow : null;
     setAssetsPage(0);
     getCollectionAssets(
       assetsSort.orderBy,
       assetsSort.orderDirection,
       hasTraits,
-      pr,
-      rr
+      PriceUsdFilter,
+      rankFilter,
+      traitsCountFilter,
+      buyNowfilter
     );
     window.scrollTo(0, 0);
-  }, [filters, assetsSort, rankRange, priceRange]);
+  }, [filters, assetsSort, rankRange, priceUsdRange, traitsCountRange, buyNow]);
 
   if (!isMounted) {
     return null;
@@ -170,8 +184,12 @@ const CollectionDetails = ({ setFooter, locationState }) => {
       />
       <CollectionAssets
         totalAssets={totalAssets}
-        setPriceRange={setPriceRange}
-        priceRange={priceRange}
+        setBuyNow={setBuyNow}
+        buyNow={buyNow}
+        traitsCountRange={traitsCountRange}
+        setTraitsCountRange={setTraitsCountRange}
+        setPriceRange={setPriceUsdRange}
+        priceRange={priceUsdRange}
         rankRange={rankRange}
         setRankRange={setRankRange}
         collectionSlug={slug}
