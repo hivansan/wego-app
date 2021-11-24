@@ -187,7 +187,11 @@ const Header = ({ background, menuOpen, setMenuOpen }) => {
             <div className='left-menu'>
               <div className='d-flex'>
                 <Link to='/'>
-                  <img src={logo} alt='WeGo Main Logo' className='logo' />
+                  <img
+                    src={require('../assets/logo/blue&gray.png').default}
+                    alt=''
+                    className='logo'
+                  />
                 </Link>
               </div>
             </div>

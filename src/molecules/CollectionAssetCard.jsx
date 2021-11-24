@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { FaEthereum } from 'react-icons/fa';
+import Icon from 'react-crypto-icons';
 import CryptoIcon from '../atoms/CryptoIcon';
 import ImageTypeDetect from './ImageTypeDetect';
 
