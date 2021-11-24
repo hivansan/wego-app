@@ -19,7 +19,6 @@ import { oneClickLogin, validateIsLogged } from '../util';
 
 import MenuSearchResults from './header/MenuSearchResults';
 import Menu from './header/Menu';
-import logo from '../assets/logo/blue&gray.png';
 
 const { emitter, store } = Store;
 
