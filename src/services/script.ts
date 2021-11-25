@@ -4,5 +4,5 @@ export const load = (path: string) => {
   s.async = true;                           // asynchronous? true/false
   s.src = path;
   var fs = document.getElementsByTagName('script')[0];  // Get the first script
-  fs.parentNode.insertBefore(s, fs);
+  fs.parentNode!.insertBefore(s, fs);
 };

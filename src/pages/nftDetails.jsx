@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
 import * as Web3 from 'web3';
+import { OpenSeaPort, Network } from 'opensea-js';
+import { OrderSide } from 'opensea-js/lib/types';
 import { InputGroup, Dropdown, Form, Accordion, Button } from 'react-bootstrap';
 
 import moment from 'moment';

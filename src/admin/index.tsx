@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import axios from 'axios';
 import { adminKey } from '../services/auth';
 
-const Admin = ({ events }) => (
+const Admin = ({ events }: { events: any[] }) => (
   <div>
     {events.map(({ display_received_at, source_ip, program, message }) => (
       <div style={{ height: '22px', overflow: 'hidden' }}>
@@ -16,7 +16,7 @@ const Admin = ({ events }) => (
   </div>
 );
 
-const container = document.getElementById('admin');
+const container = document.getElementById('admin')!;
 
 Object.assign(container.style, {
   position: 'fixed',
@@ -41,7 +41,7 @@ axios(`/data/${adminKey()}`).then(({ data }) => {
     headers: { 'X-Papertrail-Token': data.paperTrailKey }
   });
 
-  let maxId = null, events = [];
+  let maxId: number | null = null, events: any[] = [];
 
   document.addEventListener('keydown', e => {
     if (e.key !== '`') {
