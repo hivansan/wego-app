@@ -8,12 +8,14 @@ import {
   FaTwitter,
   FaDiscord,
   FaInstagram,
+  FaTrash,
 } from 'react-icons/fa';
 import { GoVerified } from 'react-icons/go';
 import MarkDown from 'react-markdown';
 import moment from 'moment';
 import Skeleton from 'react-loading-skeleton';
 import ImageTypeDetect from '../../molecules/ImageTypeDetect';
+import { isAdmin } from '../../services/auth';
 
 const CollectionHeaderLeft = ({ collectionInfo }) => {
   return (
@@ -139,32 +141,20 @@ const CollectionHeaderLeft = ({ collectionInfo }) => {
               </a>
             )}
           </div>
-          <div className='social'>
-            {collectionInfo.instagram && (
-              <a
-                href={`https://www.instagram.com/${collectionInfo.instagram}`}
-                target='_blank'
-                rel='noreferrer'
-              >
-                <FaInstagram size={30} />
-                <small>Instagram</small>
-              </a>
-            )}
-          </div>
-          {localStorage.weGoAdmin === 'true' && (
+          {isAdmin() && (
             <div className='admin'>
               <form
                 method='POST'
-                action={`/api/collections/${collectionInfo.slug}/hide`}
+                action={`/api/collections/${collectionInfo.slug}/delete`}
                 target='_blank'
               >
                 <button type='submit'>
-                  <FaRegEyeSlash /> Hide
+                  <FaTrash /> Delete
                 </button>
               </form>
               |{' '}
               {collectionInfo.stats &&
-              collectionInfo.stats.featuredCollection ? (
+                collectionInfo.stats.featuredCollection ? (
                 <form
                   method='POST'
                   action={`/api/collections/${collectionInfo.slug}/unfeature`}
@@ -185,8 +175,9 @@ const CollectionHeaderLeft = ({ collectionInfo }) => {
                   </button>
                 </form>
               )}
-              |{' '}
-              <form
+              {/* Hide for now until this is implemented for real */}
+              {/* |{' '} */}
+              {/* <form
                 method='POST'
                 action={`/api/collections/${collectionInfo.slug}/reindex`}
                 target='_blank'
@@ -194,7 +185,7 @@ const CollectionHeaderLeft = ({ collectionInfo }) => {
                 <button type='submit'>
                   <FaSyncAlt /> Re-Index
                 </button>
-              </form>
+              </form> */}
             </div>
           )}
         </section>

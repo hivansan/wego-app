@@ -54,9 +54,8 @@ const HeaderResults = ({ results, location, isOpen }) => {
             .map(({ value: asset }, i) => (
               <Link
                 to={{
-                  pathname: `/assets/${
-                    asset?.contractAddress || asset.asset_contract.address
-                  }/${asset?.tokenId || asset.token_id}`,
+                  pathname: `/assets/${asset?.contractAddress || asset.asset_contract.address
+                    }/${asset?.tokenId || asset.token_id}`,
                   state: { background: location, searchResults: isOpen },
                 }}
                 key={i}
@@ -72,7 +71,8 @@ const HeaderResults = ({ results, location, isOpen }) => {
               </Link>
             ))}
         </ul>
-      )}
+      )
+      }
     </>
   );
 };

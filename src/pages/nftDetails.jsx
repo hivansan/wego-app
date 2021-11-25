@@ -274,15 +274,15 @@ const NftDetails = (props) => {
                     (acc, t) =>
                       acc +
                       1 /
-                        ((t.trait_count * (1 / asset.traits.length)) /
-                          asset.collection.stats.total_supply),
+                      ((t.trait_count * (1 / asset.traits.length)) /
+                        asset.collection.stats.total_supply),
                     0
                   )
                   .toLocaleString()}`}
                 <hr />
                 <div className=''>
                   {asset?.owner?.address !==
-                  '0x0000000000000000000000000000000000000000' ? (
+                    '0x0000000000000000000000000000000000000000' ? (
                     <>
                       <span>
                         <img
@@ -488,7 +488,7 @@ const NftDetails = (props) => {
                               />
                               {order.base_price /
                                 10 **
-                                  order.payment_token_contract.decimals}{' '}
+                                order.payment_token_contract.decimals}{' '}
                               (
                               {`$${(
                                 (order.base_price /
