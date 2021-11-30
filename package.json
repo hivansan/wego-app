@@ -71,6 +71,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "BUILD_PATH='../api/public' react-scripts build",
+    "build:admin": "parcel build ./src/admin/index.tsx --dist-dir='../api/admin'",
+    "build:all": "yarn build:admin; yarn build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -95,6 +97,7 @@
   "devDependencies": {
     "@types/ramda": "^0.27.56",
     "@types/react-dom": "^17.0.11",
+    "parcel": "2.0.1",
     "typescript": "^4.5.2"
   }
 }
