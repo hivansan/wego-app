@@ -1,4 +1,4 @@
-let subscribers = [];
+let subscribers: any[] = [];
 
 export const listen = (pred: (data: any) => boolean, handler: (data: any) => any) => {
   const sub = [pred, handler];
@@ -7,7 +7,6 @@ export const listen = (pred: (data: any) => boolean, handler: (data: any) => any
 };
 
 export const broadcast = (data: any) => {
-  console.log('RAW SOCKET MESSAGE', data);
   subscribers.forEach(([pred, handler]) => {
     try {
       pred(data) && handler(data);

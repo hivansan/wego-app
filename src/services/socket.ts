@@ -3,10 +3,10 @@ import { evolve, pick, pipe } from "ramda";
 class BackOff {
 
   public current: number = 0;
-  public timer: number = null;
+  public timer: number | null = null;
   public max: number = 10;
   public delay: number = 100;
-  public fn: Function = null;
+  public fn: Function | null = null;
 
   constructor(config: { [key: string]: any } = {}) {
     Object.assign(this, config);
@@ -42,12 +42,12 @@ class BackOff {
 
 export class Socket {
 
-  private url: string = null;
-  private connection: WebSocket = null;
+  private url: string | null = null;
+  private connection: WebSocket | null = null;
   private queue: any[] = [];
-  private dispatch: (msg: any) => any;
+  private dispatch!: (msg: any) => any;
   private messages: { result?: any; error?: any; open?: any; close?: any } = {};
-  private retryState: BackOff;
+  private retryState!: BackOff;
   private connectCallback: any;
 
   constructor({ url, dispatch, onConnect }: { url: string, dispatch: (val: any) => any, onConnect?: any }) {
@@ -62,7 +62,7 @@ export class Socket {
   public start(): void {
     try {
       console.log('[Socket.start] Connecting...');
-      this.connection = this.config(new WebSocket(this.url));
+      this.connection = this.config(new WebSocket(this.url!));
     } catch (e) {
       console.error('[Socket.start]', e);
     }
@@ -72,7 +72,7 @@ export class Socket {
     this.retryState.stop();
 
     try {
-      this.connection.close();
+      this.connection && this.connection.close();
     } catch (e) { }
   }
 
@@ -114,7 +114,7 @@ export class Socket {
     }
 
     try {
-      this.connection.send(JSON.stringify(message));
+      connection.send(JSON.stringify(message));
     } catch (e) {
       console.error('[Socket.send]', error);
     }
