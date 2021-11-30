@@ -6,6 +6,8 @@ import { useParams, useLocation } from 'react-router-dom';
 import Error404 from '../Error404';
 
 import { Api } from '../../services/api';
+import * as Relay from '../../services/relay';
+import { pathEq } from 'ramda';
 
 const CollectionDetails = ({ setFooter, locationState }) => {
   const { slug } = useParams();
@@ -167,6 +169,14 @@ const CollectionDetails = ({ setFooter, locationState }) => {
     );
     window.scrollTo(0, 0);
   }, [filters, assetsSort, rankRange, priceUsdRange, traitsCountRange, buyNow]);
+
+  useEffect(() => {
+    const unsubscribe = Relay.listen(pathEq(['collection', 'slug'], slug), event => {
+      console.log('SHOW COLLECTION EVENT IN UI', event);
+    });
+
+    return unsubscribe;
+  }, [slug])
 
   if (!isMounted) {
     return null;
