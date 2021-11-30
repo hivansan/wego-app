@@ -70,9 +70,9 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "BUILD_PATH='../api/public' react-scripts build",
-    "build:admin": "parcel build ./src/admin/index.tsx --dist-dir='../api/admin'",
-    "build:all": "yarn build:admin; yarn build",
+    "build": "react-scripts build; rm -R ../api/public; mv build ../api/public",
+    "build:admin": "mkdir -p ../api/admin; parcel build ./src/admin/index.tsx --dist-dir '../api/admin' --no-cache",
+    "build:all": "yarn build; yarn build:admin",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
