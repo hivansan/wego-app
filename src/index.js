@@ -14,7 +14,7 @@ import { adminKey } from './services/auth';
 import { load } from './services/script';
 
 const socket = new Socket({
-  url: 'ws://localhost:3003/',//location.origin.replace(/^http/, 'ws'),
+  url: window.location.origin.replace(/^http/, 'ws').replace(/:\d+/, '') + ':8443',
   dispatch: pipe(prop('data'), Relay.broadcast),
 });
 socket.start();
