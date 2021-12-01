@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
-import CollectionAssetsFilters from '../../molecules/CollectionsAssetsFilters/Index';
+import CollectionAssetsFilters from '../../molecules/CollectionsAssetsFilters/CollectionAssetsFilters';
 import CollectionAssetsSort from '../../molecules/CollectionAssetsSort';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import CollectionAssetCard from '../../molecules/CollectionAssetCard';
@@ -140,10 +140,10 @@ const CollectionAssets = ({
             </>
           )}
           {filters.length > 0 ||
-          priceRange ||
-          rankRange ||
-          traitsCountRange ||
-          buyNow ? (
+            priceRange ||
+            rankRange ||
+            traitsCountRange ||
+            buyNow ? (
             <div
               className='clear-filters'
               onClick={() => {

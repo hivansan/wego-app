@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import ImageTypeDetect from '../../../molecules/ImageTypeDetect';
-import { GoVerified } from 'react-icons/go';
+import ImageTypeDetect from '../../ImageTypeDetect';
+// import { GoVerified } from 'react-icons/go';
 
 const HeaderResults = ({ results, location, isOpen }) => {
   const assetsFiltered =
@@ -62,7 +62,7 @@ const HeaderResults = ({ results, location, isOpen }) => {
               >
                 <li>
                   <ImageTypeDetect
-                    imageURL={asset?.image_preview_url || asset.imageSmall}
+                    imageURL={asset.imageSmall}
                     alt={''}
                     className='result-img'
                   />

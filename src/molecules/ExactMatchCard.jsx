@@ -21,11 +21,11 @@ const ExactMatchCard = ({ results, className, location, isOpen, ...props }) => {
             resultsHastExactMatch.meta.index === 'collections'
               ? { pathname: `collection/${resultsHastExactMatch.value.slug}` }
               : resultsHastExactMatch.value.asset_contract
-              ? {
+                ? {
                   pathname: `assets/${resultsHastExactMatch.value.asset_contract.address}/${resultsHastExactMatch.value.token_id}`,
                   state: { background: location, searchResults: isOpen },
                 }
-              : {
+                : {
                   pathname: `assets/${resultsHastExactMatch.value.contractAddress}/${resultsHastExactMatch.value.tokenId}`,
                   state: { background: location, searchResults: isOpen },
                 }
@@ -38,8 +38,7 @@ const ExactMatchCard = ({ results, className, location, isOpen, ...props }) => {
                 imageURL={
                   resultsHastExactMatch.meta.index === 'collections'
                     ? resultsHastExactMatch.value.imgMain
-                    : resultsHastExactMatch.value?.image_preview_url ||
-                      resultsHastExactMatch.value.imageSmall
+                    : resultsHastExactMatch.value.imageSmall
                 }
                 className='exact-match-img'
                 alt={resultsHastExactMatch.value.name}
@@ -105,7 +104,7 @@ const ExactMatchCard = ({ results, className, location, isOpen, ...props }) => {
 
                 <div className='stat'>
                   <p>Total Traits</p>
-                  <p>{resultsHastExactMatch.value.traits.length}</p>
+                  <p>{resultsHastExactMatch.value.traitsCount}</p>
                 </div>
 
                 {resultsHastExactMatch.value.rarityScore ? (
@@ -163,19 +162,3 @@ const ExactMatchCard = ({ results, className, location, isOpen, ...props }) => {
 };
 
 export default ExactMatchCard;
-
-{
-  /* <small>Community trust(781 votes)</small> */
-}
-{
-  /* <div className='reactions'>
-        <div className='reaction'>
-          <AiFillLike size={20} />
-          <small>{resultsHastExactMatch.likes}</small>
-        </div>
-        <div className='reaction'>
-          <AiFillDislike size={20} />
-          <small>{resultsHastExactMatch.disLikes}</small>
-        </div>
-      </div> */
-}

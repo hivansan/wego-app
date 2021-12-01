@@ -1,4 +1,4 @@
-import React, { useEffect, createRef, useState, Profiler } from 'react';
+import { useEffect, createRef, useState, } from 'react';
 
 import { useHistory } from 'react-router-dom';
 import SearchInput from './SearchInput';
@@ -9,19 +9,10 @@ import DropDownAssets from './DropDownAssets';
 
 import NftSearchBarModal from './NftSearchBarModal';
 
-const SearchBar = ({
-  onChange,
-  setDebounceParam,
-  value,
-  results,
-  query,
-  location,
-  ...props
-}) => {
+const NftSearchBar = ({ onChange, setDebounceParam, value, results, query, location, ...props }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [ignoreBlur, setIgnoreBlur] = useState(false);
   const searchRef = createRef();
-
   const history = useHistory();
 
   const onPressEnter = () => {
@@ -141,4 +132,4 @@ const SearchBar = ({
   );
 };
 
-export default SearchBar;
+export default NftSearchBar;

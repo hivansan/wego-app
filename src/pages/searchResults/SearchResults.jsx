@@ -1,8 +1,6 @@
-import React, { useEffect, useState, createRef } from 'react';
-
-import { useHistory, useLocation, Link, useParams } from 'react-router-dom';
+import { useEffect, useState, createRef } from 'react';
+import { useHistory, useLocation, Link } from 'react-router-dom';
 import { Api } from '../../services/api';
-import ReactPaginate from 'react-paginate';
 import SearchInput from '../../molecules/SearchInput';
 
 import useQuery from '../../atoms/hooks/useQuery';
@@ -223,8 +221,7 @@ const SearchScreen = () => {
                 return window.location.reload(false);
               }
               history.push(
-                `/search?q=${encodeURI(param)}&page=${
-                  selectedPage + 1
+                `/search?q=${encodeURI(param)}&page=${selectedPage + 1
                 }${selectedTab}`
               );
               setUrl({

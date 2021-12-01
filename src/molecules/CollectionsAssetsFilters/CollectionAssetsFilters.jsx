@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 import { HiFilter } from 'react-icons/hi';
-import { BiArrowToRight, BiArrowToLeft } from 'react-icons/bi';
+import { BiArrowToLeft } from 'react-icons/bi';
 import Filter from './Filter';
 import SearchFilters from './SearchFilters';
 import RangeFilters from './RangeFilters';
 
 import { Api } from '../../services/api';
-import DarkPrimaryButton from '../../atoms/darkPrimaryButton';
+// import DarkPrimaryButton from '../../atoms/darkPrimaryButton';
 import LightPrimaryButton from '../../atoms/lightPrimaryButton';
 
 const CollectionAssetsFilters = ({
@@ -94,9 +94,8 @@ const CollectionAssetsFilters = ({
   return (
     <>
       <div
-        className={`${
-          isCollapse ? 'd-block' : 'd-none'
-        } filter-collapse collection-assets-filters`}
+        className={`${isCollapse ? 'd-block' : 'd-none'
+          } filter-collapse collection-assets-filters`}
       >
         <header onClick={setIsCollapse}>
           <HiFilter size={20} />
@@ -104,9 +103,8 @@ const CollectionAssetsFilters = ({
       </div>
 
       <div
-        className={`${
-          isCollapse ? 'd-none' : 'd-block'
-        } collection-assets-filters`}
+        className={`${isCollapse ? 'd-none' : 'd-block'
+          } collection-assets-filters`}
       >
         <div>
           <header onClick={setIsCollapse}>

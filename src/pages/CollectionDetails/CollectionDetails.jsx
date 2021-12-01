@@ -70,7 +70,6 @@ const CollectionDetails = ({ setFooter, locationState }) => {
       res && res.results && res.results.length === 0 ? null : res.results;
     setResultAssets(results);
 
-    console.log(res);
     setTotalAssets(res);
     if (res.results && res.results.length < 20) {
       setHasNextPage(false);

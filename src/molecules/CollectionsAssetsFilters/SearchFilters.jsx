@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Checkbox from '../../atoms/Checkbox';
 
 import Range from './Range';

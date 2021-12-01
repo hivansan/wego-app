@@ -17,8 +17,8 @@ const HotCollectionsBar = ({ hotCollections, isInputHeaderShown }) => {
   const isInputShow = isInputHeaderShown
     ? 'hot-bar-lg'
     : isMobile
-    ? 'hot-bar-normal'
-    : 'hot-bar-lg';
+      ? 'hot-bar-normal'
+      : 'hot-bar-lg';
 
   const sliderSettings = {
     dots: false,
@@ -64,12 +64,9 @@ const HotCollectionsBar = ({ hotCollections, isInputHeaderShown }) => {
       },
     ],
   };
-  const stop = () => {
-    sliderRef.current.slickPause();
-  };
-  const play = () => {
-    sliderRef.current.slickPlay();
-  };
+
+  // const stop = () => sliderRef.current.slickPause()
+  // const play = () => sliderRef.current.slickPlay()
 
   return (
     <div className={`${isInputShow} hot-collections-bar`}>
@@ -83,7 +80,7 @@ const HotCollectionsBar = ({ hotCollections, isInputHeaderShown }) => {
           {hotCollections.map(({ value: collection }, i) => (
             <a
               href={`/collection/${collection.slug}`}
-              key={collection.contractAddress + i}
+              key={collection.slug}
             >
               <div className='hot-collection'>
                 <FiArrowUpCircle size={15} color={'green'} />

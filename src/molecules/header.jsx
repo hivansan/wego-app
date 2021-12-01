@@ -1,5 +1,5 @@
 import React, { useState, createRef } from 'react';
-import { FaWallet, FaUser } from 'react-icons/fa';
+import { FaWallet } from 'react-icons/fa';
 import { useMediaQuery } from 'react-responsive';
 import HotCollectionsBar from './HotCollectionsBar';
 import SearchInput from './SearchInput';
@@ -12,10 +12,9 @@ import { CONNECTION_CONNECTED, CONNECTION_DISCONNECTED } from '../constants';
 import Store from '../stores/store';
 import { useEffect } from 'react';
 import NftSearchBarModal from './NftSearchBarModal';
-import HeaderDropDownResults from './DropdownResults/headerResults/Index';
-import { AiFillShop, AiOutlineForm } from 'react-icons/ai';
+import HeaderDropDownResults from './DropdownResults/headerResults/HeaderResults';
+import { AiOutlineForm } from 'react-icons/ai';
 import { IoAnalyticsSharp } from 'react-icons/io5';
-import { oneClickLogin, validateIsLogged } from '../util';
 
 import MenuSearchResults from './header/MenuSearchResults';
 import Menu from './header/Menu';
@@ -24,7 +23,7 @@ const { emitter, store } = Store;
 
 const Header = ({ background, menuOpen, setMenuOpen }) => {
   const [modalOpen, setModalOpen] = useState(false);
-  const [assetModal, setAssetModal] = useState(false);
+  const [assetModal] = useState(false);
   const [hotCollections, setHotCollections] = useState(null);
   const [connected, setConnected] = useState(false);
   const [account, setAccount] = useState(null);
@@ -330,26 +329,6 @@ const Header = ({ background, menuOpen, setMenuOpen }) => {
                   'Connect you wallet'
                 )}
               </div>
-              {/* <div
-                onClick={() => {
-                  connected ? oneClickLogin() : setModalOpen(true);
-                }}
-              >
-                Sign message
-              </div>
-              {/* {login ? (
-                <div onClick={() => localStorage.removeItem('token')}>
-                  Log out
-                </div>
-              ) : (
-                <div
-                  onClick={() => {
-                    connected ? oneClickLogin() : setModalOpen(true);
-                  }}
-                >
-                  login
-                </div>
-              )} */}
 
               {modalOpen && (
                 <UnlockModal

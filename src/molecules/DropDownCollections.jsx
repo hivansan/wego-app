@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from 'react';
 import DropDownCollectionItem from './DropdownResults/homeResults/CollectionsResults/DropDownCollectionItem';
 
 const DropDownCollections = ({ results, location }) => {
@@ -15,15 +14,15 @@ const DropDownCollections = ({ results, location }) => {
           <header>Collections</header>
           {collectionsFiletered
             .filter((item) => item.value.featuredCollection)
-            .map((item, i) => (
-              <DropDownCollectionItem collection={item} key={i} />
+            .map((item) => (
+              <DropDownCollectionItem collection={item} key={item.slug} />
             ))}
           {collectionsFiletered
             .filter((item) => !item.value.featuredCollection)
-            .map(({ value: collection }, i) => (
+            .map(({ value: collection }) => (
               <DropDownCollectionItem
                 collection={collection}
-                key={collection.contractAddress + i}
+                key={collection.slug}
               />
             ))}
         </div>

@@ -34,7 +34,7 @@ const AssetResultCard = ({ result, location }) => {
           <div className='asset-result-card-info-container'>
             <div className='asset-result-card-info'>
               <ImageTypeDetect
-                imageURL={asset?.image_preview_url || asset.imageSmall}
+                imageURL={asset.imageSmall}
                 alt={asset.name}
                 className='asset-result-img'
               />
@@ -59,7 +59,7 @@ const AssetResultCard = ({ result, location }) => {
                 </p>
               )}
               <p>
-                Total traits: <strong>{asset?.traits?.length || 0}</strong>
+                Total traits: <strong>{asset.traitsCount || asset?.traits?.length || 0}</strong>
               </p>
 
               {asset.rarityScore ? (
@@ -109,7 +109,7 @@ const AssetResultCard = ({ result, location }) => {
                 }}
               >
                 <ImageTypeDetect
-                  imageURL={asset?.image_preview_url || asset.imageSmall}
+                  imageURL={asset.imageSmall}
                   alt={asset.name}
                   className='asset-preview-img'
                 />

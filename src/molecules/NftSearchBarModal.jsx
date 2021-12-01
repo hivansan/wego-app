@@ -1,18 +1,6 @@
-import React from 'react';
-
 import { Link } from 'react-router-dom';
 
-const NftSearchBarModal = ({
-  results,
-  isOpen,
-  setIsOpen,
-  query,
-  location,
-  children,
-  setIsFocus,
-  className,
-  noItemsFound,
-}) => {
+const NftSearchBarModal = ({ results, isOpen, query, children, className, noItemsFound }) => {
   const hasExtraClasses = className ? className : '';
   const modalIsOpen = isOpen ? '' : 'd-none';
 

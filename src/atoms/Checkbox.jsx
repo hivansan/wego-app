@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { flushSync } from 'react-dom';
+import { useState, useEffect } from 'react';
+// import { flushSync } from 'react-dom';
 
 const Checkbox = ({ label, setFilters, filters, traitType, extra }) => {
   const [checked, setChecked] = useState(false);
@@ -10,7 +10,7 @@ const Checkbox = ({ label, setFilters, filters, traitType, extra }) => {
       return setChecked(false);
     }
     setFilters(() => {
-      const obj = {};
+      // const obj = {};
       setFilters([...filters, { traitType, value: label }]);
     });
 

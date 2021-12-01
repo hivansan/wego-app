@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 import Modal from '../atoms/Modal';
-import DarkPrimaryButton from '../atoms/darkPrimaryButton';
-import LightPrimaryButton from '../atoms/lightPrimaryButton';
 import ImageTypeDetect from './ImageTypeDetect';
 import { Api } from '../services/api';
 import { useLocation, useHistory, useParams } from 'react-router-dom';

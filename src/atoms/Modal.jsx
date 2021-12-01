@@ -1,23 +1,8 @@
-import React from 'react';
-import { useMediaQuery } from 'react-responsive';
-import {
-  Modal,
-  Fade,
-  Backdrop,
-  makeStyles,
-  Dialog,
-  DialogContent,
-} from '@material-ui/core';
+import { /* Modal, Fade, Backdrop, makeStyles, */ Dialog, DialogContent, } from '@material-ui/core';
+// import React from 'react';
+// import { useMediaQuery } from 'react-responsive';
 
-const CustomModal = ({
-  children,
-  bodyStyles,
-  open,
-  onClose,
-  isLoading,
-  modalStyles,
-  ...props
-}) => {
+const CustomModal = ({ children, bodyStyles, open, onClose, isLoading, modalStyles, ...props }) => {
   if (!isLoading) {
     return (
       <Dialog

@@ -1,20 +1,16 @@
-import React, { useState, useEffect } from 'react';
-
-import { Switch, Route, useLocation, useRouteMatch } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Switch, Route, useLocation } from 'react-router-dom';
 
 import GetListed from '../pages/getListed';
-import Home from '../pages/home/index';
+import Home from '../pages/home/Home';
 import NftDetails from '../pages/nftDetails';
-import CollectionDetails from '../pages/CollectionDetails/Index';
-import SearchResults from '../pages/searchResults/Index';
+import CollectionDetails from '../pages/CollectionDetails/CollectionDetails';
+import SearchResults from '../pages/searchResults/SearchResults';
 import Error404 from '../pages/Error404';
-import Graphs from '../pages/graphs/Index';
-
+import Graphs from '../pages/graphs/graphs';
 import Header from '../molecules/header';
 import Footer from '../molecules/footer.jsx';
-
 import AssetDetail from '../molecules/AssetDetail';
-
 import Favorites from '../pages/Favorites';
 
 const MainSwitch = () => {

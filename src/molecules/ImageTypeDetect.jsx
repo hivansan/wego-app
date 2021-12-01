@@ -1,24 +1,15 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
-const ImageTypeDetect = ({
-  className,
-  imageURL,
-  alt,
-  bigImage,
-  onLoading,
-  bigVideo,
-}) => {
+const ImageTypeDetect = ({ className, imageURL, alt, bigImage, onLoading, bigVideo, }) => {
   const [ImageIsloaded, setImageIsloaded] = useState(false);
+
 
   const urlSplit = imageURL
     ? imageURL.split('.')
     : 'https://i.stack.imgur.com/y9DpT.jpg';
   const hasClass = className ? className : '';
 
-  if (
-    urlSplit[urlSplit.length - 1] === 'mp4' ||
-    urlSplit[urlSplit.length - 1] === 'mov'
-  ) {
+  if (['mp4', 'mov'].includes(urlSplit[urlSplit.length - 1])) {
     return (
       <>
         {bigVideo ? (
@@ -30,7 +21,7 @@ const ImageTypeDetect = ({
               controlsList='nodownload'
               loop
               style={ImageIsloaded ? {} : { display: 'none' }}
-              className={className}
+              className={hasClass}
               onLoadedData={() => setImageIsloaded(true)}
             >
               <source src={imageURL} type='video/mp4' />
@@ -42,7 +33,7 @@ const ImageTypeDetect = ({
             muted
             controlsList='nodownload'
             loop
-            className={className}
+            className={hasClass}
           >
             <source src={imageURL} type='video/mp4' />
           </video>

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import * as Web3 from 'web3';
 import { OpenSeaPort, Network } from 'opensea-js';
 import { OrderSide } from 'opensea-js/lib/types';
-import { InputGroup, Dropdown, Form, Accordion, Button } from 'react-bootstrap';
+import { InputGroup, Dropdown, Form, Accordion } from 'react-bootstrap';
 
 import moment from 'moment';
 
@@ -13,7 +13,7 @@ import { infuraProvider } from '../config/example.config';
 import { CONNECTION_CONNECTED } from '../constants/constants';
 // import openseaGetAsset from '../utils/opensea.getAsset';
 
-const { emitter, dispatcher, store } = Store;
+const { emitter, store } = Store;
 
 const NftDetails = (props) => {
   const [asset, setAsset] = useState({});
@@ -31,7 +31,6 @@ const NftDetails = (props) => {
   const [selectedAssetBalance, setSelectedAssetBalance] = useState(0);
   const [fromAddress, setFromAddress] = useState();
   const [fromToggleContents, setFromToggleContents] = useState('Choose');
-  const [rarityScore, setRarityScore] = useState(0);
 
   const provider = new Web3.providers.HttpProvider(infuraProvider);
 
@@ -93,9 +92,6 @@ const NftDetails = (props) => {
 
       let sell_order = asset?.orders?.find(({ side }) => side);
       let buy_orders = asset?.orders?.filter(({ side }) => !side);
-      console.log(asset);
-      console.log(sell_order);
-      console.log(buy_orders);
       setSellOrder(sell_order);
       setBuyOrders(buy_orders);
 
@@ -129,21 +125,21 @@ const NftDetails = (props) => {
     console.log(fromAmount);
 
     try {
-      const seaport = new OpenSeaPort(window.web3.currentProvider, {
-        networkName: Network.Main,
-      });
+      // const seaport = new OpenSeaPort(window.web3.currentProvider, {
+      //   networkName: Network.Main,
+      // });
 
-      const offer = await seaport.createBuyOrder({
-        asset: {
-          tokenId,
-          tokenAddress,
-          schemaName: asset_contract.schema_name, // WyvernSchemaName. If omitted, defaults to 'ERC721'. Other options include 'ERC20' and 'ERC1155'
-        },
-        accountAddress: account.address,
-        // Value of the offer, in units of the payment token (or wrapped ETH if none is specified):
-        paymentTokenAddress: fromAddress,
-        startAmount: fromAmount,
-      });
+      // const offer = await seaport.createBuyOrder({
+      //   asset: {
+      //     tokenId,
+      //     tokenAddress,
+      //     schemaName: asset_contract.schema_name, // WyvernSchemaName. If omitted, defaults to 'ERC721'. Other options include 'ERC20' and 'ERC1155'
+      //   },
+      //   accountAddress: account.address,
+      //   // Value of the offer, in units of the payment token (or wrapped ETH if none is specified):
+      //   paymentTokenAddress: fromAddress,
+      //   startAmount: fromAmount,
+      // });
     } catch (error) {
       console.log(error);
     }
@@ -274,8 +270,7 @@ const NftDetails = (props) => {
                     (acc, t) =>
                       acc +
                       1 /
-                      ((t.trait_count * (1 / asset.traits.length)) /
-                        asset.collection.stats.total_supply),
+                      ((t.trait_count * (1 / asset.traitsCount)) / asset.collection.stats.total_supply),
                     0
                   )
                   .toLocaleString()}`}
@@ -295,6 +290,7 @@ const NftDetails = (props) => {
                       <a
                         href={`https://etherscan.io/address/${asset?.owner?.address}`}
                         target='_blank'
+                        rel='noreferrer'
                       >
                         <span className='small gray ml-2'>
                           {asset.owner?.address
@@ -324,6 +320,7 @@ const NftDetails = (props) => {
                                     <a
                                       href={`https://etherscan.io/address/${owner.address}`}
                                       target='_blank'
+                                      rel='noreferrer'
                                     >
                                       <span className='small gray ml-2'>
                                         {`${owner.address?.substr(
@@ -360,6 +357,7 @@ const NftDetails = (props) => {
                     <a
                       href={`https://etherscan.io/address/${asset.asset_contract?.address}`}
                       target='_blank'
+                      rel='noreferrer'
                     >
                       <span className='small gray'>
                         {`${asset?.asset_contract?.address.substr(
@@ -403,6 +401,7 @@ const NftDetails = (props) => {
                   <a
                     href={`https://etherscan.io/address/${asset?.creator?.address}`}
                     target='_blank'
+                    rel='noreferrer'
                   >
                     <span className='small gray ml-2'>
                       {`${asset.creator?.address.substr(

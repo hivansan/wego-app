@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ImageTypeDetect from '../../../ImageTypeDetect';
 import moment from 'moment';
@@ -81,15 +81,15 @@ const DropDownCollectionItem = ({ collection }) => {
           </div>
         </div>
         <div className='assets-preview'>
-          {assets?.length > 0 && <p>Assets Preview</p>}
+          {assets?.length && <p>Assets Preview</p>}
           <div className='assets'>
             {assets?.length > 0 &&
-              assets.map((asset, i) => (
+              assets.map((asset) => (
                 // <img src={asset.imageSmall} alt='' key={asset.id} />
                 <ImageTypeDetect
                   imageURL={asset.imageSmall}
                   alt={asset.tokenId}
-                  key={i}
+                  key={asset.contractAddress + asset.tokenId}
                 />
               ))}
           </div>

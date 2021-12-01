@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const Trait = ({ filters, setFilters, trait, bgFilters }) => {
   const [checked, setChecked] = useState(false);
@@ -9,7 +9,7 @@ const Trait = ({ filters, setFilters, trait, bgFilters }) => {
       return setChecked(false);
     }
     setFilters(() => {
-      const obj = {};
+      // const obj = {};
       setFilters([
         ...filters,
         {
@@ -42,9 +42,7 @@ const Trait = ({ filters, setFilters, trait, bgFilters }) => {
         </div>
       </div>
       <div
-        className={`${
-          checked ? 'checked' : 'unChecked'
-        } asset-detail-filter-attribute`}
+        className={`${checked ? 'checked' : 'unChecked'} asset-detail-filter-attribute`}
       >
         <small>{trait.value}</small>
         <div className='asset-detail-filter-a'>

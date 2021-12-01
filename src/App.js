@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-import MainSwitch from './routerSwitches/Index';
+import MainSwitch from './routerSwitches/MainSwitch';
 import { CONNECTION_CONNECTED, CONNECTION_DISCONNECTED } from './constants';
 
 import { injected } from './stores/connectors';
