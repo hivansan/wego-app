@@ -11,8 +11,7 @@ const CustomRange = ({ traits, traitType }) => {
       newArr.push(trait.value);
     });
 
-    return newArr;
-  };
+  const getValues = (arr) => arr.map(t => t.value)
 
   const [value, setValue] = React.useState([
     Math.min.apply(null, getValues(traits)),

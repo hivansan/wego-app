@@ -46,20 +46,18 @@ const SearchFilters = ({
   if (traits.length < 5 && traits.some((trait) => !trait.displayType))
     return (
       <>
-        {collectionTraits.map((trait, i) => {
-          if (trait.trait_type === traitType) {
-            return (
-              <Checkbox
-                traitType={traitType}
-                label={trait.value}
-                key={i}
-                setFilters={setFilters}
-                filters={filters}
-                extra={trait.trait_count}
-              />
-            );
-          }
-        })}
+        {collectionTraits
+          .filter(t => t.trait_type === traitType)
+          .map((trait, i) =>
+            <Checkbox
+              traitType={traitType}
+              label={trait.value}
+              key={i}
+              setFilters={setFilters}
+              filters={filters}
+              extra={trait.trait_count}
+            />
+          )}
       </>
     );
 
