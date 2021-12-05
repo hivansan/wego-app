@@ -69,7 +69,7 @@ body[theme='dark'] {
   --bm-icon-color: #{$bm-icon-color--dark};
 }
 
-body[theme=''] {
+body {
   --bg-app: #{$bg-app--dark};
   --bg-header: #{$bg-header--dark};
   --color-secondary: #{$secondary-color--dark};
