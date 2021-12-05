@@ -90,6 +90,7 @@ const DropDownCollectionItem = ({ collection }) => {
                   imageURL={asset.imageSmall}
                   alt={asset.tokenId}
                   key={asset.contractAddress + asset.tokenId}
+                  className='asset-img'
                 />
               ))}
           </div>

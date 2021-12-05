@@ -87,9 +87,10 @@
         justify-content: center;
         gap: 0.3rem;
 
-        img {
+        .asset-img {
           width: auto;
-          height: 80px;
+          height: 70px;
+          object-fit: cover;
         }
       }
     }

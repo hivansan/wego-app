@@ -5,13 +5,7 @@ import { Range } from 'rc-slider';
 import 'rc-slider/assets/index.css';
 
 const CustomRange = ({ traits, traitType }) => {
-  const getValues = (arr) => {
-    const newArr = [];
-    arr.map((trait) => {
-      newArr.push(trait.value);
-    });
-
-  const getValues = (arr) => arr.map(t => t.value)
+  const getValues = (arr) => arr.map((t) => t.value);
 
   const [value, setValue] = React.useState([
     Math.min.apply(null, getValues(traits)),
@@ -102,25 +96,6 @@ const CustomRange = ({ traits, traitType }) => {
       </>
     );
   }
-
-  // const countDecimals = function (value) {
-  //   let decimals = null;
-
-  //   if (Math.floor(value) !== value)
-  //     decimals = value.toString().split('.')[1].length || 0;
-
-  //   const arr = [];
-
-  //   for (let i = 0; i < decimals; i++) {
-  //     if (i === decimals - 1) {
-  //       arr.push(1);
-  //     } else {
-  //       arr.push(0);
-  //     }
-  //   }
-
-  //   return '0.' + arr.join('');
-  // };
 
   return (
     <>
