@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import Slider from '@material-ui/core/Slider';
-// import Slider from '@mui/material/Slider';
 import { Range } from 'rc-slider';
 import 'rc-slider/assets/index.css';
+import update from 'immutability-helper';
 
-const CustomRange = ({ traits, traitType }) => {
+const CustomRange = ({ traits, traitType, filters, setFilters }) => {
   const getValues = (arr) => arr.map((t) => t.value);
 
   const [value, setValue] = React.useState([
@@ -31,7 +30,8 @@ const CustomRange = ({ traits, traitType }) => {
       return setValue([value[0], value[1]]);
     }
     setValue([e.target.value, value[1]]);
-    console.log({ [traitType]: { gt: value[0], lt: value[1] } });
+    // console.log({ [traitType]: { gt: value[0], lt: value[1] } });
+    // setFilters([...filters, { traitType, value: label }]);
   };
 
   const handleMaxChange = (e) => {
@@ -55,6 +55,25 @@ const CustomRange = ({ traits, traitType }) => {
     setMaxValue(value[1]);
   }, [value]);
 
+  useEffect(() => {
+    console.log('filters:', filters);
+  }, [filters]);
+
+  const onAfterChange = (sliderValues) => {
+    if (filters.some((t) => t.traitType === traitType)) {
+      const idx = filters.findIndex((t) => t.traitType === traitType);
+      const newFilters = update(filters, {
+        [idx]: { value: { $set: { gte: value[0], lte: value[1] } } },
+      });
+      setFilters(newFilters);
+    } else {
+      setFilters([
+        ...filters,
+        { traitType, value: { gte: value[0], lte: value[1] } },
+      ]);
+    }
+  };
+
   if (Number.isInteger(Math.max.apply(null, getValues(traits)))) {
     return (
       <>
@@ -65,14 +84,7 @@ const CustomRange = ({ traits, traitType }) => {
           onChange={handleChange}
           min={Math.min.apply(null, getValues(traits))}
           max={Math.max.apply(null, getValues(traits))}
-          onAfterChange={(value) =>
-            console.log(
-              `http://localhost:3000/api/assets?slug=forgottenruneswizardscult&limit=20&offset=0&sortDirection=desc&traits={%22${traitType}%22:{%22min%22:${value[0]},%22max%22:${value[1]}}}`
-              // [traitType]: { gt: value[0], lt: value[1] },
-              // range: [value[0], parseFloat(e.target.value)],
-              // min: value[0],
-            )
-          }
+          onAfterChange={onAfterChange}
           value={value}
         />
 
@@ -109,9 +121,7 @@ const CustomRange = ({ traits, traitType }) => {
         onChange={handleChange}
         min={Math.min.apply(null, getValues(traits))}
         max={Math.max.apply(null, getValues(traits))}
-        onAfterChange={(value) =>
-          console.log({ [traitType]: { gt: value[0], lt: value[1] } })
-        }
+        onAfterChange={onAfterChange}
         value={value}
         step={0.001}
       />

@@ -23,19 +23,19 @@ const CollectionAssetsFiltersMobile = ({
   traitsCountRange,
 }) => {
   const isMobile = useMediaQuery({ query: '(max-width: 576px)' });
-  const newArr = [];
   const [maxPrice, setMaxPrice] = useState(null);
   const [maxRank, setMaxRank] = useState(null);
   const [maxTraitsCount, setMaxTraitsCount] = useState(null);
   const [price, setPrice] = useState('priceUsdRange');
   const api = new Api();
-  const myObj = {};
+  const traitTypes = [];
 
   if (collectionTraits) {
+    const myObj = {};
     collectionTraits.forEach((el) => {
       if (!(el.trait_type in myObj)) {
         myObj[el.trait_type] = true;
-        newArr.push(el.trait_type);
+        traitTypes.push(el.trait_type);
       }
     });
   }
@@ -135,7 +135,7 @@ const CollectionAssetsFiltersMobile = ({
             min={0}
           />
         </Filter>
-        {newArr.map((traitType, i) => (
+        {traitTypes.map((traitType, i) => (
           <Filter title={traitType} key={i}>
             <SearchFilters
               collectionTraits={collectionTraits}

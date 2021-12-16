@@ -5,10 +5,13 @@ import { BiArrowToLeft } from 'react-icons/bi';
 import Filter from './Filter';
 import SearchFilters from './SearchFilters';
 import RangeFilters from './RangeFilters';
-
+import { useMediaQuery } from 'react-responsive';
 import { Api } from '../../services/api';
+import CollectionFiltersMobile from '../../pages/CollectionDetails/CollectionFiltersMobile';
 // import DarkPrimaryButton from '../../atoms/darkPrimaryButton';
 import LightPrimaryButton from '../../atoms/lightPrimaryButton';
+
+// 657
 
 const CollectionAssetsFilters = ({
   isCollapse,
@@ -18,6 +21,8 @@ const CollectionAssetsFilters = ({
   filters,
   collectionSlug,
   collection,
+  filtersMobileOpen,
+  setFiltersMobileOpen,
   setPriceRange,
   priceRange,
   rankRange,
@@ -33,14 +38,14 @@ const CollectionAssetsFilters = ({
   const [maxTraitsCount, setMaxTraitsCount] = useState(null);
   const [price, setPrice] = useState('priceUsdRange');
   const traits = [];
-
+  const isMobile = useMediaQuery({ query: '(max-width: 576px)' });
   const api = new Api();
 
   if (collectionTraits) {
-    const myObj = {};
+    const traitType = {};
     collectionTraits.forEach((el) => {
-      if (!(el.trait_type in myObj)) {
-        myObj[el.trait_type] = true;
+      if (!(el.trait_type in traitType)) {
+        traitType[el.trait_type] = true;
         traits.push(el.trait_type);
       }
     });
@@ -93,9 +98,28 @@ const CollectionAssetsFilters = ({
 
   return (
     <>
+      <CollectionFiltersMobile
+        containerClassName='modal-filters'
+        setTraitsCountRange={setTraitsCountRange}
+        traitsCountRange={traitsCountRange}
+        isOpen={filtersMobileOpen}
+        setBuyNow={setBuyNow}
+        buyNow={buyNow}
+        setIsOpen={setFiltersMobileOpen}
+        collectionTraits={collectionTraits}
+        setFilters={setFilters}
+        filters={filters}
+        setPriceRange={setPriceRange}
+        priceRange={priceRange}
+        rankRange={rankRange}
+        setRankRange={setRankRange}
+        collectionSlug={collectionSlug}
+      />
+
       <div
-        className={`${isCollapse ? 'd-block' : 'd-none'
-          } filter-collapse collection-assets-filters`}
+        className={`${
+          isCollapse ? 'd-block' : 'd-none'
+        } filter-collapse collection-assets-filters`}
       >
         <header onClick={setIsCollapse}>
           <HiFilter size={20} />
@@ -103,8 +127,9 @@ const CollectionAssetsFilters = ({
       </div>
 
       <div
-        className={`${isCollapse ? 'd-none' : 'd-block'
-          } collection-assets-filters`}
+        className={`${
+          isCollapse ? 'd-none' : 'd-block'
+        } collection-assets-filters`}
       >
         <div>
           <header onClick={setIsCollapse}>

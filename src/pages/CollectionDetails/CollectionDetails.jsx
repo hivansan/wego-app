@@ -170,12 +170,15 @@ const CollectionDetails = ({ setFooter, locationState }) => {
   }, [filters, assetsSort, rankRange, priceUsdRange, traitsCountRange, buyNow]);
 
   useEffect(() => {
-    const unsubscribe = Relay.listen(pathEq(['collection', 'slug'], slug), event => {
-      console.log('SHOW COLLECTION EVENT IN UI', event);
-    });
+    const unsubscribe = Relay.listen(
+      pathEq(['collection', 'slug'], slug),
+      (event) => {
+        console.log('SHOW COLLECTION EVENT IN UI', event);
+      }
+    );
 
     return unsubscribe;
-  }, [slug])
+  }, [slug]);
 
   if (!isMounted) {
     return null;

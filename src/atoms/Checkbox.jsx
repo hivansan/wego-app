@@ -44,7 +44,7 @@ const Checkbox = ({ label, setFilters, filters, traitType, extra }) => {
           type='checkbox'
           checked={checked}
           onChange={onChange}
-          value={label}
+          value={label || ''}
         />
         {label}
       </div>

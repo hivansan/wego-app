@@ -34,8 +34,9 @@ const CollectionAssetCard = ({
     <Link
       key={asset[index].id}
       to={{
-        pathname: `/assets/${asset[index].asset_contract?.address || asset[index].contractAddress
-          }/${asset[index].tokenId}`,
+        pathname: `/assets/${
+          asset[index].asset_contract?.address || asset[index].contractAddress
+        }/${asset[index].tokenId}`,
         state: { background: location, filters: filters },
       }}
     >
