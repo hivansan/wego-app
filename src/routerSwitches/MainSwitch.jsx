@@ -59,9 +59,9 @@ const MainSwitch = () => {
           <Graphs isSearchResultsOpen={isSearchResultsOpen} />
         </Route>
 
-        <Route path='/getlisted'>
+        {/*<Route path='/getlisted'>
           <GetListed isSearchResultsOpen={isSearchResultsOpen} />
-        </Route>
+        </Route>*/}
         <Route exact path='/favorites'>
           <Favorites />
         </Route>

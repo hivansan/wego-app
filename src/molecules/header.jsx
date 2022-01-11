@@ -246,7 +246,7 @@ const Header = ({ background, menuOpen, setMenuOpen }) => {
           {!isMobile && !isTablet && (
             <div className='right-menu'>
               <a href='/analytics'>Analytics</a>
-              <a href='/getlisted'>Get Listed</a>
+              {/*<a href='/getlisted'>Get Listed</a>*/}
               {/* <div
                 onClick={() => {
                   connected ? oneClickLogin() : setModalOpen(true);
@@ -317,10 +317,10 @@ const Header = ({ background, menuOpen, setMenuOpen }) => {
                 <IoAnalyticsSharp size={28} />
                 Analytics
               </a>
-              <a href='/getlisted' className='bm-item'>
+              {/*<a href='/getlisted' className='bm-item'>
                 <AiOutlineForm size={28} />
                 Get Listed
-              </a>
+                </a>*/}
               <div className='bm-item' onClick={() => setModalOpen(true)}>
                 <FaWallet size={28} />
                 {connected ? (
