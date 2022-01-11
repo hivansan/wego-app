@@ -245,7 +245,8 @@ const Header = ({ background, menuOpen, setMenuOpen }) => {
           {/* right menu */}
           {!isMobile && !isTablet && (
             <div className='right-menu'>
-              <a href='/analytics'>Analytics</a>
+              {/*<a href='/analytics'>Analytics</a>*/}
+              
               <a href='/getlisted'>Get Listed</a>
               {/* <div
                 onClick={() => {
@@ -313,10 +314,10 @@ const Header = ({ background, menuOpen, setMenuOpen }) => {
           )}
           {param === '' ? (
             <>
-              <a href='/analytics' className='bm-item'>
+              {/*<a href='/analytics' className='bm-item'>
                 <IoAnalyticsSharp size={28} />
                 Analytics
-              </a>
+                </a>*/}
               <a href='/getlisted' className='bm-item'>
                 <AiOutlineForm size={28} />
                 Get Listed

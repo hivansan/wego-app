@@ -55,9 +55,9 @@ const MainSwitch = () => {
           component={NftDetails}
         ></Route>
 
-        <Route path='/analytics'>
+       {/*<Route path='/analytics'>
           <Graphs isSearchResultsOpen={isSearchResultsOpen} />
-        </Route>
+        </Route>*/}
 
         <Route path='/getlisted'>
           <GetListed isSearchResultsOpen={isSearchResultsOpen} />
