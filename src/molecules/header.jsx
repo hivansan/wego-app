@@ -255,7 +255,7 @@ const Header = ({ background, menuOpen, setMenuOpen }) => {
                 sign
               </div> */}
 
-              <div className='icons'>
+              {/*<div className='icons'>
                 <button
                   style={{
                     borderWidth: '0',
@@ -275,7 +275,7 @@ const Header = ({ background, menuOpen, setMenuOpen }) => {
                     modalOpen={modalOpen}
                   />
                 )}
-              </div>
+              </div>*/}
               <ToggleTheme />
             </div>
           )}
