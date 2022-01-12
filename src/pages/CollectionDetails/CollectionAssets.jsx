@@ -129,7 +129,7 @@ const CollectionAssets = ({
                   key={i}
                   onClick={() =>
                     setFilters(() =>
-                      filters.filter(({ value }) => value !== filter)
+                      filters.filter(trait => trait.value !== filter || trait.traitType !== traitType)
                     )
                   }
                 >
