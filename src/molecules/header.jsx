@@ -48,8 +48,16 @@ const Header = ({ background, menuOpen, setMenuOpen }) => {
 
   useEffect(() => {
     const getHotCollections = async () => {
-      const res = await api.collections.all();
-      setHotCollections(res?.results || []);
+      //const res = await api.collections.all();
+
+      const res = await api.collections.findOne('social-bees-university');
+      const bees_only_res = []; 
+      
+      for (let i = 0; i < 10; i++)
+        bees_only_res.push({ value: res });
+
+      //setHotCollections(res?.results || []);
+      setHotCollections(bees_only_res || []);
     };
 
     getHotCollections();
