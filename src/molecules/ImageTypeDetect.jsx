@@ -1,15 +1,23 @@
 import { useState } from 'react';
 
-const ImageTypeDetect = ({ className, imageURL, alt, bigImage, onLoading, bigVideo, }) => {
+const VIDEO_FORMATS = ['mp4', 'mov', 'webm'];
+const AUDIO_FORMATS = ['mp3', 'wav', 'ogg'];
+//const IMAGE_FORMATS = ['png', 'jpg', 'gif', 'svg'];
+const ANIMATION_3D_FORMATS = ['glb', 'gltf'];
+
+const ImageTypeDetect = ({ className, imageURL, alt, bigImage, onLoading, bigVideo, animationFallbackURL }) => {
   const [ImageIsloaded, setImageIsloaded] = useState(false);
 
 
   const urlSplit = imageURL
-    ? imageURL.split('.')
+    ? imageURL.toLowerCase().split('.')
     : 'https://i.stack.imgur.com/y9DpT.jpg';
   const hasClass = className ? className : '';
 
-  if (['mp4', 'mov'].includes(urlSplit[urlSplit.length - 1])) {
+  // For future reference, this article explains how to implement glb support:
+  // https://uxdesign.cc/make-your-react-websites-fun-by-adding-interactive-3d-objects-1e1d672887e7
+
+  if (VIDEO_FORMATS.includes(urlSplit[urlSplit.length - 1])) {
     return (
       <>
         {bigVideo ? (
@@ -43,7 +51,7 @@ const ImageTypeDetect = ({ className, imageURL, alt, bigImage, onLoading, bigVid
   }
 
   //  AUDIO RENDER
-  if (urlSplit[urlSplit.length - 1] === 'mp3') {
+  if (AUDIO_FORMATS.includes(urlSplit[urlSplit.length - 1])) {
     return (
       <>
         {onLoading}
@@ -55,6 +63,31 @@ const ImageTypeDetect = ({ className, imageURL, alt, bigImage, onLoading, bigVid
     );
   }
 
+  if (ANIMATION_3D_FORMATS.includes(urlSplit[urlSplit.length - 1])) {
+    // Not supported so it goes directly to fallback images
+    return (
+      <div>
+        {ImageIsloaded ? null : <>{onLoading}</>}
+        <img
+          style={ImageIsloaded ? {} : { display: 'none' }}
+          src={
+            animationFallbackURL === '' || !animationFallbackURL
+              ? 'https://i.stack.imgur.com/y9DpT.jpg'
+              : animationFallbackURL
+          }
+          alt={alt}
+          loading='eager'
+          onLoad={() => setImageIsloaded(true)}
+          className={hasClass}
+          onError={(e) => {
+            e.target.onerror = null;
+            e.target.src = 'https://i.stack.imgur.com/y9DpT.jpg';
+          }}
+        />
+      </div>
+    );
+  }
+  
   // BIG PICTURE RENDER
   if (bigImage) {
     return (
