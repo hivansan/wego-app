@@ -254,7 +254,7 @@ const Header = ({ background, menuOpen, setMenuOpen }) => {
           {!isMobile && !isTablet && (
             <div className='right-menu'>
 
-              <a href='/analytics'>Analytics</a>
+              
               {/*<a href='/analytics'>Analytics</a>*/}
               {/*<a href='/getlisted'>Get Listed</a>*/}
 
