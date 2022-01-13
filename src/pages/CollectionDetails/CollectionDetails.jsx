@@ -79,6 +79,7 @@ const CollectionDetails = ({ setFooter, locationState }) => {
     setIsNextPageLoading(false);
 
     setTraits(traits);
+    console.log("traits", traits);
   };
 
   const loadNextAssetsPage = async (
