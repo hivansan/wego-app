@@ -111,7 +111,7 @@ const AssetDetailModal = ({ setFooter }) => {
                         alt={asset.name}
                         bigImage={true}
                         bigVideo={true}
-                        animationFallbackURL={asset.imageBig? asset.imageBig : asset.imageSmall}
+                        animationFallbackURL={asset.imageBig ? asset.imageBig : asset.imageSmall}
                         onLoading={
                           <a
                             href={asset.imageBig}
