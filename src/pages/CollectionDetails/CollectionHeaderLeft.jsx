@@ -131,9 +131,9 @@ const CollectionHeaderLeft = ({ collectionInfo }) => {
             )}
           </div>
           <div className='social'>
-            {collectionInfo.twitter && (
+            {collectionInfo.twitter || collectionInfo.slug === "social-bees-university" && (
               <a
-                href={`https://twitter.com/${collectionInfo.twitter}`}
+                href={`https://twitter.com/${collectionInfo.slug === "social-bees-university" ? "Crypto_Swarm" : collectionInfo.twitter}`}
                 target='_blank'
                 rel='noreferrer'
               >
@@ -143,8 +143,12 @@ const CollectionHeaderLeft = ({ collectionInfo }) => {
             )}
           </div>
           <div className='social'>
-            {collectionInfo.youtube && (
-              <a href={collectionInfo.youtube} target='_blank' rel='noreferrer'>
+            {collectionInfo.slug === "social-bees-university" && (
+              <a
+                href="https://www.youtube.com/c/BeesSocialTV"
+                target='_blank'
+                rel='noreferrer'
+              >
                 <FaYoutube size={30} />
                 <small>Youtube</small>
               </a>
