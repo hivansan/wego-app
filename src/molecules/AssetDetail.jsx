@@ -115,7 +115,7 @@ const AssetDetailModal = ({ setFooter }) => {
                         alt={asset.name}
                         bigImage={true}
                         bigVideo={true}
-                        animationFallbackURL={asset.imageBig? asset.imageBig : asset.imageSmall}
+                        animationFallbackURL={asset.imageBig ? asset.imageBig : asset.imageSmall}
                         onLoading={
                           <a
                             href={asset.imageBig}
@@ -191,13 +191,13 @@ const AssetDetailModal = ({ setFooter }) => {
                       <p>Rarity Rank #{asset.rarityScoreRank}</p>
                     )}
                     <div className='asset-price'>
-                      {asset.currentPriceUSD && (
+                      {asset.currentPrice && (
                         <>
                           <span>
                             <p>Price </p>
-                            <CryptoIcon token={'USD'} />
+                            <CryptoIcon token={asset.sellOrders?.length ? asset.sellOrders[0].payment_token_contract?.symbol : 'ETH'} />
                             <small>
-                              {asset.currentPriceUSD
+                              {asset.currentPrice
                                 .toLocaleString()
                                 .substr(0, 10)}
                             </small>

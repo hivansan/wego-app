@@ -104,13 +104,13 @@ const CollectionAssetCard = ({
             <p>Rarity Rank #{asset[index].rarityScoreRank}</p>
           )}
           <div className='asset-price'>
-            {asset[index].currentPriceUSD && (
+            {asset[index].currentPrice && (
               <>
                 <span>
                   <p>Price </p>
-                  <CryptoIcon token={'USD'} />
+                  <CryptoIcon token={asset[index]?.sellOrders?.length ? asset[index].sellOrders[0].payment_token_contract?.symbol : 'ETH'} />
                   <small>
-                    {asset[index]?.currentPriceUSD?.toLocaleString()}
+                    {asset[index]?.currentPrice?.toLocaleString().substr(0, 10)}
                   </small>
                 </span>
               </>
