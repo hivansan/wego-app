@@ -37,7 +37,10 @@ const AssetDetailModal = ({ setFooter }) => {
 
   const back = (e) => {
     e.stopPropagation();
-    if (!location.key) {
+    if (!location.key && assetScore && assetScore.collection) {
+      return history.push(`/collection/${assetScore.collection.slug}`);
+    }
+    else if (!location.key) {
       return history.push('/');
     }
 
@@ -51,6 +54,7 @@ const AssetDetailModal = ({ setFooter }) => {
     }
 
     if (!location.key) {
+      console.log("HEHREHRE here: ", location.pathname);
       setFooter(location.pathname);
     }
     getAsset();
