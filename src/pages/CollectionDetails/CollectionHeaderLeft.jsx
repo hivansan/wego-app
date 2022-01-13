@@ -19,6 +19,9 @@ import ImageTypeDetect from '../../molecules/ImageTypeDetect';
 import { isAdmin } from '../../services/auth';
 
 const CollectionHeaderLeft = ({ collectionInfo }) => {
+  const socialBeesDiscordLinks = ["qTnnuraPuE", "V68hE9FHrU"][Math.floor(Math.random() * 2)];
+  const socialBeesSlug = "social-bees-university";
+
   return (
     <div className='left-section'>
       <>
@@ -131,9 +134,9 @@ const CollectionHeaderLeft = ({ collectionInfo }) => {
             )}
           </div>
           <div className='social'>
-            {collectionInfo.twitter || collectionInfo.slug === "social-bees-university" && (
+            {(collectionInfo.twitter || collectionInfo.slug === socialBeesSlug) && (
               <a
-                href={`https://twitter.com/${collectionInfo.slug === "social-bees-university" ? "Crypto_Swarm" : collectionInfo.twitter}`}
+                href={`https://twitter.com/${collectionInfo.slug === socialBeesSlug ? "Crypto_Swarm" : collectionInfo.twitter}`}
                 target='_blank'
                 rel='noreferrer'
               >
@@ -143,7 +146,7 @@ const CollectionHeaderLeft = ({ collectionInfo }) => {
             )}
           </div>
           <div className='social'>
-            {collectionInfo.slug === "social-bees-university" && (
+            {collectionInfo.slug === socialBeesSlug && (
               <a
                 href="https://www.youtube.com/c/BeesSocialTV"
                 target='_blank'
