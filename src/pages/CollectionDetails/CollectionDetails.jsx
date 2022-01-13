@@ -116,7 +116,8 @@ const CollectionDetails = ({ setFooter, locationState }) => {
 
   const getCollectionTraits = async () => {
     const res = await api.collections.traits(slug);
-    setCollectionTraits(res?.results || []);
+
+    setCollectionTraits(res?.results.filter( trait => trait.trait_type !== 'traitCount') || []);
   };
 
   useEffect(() => {

@@ -151,6 +151,7 @@ const CollectionAssets = ({
                 setPriceRange(false);
                 setRankRange(false);
                 setBuyNow(false);
+                setTraitsCountRange(false);
               }}
             >
               Clear All
