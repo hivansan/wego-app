@@ -14,7 +14,17 @@ const SearchFilters = ({
   const [traits, setTraits] = useState([]);
 
   useEffect(() => {
-    collectionTraits.map((trait, i) => {
+    
+    /*
+    setTraits((prevTraits) => [...prevTraits, {
+      traitType,
+      value: 'Has no trait',
+      traitCount: null,
+      displayType: null
+    }]);
+    */
+
+    collectionTraits.forEach((trait, i) => {
       let traitsObj = {};
       if (trait.trait_type === traitType) {
         traitsObj = {
@@ -46,8 +56,7 @@ const SearchFilters = ({
   if (traits.length < 5 && traits.some((trait) => !trait.displayType))
     return (
       <>
-        {collectionTraits
-          .filter(t => t.trait_type === traitType)
+        {traits
           .map((trait, i) =>
             <Checkbox
               traitType={traitType}
@@ -55,7 +64,7 @@ const SearchFilters = ({
               key={i}
               setFilters={setFilters}
               filters={filters}
-              extra={trait.trait_count}
+              extra={trait.traitCount}
             />
           )}
       </>
@@ -89,20 +98,16 @@ const SearchFilters = ({
       />
       {param.length === 0 ? (
         <>
-          {collectionTraits.map((trait, i) => {
-            if (trait.trait_type === traitType) {
-              return (
-                <Checkbox
-                  traitType={traitType}
-                  label={trait.value}
-                  key={i}
-                  setFilters={setFilters}
-                  filters={filters}
-                  extra={trait.trait_count}
-                />
-              );
-            }
-          })}
+          {traits.map((trait, i) => 
+            <Checkbox
+              traitType={traitType}
+              label={trait.value}
+              key={i}
+              setFilters={setFilters}
+              filters={filters}
+              extra={trait.traitCount}
+            />
+          )}
         </>
       ) : (
         <>
