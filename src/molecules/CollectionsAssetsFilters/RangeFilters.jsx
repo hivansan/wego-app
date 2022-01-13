@@ -15,7 +15,7 @@ const RangeFilters = ({ filter, max, range, setRange, price, setPrice }) => {
   const onApply = () => {
     setRange({
       param: price || filter,
-      range: { gte: parseInt(value[0]), lte: parseInt(value[1]) },
+      range: { gte: value[0], lte: value[1] },
     });
   };
 
