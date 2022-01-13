@@ -9,6 +9,7 @@ import {
   FaDiscord,
   FaInstagram,
   FaTrash,
+  FaYoutube,
 } from 'react-icons/fa';
 import { GoVerified } from 'react-icons/go';
 import MarkDown from 'react-markdown';
@@ -138,6 +139,14 @@ const CollectionHeaderLeft = ({ collectionInfo }) => {
               >
                 <FaTwitter size={30} />
                 <small>Twitter</small>
+              </a>
+            )}
+          </div>
+          <div className='social'>
+            {collectionInfo.youtube && (
+              <a href={collectionInfo.youtube} target='_blank' rel='noreferrer'>
+                <FaYoutube size={30} />
+                <small>Youtube</small>
               </a>
             )}
           </div>
