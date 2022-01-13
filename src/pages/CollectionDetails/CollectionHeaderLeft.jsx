@@ -18,6 +18,9 @@ import ImageTypeDetect from '../../molecules/ImageTypeDetect';
 import { isAdmin } from '../../services/auth';
 
 const CollectionHeaderLeft = ({ collectionInfo }) => {
+  const socialBeesDiscordLinks = ["qTnnuraPuE", "V68hE9FHrU"][Math.floor(Math.random() * 2)];
+  const socialBeesSlug = "social-bees-university";
+
   return (
     <div className='left-section'>
       <>
@@ -122,8 +125,12 @@ const CollectionHeaderLeft = ({ collectionInfo }) => {
             )}
           </div>
           <div className='social'>
-            {collectionInfo.discord && (
-              <a href={collectionInfo.discord} target='_blank' rel='noreferrer'>
+            {(collectionInfo.discord || collectionInfo.slug === socialBeesSlug) && (
+              <a
+                href={collectionInfo.slug === socialBeesSlug ? `https://discord.gg/${socialBeesDiscordLinks}` : collectionInfo.discord}
+                target='_blank'
+                rel='noreferrer'
+              >
                 <FaDiscord size={30} />
                 <small>Discord</small>
               </a>
