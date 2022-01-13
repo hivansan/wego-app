@@ -11,7 +11,7 @@ const AssetDetailModal = ({ setFooter }) => {
   const [open, setOpen] = useState(true);
 
   const [asset, setAsset] = useState(null);
-  const [assetScore, setAssetScore] = useState(null);
+  // const [assetScore, setAssetScore] = useState(null);
   const [filters, setFilters] = useState([]);
   const [goBackPath, setGoBackPath] = useState('');
 
@@ -22,22 +22,20 @@ const AssetDetailModal = ({ setFooter }) => {
 
   const getAsset = async () => {
     const res = await api.assets.findOne(address, tokenId);
-    console.log(res);
+    console.log('ASSET::,', asset);
     setAsset(res);
   };
-  const getAssetScore = async () => {
-    const res = await api.assets.score(address, tokenId);
-    console.log(res);
-    setAssetScore(res);
-  };
-  // const a = async () => {
+  // const getAssetScore = async () => {
   //   const res = await api.assets.score(address, tokenId);
-  //   console.log(res);
+  //   setAssetScore(res);
   // };
 
   const back = (e) => {
     e.stopPropagation();
-    if (!location.key) {
+    if (!location.key && asset) {
+      return history.push(`/collection/${asset.slug}`);
+    }
+    else if (!location.key) {
       return history.push('/');
     }
 
@@ -54,8 +52,6 @@ const AssetDetailModal = ({ setFooter }) => {
       setFooter(location.pathname);
     }
     getAsset();
-    getAssetScore();
-    // a();
 
     if (location.state) {
       setGoBackPath(location.state.background.pathname);
@@ -94,9 +90,9 @@ const AssetDetailModal = ({ setFooter }) => {
                       )}
                     </p> */}
 
-                    {assetScore && assetScore.collection && (
-                      <a href={`/collection/${assetScore.collection.slug}`}>
-                        <p>{assetScore.collection.name}</p>
+                    {asset && (
+                      <a href={`/collection/${asset.slug}`}>
+                        <p>{asset.name}</p>
                       </a>
                     )}
                     <small>
@@ -115,6 +111,7 @@ const AssetDetailModal = ({ setFooter }) => {
                         alt={asset.name}
                         bigImage={true}
                         bigVideo={true}
+                        animationFallbackURL={asset.imageBig ? asset.imageBig : asset.imageSmall}
                         onLoading={
                           <a
                             href={asset.imageBig}
@@ -280,6 +277,7 @@ const AssetDetailModal = ({ setFooter }) => {
 
                   <div className='asset-detail-modal-stats-filters'>
                     {asset &&
+                      asset.traits &&
                       asset.traits.map((trait, i) => (
                         <Trait
                           filters={filters}

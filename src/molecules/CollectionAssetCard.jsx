@@ -102,7 +102,7 @@ const CollectionAssetCard = ({
 
           {/* <small>#{asset[index]?.tokenId?.substr(0, 25)}</small> */}
           {asset[index].rarityScoreRank && (
-            <p>#{asset[index].rarityScoreRank}</p>
+            <p>Rarity Rank #{asset[index].rarityScoreRank}</p>
           )}
           <div className='asset-price'>
             {asset[index].currentPriceUSD && (
