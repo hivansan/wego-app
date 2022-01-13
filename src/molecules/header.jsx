@@ -332,7 +332,8 @@ const Header = ({ background, menuOpen, setMenuOpen }) => {
                 <AiOutlineForm size={28} />
                 Get Listed
                 </a>*/}
-              <div className='bm-item' onClick={() => setModalOpen(true)}>
+                
+              {/*<div className='bm-item' onClick={() => setModalOpen(true)}>
                 <FaWallet size={28} />
                 {connected ? (
                   <>{account?.address.substring(0, 15)}... </>
@@ -346,7 +347,7 @@ const Header = ({ background, menuOpen, setMenuOpen }) => {
                   closeModal={() => setModalOpen(false)}
                   modalOpen={modalOpen}
                 />
-              )}
+              )}*/}
 
               <div className='bm-item theme-menu'>
                 <ToggleTheme />
