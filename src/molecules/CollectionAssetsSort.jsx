@@ -34,6 +34,7 @@ const CollectionAssetsSort = ({ setAssetsSort, assetsSort }) => {
           {/* <option value='traitsCount'>Traits Count</option> */}
           <option value='currentPrice'>Current Price</option>
           <option value='lastSalePrice'>Last Sale Price</option>
+          <option value='lastSale.created_date'>Recently Sold</option>
         </select>
 
         <RadioGroup
