@@ -38,7 +38,7 @@ const CollectionAssetsFilters = ({
   const [maxTraitsCount, setMaxTraitsCount] = useState(null);
   const [price, setPrice] = useState('priceUsdRange');
   const traits = [];
-  const isMobile = useMediaQuery({ query: '(max-width: 576px)' });
+  const isMobile = useMediaQuery({ query: '(max-width: 657px)' });
   const api = new Api();
 
   if (collectionTraits) {
@@ -96,8 +96,8 @@ const CollectionAssetsFilters = ({
     getMaxPrice();
   }, [price]);
 
-  return (
-    <>
+  if (isMobile) {
+    return (
       <CollectionFiltersMobile
         containerClassName='modal-filters'
         setTraitsCountRange={setTraitsCountRange}
@@ -115,7 +115,11 @@ const CollectionAssetsFilters = ({
         setRankRange={setRankRange}
         collectionSlug={collectionSlug}
       />
+    );
+  }
 
+  return (
+    <>
       <div
         className={`${
           isCollapse ? 'd-block' : 'd-none'

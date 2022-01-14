@@ -42,11 +42,11 @@ const CustomRange = ({ traits, traitType, filters, setFilters }) => {
       return setValue([value[0], value[1]]);
     } else {
       setValue([value[0], e.target.value]);
-      console.log({
-        [traitType]: [{ gt: value[0], lt: parseFloat(e.target.value) }],
-        // range: [value[0], parseFloat(e.target.value)],
-        // min: value[0],
-      });
+      // console.log({
+      //   [traitType]: [{ gt: value[0], lt: parseFloat(e.target.value) }],
+      //   // range: [value[0], parseFloat(e.target.value)],
+      //   // min: value[0],
+      // });
     }
   };
 
@@ -54,10 +54,6 @@ const CustomRange = ({ traits, traitType, filters, setFilters }) => {
     setMinValue(value[0]);
     setMaxValue(value[1]);
   }, [value]);
-
-  useEffect(() => {
-    console.log('filters:', filters);
-  }, [filters]);
 
   const onAfterChange = (sliderValues) => {
     if (filters.some((t) => t.traitType === traitType)) {

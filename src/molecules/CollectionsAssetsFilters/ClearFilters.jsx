@@ -60,7 +60,7 @@ const ClearFilters = ({
               {traitType}:{' '}
               {filter.gte && filter.lte ? (
                 <>
-                  {filter.gte} - {filter.lte}
+                  {filter.gte}-{filter.lte}
                 </>
               ) : (
                 filter
