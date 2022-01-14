@@ -15,7 +15,7 @@ const RangeFilters = ({ filter, max, range, setRange, price, setPrice }) => {
   const onApply = () => {
     setRange({
       param: price || filter,
-      range: { gte: value[0], lte: value[1] },
+      range: { gte: +value[0], lte: +value[1] },
     });
   };
 
@@ -43,7 +43,7 @@ const RangeFilters = ({ filter, max, range, setRange, price, setPrice }) => {
           <select onChange={onSelectPriceHandler} className='range-select'>
             {/* <option value='sale_date'>Sale Date</option>
           <option value='sale_count'>Sale Count</option> */}
-            <option value='priceUsdRange' defaultValue>
+            <option value='priceRangeUSD' defaultValue>
               USD
             </option>
             <option value='priceRange'>ETH</option>
