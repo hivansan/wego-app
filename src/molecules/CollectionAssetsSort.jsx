@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { FormControlLabel, RadioGroup, Radio } from '@material-ui/core';
 
 const CollectionAssetsSort = ({ setAssetsSort, assetsSort }) => {
-  const [select, setSelect] = useState('none');
-  const [radio, setRadio] = useState('desc');
+  const [select, setSelect] = useState('rarityScoreRank');
+  const [radio, setRadio] = useState('asc');
 
   const handleOnChange = (e) => {
     setSelect(e.target.value);
@@ -24,9 +24,7 @@ const CollectionAssetsSort = ({ setAssetsSort, assetsSort }) => {
       <p>Sort by:</p>
       <div className='sort-elements'>
         <select onChange={handleOnChange}>
-          <option value='none' defaultValue>
-            None
-          </option>
+          {/* <option value='none'>None</option> */}
           {/* <option value='sale_date'>Sale Date</option>
           <option value='sale_count'>Sale Count</option> */}
           <option value='rarityScore'>Rarity Score</option>
@@ -39,7 +37,7 @@ const CollectionAssetsSort = ({ setAssetsSort, assetsSort }) => {
         <RadioGroup
           row
           name='row-radio-buttons-group'
-          defaultValue='desc'
+          defaultValue='asc'
           value={radio}
           onChange={handleRadioChange}
         >
