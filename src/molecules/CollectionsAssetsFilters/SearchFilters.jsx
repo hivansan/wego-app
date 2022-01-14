@@ -13,30 +13,21 @@ const SearchFilters = ({
   const [filteredTraits, setFilteredTraits] = useState([]);
   const [traits, setTraits] = useState([]);
 
-  useEffect(() => {
-    collectionTraits.map((trait, i) => {
-      let traitsObj = {};
-      if (trait.trait_type === traitType) {
-        traitsObj = {
-          traitType,
-          value: trait.value,
-          traitCount: trait.trait_count,
-          displayType: trait?.display_type,
-        };
-        setTraits((prevTraits) => [...prevTraits, traitsObj]);
-      }
-    });
-  }, []);
-
   const handleOnChange = (e) => {
     setParam(e.target.value);
   };
 
   useEffect(() => {
+    collectionTraits
+      .filter((t, i) => t.trait_type === traitType)
+      .map((t, i) => setTraits((prevTraits) => [...prevTraits, t]));
+  }, []);
+
+  useEffect(() => {
     if (param.length > 0) {
       return setFilteredTraits(
         traits.filter(({ value }) =>
-          value.toLowerCase().includes(param.toLowerCase())
+          value?.toLowerCase().includes(param.toLowerCase())
         )
       );
     }
@@ -46,18 +37,16 @@ const SearchFilters = ({
   if (traits.length < 5 && traits.some((trait) => !trait.displayType))
     return (
       <>
-        {collectionTraits
-          .filter(t => t.trait_type === traitType)
-          .map((trait, i) =>
-            <Checkbox
-              traitType={traitType}
-              label={trait.value}
-              key={i}
-              setFilters={setFilters}
-              filters={filters}
-              extra={trait.trait_count}
-            />
-          )}
+        {traits.map((trait, i) => (
+          <Checkbox
+            traitType={trait.trait_type}
+            label={trait.value}
+            key={i}
+            setFilters={setFilters}
+            filters={filters}
+            extra={trait.trait_count}
+          />
+        ))}
       </>
     );
 
@@ -89,27 +78,23 @@ const SearchFilters = ({
       />
       {param.length === 0 ? (
         <>
-          {collectionTraits.map((trait, i) => {
-            if (trait.trait_type === traitType) {
-              return (
-                <Checkbox
-                  traitType={traitType}
-                  label={trait.value}
-                  key={i}
-                  setFilters={setFilters}
-                  filters={filters}
-                  extra={trait.trait_count}
-                />
-              );
-            }
-          })}
+          {traits.map((trait, i) => (
+            <Checkbox
+              traitType={trait.trait_type}
+              label={trait.value}
+              key={i}
+              setFilters={setFilters}
+              filters={filters}
+              extra={trait.trait_count}
+            />
+          ))}
         </>
       ) : (
         <>
-          {filteredTraits.map(({ value, traitType, traitCount }, i) => {
+          {filteredTraits.map(({ value, trait_type, traitCount }, i) => {
             return (
               <Checkbox
-                traitType={traitType}
+                traitType={trait_type}
                 label={value}
                 key={i}
                 setFilters={setFilters}

@@ -34,8 +34,7 @@ const AssetDetailModal = ({ setFooter }) => {
     e.stopPropagation();
     if (!location.key && asset) {
       return history.push(`/collection/${asset.slug}`);
-    }
-    else if (!location.key) {
+    } else if (!location.key) {
       return history.push('/');
     }
 
@@ -111,7 +110,9 @@ const AssetDetailModal = ({ setFooter }) => {
                         alt={asset.name}
                         bigImage={true}
                         bigVideo={true}
-                        animationFallbackURL={asset.imageBig ? asset.imageBig : asset.imageSmall}
+                        animationFallbackURL={
+                          asset.imageBig ? asset.imageBig : asset.imageSmall
+                        }
                         onLoading={
                           <a
                             href={asset.imageBig}

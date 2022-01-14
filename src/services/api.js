@@ -55,11 +55,11 @@ export class Api {
         const hasTraitsCountRange = !traitsCountRange
           ? ''
           : `&${traitsCountRange.param}=${JSON.stringify(
-            traitsCountRange.range
-          )}`;
+              traitsCountRange.range
+            )}`;
         const isBuyNow = !buyNow ? '' : `&buyNowOnly=${JSON.stringify(buyNow)}`;
-        const collectionAssetsUrl = `/assets?slug=${slug}&limit=${limit}&offset=${offset}${hasSortDirection}${hasSorts}${hasTraits}${hasPriceRange}${hasRankRange}${hasTraitsCountRange}${isBuyNow}`;
 
+        const collectionAssetsUrl = `/assets?slug=${slug}&limit=${limit}&offset=${offset}${hasSortDirection}${hasSorts}${hasTraits}${hasPriceRange}${hasRankRange}${hasTraitsCountRange}${isBuyNow}`;
         return this.request('get', collectionAssetsUrl);
       },
     };
