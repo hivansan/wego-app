@@ -9,6 +9,7 @@ import {
   FaDiscord,
   FaInstagram,
   FaTrash,
+  FaYoutube,
 } from 'react-icons/fa';
 import { GoVerified } from 'react-icons/go';
 import MarkDown from 'react-markdown';
@@ -18,6 +19,9 @@ import ImageTypeDetect from '../../molecules/ImageTypeDetect';
 import { isAdmin } from '../../services/auth';
 
 const CollectionHeaderLeft = ({ collectionInfo }) => {
+  const socialBeesDiscordLinks = ["qTnnuraPuE", "V68hE9FHrU"][Math.floor(Math.random() * 2)];
+  const socialBeesSlug = "social-bees-university";
+
   return (
     <div className='left-section'>
       <>
@@ -130,14 +134,26 @@ const CollectionHeaderLeft = ({ collectionInfo }) => {
             )}
           </div>
           <div className='social'>
-            {collectionInfo.twitter && (
+            {(collectionInfo.twitter || collectionInfo.slug === socialBeesSlug) && (
               <a
-                href={`https://twitter.com/${collectionInfo.twitter}`}
+                href={`https://twitter.com/${collectionInfo.slug === socialBeesSlug ? "Crypto_Swarm" : collectionInfo.twitter}`}
                 target='_blank'
                 rel='noreferrer'
               >
                 <FaTwitter size={30} />
                 <small>Twitter</small>
+              </a>
+            )}
+          </div>
+          <div className='social'>
+            {collectionInfo.slug === socialBeesSlug && (
+              <a
+                href="https://www.youtube.com/c/BeesSocialTV"
+                target='_blank'
+                rel='noreferrer'
+              >
+                <FaYoutube size={30} />
+                <small>Youtube</small>
               </a>
             )}
           </div>
