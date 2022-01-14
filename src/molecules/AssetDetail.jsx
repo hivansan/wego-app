@@ -48,7 +48,6 @@ const AssetDetailModal = ({ setFooter }) => {
     }
 
     if (!location.key) {
-      console.log('HEHREHRE here: ', location.pathname);
       setFooter(location.pathname);
     }
     getAsset();
