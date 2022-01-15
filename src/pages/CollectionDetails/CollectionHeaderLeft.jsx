@@ -126,8 +126,12 @@ const CollectionHeaderLeft = ({ collectionInfo }) => {
             )}
           </div>
           <div className='social'>
-            {collectionInfo.discord && (
-              <a href={collectionInfo.discord} target='_blank' rel='noreferrer'>
+            {(collectionInfo.discord || collectionInfo.slug === socialBeesSlug) && (
+              <a
+                href={collectionInfo.slug === socialBeesSlug ? `https://discord.gg/${socialBeesDiscordLinks}` : collectionInfo.discord}
+                target='_blank'
+                rel='noreferrer'
+              >
                 <FaDiscord size={30} />
                 <small>Discord</small>
               </a>

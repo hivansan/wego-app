@@ -46,7 +46,7 @@ const Footer = (props) => {
               <FaLink size={35} />
             </a>
             <a
-              href='https://discord.com/invite/MDgmGTJFkD'
+              href='https://discord.com/invite/74Z3mYQQaT'
               target='_blank'
               rel='noopener noreferrer'
             >
