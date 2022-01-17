@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FormControlLabel, RadioGroup, Radio } from '@material-ui/core';
 
 const CollectionAssetsSort = ({ setAssetsSort, assetsSort }) => {
-  const [select, setSelect] = useState('rarityScoreRank');
+  const [select, setSelect] = useState('rarityScore');
   const [radio, setRadio] = useState('asc');
 
   const handleOnChange = (e) => {
