@@ -52,8 +52,8 @@ const Trait = ({ filters, setFilters, trait, bgFilters, collectionTraits }) => {
       <div className='traits-prices'>
         {collectionTraits && (
           <small>
-            <span>Top: <Icon name='eth' size='14' className='token token-secondary' /> {collectionTraits.top_price} </span>
-            <span>Floor: <Icon name='eth' size='14' className='token token-secondary' /> {collectionTraits.floor_price} </span>
+            <span>Top <Icon name='eth' size='14' className='token token-secondary' /> {collectionTraits.top_price} </span>
+            <span>Floor <Icon name='eth' size='14' className='token token-secondary' /> {collectionTraits.floor_price} </span>
           </small>
         )}
       </div>
