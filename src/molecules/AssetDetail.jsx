@@ -91,7 +91,7 @@ const AssetDetailModal = ({ setFooter }) => {
 
                     {asset && (
                       <a href={`/collection/${asset.slug}`}>
-                        <p>{asset.name}</p>
+                        <p>{asset.slug}</p>
                       </a>
                     )}
                     <small>
