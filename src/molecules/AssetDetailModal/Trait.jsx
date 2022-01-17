@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
+import CryptoIcon from '../../atoms/CryptoIcon';
 
-const Trait = ({ filters, setFilters, trait, bgFilters }) => {
+const Trait = ({ filters, setFilters, trait, bgFilters, collectionTraits }) => {
   const [checked, setChecked] = useState(false);
-
   const handleFilter = () => {
     if (checked) {
       setFilters(() => filters.filter(({ value }) => value !== trait.value));
@@ -49,6 +49,23 @@ const Trait = ({ filters, setFilters, trait, bgFilters }) => {
           <p>{trait.trait_count}</p>
         </div>
       </div>
+      <div>
+        <span>
+          <p>Top </p>
+          <CryptoIcon token={'eth'} />
+          <small>
+            {collectionTraits.top_price}
+          </small>
+        </span>
+        <span>
+          <small>Floor </small>
+          <CryptoIcon
+            token={'eth'}
+          />
+          <small> {collectionTraits.floor_price}</small>
+        </span>
+      </div>
+
     </div>
   );
 };
