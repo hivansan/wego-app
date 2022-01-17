@@ -288,7 +288,7 @@ const AssetDetailModal = ({ setFooter }) => {
                           trait={trait}
                           bgFilters={location?.state?.filters || []}
                           key={i}
-                          collectionTraits={collectionTraits.find(collectionTrait => collectionTrait.value === trait.value && collectionTrait.trait_type === trait.trait_type)}
+                          collectionTraits={collectionTraits?.find(collectionTrait => collectionTrait.value === trait.value && collectionTrait.trait_type === trait.trait_type)}
                         />
                       ))}
                   </div>

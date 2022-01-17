@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import CryptoIcon from '../../atoms/CryptoIcon';
+import Icon from 'react-crypto-icons';
 
 const Trait = ({ filters, setFilters, trait, bgFilters, collectionTraits }) => {
   const [checked, setChecked] = useState(false);
@@ -49,23 +49,14 @@ const Trait = ({ filters, setFilters, trait, bgFilters, collectionTraits }) => {
           <p>{trait.trait_count}</p>
         </div>
       </div>
-      <div>
-        <span>
-          <p>Top </p>
-          <CryptoIcon token={'eth'} />
+      <div className='traits-prices'>
+        {collectionTraits && (
           <small>
-            {collectionTraits.top_price}
+            <span>Top: <Icon name='eth' size='14' className='token token-secondary' /> {collectionTraits.top_price} </span>
+            <span>Floor: <Icon name='eth' size='14' className='token token-secondary' /> {collectionTraits.floor_price} </span>
           </small>
-        </span>
-        <span>
-          <small>Floor </small>
-          <CryptoIcon
-            token={'eth'}
-          />
-          <small> {collectionTraits.floor_price}</small>
-        </span>
+        )}
       </div>
-
     </div>
   );
 };
