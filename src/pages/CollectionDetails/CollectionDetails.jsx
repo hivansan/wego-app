@@ -39,7 +39,6 @@ const CollectionDetails = ({ setFooter, locationState }) => {
 
   const getCollection = async () => {
     const collection = await api.collections.findOne(slug);
-    console.log(collection);
     setResult(collection);
   };
 
@@ -116,7 +115,10 @@ const CollectionDetails = ({ setFooter, locationState }) => {
 
   const getCollectionTraits = async () => {
     const res = await api.collections.traits(slug);
-    setCollectionTraits(res?.results || []);
+
+    setCollectionTraits(
+      res?.results.filter((trait) => trait.trait_type !== 'traitCount') || []
+    );
   };
 
   useEffect(() => {
@@ -170,12 +172,15 @@ const CollectionDetails = ({ setFooter, locationState }) => {
   }, [filters, assetsSort, rankRange, priceUsdRange, traitsCountRange, buyNow]);
 
   useEffect(() => {
-    const unsubscribe = Relay.listen(pathEq(['collection', 'slug'], slug), event => {
-      console.log('SHOW COLLECTION EVENT IN UI', event);
-    });
+    const unsubscribe = Relay.listen(
+      pathEq(['collection', 'slug'], slug),
+      (event) => {
+        console.log('SHOW COLLECTION EVENT IN UI', event);
+      }
+    );
 
     return unsubscribe;
-  }, [slug])
+  }, [slug]);
 
   if (!isMounted) {
     return null;

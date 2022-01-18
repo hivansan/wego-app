@@ -8,6 +8,7 @@ import CollectionAssetsFiltersMobile from './CollectionFiltersMobile';
 import { GrFormClose } from 'react-icons/gr';
 import { WindowScroller, List, AutoSizer } from 'react-virtualized';
 import Skeleton from 'react-loading-skeleton';
+import ClearFilters from '../../molecules/CollectionsAssetsFilters/ClearFilters';
 
 const CollectionAssets = ({
   collection,
@@ -41,23 +42,6 @@ const CollectionAssets = ({
 
   return (
     <div className='collection-assets-container'>
-      <CollectionAssetsFiltersMobile
-        containerClassName='modal-filters'
-        setTraitsCountRange={setTraitsCountRange}
-        traitsCountRange={traitsCountRange}
-        isOpen={filtersMobileOpen}
-        setBuyNow={setBuyNow}
-        buyNow={buyNow}
-        setIsOpen={setFiltersMobileOpen}
-        collectionTraits={collectionTraits}
-        setFilters={setFilters}
-        filters={filters}
-        setPriceRange={setPriceRange}
-        priceRange={priceRange}
-        rankRange={rankRange}
-        setRankRange={setRankRange}
-        collectionSlug={collectionSlug}
-      />
       <CollectionAssetsFilters
         setPriceRange={setPriceRange}
         setBuyNow={setBuyNow}
@@ -70,6 +54,7 @@ const CollectionAssets = ({
         collectionSlug={collectionSlug}
         collection={collection}
         filtersMobileOpen={filtersMobileOpen}
+        setFiltersMobileOpen={setFiltersMobileOpen}
         collectionTraits={collectionTraits}
         setCollectionTraits={setCollectionTraits}
         isCollapse={isFiltersCollapse}
@@ -77,6 +62,7 @@ const CollectionAssets = ({
         setFilters={setFilters}
         filters={filters}
       />
+
       <div className='collection-assets'>
         <div className='assets-header'>
           <CollectionAssetsSort
@@ -91,74 +77,20 @@ const CollectionAssets = ({
           )}
         </div>
 
-        <div className='assets-actual-filters'>
-          {priceRange && (
-            <div className='trait-filter' onClick={() => setPriceRange(false)}>
-              {priceRange.param === 'priceUsdRange' ? 'USD: ' : 'ETH: '}
-              {priceRange.range.gte} - {priceRange.range.lte}
-              <GrFormClose />
-            </div>
-          )}
-          {rankRange && (
-            <div className='trait-filter' onClick={() => setRankRange(false)}>
-              Rarity Rank: {rankRange.range.gte} - {rankRange.range.lte}
-              <GrFormClose />
-            </div>
-          )}
-          {traitsCountRange && (
-            <div
-              className='trait-filter'
-              onClick={() => setTraitsCountRange(false)}
-            >
-              Traits count: {traitsCountRange.range.gte} -{' '}
-              {traitsCountRange.range.lte}
-              <GrFormClose />
-            </div>
-          )}
-          {buyNow && (
-            <div className='trait-filter' onClick={() => setBuyNow(false)}>
-              Buy Now
-              <GrFormClose />
-            </div>
-          )}
-          {filters && filters.length > 0 && (
-            <>
-              {filters.map(({ traitType, value: filter }, i) => (
-                <div
-                  className='trait-filter'
-                  key={i}
-                  onClick={() =>
-                    setFilters(() =>
-                      filters.filter(({ value }) => value !== filter)
-                    )
-                  }
-                >
-                  {traitType}: {filter}
-                  <GrFormClose />
-                </div>
-              ))}
-            </>
-          )}
-          {filters.length > 0 ||
-            priceRange ||
-            rankRange ||
-            traitsCountRange ||
-            buyNow ? (
-            <div
-              className='clear-filters'
-              onClick={() => {
-                setFilters([]);
-                setPriceRange(false);
-                setRankRange(false);
-                setBuyNow(false);
-              }}
-            >
-              Clear All
-            </div>
-          ) : null}
-        </div>
+        <ClearFilters
+          setPriceRange={setPriceRange}
+          setBuyNow={setBuyNow}
+          buyNow={buyNow}
+          setTraitsCountRange={setTraitsCountRange}
+          traitsCountRange={traitsCountRange}
+          priceRange={priceRange}
+          rankRange={rankRange}
+          setRankRange={setRankRange}
+          setFilters={setFilters}
+          filters={filters}
+        />
 
-        <div className={` assets-container`}>
+        <div className='assets-container'>
           {assets ? (
             <InfiniteScroll
               dataLength={assets.length}
@@ -177,6 +109,7 @@ const CollectionAssets = ({
               className={` assets-container-infinite`}
               loader={<div style={{ height: '100px', width: '100%' }}></div>}
             >
+              {/* VIRTUALIZATION */}
               <AutoSizer className='auto'>
                 {({ width }) => {
                   const ITEMS_COUNT = hasNextPage
@@ -239,8 +172,6 @@ const CollectionAssets = ({
                         />
                       )}
                     </WindowScroller>
-
-                    // </InfiniteLoader>
                   );
                 }}
               </AutoSizer>
