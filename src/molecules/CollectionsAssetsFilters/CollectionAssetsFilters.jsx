@@ -120,21 +120,13 @@ const CollectionAssetsFilters = ({
 
   return (
     <>
-      <div
-        className={`${
-          isCollapse ? 'd-block' : 'd-none'
-        } filter-collapse collection-assets-filters`}
-      >
+      <div className={`${isCollapse ? 'd-block' : 'd-none'} filter-collapse collection-assets-filters`}>
         <header onClick={setIsCollapse}>
           <HiFilter size={20} />
         </header>
       </div>
 
-      <div
-        className={`${
-          isCollapse ? 'd-none' : 'd-block'
-        } collection-assets-filters`}
-      >
+      <div className={`${isCollapse ? 'd-none' : 'd-block'} collection-assets-filters`}>
         <div>
           <header onClick={setIsCollapse}>
             <div className='header-collapsed-off'>
@@ -148,7 +140,7 @@ const CollectionAssetsFilters = ({
               <LightPrimaryButton
                 className={`${buyNow ? 'selected' : 'unselected'}`}
                 onClick={
-                  buyNow ? () => setBuyNow(false) : () => setBuyNow({ gte: 1 })
+                  buyNow ? () => setBuyNow(false) : () => setBuyNow(true)
                 }
               >
                 Buy now
