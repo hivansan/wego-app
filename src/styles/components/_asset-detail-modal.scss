@@ -269,10 +269,9 @@
     text-align: end;
     display: flex;
     flex-direction: column;
+    font-size: x-small;
     small {
       text-align: end;
-      display: flex;
-      flex-direction: column;
       span {
         color: var(--color-secondary);
       }
