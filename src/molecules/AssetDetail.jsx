@@ -280,7 +280,6 @@ const AssetDetailModal = ({ setFooter }) => {
                     {asset &&
                       asset.traits &&
                       asset.traits
-                        .sort((traitA, traitB) => { return traitA.value - traitB.value })
                         .map((trait, i) => (
                           <Trait
                             filters={filters}
