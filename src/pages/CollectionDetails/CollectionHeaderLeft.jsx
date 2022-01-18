@@ -86,8 +86,8 @@ const CollectionHeaderLeft = ({ collectionInfo }) => {
                     <Skeleton width={200} className='loader-personal-stats' />
                   ) : (
                     <small>
-                      Date Added:
-                      {moment(collectionInfo.createdAt).format('ll')}
+                      Last updated:
+                      {moment(collectionInfo.updatedAt).format('ll')}
                     </small>
                   )}
                 </div>
