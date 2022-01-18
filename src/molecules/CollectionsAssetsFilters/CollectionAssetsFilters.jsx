@@ -185,7 +185,7 @@ const CollectionAssetsFilters = ({
           {/* traits filters */}
           {collectionTraits &&
             traits.map((traitType) => (
-              <Filter title={traitType} key={traitType} isCollapse={isCollapse}>
+              <Filter title={traitType} key={traitType} counter={collectionTraits.filter(trait => trait.trait_type === traitType).length} isCollapse={isCollapse}>
                 <SearchFilters
                   collectionTraits={collectionTraits}
                   traitType={traitType}

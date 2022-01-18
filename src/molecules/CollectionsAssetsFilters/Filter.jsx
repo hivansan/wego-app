@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 
-const Filter = ({ title, children }) => {
+const Filter = ({ title, children, counter }) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   const setCollapsed = () => setIsCollapsed(!isCollapsed);
@@ -11,6 +11,7 @@ const Filter = ({ title, children }) => {
     <div className='filter'>
       <div className='filter-header' onClick={setCollapsed}>
         <p>{title}</p>
+        <span>{counter}</span>
         {isCollapsed ? (
           <IoIosArrowDown size={20} />
         ) : (
