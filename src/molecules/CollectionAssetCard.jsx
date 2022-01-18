@@ -36,7 +36,7 @@ const CollectionAssetCard = ({
       to={{
         pathname: `/assets/${asset[index].asset_contract?.address || asset[index].contractAddress
           }/${asset[index].tokenId}`,
-        state: { background: location, filters: filters, collectionTraits: collectionTraits },
+        state: { background: location, filters: filters },
       }}
     >
       <article className={`${hasExtraClasses} collection-asset-card`}>
@@ -101,16 +101,16 @@ const CollectionAssetCard = ({
 
           {/* <small>#{asset[index]?.tokenId?.substr(0, 25)}</small> */}
           {asset[index].rarityScoreRank && (
-            <p>#{asset[index].rarityScoreRank}</p>
+            <p>Rarity Rank #{asset[index].rarityScoreRank}</p>
           )}
           <div className='asset-price'>
-            {asset[index].currentPriceUSD && (
+            {asset[index].currentPrice && (
               <>
                 <span>
                   <p>Price </p>
-                  <CryptoIcon token={'USD'} />
+                  <CryptoIcon token={asset[index]?.sellOrders?.length ? asset[index].sellOrders[0].payment_token_contract?.symbol : 'ETH'} />
                   <small>
-                    {asset[index]?.currentPriceUSD?.toLocaleString()}
+                    {asset[index]?.currentPrice?.toLocaleString().substr(0, 10)}
                   </small>
                 </span>
               </>

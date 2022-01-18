@@ -44,7 +44,7 @@ const Trait = ({ filters, setFilters, trait, bgFilters, collectionTraits }) => {
       <div
         className={`${checked ? 'checked' : 'unChecked'} asset-detail-filter-attribute`}
       >
-        <small>{trait.value}</small>
+        <small>{trait.value != null ? trait.value : "None"}</small>
         <div className='asset-detail-filter-a'>
           <p>{trait.trait_count}</p>
         </div>

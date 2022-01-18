@@ -48,8 +48,16 @@ const Header = ({ background, menuOpen, setMenuOpen }) => {
 
   useEffect(() => {
     const getHotCollections = async () => {
-      const res = await api.collections.all();
-      setHotCollections(res?.results || []);
+      //const res = await api.collections.all();
+
+      const res = await api.collections.findOne('social-bees-university');
+      const bees_only_res = []; 
+      
+      for (let i = 0; i < 10; i++)
+        bees_only_res.push({ value: res });
+
+      //setHotCollections(res?.results || []);
+      setHotCollections(bees_only_res || []);
     };
 
     getHotCollections();
@@ -245,8 +253,11 @@ const Header = ({ background, menuOpen, setMenuOpen }) => {
           {/* right menu */}
           {!isMobile && !isTablet && (
             <div className='right-menu'>
-              <a href='/analytics'>Analytics</a>
-              <a href='/getlisted'>Get Listed</a>
+
+              
+              {/*<a href='/analytics'>Analytics</a>*/}
+              {/*<a href='/getlisted'>Get Listed</a>*/}
+
               {/* <div
                 onClick={() => {
                   connected ? oneClickLogin() : setModalOpen(true);
@@ -255,7 +266,7 @@ const Header = ({ background, menuOpen, setMenuOpen }) => {
                 sign
               </div> */}
 
-              <div className='icons'>
+              {/*<div className='icons'>
                 <button
                   style={{
                     borderWidth: '0',
@@ -275,7 +286,7 @@ const Header = ({ background, menuOpen, setMenuOpen }) => {
                     modalOpen={modalOpen}
                   />
                 )}
-              </div>
+              </div>*/}
               <ToggleTheme />
             </div>
           )}
@@ -313,15 +324,16 @@ const Header = ({ background, menuOpen, setMenuOpen }) => {
           )}
           {param === '' ? (
             <>
-              <a href='/analytics' className='bm-item'>
+              {/*<a href='/analytics' className='bm-item'>
                 <IoAnalyticsSharp size={28} />
                 Analytics
-              </a>
-              <a href='/getlisted' className='bm-item'>
+                </a>*/}
+              {/*<a href='/getlisted' className='bm-item'>
                 <AiOutlineForm size={28} />
                 Get Listed
-              </a>
-              <div className='bm-item' onClick={() => setModalOpen(true)}>
+                </a>*/}
+                
+              {/*<div className='bm-item' onClick={() => setModalOpen(true)}>
                 <FaWallet size={28} />
                 {connected ? (
                   <>{account?.address.substring(0, 15)}... </>
@@ -335,7 +347,7 @@ const Header = ({ background, menuOpen, setMenuOpen }) => {
                   closeModal={() => setModalOpen(false)}
                   modalOpen={modalOpen}
                 />
-              )}
+              )}*/}
 
               <div className='bm-item theme-menu'>
                 <ToggleTheme />

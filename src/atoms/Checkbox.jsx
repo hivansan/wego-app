@@ -6,7 +6,7 @@ const Checkbox = ({ label, setFilters, filters, traitType, extra }) => {
 
   const onChange = () => {
     if (checked) {
-      setFilters(() => filters.filter(({ value }) => value !== label));
+      setFilters(() => filters.filter(trait => trait.value !== label || trait.traitType !== traitType));
       return setChecked(false);
     }
     setFilters(() => {
@@ -19,17 +19,16 @@ const Checkbox = ({ label, setFilters, filters, traitType, extra }) => {
 
   useEffect(() => {
     if (
-      filters.some((trait) => trait.value === label) &&
-      filters.some((el) => el.traitType === traitType)
+      filters.some( trait => trait.traitType === traitType && trait.value === label)
     ) {
       setChecked(true);
     }
   }, []);
 
   useEffect(() => {
+    
     if (
-      filters.some((trait) => trait.value === label) &&
-      filters.some((el) => el.traitType === traitType)
+      filters.some( trait => trait.traitType === traitType && trait.value === label)
     ) {
       return setChecked(true);
     }
@@ -44,7 +43,7 @@ const Checkbox = ({ label, setFilters, filters, traitType, extra }) => {
           type='checkbox'
           checked={checked}
           onChange={onChange}
-          value={label}
+          value={label || ''}
         />
         {label}
       </div>

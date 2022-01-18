@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+// import React, { useEffect, useState } from 'react';
 
 import { FaEthereum } from 'react-icons/fa';
-import { AiFillLike, AiFillDislike } from 'react-icons/ai';
+// import { AiFillLike, AiFillDislike } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import ImageTypeDetect from './ImageTypeDetect';
-import { Api } from '../services/api';
+// import { Api } from '../services/api';
 
 const ExactMatchCard = ({ results, className, location, isOpen, ...props }) => {
   const hasExtraClasess = className ? className : '';
@@ -49,8 +49,8 @@ const ExactMatchCard = ({ results, className, location, isOpen, ...props }) => {
               </div>
             </div>
             <div className='date-add'>
-              Date added :{' '}
-              {moment(resultsHastExactMatch.value.createdAt).format('ll')}
+              Last updated :{' '}
+              {moment(resultsHastExactMatch.value.updatedAt).format('ll')}
             </div>
             {resultsHastExactMatch.meta.index === 'collections' ? (
               <div className='stats'>
