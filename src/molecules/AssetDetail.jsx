@@ -279,15 +279,17 @@ const AssetDetailModal = ({ setFooter }) => {
                   <div className='asset-detail-modal-stats-filters'>
                     {asset &&
                       asset.traits &&
-                      asset.traits.map((trait, i) => (
-                        <Trait
-                          filters={filters}
-                          setFilters={setFilters}
-                          trait={trait}
-                          bgFilters={location?.state?.filters || []}
-                          key={i}
-                        />
-                      ))}
+                      asset.traits
+                        .sort((traitA, traitB) => { return traitB.traitScore - traitA.traitScore })
+                        .map((trait, i) => (
+                          <Trait
+                            filters={filters}
+                            setFilters={setFilters}
+                            trait={trait}
+                            bgFilters={location?.state?.filters || []}
+                            key={i}
+                          />
+                        ))}
                   </div>
                 </div>
               </div>
