@@ -48,7 +48,11 @@ const Header = ({ background, menuOpen, setMenuOpen }) => {
 
   useEffect(() => {
     const getHotCollections = async () => {
-      //const res = await api.collections.all();
+      const reso = await api.collections.all({
+        sort: 'featuredCollection'
+      });
+
+      console.log("all collections: ", reso);
 
       const res = await api.collections.findOne('social-bees-university');
       const bees_only_res = []; 
