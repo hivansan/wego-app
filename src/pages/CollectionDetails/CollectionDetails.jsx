@@ -16,7 +16,7 @@ const CollectionDetails = ({ setFooter, locationState }) => {
   const [collectionTraits, setCollectionTraits] = useState(null);
   const [hasNextPage, setHasNextPage] = useState(true);
   const [isNextPageLoading, setIsNextPageLoading] = useState(false);
-  const [filters, setFilters] = useState([]);
+  const [filters, setFilters] = useState(null);
   const [traits, setTraits] = useState([]);
   const [isMounted, setIsMounted] = useState(false);
   const [priceUsdRange, setPriceUsdRange] = useState(false);
@@ -26,8 +26,8 @@ const CollectionDetails = ({ setFooter, locationState }) => {
   const [buyNow, setBuyNow] = useState(false);
 
   const [assetsSort, setAssetsSort] = useState({
-    orderBy: 'none',
-    orderDirection: 'desc',
+    orderBy: 'rarityScore',
+    orderDirection: 'asc',
   });
 
   const [filtersMobileOpen, setFiltersMobileOpen] = useState(false);
@@ -147,28 +147,29 @@ const CollectionDetails = ({ setFooter, locationState }) => {
   }, [location]);
 
   useEffect(() => {
-    var traitObj = filters.reduce(function (acc, cur, i) {
-      acc[cur.traitType] = acc[cur.traitType] || [];
-      acc[cur.traitType].push(cur.value);
-      return acc;
-    }, {});
-
-    const hasTraits = Object.keys(traitObj).length === 0 ? null : traitObj;
-    const PriceUsdFilter = priceUsdRange ? priceUsdRange : null;
-    const rankFilter = rankRange ? rankRange : null;
-    const traitsCountFilter = traitsCountRange ? traitsCountRange : null;
-    const buyNowfilter = buyNow ? buyNow : null;
-    setAssetsPage(0);
-    getCollectionAssets(
-      assetsSort.orderBy,
-      assetsSort.orderDirection,
-      hasTraits,
-      PriceUsdFilter,
-      rankFilter,
-      traitsCountFilter,
-      buyNowfilter
-    );
-    window.scrollTo(0, 0);
+    if (filters) {
+      var traitObj = filters.reduce(function (acc, cur, i) {
+        acc[cur.traitType] = acc[cur.traitType] || [];
+        acc[cur.traitType].push(cur.value);
+        return acc;
+      }, {});
+      const hasTraits = Object.keys(traitObj).length === 0 ? null : traitObj;
+      const PriceUsdFilter = priceUsdRange ? priceUsdRange : null;
+      const rankFilter = rankRange ? rankRange : null;
+      const traitsCountFilter = traitsCountRange ? traitsCountRange : null;
+      const buyNowfilter = buyNow ? buyNow : null;
+      setAssetsPage(0);
+      getCollectionAssets(
+        assetsSort.orderBy,
+        assetsSort.orderDirection,
+        hasTraits,
+        PriceUsdFilter,
+        rankFilter,
+        traitsCountFilter,
+        buyNowfilter
+      );
+      window.scrollTo(0, 0);
+    }
   }, [filters, assetsSort, rankRange, priceUsdRange, traitsCountRange, buyNow]);
 
   useEffect(() => {
