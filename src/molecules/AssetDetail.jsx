@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-
+import moment from 'moment';
 import Modal from '../atoms/Modal';
 import ImageTypeDetect from './ImageTypeDetect';
 import { Api } from '../services/api';
@@ -202,22 +202,25 @@ const AssetDetailModal = ({ setFooter }) => {
                         </>
                       )}
                       {asset.lastSalePrice && (
-                        <span>
-                          <small>Last </small>
-                          <div className='last-price'>
-                            {asset?.lastSale?.payment_token?.symbol && (
-                              <CryptoIcon
-                                token={
-                                  asset?.lastSale?.payment_token?.symbol ||
-                                  'eth'
-                                }
-                              />
-                            )}
-                            <small>
-                              {asset.lastSalePrice.toLocaleString()}
-                            </small>
-                          </div>
-                        </span>
+                        <>
+                          <span>
+                            <small>Last </small>
+                            <div className='last-price'>
+                              {asset?.lastSale?.payment_token?.symbol && (
+                                <CryptoIcon
+                                  token={
+                                    asset?.lastSale?.payment_token?.symbol ||
+                                    'eth'
+                                  }
+                                />
+                              )}
+                              <small>
+                                {asset.lastSalePrice.toLocaleString()}
+                              </small>
+                            </div>
+                          </span>
+                          <span> {asset?.lastSale ? moment(asset.lastSale.created_date).format('ll') : ''} </span>
+                        </>
                       )}
                     </div>
                   </div>

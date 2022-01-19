@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import moment from 'moment';
 import { FaEthereum } from 'react-icons/fa';
 import Icon from 'react-crypto-icons';
 import CryptoIcon from '../atoms/CryptoIcon';
@@ -126,17 +127,20 @@ const CollectionAssetCard = ({
               </>
             )} */}
             {asset[index].lastSalePrice && (
-              <span>
-                <small>Last </small>
-                <div className='last-price'>
-                  {asset[index]?.lastSale?.payment_token?.symbol && (
-                    <CryptoIcon
-                      token={asset[index]?.lastSale?.payment_token?.symbol}
-                    />
-                  )}
-                  <small> {asset[index].lastSalePrice.toLocaleString()}</small>
-                </div>
-              </span>
+              <>
+                <span>
+                  <small>Last </small>
+                  <div className='last-price'>
+                    {asset[index]?.lastSale?.payment_token?.symbol && (
+                      <CryptoIcon
+                        token={asset[index]?.lastSale?.payment_token?.symbol}
+                      />
+                    )}
+                    <small> {asset[index].lastSalePrice.toLocaleString()}</small>
+                  </div>
+                </span>
+                <span> {asset[index]?.lastSale ? moment(asset[index].lastSale.created_date).format('ll') : ''} </span>
+              </>
             )}
           </div>
         </section>
