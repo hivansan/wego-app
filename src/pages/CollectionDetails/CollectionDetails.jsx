@@ -67,6 +67,10 @@ const CollectionDetails = ({ setFooter, locationState }) => {
     );
     const results =
       res && res.results && res.results.length === 0 ? null : res.results;
+
+    console.log("traits", traits);
+    console.log("res.results: ", res.results);
+
     setResultAssets(results);
 
     setTotalAssets(res);

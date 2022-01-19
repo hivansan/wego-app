@@ -12,17 +12,17 @@ const SearchFilters = ({
   const [param, setParam] = useState('');
   const [filteredTraits, setFilteredTraits] = useState([]);
   const [traits, setTraits] = useState([]);
-
+/*
   useEffect(() => {
     
-    /*
+    
     setTraits((prevTraits) => [...prevTraits, {
       traitType,
       value: 'Has no trait',
       traitCount: null,
       displayType: null
     }]);
-    */
+    
 
     collectionTraits.forEach((trait, i) => {
       let traitsObj = {};
@@ -37,6 +37,7 @@ const SearchFilters = ({
       }
     });
   }, []);
+*/
 
   const handleOnChange = (e) => {
     setParam(e.target.value);
@@ -45,7 +46,7 @@ const SearchFilters = ({
   useEffect(() => {
     collectionTraits
       .filter((t, i) => t.trait_type === traitType)
-      .map((t, i) => setTraits((prevTraits) => [...prevTraits, t]));
+      .forEach((t, i) => setTraits((prevTraits) => [...prevTraits, t]));
   }, []);
 
   useEffect(() => {
@@ -59,7 +60,7 @@ const SearchFilters = ({
     setFilteredTraits([]);
   }, [param]);
 
-  if (traits.length < 5 && traits.some((trait) => !trait.displayType))
+  if (traits.length < 5 && traits.some((trait) => !trait.display_type))
     return (
       <>
         {traits.map((trait, i) => (
@@ -78,8 +79,8 @@ const SearchFilters = ({
   if (
     traits.some(
       (trait) =>
-        trait.displayType === 'number' ||
-        trait.displayType === 'date' ||
+        trait.display_type === 'number' ||
+        trait.display_type === 'date' ||
         typeof trait.value === 'number'
     )
   ) {
@@ -110,13 +111,13 @@ const SearchFilters = ({
               key={i}
               setFilters={setFilters}
               filters={filters}
-              extra={trait.traitCount}
+              extra={trait.trait_count}
             />
           )}
         </>
       ) : (
         <>
-          {filteredTraits.map(({ value, trait_type, traitCount }, i) => {
+          {filteredTraits.map(({ value, trait_type, trait_count }, i) => {
             return (
               <Checkbox
                 traitType={trait_type}
@@ -124,7 +125,7 @@ const SearchFilters = ({
                 key={i}
                 setFilters={setFilters}
                 filters={filters}
-                extra={traitCount}
+                extra={trait_count}
               />
             );
           })}
