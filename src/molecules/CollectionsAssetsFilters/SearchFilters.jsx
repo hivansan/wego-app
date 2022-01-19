@@ -12,32 +12,6 @@ const SearchFilters = ({
   const [param, setParam] = useState('');
   const [filteredTraits, setFilteredTraits] = useState([]);
   const [traits, setTraits] = useState([]);
-/*
-  useEffect(() => {
-    
-    
-    setTraits((prevTraits) => [...prevTraits, {
-      traitType,
-      value: 'Has no trait',
-      traitCount: null,
-      displayType: null
-    }]);
-    
-
-    collectionTraits.forEach((trait, i) => {
-      let traitsObj = {};
-      if (trait.trait_type === traitType) {
-        traitsObj = {
-          traitType,
-          value: trait.value,
-          traitCount: trait.trait_count,
-          displayType: trait?.display_type,
-        };
-        setTraits((prevTraits) => [...prevTraits, traitsObj]);
-      }
-    });
-  }, []);
-*/
 
   const handleOnChange = (e) => {
     setParam(e.target.value);

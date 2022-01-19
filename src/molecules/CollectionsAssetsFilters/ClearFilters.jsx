@@ -58,12 +58,12 @@ const ClearFilters = ({
               }
             >
               {traitType}:{' '}
-              {filter.gte && filter.lte ? (
+              {filter && filter.gte && filter.lte ? (
                 <>
                   {filter.gte}-{filter.lte}
                 </>
               ) : (
-                filter
+                filter ? filter : 'None'
               )}
               <GrFormClose />
             </div>
