@@ -24,6 +24,8 @@ const CollectionDetails = ({ setFooter, locationState }) => {
   const [totalAssets, setTotalAssets] = useState(null);
   const [traitsCountRange, setTraitsCountRange] = useState(false);
   const [buyNow, setBuyNow] = useState(false);
+  const [hasFilters, setHasFilter] = useState(false);
+  const [realTotalAssets, setRealTotalAssets] = useState(null);
 
   const [assetsSort, setAssetsSort] = useState({
     orderBy: 'none',
@@ -123,6 +125,11 @@ const CollectionDetails = ({ setFooter, locationState }) => {
     );
   };
 
+  const getAssetCounter = async () => {
+    const res = await api.collections.count(slug);
+    setRealTotalAssets(res?.count);
+  };
+
   useEffect(() => {
     window.scrollTo(0, 0);
     getCollection();
@@ -160,6 +167,8 @@ const CollectionDetails = ({ setFooter, locationState }) => {
     const rankFilter = rankRange ? rankRange : null;
     const traitsCountFilter = traitsCountRange ? traitsCountRange : null;
     const buyNowfilter = buyNow ? buyNow : null;
+    setHasFilter(hasTraits || PriceUsdFilter || rankFilter || traitsCountFilter || buyNowfilter);
+    getAssetCounter();
     setAssetsPage(0);
     getCollectionAssets(
       assetsSort.orderBy,
@@ -227,6 +236,8 @@ const CollectionDetails = ({ setFooter, locationState }) => {
         setAssets={setResultAssets}
         filtersMobileOpen={filtersMobileOpen}
         _loadNextPage={loadNextAssetsPage}
+        hasFilters={hasFilters}
+        realTotalAssets={realTotalAssets}
       />
     </div>
   );

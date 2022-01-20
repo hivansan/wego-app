@@ -88,6 +88,10 @@ export class Api {
       findByAddress: (address) => {
         return this.request('get', `collections/${address}`);
       },
+
+      count: (slug) => {
+        return this.request('get', `/collections/${slug}/count`);
+      },
     };
 
     this.users = {
