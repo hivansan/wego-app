@@ -219,7 +219,7 @@ const AssetDetailModal = ({ setFooter }) => {
                               </small>
                             </div>
                           </span>
-                          <span> {asset?.lastSale ? moment(asset.lastSale.created_date).format('ll') : ''} </span>
+                          <span><small>{asset?.lastSale ? 'Last sold: ' + moment(asset.lastSale.created_date).format('MMM D \'YY') : ''}</small> </span>
                         </>
                       )}
                     </div>

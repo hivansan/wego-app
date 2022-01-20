@@ -139,7 +139,7 @@ const CollectionAssetCard = ({
                     <small> {asset[index].lastSalePrice.toLocaleString()}</small>
                   </div>
                 </span>
-                <span> {asset[index]?.lastSale ? moment(asset[index].lastSale.created_date).format('ll') : ''} </span>
+                <span> <small>{asset[index]?.lastSale ? 'Last sold: ' + moment(asset[index].lastSale.created_date).format('MMM D \'YY') : ''}</small> </span>
               </>
             )}
           </div>
