@@ -48,16 +48,24 @@ const Header = ({ background, menuOpen, setMenuOpen }) => {
 
   useEffect(() => {
     const getHotCollections = async () => {
-      //const res = await api.collections.all();
+      const res = await api.collections.all({
+        sort: 'featuredCollection'
+      });
 
-      const res = await api.collections.findOne('social-bees-university');
-      const bees_only_res = []; 
+      let hot_collections = res?.results || [];
       
-      for (let i = 0; i < 10; i++)
-        bees_only_res.push({ value: res });
+      const featured = res.results.filter(c => c.value.stats.featuredCollection);
+      
+      if (featured?.length > 0) {
+        let repetitions = Math.ceil(10 / featured.length);
 
-      //setHotCollections(res?.results || []);
-      setHotCollections(bees_only_res || []);
+        hot_collections = featured;
+        for (let i = 0; i < repetitions - 1; i++)
+          hot_collections = hot_collections.concat(featured);
+      }
+      
+
+      setHotCollections(hot_collections);
     };
 
     getHotCollections();
