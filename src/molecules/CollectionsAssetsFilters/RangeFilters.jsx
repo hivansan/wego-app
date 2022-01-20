@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import DarkPrimaryButton from '../../atoms/darkPrimaryButton';
 
-const RangeFilters = ({ filter, max, range, setRange, price, setPrice }) => {
+const RangeFilters = ({ filter, max, range, setRange, price }) => {
   const [value, setValue] = useState([1, '']);
 
   const handleChangeMinValue = (e) => {
@@ -31,26 +31,9 @@ const RangeFilters = ({ filter, max, range, setRange, price, setPrice }) => {
     }
   }, [range]);
 
-  const onSelectPriceHandler = (e) => {
-    setPrice(e.target.value);
-  };
 
-  // console.log(price);
   return (
     <>
-    {/*
-      {filter === 'price' && (
-        
-        <div className='range-select-container'>
-          <select onChange={onSelectPriceHandler} className='range-select'>
-            <option value='priceRangeUSD'>
-              USD
-            </option>
-            <option value='priceRange' defaultValue>ETH</option>
-          </select>
-        </div>
-      )}
-      */}
       <div className='range-number-inputs'>
         <input
           type='number'
