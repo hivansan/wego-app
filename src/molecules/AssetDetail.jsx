@@ -191,35 +191,30 @@ const AssetDetailModal = ({ setFooter }) => {
                       {asset.currentPrice && (
                         <>
                           <span>
-                            <p>Price </p>
-                            <CryptoIcon token={asset.sellOrders?.length ? asset.sellOrders[0].payment_token_contract?.symbol : 'ETH'} />
-                            <small>
-                              {asset.currentPrice
-                                .toLocaleString()
-                                .substr(0, 10)}
-                            </small>
+                            <p>Price</p>
+                            <div className='last-price'>
+                              <CryptoIcon token={asset.sellOrders?.length ? asset.sellOrders[0].payment_token_contract?.symbol : 'ETH'} />
+                              <small>
+                                {asset.currentPrice.toLocaleString().substr(0, 10)}
+                              </small>
+                            </div>
                           </span>
                         </>
                       )}
                       {asset.lastSalePrice && (
                         <>
                           <span>
-                            <small>Last </small>
+                            <small>Last</small>
                             <div className='last-price'>
-                              {asset?.lastSale?.payment_token?.symbol && (
-                                <CryptoIcon
-                                  token={
-                                    asset?.lastSale?.payment_token?.symbol ||
-                                    'eth'
-                                  }
-                                />
-                              )}
+                              {asset?.lastSale?.payment_token?.symbol && (<CryptoIcon token={asset?.lastSale?.payment_token?.symbol || 'eth'} />)}
                               <small>
                                 {asset.lastSalePrice.toLocaleString()}
                               </small>
                             </div>
                           </span>
-                          <span><small>{asset?.lastSale ? 'Last sold: ' + moment(asset.lastSale.created_date).format('MMM D \'YY') : ''}</small> </span>
+                          <span>
+                            <small>{asset?.lastSale ? 'Last sold: ' + moment(asset.lastSale.created_date).format('MMM D \'YY') : ''}</small>
+                          </span>
                         </>
                       )}
                     </div>
