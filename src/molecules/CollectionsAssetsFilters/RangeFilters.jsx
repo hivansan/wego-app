@@ -38,18 +38,19 @@ const RangeFilters = ({ filter, max, range, setRange, price, setPrice }) => {
   // console.log(price);
   return (
     <>
+    {/*
       {filter === 'price' && (
+        
         <div className='range-select-container'>
           <select onChange={onSelectPriceHandler} className='range-select'>
-            {/* <option value='sale_date'>Sale Date</option>
-          <option value='sale_count'>Sale Count</option> */}
-            <option value='priceRangeUSD' defaultValue>
+            <option value='priceRangeUSD'>
               USD
             </option>
-            <option value='priceRange'>ETH</option>
+            <option value='priceRange' defaultValue>ETH</option>
           </select>
         </div>
       )}
+      */}
       <div className='range-number-inputs'>
         <input
           type='number'

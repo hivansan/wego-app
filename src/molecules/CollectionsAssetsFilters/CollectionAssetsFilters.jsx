@@ -36,7 +36,7 @@ const CollectionAssetsFilters = ({
   const [maxPrice, setMaxPrice] = useState(null);
   const [maxRank, setMaxRank] = useState(null);
   const [maxTraitsCount, setMaxTraitsCount] = useState(null);
-  const [price, setPrice] = useState('priceUsdRange');
+  const [price, setPrice] = useState('priceRange'); // ETH price range
   const traits = [];
   const isMobile = useMediaQuery({ query: '(max-width: 657px)' });
   const api = new Api();
@@ -52,6 +52,7 @@ const CollectionAssetsFilters = ({
   }
 
   const getMaxPrice = async () => {
+    //Dollar filter is commented, this is unnecesary. Remove if the filter isn't comming back
     const priceSelected =
       price === 'priceUsdRange' ? 'currentPriceUSD' : 'currentPrice';
 
