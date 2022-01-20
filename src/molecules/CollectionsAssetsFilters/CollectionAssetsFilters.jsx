@@ -120,13 +120,21 @@ const CollectionAssetsFilters = ({
 
   return (
     <>
-      <div className={`${isCollapse ? 'd-block' : 'd-none'} filter-collapse collection-assets-filters`}>
+      <div
+        className={`${
+          isCollapse ? 'd-block' : 'd-none'
+        } filter-collapse collection-assets-filters`}
+      >
         <header onClick={setIsCollapse}>
           <HiFilter size={20} />
         </header>
       </div>
 
-      <div className={`${isCollapse ? 'd-none' : 'd-block'} collection-assets-filters`}>
+      <div
+        className={`${
+          isCollapse ? 'd-none' : 'd-block'
+        } collection-assets-filters`}
+      >
         <div>
           <header onClick={setIsCollapse}>
             <div className='header-collapsed-off'>
