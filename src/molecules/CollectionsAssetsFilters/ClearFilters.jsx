@@ -58,10 +58,12 @@ const ClearFilters = ({
               }
             >
               {traitType}:{' '}
-              {filter && filter.gte && filter.lte ? (
-                <>
-                  {filter.gte}-{filter.lte}
-                </>
+              {filter && filter.constructor == Object ? (
+                Object.entries(filter).reduce( (prev, curr) => prev && (curr[0] === 'gte' || curr[0] === 'lte') , true) ? (
+                  <>
+                    {filter.gte}-{filter.lte}
+                  </>
+                ) : ( '' )
               ) : (
                 filter ? filter : 'None'
               )}
