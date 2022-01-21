@@ -55,8 +55,8 @@ export class Api {
         const hasTraitsCountRange = !traitsCountRange
           ? ''
           : `&${traitsCountRange.param}=${JSON.stringify(
-            traitsCountRange.range
-          )}`;
+              traitsCountRange.range
+            )}`;
         const isBuyNow = !buyNow ? '' : `&buyNow=${JSON.stringify(buyNow)}`;
 
         const collectionAssetsUrl = `/assets?slug=${slug}&limit=${limit}&offset=${offset}${hasSortDirection}${hasSorts}${hasTraits}${hasPriceRange}${hasRankRange}${hasTraitsCountRange}${isBuyNow}`;
@@ -87,6 +87,10 @@ export class Api {
 
       findByAddress: (address) => {
         return this.request('get', `collections/${address}`);
+      },
+
+      count: (slug) => {
+        return this.request('get', `/collections/${slug}/count`);
       },
     };
 
