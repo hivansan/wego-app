@@ -11,13 +11,16 @@ const Filter = ({ title, children, counter }) => {
     <div className='filter'>
       <div className='filter-header' onClick={setCollapsed}>
         <p>{title}</p>
-        <span>{counter}
+        <div className='filter-counter'>
+          <span>
+            {counter}
+          </span>
           {isCollapsed ? (
             <IoIosArrowDown size={20} />
           ) : (
             <IoIosArrowUp size={20} />
           )}
-        </span>
+        </div>
       </div>
       {isCollapsed ? (
         <div className='filter-body'>{children}</div>

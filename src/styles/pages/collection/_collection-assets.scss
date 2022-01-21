@@ -228,10 +228,16 @@
       cursor: pointer;
       p {
         font-size: 25px;
-        margin: 0;
+        padding: 0.5rem;
       }
-      span {
-        font-size: smaller;
+      .filter-counter {
+        font-size: x-small;
+        display: flex;
+        justify-content: end;
+        align-content: flex-end;
+        span {
+          margin: 5px;
+        }
       }
     }
 
@@ -360,6 +366,10 @@
         p {
           font-size: 25px;
           margin: 0;
+        }
+        span {
+          font-size: x-small;
+          margin: 5px;
         }
       }
 
