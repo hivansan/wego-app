@@ -56,8 +56,8 @@ export class Api {
         const hasTraitsCountRange = !traitsCountRange
           ? ''
           : `&${traitsCountRange.param}=${JSON.stringify(
-            traitsCountRange.range
-          )}`;
+              traitsCountRange.range
+            )}`;
         const isBuyNow = !buyNow ? '' : `&buyNow=${JSON.stringify(buyNow)}`;
         const hasAssetSearch = !searchAsset
           ? ''
@@ -91,6 +91,10 @@ export class Api {
 
       findByAddress: (address) => {
         return this.request('get', `collections/${address}`);
+      },
+
+      count: (slug) => {
+        return this.request('get', `/collections/${slug}/count`);
       },
     };
 

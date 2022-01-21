@@ -19,6 +19,7 @@ const SearchFilters = ({
 
   useEffect(() => {
     collectionTraits
+      .sort((traitA, traitB) => { return traitA.value - traitB.value })
       .filter((t, i) => t.trait_type === traitType)
       .forEach((t, i) => setTraits((prevTraits) => [...prevTraits, t]));
   }, []);
