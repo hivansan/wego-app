@@ -45,7 +45,7 @@ const Checkbox = ({ label, setFilters, filters, traitType, extra }) => {
           onChange={onChange}
           value={label || ''}
         />
-        {label}
+        {label ? label : 'None'}
       </div>
       {extra && <small>{extra}</small>}
     </label>

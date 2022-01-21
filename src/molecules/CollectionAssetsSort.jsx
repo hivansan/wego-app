@@ -7,17 +7,20 @@ const CollectionAssetsSort = ({ setAssetsSort, assetsSort }) => {
 
   const handleOnChange = (e) => {
     setSelect(e.target.value);
-  };
-  const handleRadioChange = (event) => {
-    setRadio(event.target.value);
-  };
 
-  useEffect(() => {
     setAssetsSort({
-      orderBy: select,
+      orderBy: e.target.value,
       orderDirection: radio,
     });
-  }, [select, radio]);
+  };
+  const handleRadioChange = (e) => {
+    setRadio(e.target.value);
+
+    setAssetsSort({
+      orderBy: select,
+      orderDirection: e.target.value,
+    });
+  };
 
   return (
     <div className='assets-sort'>
