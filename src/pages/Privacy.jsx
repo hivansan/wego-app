@@ -1,6 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 const Privacy = () => {
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  }, []);
+
   return (
     <>
       <div className='terms-container'>
@@ -178,7 +186,7 @@ const Privacy = () => {
           <li>Allow users to unsubscribe by using the link at the bottom of each email.</li>
         </ul>
         <h2>Contacting Us</h2>
-        <p>admin@wegonft.com</p>
+        <p><a href="mailto:admin@wegonft.com">admin@wegonft.com</a></p>
       </div>
     </>
   );
