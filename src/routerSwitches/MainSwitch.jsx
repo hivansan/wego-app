@@ -12,6 +12,8 @@ import Header from '../molecules/header';
 import Footer from '../molecules/footer.jsx';
 import AssetDetail from '../molecules/AssetDetail';
 import Favorites from '../pages/Favorites';
+import Terms from '../pages/Terms';
+import Privacy from '../pages/Privacy';
 
 const MainSwitch = () => {
   const [header, setHeader] = useState(true);
@@ -55,7 +57,7 @@ const MainSwitch = () => {
           component={NftDetails}
         ></Route>
 
-       {/*<Route path='/analytics'>
+        {/*<Route path='/analytics'>
           <Graphs isSearchResultsOpen={isSearchResultsOpen} />
         </Route>*/}
 
@@ -84,6 +86,14 @@ const MainSwitch = () => {
 
         <Route exact path='/search'>
           <SearchResults />
+        </Route>
+
+        <Route path='/terms' exact>
+          <Terms />
+        </Route>
+
+        <Route path='/privacy' exact>
+          <Privacy />
         </Route>
 
         <Route path='/' exact>
