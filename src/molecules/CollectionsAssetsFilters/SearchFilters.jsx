@@ -19,8 +19,9 @@ const SearchFilters = ({
 
   useEffect(() => {
     collectionTraits
+      .sort((traitA, traitB) => { return traitA.value - traitB.value })
       .filter((t, i) => t.trait_type === traitType)
-      .map((t, i) => setTraits((prevTraits) => [...prevTraits, t]));
+      .forEach((t, i) => setTraits((prevTraits) => [...prevTraits, t]));
   }, []);
 
   useEffect(() => {
@@ -34,7 +35,7 @@ const SearchFilters = ({
     setFilteredTraits([]);
   }, [param]);
 
-  if (traits.length < 5 && traits.some((trait) => !trait.displayType))
+  if (traits.length < 5 && traits.some((trait) => !trait.display_type))
     return (
       <>
         {traits.map((trait, i) => (
@@ -53,8 +54,8 @@ const SearchFilters = ({
   if (
     traits.some(
       (trait) =>
-        trait.displayType === 'number' ||
-        trait.displayType === 'date' ||
+        trait.display_type === 'number' ||
+        trait.display_type === 'date' ||
         typeof trait.value === 'number'
     )
   ) {
@@ -78,20 +79,20 @@ const SearchFilters = ({
       />
       {param.length === 0 ? (
         <>
-          {traits.map((trait, i) => (
+          {traits.map((trait, i) => 
             <Checkbox
-              traitType={trait.trait_type}
+              traitType={traitType}
               label={trait.value}
               key={i}
               setFilters={setFilters}
               filters={filters}
               extra={trait.trait_count}
             />
-          ))}
+          )}
         </>
       ) : (
         <>
-          {filteredTraits.map(({ value, trait_type, traitCount }, i) => {
+          {filteredTraits.map(({ value, trait_type, trait_count }, i) => {
             return (
               <Checkbox
                 traitType={trait_type}
@@ -99,7 +100,7 @@ const SearchFilters = ({
                 key={i}
                 setFilters={setFilters}
                 filters={filters}
-                extra={traitCount}
+                extra={trait_count}
               />
             );
           })}
