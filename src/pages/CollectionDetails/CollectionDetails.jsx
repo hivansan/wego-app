@@ -173,7 +173,7 @@ const CollectionDetails = ({ setFooter, locationState }) => {
       const traitsCountFilter = traitsCountRange ? traitsCountRange : null;
       const buyNowfilter = buyNow ? buyNow : null;
       const searchAssetFilter = searchAsset ? searchAsset : null;
-      setHasFilter(hasTraits || PriceUsdFilter || rankFilter || traitsCountFilter || buyNowfilter);
+      setHasFilter(hasTraits || PriceUsdFilter || rankFilter || traitsCountFilter || buyNowfilter || searchAssetFilter);
       getAssetCounter();
       setAssetsPage(0);
       getCollectionAssets(

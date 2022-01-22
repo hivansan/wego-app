@@ -12,11 +12,12 @@ const CollectionSearchInput = ({
 
   return (
     <div
-      className='search-input'
+      className='asset-search-input'
     >
       <div className='input'>
         <BiSearch />
         <input
+          value={searchAsset}
           type='text'
           placeholder='Search Assets'
           onChange={searchAssetHandler}

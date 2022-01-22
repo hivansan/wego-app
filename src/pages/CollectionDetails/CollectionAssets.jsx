@@ -74,9 +74,6 @@ const CollectionAssets = ({
             setAssetsSort={setAssetsSort}
             assetsSort={assetsSort}
           />
-        </div>
-
-        <div className='search-bar-control'>
           <CollectionSearchInput
             searchAsset={searchAsset}
             setSearchAsset={setSearchAsset}
