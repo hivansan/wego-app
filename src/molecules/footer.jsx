@@ -33,8 +33,8 @@ const Footer = (props) => {
       </div> */}
       <div className='footer-c'>
         <div>
-          <Link to='/#'>Terms of services</Link>
-          <Link to='/#'>Terms of services</Link>
+          <Link to='/terms'>Terms of Use</Link>
+          <Link to='/privacy'>Privacy Policy</Link>
         </div>
         <div className='socials'>
           <div className='icons'>
