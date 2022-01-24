@@ -37,9 +37,10 @@ const CollectionAssets = ({
   traitsCountRange,
   setBuyNow,
   buyNow,
+  hasFilters,
+  realTotalAssets
 }) => {
   const [isFiltersCollapse, setIsFiltersCollapse] = useState(true);
-
   return (
     <div className='collection-assets-container'>
       <CollectionAssetsFilters
@@ -73,7 +74,7 @@ const CollectionAssets = ({
 
         <div className='total-results'>
           {totalAssets && totalAssets.meta && (
-            <small>{totalAssets.meta.total.toLocaleString()} results</small>
+            <small>{hasFilters ? totalAssets.meta.total.toLocaleString() : realTotalAssets} results</small>
           )}
         </div>
 

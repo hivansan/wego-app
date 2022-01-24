@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import moment from 'moment';
 import { FaEthereum } from 'react-icons/fa';
 import Icon from 'react-crypto-icons';
 import CryptoIcon from '../atoms/CryptoIcon';
@@ -83,23 +84,6 @@ const CollectionAssetCard = ({
           )}
         </section>
         <section className='asset-card-info'>
-          {/* <p>{asset[index].name ? asset[index].name : tokenIdTrimmed}</p> */}
-
-          {/* <p>
-            {price} <FaEthereum size={20} />
-
-          </p> */}
-          {/* {asset[index].lastSalePriceUSD && (
-            <small>
-              Last{' '}
-              <strong>
-                <small>$</small>{' '}
-                {Math.round(asset[index].lastSalePriceUSD).toLocaleString()}
-              </strong>
-            </small>
-          )} */}
-
-          {/* <small>#{asset[index]?.tokenId?.substr(0, 25)}</small> */}
           {asset[index].rarityScoreRank && (
             <p>Rarity Rank #{asset[index].rarityScoreRank}</p>
           )}
@@ -107,35 +91,30 @@ const CollectionAssetCard = ({
             {asset[index].currentPrice && (
               <>
                 <span>
-                  <p>Price </p>
-                  <CryptoIcon token={asset[index]?.sellOrders?.length ? asset[index].sellOrders[0].payment_token_contract?.symbol : 'ETH'} />
-                  <small>
-                    {asset[index]?.currentPrice?.toLocaleString().substr(0, 10)}
-                  </small>
+                  <small>Price</small>
+                  <div className='last-price'>
+                    <CryptoIcon token={asset[index]?.sellOrders?.length ? asset[index].sellOrders[0].payment_token_contract?.symbol : 'ETH'} />
+                    <small>
+                      {asset[index]?.currentPrice?.toLocaleString().substr(0, 10)}
+                    </small>
+                  </div>
                 </span>
               </>
             )}
-            {/* {asset[index].currentPrice && (
+
+            {asset[index].lastSalePrice && (
               <>
                 <span>
-                  <p>Price </p>
-                  <CryptoIcon token={'ETH'} />
-                  <small>{asset[index].currentPrice}</small>
+                  <small>Last</small>
+                  <div className='last-price'>
+                    {asset[index]?.lastSale?.payment_token?.symbol && (<CryptoIcon token={asset[index]?.lastSale?.payment_token?.symbol} />)}
+                    <small> {asset[index].lastSalePrice.toLocaleString()}</small>
+                  </div>
+                </span>
+                <span>
+                  <small>{asset[index]?.lastSale ? 'Last sold: ' + moment(asset[index].lastSale.created_date).format('MMM D \'YY') : ''}</small>
                 </span>
               </>
-            )} */}
-            {asset[index].lastSalePrice && (
-              <span>
-                <small>Last </small>
-                <div className='last-price'>
-                  {asset[index]?.lastSale?.payment_token?.symbol && (
-                    <CryptoIcon
-                      token={asset[index]?.lastSale?.payment_token?.symbol}
-                    />
-                  )}
-                  <small> {asset[index].lastSalePrice.toLocaleString()}</small>
-                </div>
-              </span>
             )}
           </div>
         </section>
