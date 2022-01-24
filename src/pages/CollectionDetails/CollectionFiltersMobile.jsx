@@ -136,7 +136,7 @@ const CollectionAssetsFiltersMobile = ({
           />
         </Filter>
         {traitTypes.map((traitType, i) => (
-          <Filter title={traitType} key={i}>
+          <Filter title={traitType} key={i} counter={collectionTraits.filter(trait => trait.trait_type === traitType).length}>
             <SearchFilters
               collectionTraits={collectionTraits}
               traitType={traitType}
