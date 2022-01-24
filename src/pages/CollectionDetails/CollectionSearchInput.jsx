@@ -2,8 +2,7 @@ import React, { forwardRef, useEffect, useState } from 'react';
 import { BiSearch } from 'react-icons/bi';
 
 const CollectionSearchInput = ({
-  setSearchAsset,
-  searchAsset
+  setSearchAsset
 }) => {
 
   const searchAssetHandler = (e) => {
@@ -17,7 +16,6 @@ const CollectionSearchInput = ({
       <div className='input'>
         <BiSearch />
         <input
-          value={searchAsset}
           type='text'
           placeholder='Search Assets'
           onChange={searchAssetHandler}

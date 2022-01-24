@@ -56,12 +56,12 @@ export class Api {
         const hasTraitsCountRange = !traitsCountRange
           ? ''
           : `&${traitsCountRange.param}=${JSON.stringify(
-              traitsCountRange.range
-            )}`;
+            traitsCountRange.range
+          )}`;
         const isBuyNow = !buyNow ? '' : `&buyNow=${JSON.stringify(buyNow)}`;
         const hasAssetSearch = !searchAsset
           ? ''
-          : `&searchAsset=${searchAsset}`;
+          : `&query=${searchAsset}`;
 
         const collectionAssetsUrl = `/assets?slug=${slug}&limit=${limit}&offset=${offset}${hasSortDirection}${hasSorts}${hasTraits}${hasPriceRange}${hasRankRange}${hasTraitsCountRange}${isBuyNow}${hasAssetSearch}`;
         return this.request('get', collectionAssetsUrl);
