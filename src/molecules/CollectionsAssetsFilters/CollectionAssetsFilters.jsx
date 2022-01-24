@@ -159,7 +159,7 @@ const CollectionAssetsFilters = ({
           </Filter>
 
           {/* price filter */}
-          <Filter title='Price' isCollapse={isCollapse}>
+          <Filter title='Price ETH' isCollapse={isCollapse}>
             <RangeFilters
               filter='price'
               setRange={setPriceRange}
