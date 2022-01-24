@@ -16,6 +16,7 @@ const CollectionAssetCard = ({
   collectionImg,
   setFilters,
   filters,
+  collectionTraits
 }) => {
   const hasExtraClasses = className ? className : '';
   const tokenIdTrimmed =
@@ -30,14 +31,13 @@ const CollectionAssetCard = ({
     ) : (
       <>{asset[index].tokenId}</>
     );
-
   return (
     <Link
       key={asset[index].id}
       to={{
         pathname: `/assets/${asset[index].asset_contract?.address || asset[index].contractAddress
           }/${asset[index].tokenId}`,
-        state: { background: location, filters: filters },
+        state: { background: location, filters: filters, collectionTraits: collectionTraits },
       }}
     >
       <article className={`${hasExtraClasses} collection-asset-card`}>

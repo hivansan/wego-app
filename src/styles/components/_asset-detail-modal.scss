@@ -263,6 +263,21 @@
     align-items: center;
     color: var(--color-secondary);
   }
+
+  .traits-prices {
+    display: flex;
+    color: #666666;
+    text-align: end;
+    display: flex;
+    flex-direction: column;
+    font-size: x-small;
+    small {
+      text-align: end;
+      span {
+        color: var(--color-secondary);
+      }
+    }
+  }
 }
 
 // @media screen and (max-width: 1200px) {
