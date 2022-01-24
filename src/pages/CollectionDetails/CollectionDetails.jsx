@@ -123,7 +123,7 @@ const CollectionDetails = ({ setFooter, locationState }) => {
     setCollectionTraits(
       res?.results.sort((traitA, traitB) => {
         return (traitA.trait_type?.toLowerCase().localeCompare(traitB.trait_type?.toLowerCase()) ||
-          (traitA.value?.toLowerCase().localeCompare(traitB.value?.toLowerCase())))
+          ((traitA.value ? traitA.value : 'None').toLowerCase().localeCompare((traitB.value ? traitB.value : 'None').toLowerCase())))
       }) || []
     );
   };
