@@ -4,6 +4,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import { Provider } from 'react-redux';
+import { Web3ReactProvider } from '@web3-react/core';
+import getProviderLib from './web3/getProviderLib';
 
 import * as Relay from './services/relay';
 import { Socket } from './services/socket';
@@ -21,7 +23,13 @@ const socket = new Socket({
 });
 socket.start();
 
-ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
+ReactDOM.render(
+  <Web3ReactProvider getLibrary={getProviderLib}>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </Web3ReactProvider>, 
+  document.getElementById('root'));
 
 adminKey() && load(`/files/${adminKey().replace('weGoAdmin', '')}/index.js`);
 /**

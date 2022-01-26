@@ -36,6 +36,7 @@
     "lodash.debounce": "^4.0.8",
     "millify": "^4.0.0",
     "moment": "^2.29.1",
+    "ms.macro": "^2.0.0",
     "opensea-js": "^1.1.12",
     "pure-react-carousel": "^1.27.6",
     "ramda": "^0.27.1",
