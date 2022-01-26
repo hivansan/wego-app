@@ -80,7 +80,7 @@ const HotCollectionsBar = ({ hotCollections, isInputHeaderShown }) => {
           {hotCollections.map(({ value: collection }, i) => (
             <a
               href={`/collection/${collection.slug}`}
-              key={collection.slug}
+              key={i}
             >
               <div className='hot-collection'>
                 <FiArrowUpCircle size={15} color={'green'} />
