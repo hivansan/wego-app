@@ -121,10 +121,12 @@ const CollectionDetails = ({ setFooter, locationState }) => {
     const res = await api.collections.traits(slug);
 
     setCollectionTraits(
-      res?.results.sort((traitA, traitB) => {
-        return (traitA.trait_type?.toString().toLowerCase().localeCompare(traitB.trait_type?.toString().toLowerCase()) ||
-          ((traitA.value ? traitA.value : 'None').toString().toLowerCase().localeCompare((traitB.value ? traitB.value : 'None').toString().toLowerCase())))
-      }) || []
+      res?.results
+        .filter((trait) => trait.trait_type !== 'traitCount')
+        .sort((traitA, traitB) => {
+          return (traitA.trait_type?.toString().toLowerCase().localeCompare(traitB.trait_type?.toString().toLowerCase()) ||
+            ((traitA.value ? traitA.value : 'None').toString().toLowerCase().localeCompare((traitB.value ? traitB.value : 'None').toString().toLowerCase())))
+        }) || []
     );
   };
 
