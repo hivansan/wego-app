@@ -4,11 +4,10 @@ import ImageTypeDetect from '../../../ImageTypeDetect';
 const DropDownAssetItem = ({ asset, location, isOpen }) => (
   <Link
     to={{
-      pathname: `assets/${
-        asset.contractAddress
-          ? asset.contractAddress
-          : asset.asset_contract.address
-      }/${asset.tokenId ? asset.tokenId : asset.token_id}`,
+      pathname: `assets/${asset.contractAddress
+        ? asset.contractAddress
+        : asset.asset_contract.address
+        }/${asset.tokenId ? asset.tokenId : asset.token_id}`,
       state: { background: location, searchResults: isOpen },
     }}
     key={asset.id}
@@ -26,11 +25,41 @@ const DropDownAssetItem = ({ asset, location, isOpen }) => (
         </div>
       </div>
       <div className='asset-stats'>
-        {asset._lastSalePrice && (
+        <small>
+          Total traits:{' '}
+          <strong>
+            {asset?.traitsCount || asset?.traits?.length || 0}
+          </strong>
+        </small>
+        {asset.rarityScore ? (
           <small>
-            Last Price Sold: <strong>${asset._lastSalePrice}</strong>
-          </small>
-        )}
+            Rarity Score:{' '}
+            <strong>
+              {asset?.rarityScore?.toString().substring(0, 8) || 0}
+            </strong>
+          </small>) : null}
+        {asset.avgTraitRarity ? (
+          <small>
+            Average Trait Rarity:{' '}
+            <strong>
+              {asset?.avgTraitRarity?.toString().substring(0, 8) || 0 + '%'}
+            </strong>
+          </small>) : null}
+        {asset.statisticalRarity ? (
+          <small>
+            Statistical Rarity:{' '}
+            <strong>
+              {asset?.statisticalRarity?.toString().substring(0, 10) || 0 + '%'}
+            </strong>
+          </small>) : null}
+        {asset.singleTraitRarity ? (
+
+          <small>
+            Single Trait Rarity:{' '}
+            <strong>
+              {asset?.singleTraitRarity?.toString().substring(0, 8) || 0 + '%'}
+            </strong>
+          </small>) : null}
       </div>
     </div>
   </Link>
