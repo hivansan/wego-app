@@ -10,6 +10,12 @@ import config from '../config/config';
 export const injected = new InjectedConnector({
   supportedChainIds: Object.values(CHAIN_IDS),
 });
+
+export const walletlink = new WalletLinkConnector({
+  url: config.infuraProvider,
+  appName: 'WeGo Battle',
+});
+
 /*
 export const walletconnect = new WalletConnectConnector({
   // Example Wallet: Trust Wallet
@@ -20,10 +26,6 @@ export const walletconnect = new WalletConnectConnector({
   chainId: 1,
 });
 
-export const walletlink = new WalletLinkConnector({
-  url: RPC_URLS[1],
-  appName: 'Seedz.Social',
-});
 
 export const fortmatic = new FortmaticConnector({
   apiKey: 'pk_live_F95FEECB1BE324B5',

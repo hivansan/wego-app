@@ -3,7 +3,7 @@ import WALLET_CONNECT_ICON from '../assets/walletConnectIcon.svg';
 import METAMASK_ICON from '../assets/metamask.png';
 import INJECTED_ICON from '../assets/arrow-right.svg';
 import COINBASE_WALLET_ICON from '../assets/coinbaseWalletIcon.svg';
-import { injected } from './connectors';
+import { injected, walletlink } from './connectors';
 
 
 export const supportedWallets= {
@@ -24,6 +24,16 @@ export const supportedWallets= {
     href: null,
     color: '#E8831D',
   },
+  COINBASE_LINK: {
+    connector: walletlink,
+    name: 'Open in Coinbase Wallet',
+    iconURL: COINBASE_WALLET_ICON,
+    description: 'Open in Coinbase Wallet app.',
+    href: 'https://go.cb-w.com/mtUDhEZPy1',
+    color: '#315CF5',
+    mobile: true,
+    //mobileOnly: true,
+  },
   /*
   WALLET_CONNECT: {
     connector: walletconnect,
@@ -42,22 +52,14 @@ export const supportedWallets= {
     href: null,
     color: '#315CF5',
   },
-  COINBASE_LINK: {
-    name: 'Open in Coinbase Wallet',
-    iconURL: COINBASE_WALLET_ICON,
-    description: 'Open in Coinbase Wallet app.',
-    href: 'https://go.cb-w.com/mtUDhEZPy1',
-    color: '#315CF5',
-    mobile: true,
-    mobileOnly: true,
-  },
+
   */
 
 
 
 
 
-  
+
   /*
   FORTMATIC: {
     connector: fortmatic,
