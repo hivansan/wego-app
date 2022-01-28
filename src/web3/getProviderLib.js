@@ -11,7 +11,7 @@ const NETWORK_POLLING_INTERVALS = {
   [CHAIN_IDS.RINKEBY]: ms`1s`,
 };
 
-export default function getLibrary(provider) {
+export default function getProviderLib(provider) {
   const library = new Web3Provider(
     provider,
     typeof provider.chainId === 'number'

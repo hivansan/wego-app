@@ -3,6 +3,8 @@ import abis from './abis.config';
 const config = {
   infuraProvider:
     'https://mainnet.infura.io/v3/b111d8f387c847039541e29435e06cd2',
+  getInfuraProviderFor: network => `https://${network}.infura.io/v3/b111d8f387c847039541e29435e06cd2`,
+  portisDAppId: '',
 
   yCurveFiRewardsAddress: '0x98C51906264ef99B7cF02a60c6cCC81C898C5fD4',
   yCurveFiRewardsABI: [
@@ -346,5 +348,6 @@ const config = {
 };
 
 export const infuraProvider = config['infuraProvider'];
+export const getInfuraProviderFor = config['getInfuraProviderFor'];
 
 export default config;
