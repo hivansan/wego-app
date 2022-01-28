@@ -24,6 +24,7 @@ const CollectionDetails = ({ setFooter, locationState }) => {
   const [totalAssets, setTotalAssets] = useState(null);
   const [traitsCountRange, setTraitsCountRange] = useState(false);
   const [buyNow, setBuyNow] = useState(false);
+  const [searchAsset, setSearchAsset] = useState(null);
   const [hasFilters, setHasFilter] = useState(false);
   const [realTotalAssets, setRealTotalAssets] = useState(null);
 
@@ -51,7 +52,8 @@ const CollectionDetails = ({ setFooter, locationState }) => {
     priceRange,
     rankRange,
     traitsCountRange,
-    buyNow
+    buyNow,
+    searchAsset
   ) => {
     setResultAssets([]);
     setHasNextPage(true);
@@ -65,7 +67,8 @@ const CollectionDetails = ({ setFooter, locationState }) => {
       priceRange,
       rankRange,
       traitsCountRange,
-      buyNow
+      buyNow,
+      searchAsset
     );
     const results =
       res && res.results && res.results.length === 0 ? null : res.results;
@@ -174,7 +177,8 @@ const CollectionDetails = ({ setFooter, locationState }) => {
       const rankFilter = rankRange ? rankRange : null;
       const traitsCountFilter = traitsCountRange ? traitsCountRange : null;
       const buyNowfilter = buyNow ? buyNow : null;
-      setHasFilter(hasTraits || PriceUsdFilter || rankFilter || traitsCountFilter || buyNowfilter);
+      const searchAssetFilter = searchAsset ? searchAsset : null;
+      setHasFilter(hasTraits || PriceUsdFilter || rankFilter || traitsCountFilter || buyNowfilter || searchAssetFilter);
       getAssetCounter();
       setAssetsPage(0);
       getCollectionAssets(
@@ -184,11 +188,12 @@ const CollectionDetails = ({ setFooter, locationState }) => {
         PriceUsdFilter,
         rankFilter,
         traitsCountFilter,
-        buyNowfilter
+        buyNowfilter,
+        searchAssetFilter
       );
       window.scrollTo(0, 0);
     }
-  }, [filters, assetsSort, rankRange, priceUsdRange, traitsCountRange, buyNow]);
+  }, [filters, assetsSort, rankRange, priceUsdRange, traitsCountRange, buyNow, searchAsset]);
 
   useEffect(() => {
     const unsubscribe = Relay.listen(
@@ -244,6 +249,8 @@ const CollectionDetails = ({ setFooter, locationState }) => {
         setAssets={setResultAssets}
         filtersMobileOpen={filtersMobileOpen}
         _loadNextPage={loadNextAssetsPage}
+        searchAsset={searchAsset}
+        setSearchAsset={setSearchAsset}
         hasFilters={hasFilters}
         realTotalAssets={realTotalAssets}
       />
