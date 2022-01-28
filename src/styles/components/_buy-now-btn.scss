@@ -1,0 +1,21 @@
+@import '../variables.scss';
+
+.buy-now-btn {
+  border-radius: 0.25rem;
+  color: var(--color-primary);
+  font-weight: bold;
+  background-color: transparent;
+  border-color: var(--color-primary);
+  border-width: 0.06rem;
+  border-style: solid;
+  cursor: pointer;
+  margin: 5px 0;
+
+  &:hover {
+    color: #fff;
+    background-color: var(--color-primary);
+  }
+}
+.buy-now-message {
+  color: var(--color-secondary);
+}

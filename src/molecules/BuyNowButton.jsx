@@ -57,7 +57,8 @@ const BuyNowButton = (props) => {
         networkName: Network.Main,
       });
       console.log(props);
-      const { tokenAddress, tokenId } = props?.match.params;
+      const tokenAddress = props.tokenAddress;
+      const tokenId = props.tokenId
 
       const asset = await seaport.api.get(
         `/api/v1/asset/${tokenAddress}/${tokenId}`
@@ -86,8 +87,9 @@ const BuyNowButton = (props) => {
       window.ethereum.enable();
     }
     try {
+      console.log(window.web3.currentProvider);
       const seaport = new OpenSeaPort(window.web3.currentProvider, {
-        networkName: Network.Main,
+        networkName: Network.Main
       });
 
       const order = await seaport.api.getOrder({
@@ -100,7 +102,7 @@ const BuyNowButton = (props) => {
         include_bundled: 'false',
         include_invalid: 'false',
       });
-
+      console.log(order);
       // console.log(account);
       const transactionHash = await seaport.fulfillOrder({
         order,
@@ -118,15 +120,15 @@ const BuyNowButton = (props) => {
     <div>
       {sellOrder ? (
         <button
-          className='btn btn-outline-orange'
+          className='btn buy-now-btn'
           type='button'
           disabled={loaders.buying || !sellOrder}
           onClick={onBuyItem}
         >
-          {loaders.buying ? 'complete in metamask ...' : 'Buy now'}
+          {loaders.buying ? 'Complete in metamask ...' : 'Buy now'}
         </button>
       ) : (
-        <div>This item is not for sale</div>
+        <div className='buy-now-message'>This item is not for sale</div>
       )}
     </div>
   );

@@ -6,7 +6,7 @@ import { Api } from '../services/api';
 import { useLocation, useHistory, useParams } from 'react-router-dom';
 import Trait from './AssetDetailModal/Trait';
 import CryptoIcon from '../atoms/CryptoIcon';
-
+import BuyNowButton from './BuyNowButton';
 const AssetDetailModal = ({ setFooter }) => {
   const [open, setOpen] = useState(true);
 
@@ -220,6 +220,12 @@ const AssetDetailModal = ({ setFooter }) => {
                       )}
                     </div>
                   </div>
+                  {asset.currentPrice && (
+                    <BuyNowButton
+                      tokenAddress={asset.contractAddress}
+                      tokenId={tokenId}
+                    />
+                  )}
                   {/* <p>
                     <small>
                       #
