@@ -513,3 +513,21 @@
     display: none;
   }
 }
+.filter-spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 25px;
+  .spinner {
+    animation: spin infinite 5s linear;
+    color: var(--color-secondary);
+  }
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+}

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 
 import { HiFilter } from 'react-icons/hi';
 import { BiArrowToLeft } from 'react-icons/bi';
+import { FaSpinner } from 'react-icons/fa';
 import Filter from './Filter';
 import SearchFilters from './SearchFilters';
 import RangeFilters from './RangeFilters';
@@ -122,9 +123,8 @@ const CollectionAssetsFilters = ({
   return (
     <>
       <div
-        className={`${
-          isCollapse ? 'd-block' : 'd-none'
-        } filter-collapse collection-assets-filters`}
+        className={`${isCollapse ? 'd-block' : 'd-none'
+          } filter-collapse collection-assets-filters`}
       >
         <header onClick={setIsCollapse}>
           <HiFilter size={20} />
@@ -132,9 +132,8 @@ const CollectionAssetsFilters = ({
       </div>
 
       <div
-        className={`${
-          isCollapse ? 'd-none' : 'd-block'
-        } collection-assets-filters`}
+        className={`${isCollapse ? 'd-none' : 'd-block'
+          } collection-assets-filters`}
       >
         <div>
           <header onClick={setIsCollapse}>
@@ -192,7 +191,7 @@ const CollectionAssetsFilters = ({
           </Filter>
 
           {/* traits filters */}
-          {collectionTraits &&
+          {collectionTraits ?
             traits.map((traitType) => (
               <Filter title={traitType} key={traitType} counter={collectionTraits.filter(trait => trait.trait_type === traitType).length} isCollapse={isCollapse}>
                 <SearchFilters
@@ -203,7 +202,7 @@ const CollectionAssetsFilters = ({
                   key={traitType}
                 />
               </Filter>
-            ))}
+            )) : <div className='filter-spinner'><FaSpinner size={60} className='spinner' /></div>}
         </div>
       </div>
     </>
