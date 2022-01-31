@@ -1,18 +1,18 @@
 import { Link } from 'react-router-dom';
 
-const NftSearchBarModal = ({ results, isOpen, query, children, className, noItemsFound }) => {
+const NftSearchBarModal = ({ results, resultsAssets, isOpen, query, children, className, noItemsFound }) => {
   const hasExtraClasses = className ? className : '';
   const modalIsOpen = isOpen ? '' : 'd-none';
-
   return (
     <div className={`search-bar-drop-down ${modalIsOpen} ${hasExtraClasses}`}>
-      {!results ? (
+      {(resultsAssets ? (!results || !resultsAssets) : !results) ? (
         <div className='loader-container'>
           <div className='spinner-border'></div>
         </div>
       ) : (
         <>
-          {results.results && results.results.length === 0 ? (
+          {results?.results && results?.results.length === 0 &&
+            resultsAssets?.results && resultsAssets?.results.length === 0 ? (
             <>
               {noItemsFound || (
                 <div className='loader-container'>

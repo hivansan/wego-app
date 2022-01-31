@@ -14,7 +14,7 @@ const AssetDetailModal = ({ setFooter }) => {
   // const [assetScore, setAssetScore] = useState(null);
   const [filters, setFilters] = useState([]);
   const [goBackPath, setGoBackPath] = useState('');
-
+  const [collectionTraits, setCollectionTraits] = useState(null);
   const location = useLocation();
   const history = useHistory();
   const { address, tokenId } = useParams();
@@ -55,6 +55,7 @@ const AssetDetailModal = ({ setFooter }) => {
     if (location.state) {
       setGoBackPath(location.state.background.pathname);
       setFilters(location.state?.filters || []);
+      setCollectionTraits(location.state.collectionTraits);
     }
   }, []);
 
@@ -277,17 +278,16 @@ const AssetDetailModal = ({ setFooter }) => {
                   <div className='asset-detail-modal-stats-filters'>
                     {asset &&
                       asset.traits &&
-                      asset.traits
-                        .sort((traitA, traitB) => { return traitB.traitScore - traitA.traitScore })
-                        .map((trait, i) => (
-                          <Trait
-                            filters={filters}
-                            setFilters={setFilters}
-                            trait={trait}
-                            bgFilters={location?.state?.filters || []}
-                            key={i}
-                          />
-                        ))}
+                      asset.traits.map((trait, i) => (
+                        <Trait
+                          filters={filters}
+                          setFilters={setFilters}
+                          trait={trait}
+                          bgFilters={location?.state?.filters || []}
+                          key={i}
+                          collectionTraits={collectionTraits?.find(collectionTrait => collectionTrait.value === trait.value && collectionTrait.trait_type === trait.trait_type)}
+                        />
+                      ))}
                   </div>
                 </div>
               </div>

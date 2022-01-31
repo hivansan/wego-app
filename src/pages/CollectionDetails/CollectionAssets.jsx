@@ -168,6 +168,7 @@ const CollectionAssets = ({
                                       location={location}
                                       setFilters={setFilters}
                                       filters={filters}
+                                      collectionTraits={collectionTraits}
                                     />
                                   )}
                                 </React.Fragment>

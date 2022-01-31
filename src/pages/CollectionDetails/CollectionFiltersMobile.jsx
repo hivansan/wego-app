@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { IoIosClose } from 'react-icons/io';
+import { FaSpinner } from 'react-icons/fa';
 import { Dialog, DialogContent, DialogTitle } from '@material-ui/core';
 import Filter from '../../molecules/CollectionsAssetsFilters/Filter';
 import SearchFilters from '../../molecules/CollectionsAssetsFilters/SearchFilters';
@@ -135,16 +136,17 @@ const CollectionAssetsFiltersMobile = ({
             min={0}
           />
         </Filter>
-        {traitTypes.map((traitType, i) => (
-          <Filter title={traitType} key={i}>
-            <SearchFilters
-              collectionTraits={collectionTraits}
-              traitType={traitType}
-              setFilters={setFilters}
-              filters={filters}
-            />
-          </Filter>
-        ))}
+        {collectionTraits ?
+          traitTypes.map((traitType, i) => (
+            <Filter title={traitType} key={i} counter={collectionTraits.filter(trait => trait.trait_type === traitType).length}>
+              <SearchFilters
+                collectionTraits={collectionTraits}
+                traitType={traitType}
+                setFilters={setFilters}
+                filters={filters}
+              />
+            </Filter>
+          )) : <div className='filter-spinner'><FaSpinner size={60} className='spinner' /></div>}
       </DialogContent>
     </Dialog>
   );

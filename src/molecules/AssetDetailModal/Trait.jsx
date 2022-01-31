@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
+import Icon from 'react-crypto-icons';
 
-const Trait = ({ filters, setFilters, trait, bgFilters }) => {
+const Trait = ({ filters, setFilters, trait, bgFilters, collectionTraits }) => {
   const [checked, setChecked] = useState(false);
-
   const handleFilter = () => {
     if (checked) {
       setFilters(() => filters.filter(({ value }) => value !== trait.value));
@@ -48,6 +48,14 @@ const Trait = ({ filters, setFilters, trait, bgFilters }) => {
         <div className='asset-detail-filter-a'>
           <p>{trait.trait_count}</p>
         </div>
+      </div>
+      <div className='traits-prices'>
+        {collectionTraits && (
+          <small>
+            {collectionTraits.top_price && (<span>Top <Icon name='eth' size='10' className='token token-secondary' /> {collectionTraits.top_price} </span>)}
+            {collectionTraits.top_price && (<span>Floor <Icon name='eth' size='10' className='token token-secondary' /> {collectionTraits.floor_price} </span>)}
+          </small>
+        )}
       </div>
     </div>
   );

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 
 import { HiFilter } from 'react-icons/hi';
 import { BiArrowToLeft } from 'react-icons/bi';
+import { FaSpinner } from 'react-icons/fa';
 import Filter from './Filter';
 import SearchFilters from './SearchFilters';
 import RangeFilters from './RangeFilters';
@@ -36,7 +37,7 @@ const CollectionAssetsFilters = ({
   const [maxPrice, setMaxPrice] = useState(null);
   const [maxRank, setMaxRank] = useState(null);
   const [maxTraitsCount, setMaxTraitsCount] = useState(null);
-  const [price, setPrice] = useState('priceUsdRange');
+  const [price, setPrice] = useState('priceRange'); // ETH price range
   const traits = [];
   const isMobile = useMediaQuery({ query: '(max-width: 657px)' });
   const api = new Api();
@@ -52,6 +53,7 @@ const CollectionAssetsFilters = ({
   }
 
   const getMaxPrice = async () => {
+    //Dollar filter is commented, this is unnecesary. Remove if the filter isn't comming back
     const priceSelected =
       price === 'priceUsdRange' ? 'currentPriceUSD' : 'currentPrice';
 
@@ -121,9 +123,8 @@ const CollectionAssetsFilters = ({
   return (
     <>
       <div
-        className={`${
-          isCollapse ? 'd-block' : 'd-none'
-        } filter-collapse collection-assets-filters`}
+        className={`${isCollapse ? 'd-block' : 'd-none'
+          } filter-collapse collection-assets-filters`}
       >
         <header onClick={setIsCollapse}>
           <HiFilter size={20} />
@@ -131,9 +132,8 @@ const CollectionAssetsFilters = ({
       </div>
 
       <div
-        className={`${
-          isCollapse ? 'd-none' : 'd-block'
-        } collection-assets-filters`}
+        className={`${isCollapse ? 'd-none' : 'd-block'
+          } collection-assets-filters`}
       >
         <div>
           <header onClick={setIsCollapse}>
@@ -158,7 +158,7 @@ const CollectionAssetsFilters = ({
           </Filter>
 
           {/* price filter */}
-          <Filter title='Price' isCollapse={isCollapse}>
+          <Filter title='Price ETH' isCollapse={isCollapse}>
             <RangeFilters
               filter='price'
               setRange={setPriceRange}
@@ -191,9 +191,9 @@ const CollectionAssetsFilters = ({
           </Filter>
 
           {/* traits filters */}
-          {collectionTraits &&
+          {collectionTraits ?
             traits.map((traitType) => (
-              <Filter title={traitType} key={traitType} isCollapse={isCollapse}>
+              <Filter title={traitType} key={traitType} counter={collectionTraits.filter(trait => trait.trait_type === traitType).length} isCollapse={isCollapse}>
                 <SearchFilters
                   collectionTraits={collectionTraits}
                   traitType={traitType}
@@ -202,7 +202,7 @@ const CollectionAssetsFilters = ({
                   key={traitType}
                 />
               </Filter>
-            ))}
+            )) : <div className='filter-spinner'><FaSpinner size={60} className='spinner' /></div>}
         </div>
       </div>
     </>

@@ -53,7 +53,7 @@ const ClearFilters = ({
               key={i}
               onClick={() =>
                 setFilters(() =>
-                  filters.filter(({ value }) => value !== filter)
+                  filters.filter(f => f.value !== filter || f.traitType !== traitType)
                 )
               }
             >

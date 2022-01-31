@@ -1,5 +1,6 @@
 import React from 'react';
 import { FaEthereum } from 'react-icons/fa';
+import Icon from 'react-crypto-icons';
 
 const CollectionStats = ({ collection: stats }) => {
   return (
@@ -39,11 +40,44 @@ const CollectionStats = ({ collection: stats }) => {
                 ETH
               </small>
             </div>
+
             <div className='stat'>
               <small>Total Sales</small>
               <small>{stats.stats?.totalSales || stats.totalSales || 0}</small>
             </div>
           </div>
+
+          <div className='collection-price-variation'>
+            <div className='stat'>
+              <small>1 Day Price Var.</small>
+              <small>
+                {(stats?.stats?.oneDayChange &&
+                  <span className={stats.stats.oneDayChange > 0 ? 'price-up' : 'price-down'}> {stats.stats.oneDayChange.toFixed(3)} </span>)
+                  || 0}
+                <Icon name='eth' size='14' className='token token-secondary' />
+              </small>
+            </div>
+            <div className='stat'>
+              <small>7 Days Price Var.</small>
+              <small>
+                {(stats?.stats?.sevenDayChange &&
+                  <span className={stats.stats.sevenDayChange > 0 ? 'price-up' : 'price-down'}> {stats.stats.sevenDayChange.toFixed(3)} </span>)
+                  || 0}
+                <Icon name='eth' size='14' className='token token-secondary' />
+              </small>
+            </div>
+
+            <div className='stat'>
+              <small>30 Days Price Var.</small>
+              <small>
+                {(stats?.stats?.thirtyDayChange &&
+                  <span className={stats.stats.thirtyDayChange > 0 ? 'price-up' : 'price-down'}> {stats.stats.thirtyDayChange.toFixed(3)} </span>)
+                  || 0}
+                <Icon name='eth' size='14' className='token token-secondary' />
+              </small>
+            </div>
+          </div>
+
           <div className='collection-stats'>
             <div className='stat'>
               <p>{stats.stats?.totalSupply || stats.totalSupply || 0}</p>

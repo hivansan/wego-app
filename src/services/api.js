@@ -61,7 +61,7 @@ export class Api {
         const isBuyNow = !buyNow ? '' : `&buyNow=${JSON.stringify(buyNow)}`;
         const hasAssetSearch = !searchAsset
           ? ''
-          : `&query=${searchAsset}`;
+          : `&query=${encodeURIComponent(searchAsset)}`;
 
         const collectionAssetsUrl = `/assets?slug=${slug}&limit=${limit}&offset=${offset}${hasSortDirection}${hasSorts}${hasTraits}${hasPriceRange}${hasRankRange}${hasTraitsCountRange}${isBuyNow}${hasAssetSearch}`;
         return this.request('get', collectionAssetsUrl);

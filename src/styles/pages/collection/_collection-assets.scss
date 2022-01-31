@@ -268,9 +268,17 @@
       user-select: none;
       cursor: pointer;
       p {
-        font-size: 25px;
-
+        font-size: 12px;
         margin: 0;
+      }
+      .filter-counter {
+        font-size: x-small;
+        display: flex;
+        justify-content: end;
+        align-content: flex-end;
+        span {
+          margin: 2px 5px 0 5px;
+        }
       }
     }
 
@@ -403,8 +411,12 @@
         user-select: none;
         cursor: pointer;
         p {
-          font-size: 25px;
+          font-size: 15px;
           margin: 0;
+        }
+        span {
+          font-size: x-small;
+          margin: 0 5px;
         }
       }
 
@@ -546,5 +558,23 @@
 
   .collection-assets-filters {
     display: none;
+  }
+}
+.filter-spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 25px;
+  .spinner {
+    animation: spin infinite 5s linear;
+    color: var(--color-secondary);
+  }
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
   }
 }
