@@ -45,6 +45,11 @@ const WalletModal = ({ open, handleClose }) => {
     localStorage.setItem('connected', 'false');
   };
 
+  const findConnectorData = connector => {
+    const key = Object.keys(supportedWallets).find( key => supportedWallets[key].isConnectorConfirmed(connector));
+    return key ? supportedWallets[key] : null;
+  }
+
   
   const tryActivation = async connector => {
     Object.keys(supportedWallets).map(key => {
@@ -141,36 +146,48 @@ const WalletModal = ({ open, handleClose }) => {
   }
 
   function ConnectedWallet() {
+    const connectorData = findConnectorData(account.account.provider);
+    const walletName = connectorData 
+      ? <>
+          <img key={connectorData.name} src={connectorData.iconURL} alt={connectorData.name} />
+          {connectorData.name}
+        </> 
+      : "Wallet";
+
     return (
       <>
         <header className='wallet-modal__header'>Account</header>
         <div className='wallet-modal__body'>
-          <div className='wallet-modal__body__account'>
-            <small>Connected with</small>
-            <div className='wallet-modal__body__account__provider'>
-              <p>Metamask</p>
-              <Button onClick={disconnect}>Disconnect</Button>
-            </div>
-            <small>Address</small>
-            <div className='wallet-modal__body__account__address'>
-              <a
-                href={`https://etherscan.io/address/${account.account.address}`}
-                target='_blank'
-                rel='noopener noreferrer'
-              >
-                {account.account.address.substr(0, 5)}...
-                {account.account.address.substr(
-                  account.account.address.length - 4,
-                  account.account.address.length
-                )}
-              </a>
-              <GrCopy
-                onClick={() =>
-                  navigator.clipboard.writeText(account.account.address)
-                }
-              />
-            </div>
+          <small>Address</small>
+          <div className='wallet-modal__body__account__address'>
+            <a
+              href={`https://etherscan.io/address/${account.account.address}`}
+              target='_blank'
+              rel='noopener noreferrer'
+            >
+              {account.account.address.substr(0, 5)}...
+              {account.account.address.substr(
+                account.account.address.length - 4,
+                account.account.address.length
+              )}
+            </a>
+            <GrCopy
+              onClick={() =>
+                navigator.clipboard.writeText(account.account.address)
+              }
+            />
           </div>
+          <br />
+          <small>Connected with</small>
+          <div className='wallet-modal__body__account__provider'>
+            <span className='wallet-container'>
+              {walletName}
+            </span>
+          </div>
+          <div className='wallet-modal__body__account__disconnect'>
+            <Button onClick={disconnect}>Disconnect</Button>
+          </div>
+
         </div>
       </>
     );

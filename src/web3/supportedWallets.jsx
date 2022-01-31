@@ -7,6 +7,28 @@ import { injected, walletlink } from './connectors';
 
 
 export const supportedWallets= {
+  METAMASK: {
+    connector: injected,
+    name: 'MetaMask',
+    iconURL: METAMASK_ICON,
+    description: 'Easy-to-use browser extension.',
+    href: null,
+    color: '#E8831D',
+    isConnectorConfirmed: conn => ((window.web3 && window.web3.currentProvider.isMetaMask) || (window.ethereum && window.ethereum.isMetaMask))
+  },
+  COINBASE_LINK: {
+    connector: walletlink,
+    name: 'Coinbase Wallet',
+    iconURL: COINBASE_WALLET_ICON,
+    description: 'Open in Coinbase Wallet app.',
+    href: 'https://go.cb-w.com/mtUDhEZPy1',
+    color: '#315CF5',
+    mobile: true,
+    isConnectorConfirmed: conn => ((window.web3 && window.web3.currentProvider.isCoinbaseWallet) || (window.ethereum && window.ethereum.isCoinbaseWallet))
+
+    
+    //mobileOnly: true,
+  },
   INJECTED: {
     connector: injected,
     name: 'Injected',
@@ -15,25 +37,9 @@ export const supportedWallets= {
     href: null,
     color: '#010101',
     primary: true,
+    isConnectorConfirmed: conn => injected === conn && ((window.web3 && !window.web3.currentProvider.isMetaMask) || (window.ethereum && !window.ethereum.isMetaMask))
   },
-  METAMASK: {
-    connector: injected,
-    name: 'MetaMask',
-    iconURL: METAMASK_ICON,
-    description: 'Easy-to-use browser extension.',
-    href: null,
-    color: '#E8831D',
-  },
-  COINBASE_LINK: {
-    connector: walletlink,
-    name: 'Open in Coinbase Wallet',
-    iconURL: COINBASE_WALLET_ICON,
-    description: 'Open in Coinbase Wallet app.',
-    href: 'https://go.cb-w.com/mtUDhEZPy1',
-    color: '#315CF5',
-    mobile: true,
-    //mobileOnly: true,
-  },
+
   /*
   WALLET_CONNECT: {
     connector: walletconnect,

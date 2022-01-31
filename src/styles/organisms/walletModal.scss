@@ -35,7 +35,17 @@
             font-family: 'Poppins';
             font-size: 22px;
           }
-  
+
+          .wallet-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-left: 5px;
+            font-family: 'Poppins';
+            font-size: 22px;
+          }
+
+
           button {
             background: transparent;
             color: #1d8be8;
@@ -43,7 +53,12 @@
             padding: 5px 0;
           }
         }
-  
+        
+        &__disconnect {
+          display: flex;
+          justify-content: flex-end;
+        }
+
         &__address {
           display: flex;
           justify-content: space-between;

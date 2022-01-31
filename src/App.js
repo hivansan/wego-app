@@ -29,11 +29,9 @@ class App extends Component {
           .activate()
           .then(a => {
             store.dispatch({
-              action: SET_ACCOUNT,
+              type: SET_ACCOUNT,
               payload: {
-                address: a.account
-                  ? a.account
-                  : null,
+                address: a.account ? a.account : null,
                 provider: a.provider ? a.provider : web3,
               }
             });
