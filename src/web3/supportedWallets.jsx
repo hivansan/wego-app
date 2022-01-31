@@ -14,7 +14,7 @@ export const supportedWallets= {
     description: 'Easy-to-use browser extension.',
     href: null,
     color: '#E8831D',
-    isConnectorConfirmed: conn => ((window.web3 && window.web3.currentProvider.isMetaMask) || (window.ethereum && window.ethereum.isMetaMask))
+    isConnectorConfirmed: () => ((window.web3 && window.web3.currentProvider.isMetaMask) || (window.ethereum && window.ethereum.isMetaMask))
   },
   COINBASE_LINK: {
     connector: walletlink,
@@ -24,7 +24,7 @@ export const supportedWallets= {
     href: 'https://go.cb-w.com/mtUDhEZPy1',
     color: '#315CF5',
     mobile: true,
-    isConnectorConfirmed: conn => ((window.web3 && window.web3.currentProvider.isCoinbaseWallet) || (window.ethereum && window.ethereum.isCoinbaseWallet))
+    isConnectorConfirmed: () => ((window.web3 && window.web3.currentProvider.isCoinbaseWallet) || (window.ethereum && window.ethereum.isCoinbaseWallet))
 
     
     //mobileOnly: true,
@@ -37,7 +37,7 @@ export const supportedWallets= {
     href: null,
     color: '#010101',
     primary: true,
-    isConnectorConfirmed: conn => injected === conn && ((window.web3 && !window.web3.currentProvider.isMetaMask) || (window.ethereum && !window.ethereum.isMetaMask))
+    isConnectorConfirmed: () => window.web3 || window.ethereum  // Default if no other wallet was found
   },
 
   /*

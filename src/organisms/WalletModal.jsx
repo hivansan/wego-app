@@ -46,7 +46,7 @@ const WalletModal = ({ open, handleClose }) => {
   };
 
   const findConnectorData = connector => {
-    const key = Object.keys(supportedWallets).find( key => supportedWallets[key].isConnectorConfirmed(connector));
+    const key = Object.keys(supportedWallets).find( key => supportedWallets[key].isConnectorConfirmed());
     return key ? supportedWallets[key] : null;
   }
 
