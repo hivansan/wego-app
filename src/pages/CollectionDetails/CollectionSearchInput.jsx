@@ -1,12 +1,12 @@
-import React, { forwardRef, useEffect, useState } from 'react';
+import React, { forwardRef } from 'react';
 import { BiSearch } from 'react-icons/bi';
 
-const CollectionSearchInput = ({
-  setSearchAsset
-}) => {
-
+const CollectionSearchInput = forwardRef((props, ref) => {
   const searchAssetHandler = (e) => {
-    setSearchAsset(e.target.value);
+    props.onChange(e.target.value);
+    if (props.setDebounceParam) {
+      props.setDebounceParam(e.target.value);
+    }
   };
 
   return (
@@ -19,11 +19,12 @@ const CollectionSearchInput = ({
           type='text'
           placeholder='Search Assets'
           onChange={searchAssetHandler}
+          ref={ref}
         />
       </div>
 
     </div>
   );
-};
+});
 
 export default CollectionSearchInput;
