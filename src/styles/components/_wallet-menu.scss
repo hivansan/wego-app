@@ -1,21 +1,56 @@
 .wallet-menu-body {
+
+    display: flex;
+    height: 36px;
+    align-content: center;
+    
+
+    .small-balance {
+        display: flex;
+        gap: 0px 8px;
+        justify-content: center;
+        align-items: center;
+
+        height: 100%;
+        background-color: black;
+        width: 80px;
+        
+        border-top-left-radius: 0.4rem;
+        border-bottom-left-radius: 0.4rem;
+        font-weight: normal;
+        font-size: 15px;
+        background-color: var(--color-muted);
+        color: var(--bg-footer);
+    }
+
     .wallet-menu-btn {
+
         padding-top: 0.3rem;
         padding-bottom: 0.3rem;
         border-radius: 0.4rem;
 
         display: flex;
+        gap: 0px 10px;
         
         align-content: center;
         overflow: hidden;
         height: 36px;
+
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        border-left: 0px;
+
+        div {
+            font-weight: normal;
+            font-size: 15px;
+        }
     }
 
 }
 
 .wallet-menu-selected:hover {
     color: #fff !important;
-    font-weight: bold !important;
+    font-weight: 0 !important;
     background-color: var(--color-primary) !important;
     border-color: var(--border-default) !important;
 }

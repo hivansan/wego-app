@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { setAccount } from '../store/actions/actionAccount';
 import { useWeb3React } from '@web3-react/core';
 import accountState from '../store/states/accountState';
-
+import { useGetEthBalance } from '../atoms/hooks/useGetEthBalance';
 import Identicon from '../atoms/Identicon';
 import DarkPrimaryButton from '../atoms/darkPrimaryButton';
 import Menu from '@material-ui/core/Menu';
@@ -20,7 +20,9 @@ import ExitToApp from '@material-ui/icons/ExitToApp';
 
 export default function WalletMenu({address, ...props}) {
   const [anchorEl, setAnchorEl] = useState(null);
+  const [ethBalance, setEthBalance] = useState('0.0');
   const history = useHistory();
+  const balance = useGetEthBalance();
   const dispatch = useDispatch();
   const _setAccount = useCallback(
     account => dispatch(setAccount(account)),
@@ -33,6 +35,13 @@ export default function WalletMenu({address, ...props}) {
       console.error(error);
     }
   }, [error]);
+
+  useEffect(() => {
+    async function _setEthBalance() {
+      setEthBalance(await balance);
+    }
+    _setEthBalance();
+  });
 
   const disconnect = () => {
 
@@ -66,6 +75,10 @@ export default function WalletMenu({address, ...props}) {
 
   return (
     <div className={'wallet-menu-body'}>
+      <div className="small-balance">
+        <div>{ethBalance}</div>
+        <div>ETH</div>
+      </div>
       <DarkPrimaryButton
         className={'wallet-menu-btn'}
         onClick={handleClick}
