@@ -1,0 +1,21 @@
+.wallet-menu-body {
+    .wallet-menu-btn {
+        padding-top: 0.3rem;
+        padding-bottom: 0.3rem;
+        border-radius: 0.4rem;
+
+        display: flex;
+        
+        align-content: center;
+        overflow: hidden;
+        height: 36px;
+    }
+
+}
+
+.wallet-menu-selected:hover {
+    color: #fff !important;
+    font-weight: bold !important;
+    background-color: var(--color-primary) !important;
+    border-color: var(--border-default) !important;
+}

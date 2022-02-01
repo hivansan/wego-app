@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Modal from '../atoms/Modal';
-import { Typography, Button, CircularProgress } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { setAccount } from '../store/actions/actionAccount';
 import { useAccount } from '../store/selectors/useAccount';
@@ -14,7 +14,7 @@ import { supportedWallets } from '../web3/supportedWallets';
 
 
 import { GrCopy } from 'react-icons/gr';
-import Web3 from 'web3';
+
 
 
 const WalletModal = ({ open, handleClose }) => {
