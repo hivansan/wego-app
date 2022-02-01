@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
+import Web3 from 'web3';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import MainSwitch from './routerSwitches/MainSwitch';
+import config from './config/config';
 import { CONNECTION_CONNECTED, CONNECTION_DISCONNECTED } from './constants';
 
-import { injected } from './stores/connectors';
-import Store from './stores/store';
+import {injected} from './web3/connectors';
+import store from './store';
+import {SET_ACCOUNT} from './store/actions/actionTypes';
+//import { injected } from './stores/connectors';
+//import Store from './stores/store';
 
-const { store, emitter } = Store;
+//const { store, emitter } = Store;
 
 class App extends Component {
   state = {
@@ -15,17 +20,22 @@ class App extends Component {
   };
 
   inject = () => {
-    injected.isAuthorized().then((isAuthorized) => {
-      if (isAuthorized) {
+    const web3 = new Web3.providers.HttpProvider(config.infuraProvider);
+
+    injected.isAuthorized().then(isAuthorized => {
+      if (isAuthorized &&
+        JSON.parse(localStorage.getItem('connected'))) {
         injected
           .activate()
-          .then((a) => {
-            store.setStore({
-              account: { address: a.account },
-              web3context: { library: { provider: a.provider } },
+          .then(a => {
+            store.dispatch({
+              type: SET_ACCOUNT,
+              payload: {
+                address: a.account ? a.account : null,
+                provider: a.provider ? a.provider : web3,
+              }
             });
-            this.setState({ account: store.getStore('account') });
-            emitter.emit(CONNECTION_CONNECTED);
+
           })
           .catch((e) => {
             console.log(e);
@@ -35,12 +45,12 @@ class App extends Component {
   };
 
   componentDidMount() {
-    emitter.on(CONNECTION_CONNECTED, this.connectionConnected);
-    emitter.on(CONNECTION_DISCONNECTED, this.connectionDisconnected);
+    //emitter.on(CONNECTION_CONNECTED, this.connectionConnected);
+    //emitter.on(CONNECTION_DISCONNECTED, this.connectionDisconnected);
 
     this.inject();
   }
-
+/*
   componentWillUnmount() {
     emitter.removeListener(
       CONNECTION_DISCONNECTED,
@@ -59,6 +69,7 @@ class App extends Component {
   connectionDisconnected = () => {
     this.setState({ account: store.getStore('account') });
   };
+  */
 
   render() {
     return (
