@@ -11,8 +11,7 @@ import Graphs from '../pages/graphs/graphs';
 import Header from '../molecules/header';
 import Footer from '../molecules/footer.jsx';
 import AssetDetail from '../molecules/AssetDetail';
-import Favorites from '../pages/Favorites';
-import MyNFTs from '../pages/MyNFTs';
+import Profile from '../pages/Profile';
 import Terms from '../pages/Terms';
 import Privacy from '../pages/Privacy';
 import { useDispatch } from 'react-redux';
@@ -68,10 +67,10 @@ const MainSwitch = () => {
           <GetListed isSearchResultsOpen={isSearchResultsOpen} />
         </Route>*/}
         <Route exact path='/favorites'>
-          <Favorites />
+          <Profile />
         </Route>
         <Route exact path='/mynfts'>
-          <MyNFTs />
+          <Profile />
         </Route>
         <Route
           path='/assets/:address/:tokenId'
