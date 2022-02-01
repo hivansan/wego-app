@@ -7,12 +7,13 @@ import { Link, useLocation, useHistory } from 'react-router-dom';
 import ToggleTheme from './header/ToggleTheme';
 import { useDebounce } from '../atoms/hooks/useStateDebounce';
 import { Api } from '../services/api';
-import UnlockModal from '../atoms/unlock/unlockModal';
+//import UnlockModal from '../atoms/unlock/unlockModal';
 import { CONNECTION_CONNECTED, CONNECTION_DISCONNECTED } from '../constants';
 import Store from '../stores/store';
 import { useEffect } from 'react';
 import NftSearchBarModal from './NftSearchBarModal';
 import HeaderDropDownResults from './DropdownResults/headerResults/HeaderResults';
+import WalletModal from '../organisms/WalletModal';
 import { AiOutlineForm } from 'react-icons/ai';
 import { IoAnalyticsSharp } from 'react-icons/io5';
 
@@ -274,7 +275,7 @@ const Header = ({ background, menuOpen, setMenuOpen }) => {
                 sign
               </div> */}
 
-              {/*<div className='icons'>
+              <div className='icons'>
                 <button
                   style={{
                     borderWidth: '0',
@@ -289,12 +290,12 @@ const Header = ({ background, menuOpen, setMenuOpen }) => {
                   <span>{account?.address.substring(0, 5)}...</span>
                 )}
                 {modalOpen && (
-                  <UnlockModal
-                    closeModal={() => setModalOpen(false)}
-                    modalOpen={modalOpen}
+                  <WalletModal
+                    handleClose={() => setModalOpen(false)}
+                    open={modalOpen}
                   />
                 )}
-              </div>*/}
+              </div>
               <ToggleTheme />
             </div>
           )}
@@ -341,7 +342,7 @@ const Header = ({ background, menuOpen, setMenuOpen }) => {
                 Get Listed
                 </a>*/}
                 
-              {/*<div className='bm-item' onClick={() => setModalOpen(true)}>
+              <div className='bm-item' onClick={() => setModalOpen(true)}>
                 <FaWallet size={28} />
                 {connected ? (
                   <>{account?.address.substring(0, 15)}... </>
@@ -351,11 +352,11 @@ const Header = ({ background, menuOpen, setMenuOpen }) => {
               </div>
 
               {modalOpen && (
-                <UnlockModal
-                  closeModal={() => setModalOpen(false)}
-                  modalOpen={modalOpen}
+                <WalletModal
+                  handleClose={() => setModalOpen(false)}
+                  open={modalOpen}
                 />
-              )}*/}
+              )}
 
               <div className='bm-item theme-menu'>
                 <ToggleTheme />
