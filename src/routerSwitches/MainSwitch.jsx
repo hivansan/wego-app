@@ -12,6 +12,7 @@ import Header from '../molecules/header';
 import Footer from '../molecules/footer.jsx';
 import AssetDetail from '../molecules/AssetDetail';
 import Favorites from '../pages/Favorites';
+import MyNFTs from '../pages/MyNFTs';
 import Terms from '../pages/Terms';
 import Privacy from '../pages/Privacy';
 import { useDispatch } from 'react-redux';
@@ -68,6 +69,9 @@ const MainSwitch = () => {
         </Route>*/}
         <Route exact path='/favorites'>
           <Favorites />
+        </Route>
+        <Route exact path='/mynfts'>
+          <MyNFTs />
         </Route>
         <Route
           path='/assets/:address/:tokenId'

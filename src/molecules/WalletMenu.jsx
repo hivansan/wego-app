@@ -1,4 +1,5 @@
 import {useState, useEffect, useCallback} from 'react';
+import { useHistory } from 'react-router-dom';
 
 import { useDispatch } from 'react-redux';
 import { setAccount } from '../store/actions/actionAccount';
@@ -19,6 +20,7 @@ import ExitToApp from '@material-ui/icons/ExitToApp';
 
 export default function WalletMenu({address, ...props}) {
   const [anchorEl, setAnchorEl] = useState(null);
+  const history = useHistory();
   const dispatch = useDispatch();
   const _setAccount = useCallback(
     account => dispatch(setAccount(account)),
@@ -39,6 +41,16 @@ export default function WalletMenu({address, ...props}) {
     deactivate();
     localStorage.setItem('connected', 'false');
   };
+
+  const myNFTs = () => {
+    history.push("/mynfts");
+    setAnchorEl(null);
+  }
+
+  const favorites = () => {
+    history.push("/favorites");
+    setAnchorEl(null);
+  }
 
 
   const handleClick = (event) => {
@@ -84,6 +96,7 @@ export default function WalletMenu({address, ...props}) {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
+        {/*
         <MenuItem 
           classes={{root: 'wallet-menu-selected'}}
           onClick={() => {}}
@@ -93,10 +106,12 @@ export default function WalletMenu({address, ...props}) {
           </ListItemIcon>
           <ListItemText primary="Profile" />
         </MenuItem>
+        */}
+
 
         <MenuItem 
           classes={{root: 'wallet-menu-selected'}}
-          onClick={() => {}}
+          onClick={myNFTs}
         >
           <ListItemIcon>
             <PhotoLibrary fontSize="small" />
@@ -106,7 +121,7 @@ export default function WalletMenu({address, ...props}) {
 
         <MenuItem 
           classes={{root: 'wallet-menu-selected'}}
-          onClick={() => {}}
+          onClick={favorites}
         >
           <ListItemIcon>
             <Favorite fontSize="small" />

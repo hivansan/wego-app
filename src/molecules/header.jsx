@@ -48,10 +48,10 @@ const Header = ({ background, menuOpen, setMenuOpen }) => {
 
 
   useEffect(() => {
-    console.log("acc here", _account);
+
     if (_account && _account.account?.address != "") {
       setAccount(_account.account.address);
-      console.log("acc", _account);
+
     }
   }, [_account]);
 
