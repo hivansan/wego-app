@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react';
 import Icon from 'react-crypto-icons';
+import { HiFilter } from 'react-icons/hi';
 
 const Trait = ({ filters, setFilters, trait, bgFilters, collectionTraits }) => {
   const [checked, setChecked] = useState(false);
+  const [visible, setVisible] = useState(false);
+
   const handleFilter = () => {
     if (checked) {
       setFilters(() => filters.filter(({ value }) => value !== trait.value));
@@ -20,6 +23,15 @@ const Trait = ({ filters, setFilters, trait, bgFilters, collectionTraits }) => {
     });
 
     setChecked(true);
+    setVisible(true);
+  };
+
+  const handleFilterIcon = () => {
+    if (checked) {
+      return setVisible(true);
+    } else {
+      return setVisible(!visible)
+    }
   };
 
   useEffect(() => {
@@ -28,11 +40,12 @@ const Trait = ({ filters, setFilters, trait, bgFilters, collectionTraits }) => {
       bgFilters.some((el) => el.traitType === trait.trait_type)
     ) {
       setChecked(true);
+      setVisible(true);
     }
   }, []);
 
   return (
-    <div className='asset-detail-modal-stats-filter' onClick={handleFilter}>
+    <div className='asset-detail-modal-stats-filter' onClick={handleFilter} onMouseOver={handleFilterIcon} onMouseOut={handleFilterIcon}>
       <div className='asset-detail-filter-header'>
         <small>{trait.trait_type}</small>
         <div className='asset-detail-filter-header-n'>
@@ -44,7 +57,10 @@ const Trait = ({ filters, setFilters, trait, bgFilters, collectionTraits }) => {
       <div
         className={`${checked ? 'checked' : 'unChecked'} asset-detail-filter-attribute`}
       >
-        <small>{trait.value != null ? trait.value : "None"}</small>
+        <small>
+          {trait.value != null ? trait.value : "None"}
+        </small>
+        {visible && (<span className='asset-detail-filter-icon'><HiFilter size={14} /></span>)}
         <div className='asset-detail-filter-a'>
           <p>{trait.trait_count}</p>
         </div>
