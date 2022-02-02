@@ -54,9 +54,9 @@ const Header = ({ background, menuOpen, setMenuOpen }) => {
       });
 
       let hot_collections = res?.results || [];
-      
+
       const featured = res.results.filter(c => c.value.stats.featuredCollection);
-      
+
       if (featured?.length > 0) {
         let repetitions = Math.ceil(10 / featured.length);
 
@@ -64,7 +64,7 @@ const Header = ({ background, menuOpen, setMenuOpen }) => {
         for (let i = 0; i < repetitions - 1; i++)
           hot_collections = hot_collections.concat(featured);
       }
-      
+
 
       setHotCollections(hot_collections);
     };
@@ -263,7 +263,7 @@ const Header = ({ background, menuOpen, setMenuOpen }) => {
           {!isMobile && !isTablet && (
             <div className='right-menu'>
 
-              
+
               {/*<a href='/analytics'>Analytics</a>*/}
               {/*<a href='/getlisted'>Get Listed</a>*/}
 
@@ -341,7 +341,7 @@ const Header = ({ background, menuOpen, setMenuOpen }) => {
                 <AiOutlineForm size={28} />
                 Get Listed
                 </a>*/}
-                
+
               <div className='bm-item' onClick={() => setModalOpen(true)}>
                 <FaWallet size={28} />
                 {connected ? (
