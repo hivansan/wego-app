@@ -4,7 +4,7 @@ import WalletModal from '../organisms/WalletModal';
 import ProfileHeader from '../molecules/ProfileHeader';
 import ProfileMenu from '../molecules/ProfileMenu';
 import { useLocation } from 'react-router-dom';
-import MyNfts from './MyNFTs';
+import AssetsList from '../molecules/AssetsList';
 import Favorites from './Favorites';
 
 const Profile = () => {
@@ -40,7 +40,7 @@ const Profile = () => {
       <ProfileHeader account={account} />
       <ProfileMenu />
       
-      {tab === '/mynfts' && <MyNfts />}
+      {tab === '/mynfts' && <AssetsList address={account?.address} />}
       {tab === '/favorites' && <Favorites />}
       
 

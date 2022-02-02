@@ -34,16 +34,15 @@ const ProfileMenu = ({ tabSlug }) => {
   return (
 
     <div className={`profile-menu`}>
-      <Paper square>
+      <Paper square elevation={0}>
         <Tabs
             value={value}
             variant="fullWidth"
             indicatorColor="primary"
             textColor="primary"
-            aria-label="icon tabs example"
         >
-            <Tab icon={<PhotoLibrary />} aria-label="my nfts" onClick={myNfts} />
-            <Tab icon={<Favorite />} aria-label="favorite" onClick={favorites} />
+            <Tab icon={<PhotoLibrary />} aria-label="my nfts" label="My NFT's" onClick={myNfts} />
+            <Tab icon={<Favorite />} aria-label="favorite" label="Favorites" onClick={favorites} />
         </Tabs>
       </Paper>
     </div>

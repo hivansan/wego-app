@@ -12,6 +12,7 @@
     &__header {
       padding: 0.5rem 0;
       font-size: 25px;
+      color: var(--color-secondary);
     }
   
     &__body {
@@ -22,7 +23,7 @@
         width: 100%;
   
         small {
-          color: var(--text-muted-color);
+          color: var(--color-secondary);
         }
   
         &__provider {
@@ -108,7 +109,7 @@
           padding: 1rem;
           min-height: 50px;
           text-align: center;
-          color: var(--text-muted-color);
+          color: var(--color-secondary);
         }
       }
   
@@ -116,7 +117,7 @@
         margin-bottom: 10px;
         p {
           width: 100%;
-          color: var(--text-muted-color);
+          color: var(--color-secondary);
         }
       }
   
@@ -144,6 +145,7 @@
             align-items: center;
             gap: 10px;
             padding-left: 5px;
+            color: var(--color-secondary);
           }
         }
       }
@@ -176,6 +178,7 @@
       &__header {
         padding: 0.8rem;
         text-align: center;
+        color: var(--color-secondary);
       }  
 
       &__body {
@@ -208,6 +211,7 @@
               align-items: center;
               gap: 10px;
               padding-left: 5px;
+              color: var(--color-primary);
             }
           }
         }
@@ -218,7 +222,7 @@
           margin-bottom: 14px;
           p {
             width: 100%;
-            color: var(--text-muted-color);
+            color: var(--color-secondary);
           }
         }
   

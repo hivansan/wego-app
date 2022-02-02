@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { options } from 'joi';
 
 // export const baseURL = 'https://wegonft.com/api';
 export const baseURL = 'http://localhost:3000/api';
@@ -27,40 +28,25 @@ export class Api {
       score: (address, tokenId) => {
         return this.request('get', `/asset/${address}/${tokenId}/score`);
       },
-      find: (
-        slug,
-        limit,
-        offset,
-        sortBy,
-        sortDirection,
-        traits,
-        priceRange,
-        rankRange,
-        traitsCountRange,
-        buyNow
-      ) => {
-        const hasSorts =
-          sortBy === 'none' || !sortBy ? '' : `&sortBy=${sortBy}`;
-        const hasTraits = !traits ? '' : `&traits=${JSON.stringify(traits)}`;
-        const hasSortDirection = !sortDirection
-          ? ''
-          : `&sortDirection=${sortDirection}`;
-        const hasPriceRange = !priceRange
-          ? ''
-          : `&${priceRange.param}=${JSON.stringify(priceRange.range)}`;
+      
+      //{slug, limit, offset,sortBy, sortDirection, traits, priceRange, rankRange, traitsCountRange, buyNow, ownerAddress}
+      find:  (options = {}) => {
+        const parameters = Object.keys(options).map( key => {
+          if (options[key] === null || options[key] === undefined)
+            return '';
 
-        const hasRankRange = !rankRange
-          ? ''
-          : `&${rankRange.param}=${JSON.stringify(rankRange.range)}`;
-        const hasTraitsCountRange = !traitsCountRange
-          ? ''
-          : `&${traitsCountRange.param}=${JSON.stringify(
-              traitsCountRange.range
-            )}`;
-        const isBuyNow = !buyNow ? '' : `&buyNow=${JSON.stringify(buyNow)}`;
+          if (key === 'traits' || key === 'buyNow')
+            return `${key}=${JSON.stringify(options[key])}`;
+          
+          if (key === 'priceRange' || key === 'rankRange' || key === 'traitsCountRange')
+            return `${options[key].param}=${JSON.stringify(options[key].range)}`;
 
-        const collectionAssetsUrl = `/assets?slug=${slug}&limit=${limit}&offset=${offset}${hasSortDirection}${hasSorts}${hasTraits}${hasPriceRange}${hasRankRange}${hasTraitsCountRange}${isBuyNow}`;
-        return this.request('get', collectionAssetsUrl);
+          return `${key}=${options[key]}`;
+        })
+        .filter( param => param !== '' )
+        .join('&');
+        
+        return this.request('get', `/assets?${parameters}`);
       },
     };
 

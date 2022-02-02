@@ -11,7 +11,11 @@ const DropDownCollectionItem = ({ collection }) => {
 
   useEffect(() => {
     const getCollectionAssets = async () => {
-      const res = await api.assets.find(collection.slug, 2, 0);
+      const res = await api.assets.find({
+        slug: collection.slug, 
+        limit: 2, 
+        offset: 0
+      });
       setAssets(res.results);
     };
     getCollectionAssets();

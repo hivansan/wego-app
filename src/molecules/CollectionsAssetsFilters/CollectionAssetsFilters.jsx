@@ -56,35 +56,35 @@ const CollectionAssetsFilters = ({
     const priceSelected =
       price === 'priceUsdRange' ? 'currentPriceUSD' : 'currentPrice';
 
-    const res = await api.assets.find(
-      collectionSlug,
-      1,
-      0,
-      priceSelected,
-      'desc'
-    );
+    const res = await api.assets.find({
+      slug: collectionSlug,
+      limit: 1,
+      offset: 0,
+      sortBy: priceSelected,
+      sortDirection: 'desc'
+    });
 
     setMaxPrice(res?.results[0]?.[priceSelected] || null);
   };
 
   const getMaxRariRank = async () => {
-    const res = await api.assets.find(
-      collectionSlug,
-      1,
-      0,
-      'rarityScoreRank',
-      'desc'
-    );
+    const res = await api.assets.find({
+      slug: collectionSlug,
+      limit: 1,
+      offset: 0,
+      sortBy: 'rarityScoreRank',
+      sortDirection: 'desc'
+    });
     setMaxRank(res?.results[0]?.rarityScoreRank);
   };
   const getMaxTraitsCount = async () => {
-    const res = await api.assets.find(
-      collectionSlug,
-      1,
-      0,
-      'traitsCount',
-      'desc'
-    );
+    const res = await api.assets.find({
+      slug: collectionSlug,
+      limit: 1,
+      offset: 0,
+      sortBy: 'traitsCount',
+      sortDirection: 'desc'
+    });
     setMaxTraitsCount(res?.results[0]?.traitsCount);
   };
 
