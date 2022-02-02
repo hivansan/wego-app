@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Icon from 'react-crypto-icons';
 
-const Trait = ({ filters, setFilters, trait, bgFilters, collectionTraits }) => {
+const Trait = ({ filters, setFilters, trait, bgFilters }) => {
   const [checked, setChecked] = useState(false);
   const handleFilter = () => {
     if (checked) {
@@ -50,10 +50,10 @@ const Trait = ({ filters, setFilters, trait, bgFilters, collectionTraits }) => {
         </div>
       </div>
       <div className='traits-prices'>
-        {collectionTraits && (
+        {trait && (
           <small>
-            {collectionTraits.top_price && (<span>Top <Icon name='eth' size='10' className='token token-secondary' /> {collectionTraits.top_price} </span>)}
-            {collectionTraits.top_price && (<span>Floor <Icon name='eth' size='10' className='token token-secondary' /> {collectionTraits.floor_price} </span>)}
+            {trait.top_price && (<span>Top <Icon name='eth' size='10' className='token token-secondary' /> {trait.top_price} </span>)}
+            {trait.top_price && (<span>Floor <Icon name='eth' size='10' className='token token-secondary' /> {trait.floor_price} </span>)}
           </small>
         )}
       </div>
