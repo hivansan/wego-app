@@ -14,6 +14,8 @@ import AssetDetail from '../molecules/AssetDetail';
 import Favorites from '../pages/Favorites';
 import Terms from '../pages/Terms';
 import Privacy from '../pages/Privacy';
+import { useDispatch } from 'react-redux';
+import { setAccount } from '../store/actions/actionAccount';
 
 const MainSwitch = () => {
   const [header, setHeader] = useState(true);

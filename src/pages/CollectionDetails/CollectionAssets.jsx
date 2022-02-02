@@ -41,6 +41,7 @@ const CollectionAssets = ({
   buyNow,
   searchAsset,
   setSearchAsset,
+  setDebounceParam,
   hasFilters,
   realTotalAssets
 }) => {
@@ -75,8 +76,8 @@ const CollectionAssets = ({
             assetsSort={assetsSort}
           />
           <CollectionSearchInput
-            searchAsset={searchAsset}
-            setSearchAsset={setSearchAsset}
+            setDebounceParam={setDebounceParam}
+            onChange={setSearchAsset}
           />
         </div>
 
@@ -111,7 +112,8 @@ const CollectionAssets = ({
                   priceRange,
                   rankRange,
                   traitsCountRange,
-                  buyNow
+                  buyNow,
+                  searchAsset
                 )
               }
               hasMore={true}
