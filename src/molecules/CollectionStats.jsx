@@ -1,6 +1,5 @@
 import React from 'react';
 import { FaEthereum } from 'react-icons/fa';
-import Icon from 'react-crypto-icons';
 
 const CollectionStats = ({ collection: stats }) => {
   return (
@@ -54,7 +53,7 @@ const CollectionStats = ({ collection: stats }) => {
                 {(stats?.stats?.oneDayChange &&
                   <span className={stats.stats.oneDayChange > 0 ? 'price-up' : 'price-down'}> {stats.stats.oneDayChange.toFixed(3)} </span>)
                   || 0}
-                <Icon name='eth' size='14' className='token token-secondary' />
+                <FaEthereum size={14} className='token token-secondary' />
               </small>
             </div>
             <div className='stat'>
@@ -63,7 +62,7 @@ const CollectionStats = ({ collection: stats }) => {
                 {(stats?.stats?.sevenDayChange &&
                   <span className={stats.stats.sevenDayChange > 0 ? 'price-up' : 'price-down'}> {stats.stats.sevenDayChange.toFixed(3)} </span>)
                   || 0}
-                <Icon name='eth' size='14' className='token token-secondary' />
+                <FaEthereum size={14} className='token token-secondary' />
               </small>
             </div>
 
@@ -73,7 +72,7 @@ const CollectionStats = ({ collection: stats }) => {
                 {(stats?.stats?.thirtyDayChange &&
                   <span className={stats.stats.thirtyDayChange > 0 ? 'price-up' : 'price-down'}> {stats.stats.thirtyDayChange.toFixed(3)} </span>)
                   || 0}
-                <Icon name='eth' size='14' className='token token-secondary' />
+                <FaEthereum size={14} className='token token-secondary' />
               </small>
             </div>
           </div>
