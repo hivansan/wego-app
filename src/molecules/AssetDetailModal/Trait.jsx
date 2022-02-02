@@ -1,14 +1,28 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Icon from 'react-crypto-icons';
 import { HiFilter } from 'react-icons/hi';
+import { useDispatch } from 'react-redux';
+import { setStoreFilter } from '../../store/actions/actionFilters';
+import { useStoreFilter } from '../../store/selectors/useFilters';
+import filtersState from '../../store/states/filtersState';
 
 const Trait = ({ filters, setFilters, trait, bgFilters, collectionTraits }) => {
   const [checked, setChecked] = useState(false);
   const [visible, setVisible] = useState(false);
+  // Save the account to redux
+  const dispatch = useDispatch();
+  const _setFilters = React.useCallback(
+    storeFilter => dispatch(setStoreFilter(storeFilter)),
+    [dispatch]
+  );
+  const _storeFilter = useStoreFilter();
+  const { ...storeFilter } = _storeFilter.storeFilter;
 
   const handleFilter = () => {
     if (checked) {
-      setFilters(() => filters.filter(({ value }) => value !== trait.value));
+      let newFilters = filters.filter(({ value }) => value !== trait.value);
+      setFilters(newFilters);
+      _setFilters(newFilters);
       return setChecked(false);
     }
     setFilters(() => {
@@ -21,7 +35,11 @@ const Trait = ({ filters, setFilters, trait, bgFilters, collectionTraits }) => {
         },
       ]);
     });
-
+    _setFilters([...filters,
+    {
+      traitType: trait.trait_type,
+      value: trait.value
+    }])
     setChecked(true);
     setVisible(true);
   };
