@@ -8,6 +8,7 @@ import RangeFilters from '../../molecules/CollectionsAssetsFilters/RangeFilters'
 import { Api } from '../../services/api';
 
 const CollectionAssetsFiltersMobile = ({
+  address,
   collectionTraits,
   setFilters,
   filters,
@@ -44,8 +45,15 @@ const CollectionAssetsFiltersMobile = ({
     const priceSelected =
       price === 'priceUsdRange' ? 'currentPriceUSD' : 'currentPrice';
 
+    var source = {}
+    if (collectionSlug) 
+      source.slug = collectionSlug
+    else if (address)
+      source.ownerAddress = address
+
+
     const res = await api.assets.find({
-      slug: collectionSlug,
+      ...source,
       limit: 1,
       offset: 0,
       sortBy: priceSelected,
@@ -56,8 +64,15 @@ const CollectionAssetsFiltersMobile = ({
   };
 
   const getMaxRariRank = async () => {
+
+    var source = {}
+    if (collectionSlug) 
+      source.slug = collectionSlug
+    else if (address)
+      source.ownerAddress = address
+
     const res = await api.assets.find({
-      slug: collectionSlug,
+      ...source,
       limit: 1,
       offset: 0,
       sortBy: 'rarityScoreRank',
@@ -66,8 +81,15 @@ const CollectionAssetsFiltersMobile = ({
     setMaxRank(res?.results[0]?.rarityScoreRank);
   };
   const getMaxTraitsCount = async () => {
+
+    var source = {}
+    if (collectionSlug) 
+      source.slug = collectionSlug
+    else if (address)
+      source.ownerAddress = address
+
     const res = await api.assets.find({
-      slug: collectionSlug,
+      ...source,
       limit: 1,
       offset: 0,
       sortBy: 'traitsCount',
@@ -126,16 +148,19 @@ const CollectionAssetsFiltersMobile = ({
             max={maxRank}
           />
         </Filter>
-        <Filter title='Traits Count'>
-          <RangeFilters
-            filter='traitsCountRange'
-            setRange={setTraitsCountRange}
-            range={traitsCountRange}
-            max={maxTraitsCount}
-            min={0}
-          />
-        </Filter>
-        {traitTypes.map((traitType, i) => (
+        {
+          traitsCountRange && setTraitsCountRange && (
+            <Filter title='Traits Count'>
+            <RangeFilters
+              filter='traitsCountRange'
+              setRange={setTraitsCountRange}
+              range={traitsCountRange}
+              max={maxTraitsCount}
+              min={0}
+            />
+          </Filter>  
+          )}
+        {collectionTraits && traitTypes && traitTypes.map((traitType, i) => (
           <Filter title={traitType} key={i} counter={collectionTraits.filter(trait => trait.trait_type === traitType).length}>
             <SearchFilters
               collectionTraits={collectionTraits}

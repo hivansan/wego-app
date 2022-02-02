@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-
+import AssetListDetails from './AssetListDetails';
 import { Api } from '../services/api';
-
+import { useLocation } from 'react-router-dom';
 const AssetsList = ({address}) => {
   const [resultAssets, setResultAssets] = useState([]);
   const [hasNextPage, setHasNextPage] = useState(true);
@@ -15,11 +15,12 @@ const AssetsList = ({address}) => {
     orderBy: 'rarityScore',
     orderDirection: 'asc',
   });
+  const [filtersMobileOpen, setFiltersMobileOpen] = useState(false);
+  const location = useLocation();
 
   const api = new Api();
 
   const getOwnedAssets = async (
-    ownerAddress,
     sortBy,
     sortDirection,
     priceRange,
@@ -34,7 +35,7 @@ const AssetsList = ({address}) => {
       sortDirection,
       priceRange,
       rankRange,
-      ownerAddress
+      ownerAddress: address
     });
     const results =
       res && res.results && res.results.length === 0 ? null : res.results;
@@ -53,7 +54,6 @@ const AssetsList = ({address}) => {
   };
 
   const loadNextAssetsPage = async (
-    ownerAddress,
     sortBy,
     sortDirection,
     priceRange,
@@ -67,7 +67,7 @@ const AssetsList = ({address}) => {
       sortDirection,
       priceRange,
       rankRange,
-      ownerAddress
+      ownerAddress: address
     });
 
     setAssetsPage(assetsPage + 20);
@@ -88,7 +88,6 @@ const AssetsList = ({address}) => {
     //getAssetCounter();
     setAssetsPage(0);
     getOwnedAssets(
-        address,
         assetsSort.orderBy,
         assetsSort.orderDirection,
         PriceUsdFilter,
@@ -100,7 +99,26 @@ const AssetsList = ({address}) => {
 
   return (
     <div className="assets-list">
-      
+      <AssetListDetails
+        address={address}
+        totalAssets={totalAssets}
+        setPriceRange={setPriceUsdRange}
+        priceRange={priceUsdRange}
+        rankRange={rankRange}
+        setRankRange={setRankRange}
+        sortBy={assetsSort.orderBy}
+        sortDirection={assetsSort.orderDirection}
+        assetsSort={assetsSort}
+        setAssetsSort={setAssetsSort}
+        filtersMobileOpen={filtersMobileOpen}
+        setFiltersMobileOpen={setFiltersMobileOpen}
+        location={location}
+        assets={resultAssets}
+        hasNextPage={hasNextPage}
+        isNextPageLoading={isNextPageLoading}
+        setAssets={setResultAssets}
+        _loadNextPage={loadNextAssetsPage}
+      />
     </div>);
 };
 

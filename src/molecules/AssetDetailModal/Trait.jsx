@@ -4,6 +4,10 @@ import Icon from 'react-crypto-icons';
 const Trait = ({ filters, setFilters, trait, bgFilters, collectionTraits }) => {
   const [checked, setChecked] = useState(false);
   const handleFilter = () => {
+
+    if (!filters || !setFilters)
+      return;
+
     if (checked) {
       setFilters(() => filters.filter(({ value }) => value !== trait.value));
       return setChecked(false);
