@@ -13,7 +13,6 @@
 
     .assets-header {
       width: 100%;
-
       margin: 1rem 0;
 
       .assets-sort {
@@ -47,6 +46,48 @@
 
         .sort-direction {
           color: var(--color-secondary);
+        }
+      }
+
+      .asset-search-input {
+        padding: 0.3rem;
+        width: 580px;
+        display: flex;
+        align-items: center;
+        padding-left: 1.4rem;
+        color: $secondary-color;
+        background-color: var(--bg-search-input);
+        border-radius: 1.4rem;
+        border: 1px solid var(--border-default);
+        margin: 10px 1.4rem;
+        cursor: text;
+        justify-content: space-between;
+
+        svg {
+          cursor: pointer;
+        }
+        .input {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          svg {
+            color: var(--color-secondary);
+            margin-right: 5px;
+          }
+          input {
+            width: 100%;
+            color: var(--color-secondary);
+            border: none;
+            background: none;
+
+            &::placeholder {
+              color: #aaaaaa;
+            }
+
+            &:focus-within {
+              outline: none;
+            }
+          }
         }
       }
     }
@@ -325,6 +366,12 @@
           justify-content: center;
         }
 
+        .asset-search-input {
+          width: calc(100% - 2.8rem);
+          justify-content: center;
+          margin-right: 1.4rem;
+        }
+
         .assets-pagination {
           align-self: flex-end;
         }
@@ -511,5 +558,23 @@
 
   .collection-assets-filters {
     display: none;
+  }
+}
+.filter-spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 25px;
+  .spinner {
+    animation: spin infinite 5s linear;
+    color: var(--color-secondary);
+  }
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
   }
 }

@@ -29,7 +29,7 @@ export class Api {
         return this.request('get', `/asset/${address}/${tokenId}/score`);
       },
       
-      //{slug, limit, offset,sortBy, sortDirection, traits, priceRange, rankRange, traitsCountRange, buyNow, ownerAddress}
+      //{slug, limit, offset,sortBy, sortDirection, traits, priceRange, rankRange, traitsCountRange, buyNow, ownerAddress, searchAsset}
       find:  (options = {}) => {
         const parameters = Object.keys(options).map( key => {
           if (options[key] === null || options[key] === undefined)
@@ -40,6 +40,9 @@ export class Api {
           
           if (key === 'priceRange' || key === 'rankRange' || key === 'traitsCountRange')
             return `${options[key].param}=${JSON.stringify(options[key].range)}`;
+          
+          if (key === 'searchAsset')
+            return `query=${encodeURIComponent(options[key])}`
 
           return `${key}=${options[key]}`;
         })

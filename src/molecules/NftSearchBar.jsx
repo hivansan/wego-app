@@ -9,7 +9,7 @@ import DropDownAssets from './DropDownAssets';
 
 import NftSearchBarModal from './NftSearchBarModal';
 
-const NftSearchBar = ({ onChange, setDebounceParam, value, results, query, location, ...props }) => {
+const NftSearchBar = ({ onChange, setDebounceParam, value, results, resultsAssets, query, location, ...props }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [ignoreBlur, setIgnoreBlur] = useState(false);
   const searchRef = createRef();
@@ -36,7 +36,7 @@ const NftSearchBar = ({ onChange, setDebounceParam, value, results, query, locat
       searchRef.current.focus();
       setIsOpen(true);
     }
-  }, [value, results]);
+  }, [value, results, resultsAssets]);
 
   const setBlur = () => {
     setIgnoreBlur(true);
@@ -85,6 +85,7 @@ const NftSearchBar = ({ onChange, setDebounceParam, value, results, query, locat
         <NftSearchBarModal
           isOpen={isOpen}
           results={results}
+          resultsAssets={resultsAssets}
           query={query}
           location={location}
           noItemsFound={
@@ -93,7 +94,7 @@ const NftSearchBar = ({ onChange, setDebounceParam, value, results, query, locat
             </div>
           }
         >
-          {results && (
+          {(results && resultsAssets) && (
             <>
               <div className='large-table-match'>
                 <ExactMatchCard
@@ -113,10 +114,11 @@ const NftSearchBar = ({ onChange, setDebounceParam, value, results, query, locat
 
                 <DropDownCollections results={results} />
                 <DropDownAssets
-                  results={results}
+                  resultsAssets={resultsAssets}
                   location={location}
                   isOpen={isOpen}
                 />
+
                 <ExactMatchCard
                   results={results}
                   className='match desktop-match'
