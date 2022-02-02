@@ -2,13 +2,20 @@ import { useEffect, useState } from 'react';
 
 import { Api } from '../services/api';
 
-const AssetsList = () => {
+const AssetsList = ({address}) => {
   const [resultAssets, setResultAssets] = useState([]);
   const [hasNextPage, setHasNextPage] = useState(true);
   const [isNextPageLoading, setIsNextPageLoading] = useState(false);
   const [totalAssets, setTotalAssets] = useState(null);
   const [assetsPerPage, setAssetsPerPage] = useState(20);
   const [assetsPage, setAssetsPage] = useState(0);
+  const [priceUsdRange, setPriceUsdRange] = useState(false);
+  const [rankRange, setRankRange] = useState(false);
+  const [assetsSort, setAssetsSort] = useState({
+    orderBy: 'rarityScore',
+    orderDirection: 'asc',
+  });
+
   const api = new Api();
 
   const getOwnedAssets = async (
@@ -16,8 +23,7 @@ const AssetsList = () => {
     sortBy,
     sortDirection,
     priceRange,
-    rankRange,
-    buyNow
+    rankRange
   ) => {
     setResultAssets([]);
     setHasNextPage(true);
@@ -28,7 +34,6 @@ const AssetsList = () => {
       sortDirection,
       priceRange,
       rankRange,
-      buyNow,
       ownerAddress
     });
     const results =
@@ -52,8 +57,7 @@ const AssetsList = () => {
     sortBy,
     sortDirection,
     priceRange,
-    rankRange,
-    buyNow
+    rankRange
   ) => {
     const isAssetsNew = assetsPage === 0 ? 20 : assetsPage + 20;
     const res = await api.assets.find({
@@ -63,7 +67,6 @@ const AssetsList = () => {
       sortDirection,
       priceRange,
       rankRange,
-      buyNow,
       ownerAddress
     });
 
@@ -77,6 +80,23 @@ const AssetsList = () => {
     setIsNextPageLoading(false);
   };
 
+
+  useEffect(() => {
+
+    const PriceUsdFilter = priceUsdRange ? priceUsdRange : null;
+    const rankFilter = rankRange ? rankRange : null;
+    //getAssetCounter();
+    setAssetsPage(0);
+    getOwnedAssets(
+        address,
+        assetsSort.orderBy,
+        assetsSort.orderDirection,
+        PriceUsdFilter,
+        rankFilter
+    );
+    window.scrollTo(0, 0);
+
+  }, [assetsSort, rankRange, priceUsdRange]);
 
   return (
     <div className="assets-list">
