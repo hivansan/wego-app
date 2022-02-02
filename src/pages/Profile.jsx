@@ -40,8 +40,7 @@ const Profile = () => {
       <ProfileHeader account={account} />
       <ProfileMenu />
       
-      {/*tab === '/mynfts' && <AssetsList address={account?.address} />*/}
-      {tab === '/mynfts' && <AssetsList address={"0xad7748a9b5482256f449243a432541d17de17e24"} />}
+      {tab === '/mynfts' && <AssetsList address={account?.address} />}
       {tab === '/favorites' && <Favorites />}
       
 
