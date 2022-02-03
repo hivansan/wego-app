@@ -9,6 +9,7 @@ import Error404 from '../Error404';
 import { Api } from '../../services/api';
 import * as Relay from '../../services/relay';
 import { pathEq } from 'ramda';
+import { useStoreFilter } from '../../store/selectors/useFilters';
 
 const CollectionDetails = ({ setFooter, locationState }) => {
   const { slug } = useParams();
@@ -41,6 +42,9 @@ const CollectionDetails = ({ setFooter, locationState }) => {
   const api = new Api();
   const location = useLocation();
   const isFiltersMobileOpen = filtersMobileOpen ? 'd-none' : '';
+
+  const _storeFilter = useStoreFilter();
+  const { ...storeFilter } = _storeFilter;
 
   const getCollection = async () => {
     const collection = await api.collections.findOne(slug);
@@ -249,7 +253,7 @@ const CollectionDetails = ({ setFooter, locationState }) => {
         setAssetsSort={setAssetsSort}
         setFiltersMobileOpen={setFiltersMobileOpen}
         setFilters={setFilters}
-        filters={filters}
+        filters={storeFilter.storeFilter}
         collectionTraits={collectionTraits}
         setCollectionTraits={setCollectionTraits}
         collection={result}

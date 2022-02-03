@@ -1,6 +1,7 @@
-import React from 'react';
-
+import React from 'react'
 import { GrFormClose } from 'react-icons/gr';
+import { useDispatch } from 'react-redux';
+import { setStoreFilter } from '../../store/actions/actionFilters';
 
 const ClearFilters = ({
   priceRange,
@@ -14,6 +15,12 @@ const ClearFilters = ({
   filters,
   setFilters,
 }) => {
+  const dispatch = useDispatch();
+  const _setFilters = React.useCallback(
+    storeFilter => dispatch(setStoreFilter(storeFilter)),
+    [dispatch]
+  );
+
   return (
     <div className='assets-actual-filters'>
       {priceRange && (
@@ -51,19 +58,21 @@ const ClearFilters = ({
             <div
               className='trait-filter'
               key={i}
-              onClick={() =>
+              onClick={() => {
                 setFilters(() =>
                   filters.filter(f => f.value !== filter || f.traitType !== traitType)
                 )
+                _setFilters(filters.filter(f => f.value !== filter || f.traitType !== traitType))
+              }
               }
             >
               {traitType}:{' '}
               {filter && filter.constructor == Object ? (
-                Object.entries(filter).reduce( (prev, curr) => prev && (curr[0] === 'gte' || curr[0] === 'lte') , true) ? (
+                Object.entries(filter).reduce((prev, curr) => prev && (curr[0] === 'gte' || curr[0] === 'lte'), true) ? (
                   <>
                     {filter.gte}-{filter.lte}
                   </>
-                ) : ( '' )
+                ) : ('')
               ) : (
                 filter ? filter : 'None'
               )}
@@ -73,14 +82,15 @@ const ClearFilters = ({
         </>
       )}
       {filters.length > 0 ||
-      priceRange ||
-      rankRange ||
-      traitsCountRange ||
-      buyNow ? (
+        priceRange ||
+        rankRange ||
+        traitsCountRange ||
+        buyNow ? (
         <div
           className='clear-filters'
           onClick={() => {
             setFilters([]);
+            _setFilters([]);
             setPriceRange(false);
             setRankRange(false);
             setBuyNow(false);
