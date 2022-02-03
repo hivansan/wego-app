@@ -54,7 +54,7 @@ const AssetDetailModal = ({ setFooter }) => {
     if (location.state) {
       setGoBackPath(location.state.background.pathname);
       setFilters(location.state?.filters || []);
-      setCollectionTraits(location.state?.collectionTraits || []);
+      //setCollectionTraits(location.state?.collectionTraits || []);
     }
   }, []);
 
