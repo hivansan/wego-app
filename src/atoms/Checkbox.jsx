@@ -1,17 +1,28 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { setStoreFilter } from '../store/actions/actionFilters';
 // import { flushSync } from 'react-dom';
 
 const Checkbox = ({ label, setFilters, filters, traitType, extra }) => {
   const [checked, setChecked] = useState(false);
+  // Save the account to redux
+  const dispatch = useDispatch();
+  const _setFilters = React.useCallback(
+    storeFilter => dispatch(setStoreFilter(storeFilter)),
+    [dispatch]
+  );
 
   const onChange = () => {
     if (checked) {
-      setFilters(() => filters.filter(trait => trait.value !== label || trait.traitType !== traitType));
+      let newFilters = filters.filter(trait => trait.value !== label || trait.traitType !== traitType);
+      setFilters(newFilters);
+      _setFilters(newFilters);
       return setChecked(false);
     }
     setFilters(() => {
       // const obj = {};
       setFilters([...filters, { traitType, value: label }]);
+      _setFilters([...filters, { traitType, value: label }]);
     });
 
     setChecked(true);
@@ -19,16 +30,16 @@ const Checkbox = ({ label, setFilters, filters, traitType, extra }) => {
 
   useEffect(() => {
     if (
-      filters.some( trait => trait.traitType === traitType && trait.value === label)
+      filters.some(trait => trait.traitType === traitType && trait.value === label)
     ) {
       setChecked(true);
     }
   }, []);
 
   useEffect(() => {
-    
+
     if (
-      filters.some( trait => trait.traitType === traitType && trait.value === label)
+      filters.some(trait => trait.traitType === traitType && trait.value === label)
     ) {
       return setChecked(true);
     }
