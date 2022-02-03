@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import Icon from 'react-crypto-icons';
+import { FaEthereum } from 'react-icons/fa';
 import { HiFilter } from 'react-icons/hi';
 import { useDispatch } from 'react-redux';
 import { setStoreFilter } from '../../store/actions/actionFilters';
 import { useStoreFilter } from '../../store/selectors/useFilters';
 import filtersState from '../../store/states/filtersState';
 
-const Trait = ({ filters, setFilters, trait, bgFilters, collectionTraits }) => {
+const Trait = ({ filters, setFilters, trait, bgFilters }) => {
   const [checked, setChecked] = useState(false);
   const [visible, setVisible] = useState(false);
   // Save the account to redux
@@ -84,10 +84,10 @@ const Trait = ({ filters, setFilters, trait, bgFilters, collectionTraits }) => {
         </div>
       </div>
       <div className='traits-prices'>
-        {collectionTraits && (
+        {trait && (
           <small>
-            {collectionTraits.top_price && (<span>Top <Icon name='eth' size='10' className='token token-secondary' /> {collectionTraits.top_price} </span>)}
-            {collectionTraits.top_price && (<span>Floor <Icon name='eth' size='10' className='token token-secondary' /> {collectionTraits.floor_price} </span>)}
+            {trait.top_price && (<span>Top <FaEthereum size={10} className='token token-secondary' />{trait.top_price} </span>)}
+            {trait.top_price && (<span>Floor <FaEthereum size={10} className='token token-secondary' /> {trait.floor_price} </span>)}
           </small>
         )}
       </div>
