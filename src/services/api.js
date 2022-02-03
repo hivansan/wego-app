@@ -1,4 +1,5 @@
 import axios from 'axios';
+import queryString from 'query-string';
 
 // export const baseURL = 'https://wegonft.com/api';
 export const baseURL = 'http://localhost:3000/api';
@@ -98,13 +99,22 @@ export class Api {
       },
     };
 
+    this.favorites = {
+      byAddress: (address) => {
+
+      },
+      toggle: (address, slug, tokenId) => {
+        return this.requireAuth(this.postRequest, address, 'post', `/favorite/toggle?${queryString.stringify({ slug, tokenId })}`);
+      },
+    }
+
     this.users = {
       findOne: (publicAddress) => {
         return this.request('get', `/users/?publicAddress=${publicAddress}`);
       },
 
       isLogged: () => {
-        return this.request('get', `/users/isLogged`);
+        return this.request('get', `/user/isLogged`);
       },
 
       register: (publicAddress) => {
@@ -113,11 +123,23 @@ export class Api {
         });
       },
 
-      login: (publicAddress, sign) => {
-        return this.postRequest('post', '/users/login', {
-          publicAddress,
-          sign,
-        });
+      login: async (publicAddress) => {
+        try {
+          const signature = await personalSign(publicAddress);
+          const { token } = await this.postRequest('post', '/user/login', { publicAddress, signature });
+          localStorage.setItem('token', token);
+          this.axios = axios.create({
+            baseURL,
+            headers: {
+              accept: 'application/json, text/plain, */*',
+              'Content-Type': 'application/json;charset=UTF-8',
+              authorization: token,
+            },
+          })
+          return token;
+        } catch (error) {
+          throw error;
+        }
       },
     };
 
@@ -125,16 +147,13 @@ export class Api {
       const hasParams = param === '' ? '' : `&q=${encodeURI(param)}`;
       const hasPagination = page ? `&page=${page}` : '';
       const hasTab = tab === 'all' || !tab ? '' : `&tab=${tab}`;
-      return this.request(
-        'get',
-        `/search?limit=20${hasParams}${hasPagination}${hasTab}`
-      );
+      return this.request('get', `/search?limit=20${hasParams}${hasPagination}${hasTab}`);
     };
   }
 
   async request(method, url) {
     try {
-      let res = await this.axios[method](url);
+      const res = await this.axios[method](url);
       return res.data;
     } catch (error) {
       return error.response;
@@ -143,22 +162,28 @@ export class Api {
 
   async postRequest(method, url, data) {
     try {
-      let res = await this.axios[method](url, data);
+      const res = await this.axios[method](url, data || {});
       return res.data;
     } catch (error) {
-      console.log(error);
+      throw error;
     }
   }
 
-  // async search(param) {
-  //   const query = `search?q=${encodeURI(param)}`;
-  //   const searchUrl = baseURL + query;
-
-  //   try {
-  //     let res = await axios.get(searchUrl);
-  //     return res.data;
-  //   } catch (error) {
-  //     throw error;
-  //   }
-  // }
+  requireAuth(fn, address, ...args) {
+    return this.users.isLogged()
+      .then(({ isLogged }) =>
+        isLogged
+          ? fn.call(this, ...args)
+          : this.users.login(address).then(() => fn.call(this, ...args))
+      )
+      .catch(e => console.log(e));
+  }
 }
+
+
+const personalSign = async (address) =>
+  window.ethereum.request({
+    method: 'personal_sign',
+    params: ['Sign your login', address],
+    from: address,
+  })
