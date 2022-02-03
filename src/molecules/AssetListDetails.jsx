@@ -26,7 +26,7 @@ const AssetListDetails = ({
   rankRange,
   totalAssets,
   setRankRange,
-  address
+  search
 }) => {
   const [isFiltersCollapse, setIsFiltersCollapse] = useState(true);
   return (
@@ -36,7 +36,7 @@ const AssetListDetails = ({
         priceRange={priceRange}
         rankRange={rankRange}
         setRankRange={setRankRange}
-        address={address}
+        search={search}
         filtersMobileOpen={filtersMobileOpen}
         setFiltersMobileOpen={setFiltersMobileOpen}
 
