@@ -1,5 +1,7 @@
 import axios from 'axios';
 import queryString from 'query-string';
+import personalSign from '../web3/personalSign';
+
 
 // export const baseURL = 'https://wegonft.com/api';
 export const baseURL = 'http://localhost:3000/api';
@@ -103,8 +105,8 @@ export class Api {
       byAddress: (address) => {
 
       },
-      toggle: (address, slug, tokenId) => {
-        return this.requireAuth(this.postRequest, address, 'post', `/favorite/toggle?${queryString.stringify({ slug, tokenId })}`);
+      toggle: (account, slug, tokenId) => {
+        return this.requireAuth(this.postRequest, account, 'post', `/favorite/toggle?${queryString.stringify({ slug, tokenId })}`);
       },
     }
 
@@ -123,10 +125,12 @@ export class Api {
         });
       },
 
-      login: async (publicAddress) => {
+      login: async (account) => {
+        console.log(account);
         try {
-          const signature = await personalSign(publicAddress);
-          const { token } = await this.postRequest('post', '/user/login', { publicAddress, signature });
+          const signature = await personalSign(account);
+          const { token } = await this.postRequest('post', '/user/login', { publicAddress: account.address, signature });
+          console.log(account.address, signature, token);
           localStorage.setItem('token', token);
           this.axios = axios.create({
             baseURL,
@@ -169,21 +173,13 @@ export class Api {
     }
   }
 
-  requireAuth(fn, address, ...args) {
+  requireAuth(fn, account, ...args) {
     return this.users.isLogged()
       .then(({ isLogged }) =>
         isLogged
           ? fn.call(this, ...args)
-          : this.users.login(address).then(() => fn.call(this, ...args))
+          : this.users.login(account).then(() => fn.call(this, ...args))
       )
       .catch(e => console.log(e));
   }
 }
-
-
-const personalSign = async (address) =>
-  window.ethereum.request({
-    method: 'personal_sign',
-    params: ['Sign your login', address],
-    from: address,
-  })
