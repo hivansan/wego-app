@@ -14,7 +14,6 @@ const AssetDetailModal = ({ setFooter }) => {
   // const [assetScore, setAssetScore] = useState(null);
   const [filters, setFilters] = useState([]);
   const [goBackPath, setGoBackPath] = useState('');
-  const [collectionTraits, setCollectionTraits] = useState(null);
   const location = useLocation();
   const history = useHistory();
   const { address, tokenId } = useParams();
@@ -287,7 +286,6 @@ const AssetDetailModal = ({ setFooter }) => {
                             trait={trait}
                             bgFilters={location?.state?.filters || []}
                             key={i}
-                            collectionTraits={collectionTraits?.find(collectionTrait => collectionTrait.value === trait.value && collectionTrait.trait_type === trait.trait_type)}
                           />
                         ))}
                   </div>

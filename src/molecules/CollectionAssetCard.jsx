@@ -15,8 +15,7 @@ const CollectionAssetCard = ({
   index,
   collectionImg,
   setFilters,
-  filters,
-  collectionTraits
+  filters
 }) => {
   const hasExtraClasses = className ? className : '';
   const tokenIdTrimmed =
