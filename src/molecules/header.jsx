@@ -192,6 +192,14 @@ const Header = ({ background, menuOpen, setMenuOpen }) => {
     }
   };
 
+  const logIn = () => {
+    history.push('/login');
+  } 
+
+  const openProfile = () => {
+    history.push('/mynfts');
+  }
+
   return (
     <>
       <div className='header-container'>
@@ -288,7 +296,7 @@ const Header = ({ background, menuOpen, setMenuOpen }) => {
                       backgroundColor: 'transparent',
                       cursor: 'pointer',
                     }}
-                    onClick={() => setModalOpen(true)}
+                    onClick={() => logIn() /*setModalOpen(true)*/}
                   >
                     <FaWallet size={28} className='header-icon' />
                   </button>
@@ -299,12 +307,12 @@ const Header = ({ background, menuOpen, setMenuOpen }) => {
                     {/*<span>{account.substring(0, 5)}...</span>*/}
                   </>
                 )}
-                {modalOpen && (
+                {/*modalOpen && (
                   <WalletModal
                     handleClose={() => setModalOpen(false)}
                     open={modalOpen}
                   />
-                )}
+                )*/}
               </div>
               <ToggleTheme />
             </div>
@@ -352,7 +360,7 @@ const Header = ({ background, menuOpen, setMenuOpen }) => {
                 Get Listed
                 </a>*/}
 
-              <div className='bm-item' onClick={() => setModalOpen(true)}>
+              <div className='bm-item' onClick={() => account && account != "" ? openProfile() : logIn()/*setModalOpen(true)*/}>
                 <FaWallet size={28} />
                 {account && account != "" ? (
                   <>{account.substring(0, 15)}... </>
@@ -361,12 +369,12 @@ const Header = ({ background, menuOpen, setMenuOpen }) => {
                 )}
               </div>
 
-              {modalOpen && (
+              {/*modalOpen && (
                 <WalletModal
                   handleClose={() => setModalOpen(false)}
                   open={modalOpen}
                 />
-              )}
+              )*/}
 
               <div className='bm-item theme-menu'>
                 <ToggleTheme />
