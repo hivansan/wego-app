@@ -18,7 +18,11 @@ const Profile = () => {
   useEffect(() => {
     
     if (_account && _account.account?.address != "") {
-      setAccount(_account.account);
+      //setAccount(_account.account);
+      setAccount({
+        ..._account.account,
+        address:"0xad7748a9b5482256f449243a432541d17de17e24"
+      });
 
     }
   }, [_account]);
