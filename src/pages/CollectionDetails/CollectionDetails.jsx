@@ -3,11 +3,13 @@ import CollectionHeader from './CollectionHeader';
 import CollectionAssets from './CollectionAssets';
 
 import { useParams, useLocation } from 'react-router-dom';
+import { useDebounce } from '../../atoms/hooks/useStateDebounce';
 import Error404 from '../Error404';
 
 import { Api } from '../../services/api';
 import * as Relay from '../../services/relay';
 import { pathEq } from 'ramda';
+import { useStoreFilter } from '../../store/selectors/useFilters';
 
 const CollectionDetails = ({ setFooter, locationState }) => {
   const { slug } = useParams();
@@ -24,6 +26,8 @@ const CollectionDetails = ({ setFooter, locationState }) => {
   const [totalAssets, setTotalAssets] = useState(null);
   const [traitsCountRange, setTraitsCountRange] = useState(false);
   const [buyNow, setBuyNow] = useState(false);
+  const [searchAsset, setSearchAsset] = useState("");
+  const [debounceParamAsset, setDebounceParamAsset] = useDebounce(searchAsset, 500);
   const [hasFilters, setHasFilter] = useState(false);
   const [realTotalAssets, setRealTotalAssets] = useState(null);
 
@@ -39,50 +43,94 @@ const CollectionDetails = ({ setFooter, locationState }) => {
   const location = useLocation();
   const isFiltersMobileOpen = filtersMobileOpen ? 'd-none' : '';
 
+  const _storeFilter = useStoreFilter();
+  const { ...storeFilter } = _storeFilter;
+
   const getCollection = async () => {
     const collection = await api.collections.findOne(slug);
     setResult(collection);
   };
 
-  const getCollectionAssets = async (
-    sortBy,
-    sortDirection,
-    traits,
-    priceRange,
-    rankRange,
-    traitsCountRange,
-    buyNow
-  ) => {
-    setResultAssets([]);
-    setHasNextPage(true);
-    const res = await api.assets.find(
-      slug,
-      assetsPerPage,
-      0,
+  useEffect(() => {
+    const getCollectionAssets = async (
       sortBy,
       sortDirection,
       traits,
       priceRange,
       rankRange,
       traitsCountRange,
-      buyNow
-    );
-    const results =
-      res && res.results && res.results.length === 0 ? null : res.results;
+      buyNow,
+      searchAsset
+    ) => {
+      setResultAssets([]);
+      setHasNextPage(true);
+      const res = await api.assets.find(
+        slug,
+        assetsPerPage,
+        0,
+        sortBy,
+        sortDirection,
+        traits,
+        priceRange,
+        rankRange,
+        traitsCountRange,
+        buyNow,
+        searchAsset
+      );
+      const results =
+        res && res.results && res.results.length === 0 ? null : res.results;
 
 
-    setResultAssets(results);
+      setResultAssets(results);
 
-    setTotalAssets(res);
-    if (res.results && res.results.length < 20) {
-      setHasNextPage(false);
+      setTotalAssets(res);
+      if (res.results && res.results.length < 20) {
+        setHasNextPage(false);
+      }
+
+      setIsNextPageLoading(() => true);
+      setIsNextPageLoading(false);
+
+      setTraits(traits);
     }
 
-    setIsNextPageLoading(() => true);
-    setIsNextPageLoading(false);
+    if (filters) {
+      const traitObj = filters.reduce(function (acc, cur, i) {
+        acc[cur.traitType] = acc[cur.traitType] || [];
+        acc[cur.traitType].push(cur.value);
+        return acc;
+      }, {});
 
-    setTraits(traits);
-  };
+      const hasTraits = Object.keys(traitObj).length === 0 ? null : traitObj;
+      const PriceUsdFilter = priceUsdRange ? priceUsdRange : null;
+      const rankFilter = rankRange ? rankRange : null;
+      const traitsCountFilter = traitsCountRange ? traitsCountRange : null;
+      const buyNowfilter = buyNow ? buyNow : null;
+      const searchAssetFilter = searchAsset ? searchAsset : null;
+      setHasFilter(hasTraits || PriceUsdFilter || rankFilter || traitsCountFilter || buyNowfilter || searchAssetFilter);
+      getAssetCounter();
+      setAssetsPage(0);
+      getCollectionAssets(
+        assetsSort.orderBy,
+        assetsSort.orderDirection,
+        hasTraits,
+        PriceUsdFilter,
+        rankFilter,
+        traitsCountFilter,
+        buyNowfilter,
+        searchAssetFilter
+      );
+      window.scrollTo(0, 0);
+    }
+
+    if (searchAsset === '') {
+      setResultAssets(null);
+    }
+    //cleanup when component unmount
+    return () => {
+      setResultAssets(null);
+    };
+  }, [debounceParamAsset, filters, assetsSort, rankRange, priceUsdRange, traitsCountRange, buyNow]);
 
   const loadNextAssetsPage = async (
     sortBy,
@@ -91,7 +139,8 @@ const CollectionDetails = ({ setFooter, locationState }) => {
     priceRange,
     rankRange,
     traitsCountRange,
-    buyNow
+    buyNow,
+    searchAsset
   ) => {
     const isAssetsNew = assetsPage === 0 ? 20 : assetsPage + 20;
     const res = await api.assets.find(
@@ -104,7 +153,8 @@ const CollectionDetails = ({ setFooter, locationState }) => {
       priceRange,
       rankRange,
       traitsCountRange,
-      buyNow
+      buyNow,
+      searchAsset
     );
 
     setAssetsPage(assetsPage + 20);
@@ -121,10 +171,12 @@ const CollectionDetails = ({ setFooter, locationState }) => {
     const res = await api.collections.traits(slug);
 
     setCollectionTraits(
-      res?.results.sort((traitA, traitB) => {
-        return (traitA.trait_type?.toString().toLowerCase().localeCompare(traitB.trait_type?.toString().toLowerCase()) ||
-          ((traitA.value ? traitA.value : 'None').toString().toLowerCase().localeCompare((traitB.value ? traitB.value : 'None').toString().toLowerCase())))
-      }) || []
+      res?.results
+        .filter((trait) => trait.trait_type !== 'traitCount')
+        .sort((traitA, traitB) => {
+          return (traitA.trait_type?.toString().toLowerCase().localeCompare(traitB.trait_type?.toString().toLowerCase()) ||
+            ((traitA.value ? traitA.value : 'None').toString().toLowerCase().localeCompare((traitB.value ? traitB.value : 'None').toString().toLowerCase())))
+        }) || []
     );
   };
 
@@ -157,36 +209,6 @@ const CollectionDetails = ({ setFooter, locationState }) => {
   useEffect(() => {
     setFilters(locationState);
   }, [location]);
-
-  useEffect(() => {
-    if (filters) {
-
-      const traitObj = filters.reduce(function (acc, cur, i) {
-        acc[cur.traitType] = acc[cur.traitType] || [];
-        acc[cur.traitType].push(cur.value);
-        return acc;
-      }, {});
-
-      const hasTraits = Object.keys(traitObj).length === 0 ? null : traitObj;
-      const PriceUsdFilter = priceUsdRange ? priceUsdRange : null;
-      const rankFilter = rankRange ? rankRange : null;
-      const traitsCountFilter = traitsCountRange ? traitsCountRange : null;
-      const buyNowfilter = buyNow ? buyNow : null;
-      setHasFilter(hasTraits || PriceUsdFilter || rankFilter || traitsCountFilter || buyNowfilter);
-      getAssetCounter();
-      setAssetsPage(0);
-      getCollectionAssets(
-        assetsSort.orderBy,
-        assetsSort.orderDirection,
-        hasTraits,
-        PriceUsdFilter,
-        rankFilter,
-        traitsCountFilter,
-        buyNowfilter
-      );
-      window.scrollTo(0, 0);
-    }
-  }, [filters, assetsSort, rankRange, priceUsdRange, traitsCountRange, buyNow]);
 
   useEffect(() => {
     const unsubscribe = Relay.listen(
@@ -231,7 +253,7 @@ const CollectionDetails = ({ setFooter, locationState }) => {
         setAssetsSort={setAssetsSort}
         setFiltersMobileOpen={setFiltersMobileOpen}
         setFilters={setFilters}
-        filters={filters}
+        filters={storeFilter.storeFilter}
         collectionTraits={collectionTraits}
         setCollectionTraits={setCollectionTraits}
         collection={result}
@@ -242,6 +264,9 @@ const CollectionDetails = ({ setFooter, locationState }) => {
         setAssets={setResultAssets}
         filtersMobileOpen={filtersMobileOpen}
         _loadNextPage={loadNextAssetsPage}
+        searchAsset={searchAsset}
+        setSearchAsset={setSearchAsset}
+        setDebounceParam={setDebounceParamAsset}
         hasFilters={hasFilters}
         realTotalAssets={realTotalAssets}
       />

@@ -1,14 +1,11 @@
 import React from 'react';
-
-import moment from 'moment';
-import { Link } from 'react-router-dom';
-import ImageTypeDetect from '../molecules/ImageTypeDetect';
 import DropDownAssetItem from './DropdownResults/homeResults/AssetsResults/DropDownAssetItem';
 
-const DropDownAssets = ({ results, location, isOpen }) => {
+const DropDownAssets = ({ resultsAssets, location, isOpen }) => {
+
   const assetsFiltered =
-    !results.status &&
-    results.results
+    !resultsAssets?.status &&
+    resultsAssets.results
       .filter((item) => item.meta.index === 'assets')
       .filter((a, i) => i < 4);
 

@@ -1,11 +1,28 @@
-import { useEffect, useState } from 'react';
-import Icon from 'react-crypto-icons';
+import React, { useEffect, useState } from 'react';
+import { FaEthereum } from 'react-icons/fa';
+import { HiFilter } from 'react-icons/hi';
+import { useDispatch } from 'react-redux';
+import { setStoreFilter } from '../../store/actions/actionFilters';
+import { useStoreFilter } from '../../store/selectors/useFilters';
+import filtersState from '../../store/states/filtersState';
 
-const Trait = ({ filters, setFilters, trait, bgFilters, collectionTraits }) => {
+const Trait = ({ filters, setFilters, trait, bgFilters }) => {
   const [checked, setChecked] = useState(false);
+  const [visible, setVisible] = useState(false);
+  // Save the account to redux
+  const dispatch = useDispatch();
+  const _setFilters = React.useCallback(
+    storeFilter => dispatch(setStoreFilter(storeFilter)),
+    [dispatch]
+  );
+  const _storeFilter = useStoreFilter();
+  const { ...storeFilter } = _storeFilter.storeFilter;
+
   const handleFilter = () => {
     if (checked) {
-      setFilters(() => filters.filter(({ value }) => value !== trait.value));
+      let newFilters = filters.filter(({ value }) => value !== trait.value);
+      setFilters(newFilters);
+      _setFilters(newFilters);
       return setChecked(false);
     }
     setFilters(() => {
@@ -18,8 +35,21 @@ const Trait = ({ filters, setFilters, trait, bgFilters, collectionTraits }) => {
         },
       ]);
     });
-
+    _setFilters([...filters,
+    {
+      traitType: trait.trait_type,
+      value: trait.value
+    }])
     setChecked(true);
+    setVisible(true);
+  };
+
+  const handleFilterIcon = () => {
+    if (checked) {
+      return setVisible(true);
+    } else {
+      return setVisible(!visible)
+    }
   };
 
   useEffect(() => {
@@ -28,11 +58,12 @@ const Trait = ({ filters, setFilters, trait, bgFilters, collectionTraits }) => {
       bgFilters.some((el) => el.traitType === trait.trait_type)
     ) {
       setChecked(true);
+      setVisible(true);
     }
   }, []);
 
   return (
-    <div className='asset-detail-modal-stats-filter' onClick={handleFilter}>
+    <div className='asset-detail-modal-stats-filter' onClick={handleFilter} onMouseOver={handleFilterIcon} onMouseOut={handleFilterIcon}>
       <div className='asset-detail-filter-header'>
         <small>{trait.trait_type}</small>
         <div className='asset-detail-filter-header-n'>
@@ -44,16 +75,19 @@ const Trait = ({ filters, setFilters, trait, bgFilters, collectionTraits }) => {
       <div
         className={`${checked ? 'checked' : 'unChecked'} asset-detail-filter-attribute`}
       >
-        <small>{trait.value != null ? trait.value : "None"}</small>
+        <small>
+          {trait.value != null ? trait.value : "None"}
+        </small>
+        {visible && (<span className='asset-detail-filter-icon'><HiFilter size={14} /></span>)}
         <div className='asset-detail-filter-a'>
           <p>{trait.trait_count}</p>
         </div>
       </div>
       <div className='traits-prices'>
-        {collectionTraits && (
+        {trait && (
           <small>
-            {collectionTraits.top_price && (<span>Top <Icon name='eth' size='10' className='token token-secondary' /> {collectionTraits.top_price} </span>)}
-            {collectionTraits.top_price && (<span>Floor <Icon name='eth' size='10' className='token token-secondary' /> {collectionTraits.floor_price} </span>)}
+            {trait.top_price && (<span>Top <FaEthereum size={10} className='token token-secondary' />{trait.top_price} </span>)}
+            {trait.top_price && (<span>Floor <FaEthereum size={10} className='token token-secondary' /> {trait.floor_price} </span>)}
           </small>
         )}
       </div>

@@ -9,6 +9,8 @@ import { GrFormClose } from 'react-icons/gr';
 import { WindowScroller, List, AutoSizer } from 'react-virtualized';
 import Skeleton from 'react-loading-skeleton';
 import ClearFilters from '../../molecules/CollectionsAssetsFilters/ClearFilters';
+import CollectionSearchInput from './CollectionSearchInput';
+
 
 const CollectionAssets = ({
   collection,
@@ -37,6 +39,9 @@ const CollectionAssets = ({
   traitsCountRange,
   setBuyNow,
   buyNow,
+  searchAsset,
+  setSearchAsset,
+  setDebounceParam,
   hasFilters,
   realTotalAssets
 }) => {
@@ -69,6 +74,10 @@ const CollectionAssets = ({
           <CollectionAssetsSort
             setAssetsSort={setAssetsSort}
             assetsSort={assetsSort}
+          />
+          <CollectionSearchInput
+            setDebounceParam={setDebounceParam}
+            onChange={setSearchAsset}
           />
         </div>
 
@@ -103,7 +112,8 @@ const CollectionAssets = ({
                   priceRange,
                   rankRange,
                   traitsCountRange,
-                  buyNow
+                  buyNow,
+                  searchAsset
                 )
               }
               hasMore={true}
@@ -158,7 +168,6 @@ const CollectionAssets = ({
                                       location={location}
                                       setFilters={setFilters}
                                       filters={filters}
-                                      collectionTraits={collectionTraits}
                                     />
                                   )}
                                 </React.Fragment>

@@ -2,7 +2,7 @@
 
 .collection-additionals-stats {
   display: flex;
-  margin: 1.5rem 0;
+  margin: 1.5rem 0 0;
   width: 100%;
   flex-wrap: wrap;
   justify-content: center;
@@ -60,5 +60,32 @@
     small {
       color: var(--color-secondary);
     }
+  }
+}
+
+.collection-price-variation {
+  display: flex;
+  margin: 0 0 1.5rem;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
+  .stat {
+    margin: 1rem;
+    text-align: center;
+    small {
+      margin: 0;
+      display: block;
+      color: var(--color-primary);
+
+      &:last-child {
+        color: var(--color-secondary);
+      }
+    }
+  }
+  .price-up {
+    color: rgb(52, 199, 123);
+  }
+  .price-down {
+    color: rgb(235, 87, 87);
   }
 }
