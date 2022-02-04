@@ -9,17 +9,19 @@ import { toast } from 'react-toastify';
 import { Api } from '../services/api';
 import ImageTypeDetect from './ImageTypeDetect';
 import { Link } from 'react-router-dom';
+import { useAccount } from '../store/selectors/useAccount';
 
 const BuyNowButton = (props) => {
   const api = new Api();
   const { emitter, dispatcher, store } = Store;
   const [sellOrder, setSellOrder] = useState();
-  const [account, setAccount] = useState('');
-
+  const [account, setAccount] = useState(null);
+  const _account = useAccount();
   const [open, setOpen] = useState(false);
   const [review, setReview] = useState(false);
   const [accept, setAccept] = useState(false);
   const [buying, setBuying] = useState(false);
+  const [verified, setVerified] = useState(false);
   const [collectionInfo, setCollectionInfo] = useState(false);
   const asset = props.asset;
   const socialBeesDiscordLinks = ["qTnnuraPuE", "V68hE9FHrU"][Math.floor(Math.random() * 2)];
@@ -28,14 +30,17 @@ const BuyNowButton = (props) => {
   useEffect(() => {
     getOrder();
     initState();
-    let account = store.getStore('account');
-    setAccount(account);
-    console.log(asset);
   }, []);
 
   useEffect(() => {
     getCollection();
   }, [asset.slug]);
+
+  useEffect(() => {
+    if (_account && _account.account?.address !== "") {
+      setAccount(_account.account);
+    }
+  }, [_account]);
 
   const initState = () => {
     setOpen(false);
@@ -46,6 +51,7 @@ const BuyNowButton = (props) => {
 
   const getCollection = async () => {
     const collection = await api.collections.findOne(asset.slug);
+    setVerified(collection?.safelist_request_status === "verified");
     setCollectionInfo(collection);
   };
 
@@ -89,8 +95,8 @@ const BuyNowButton = (props) => {
     }
     try {
       const seaport = new OpenSeaPort(window.web3.currentProvider, {
-        networkName: Network.Rinkeby,
-        // apiKey: "3fef0678b4d14d87a5b885c3805dc621"
+        networkName: Network.Main,
+        apiKey: process.env.REACT_APP_OPENSEA_API_KEY
       });
 
       const order = await seaport.api.getOrder({
@@ -120,18 +126,20 @@ const BuyNowButton = (props) => {
 
   return (
     <div>
-      {sellOrder ? (
-        <button
-          className='btn buy-now-btn'
-          type='button'
-          disabled={buying}
-          onClick={onClickBuy}
-        >
-          {buying ? 'Complete in metamask ...' : 'Buy now'}
-        </button>
-      ) : (
-        <div className='buy-now-message'>This item is not for sale</div>
-      )}
+      {account ? (
+        sellOrder ? (
+          <button
+            className='btn buy-now-btn'
+            type='button'
+            disabled={buying}
+            onClick={onClickBuy}
+          >
+            {buying ? 'Complete in metamask ...' : 'Buy now'}
+          </button>
+        ) : (
+          <div className='buy-now-message'>This item is not for sale</div>
+        )
+      ) : <div className='buy-now-message'>Connect your wallet first</div>}
       <Modal
         open={open}
         onClose={onClose}
@@ -143,9 +151,9 @@ const BuyNowButton = (props) => {
           <div className='buy-now-modal-info-container'>
             <div className='buy-now-modal-info'>
               <header className='buy-now-modal-info-header'>
-                {review ?
+                {(review || verified) ?
                   (<>
-                    <span className='buy-now-back-btn'><FaArrowCircleLeft size={20} onClick={goBack} /></span>
+                    {!verified && <span className='buy-now-back-btn'><FaArrowCircleLeft size={20} onClick={goBack} /></span>}
                     <h4>Complete checkout</h4>
                   </>) :
                   (<>
@@ -153,7 +161,7 @@ const BuyNowButton = (props) => {
                   </>
                   )}
               </header>
-              {review ?
+              {(review || verified) ?
                 (<>
                   <div className="checkout-content">
                     <div className='checkout-detail'>
