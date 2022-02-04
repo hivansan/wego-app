@@ -224,6 +224,7 @@ const AssetDetailModal = ({ setFooter }) => {
                     <BuyNowButton
                       tokenAddress={asset.contractAddress}
                       tokenId={tokenId}
+                      asset={asset}
                     />
                   )}
                   {/* <p>

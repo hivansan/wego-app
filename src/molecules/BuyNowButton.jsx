@@ -2,117 +2,119 @@ import React, { useEffect, useState } from 'react';
 import * as Web3 from 'web3';
 import { OpenSeaPort, Network } from 'opensea-js';
 import { OrderSide } from 'opensea-js/lib/types';
-import { infuraProvider } from '../config/example.config';
-import { CONNECTION_CONNECTED } from '../constants/constants';
 import Store from '../stores/store';
-
-const { emitter, dispatcher, store } = Store;
+import Modal from '../atoms/Modal';
+import { FaArrowCircleLeft, FaDiscord, FaEthereum, FaLink, FaTwitter, FaYoutube } from 'react-icons/fa';
+import { toast } from 'react-toastify';
+import { Api } from '../services/api';
+import ImageTypeDetect from './ImageTypeDetect';
+import { Link } from 'react-router-dom';
 
 const BuyNowButton = (props) => {
-  console.log(props)
-  const [loaders, setLoaders] = useState({
-    buying: false,
-    makingOffer: false,
-  });
-  const [nft, setNft] = useState({});
+  const api = new Api();
+  const { emitter, dispatcher, store } = Store;
   const [sellOrder, setSellOrder] = useState();
-  const [fromOptions, setFromOptions] = useState([]);
   const [account, setAccount] = useState('');
-  const provider = new Web3.providers.HttpProvider(infuraProvider);
+
+  const [open, setOpen] = useState(false);
+  const [review, setReview] = useState(false);
+  const [accept, setAccept] = useState(false);
+  const [buying, setBuying] = useState(false);
+  const [collectionInfo, setCollectionInfo] = useState(false);
+  const asset = props.asset;
+  const socialBeesDiscordLinks = ["qTnnuraPuE", "V68hE9FHrU"][Math.floor(Math.random() * 2)];
+  const socialBeesSlug = "social-bees-university";
 
   useEffect(() => {
-    getAsset();
-    emitter.on(CONNECTION_CONNECTED, onConnected);
+    getOrder();
+    initState();
     let account = store.getStore('account');
     setAccount(account);
-    return () => {
-      emitter.removeListener(CONNECTION_CONNECTED, onConnected);
-    };
-  }, [props.id]);
+    console.log(asset);
+  }, []);
 
-  const onConnected = () => {
-    let account = store.getStore('account');
-    setAccount(account);
+  useEffect(() => {
+    getCollection();
+  }, [asset.slug]);
+
+  const initState = () => {
+    setOpen(false);
+    setReview(false);
+    setAccept(false);
+    setBuying(false);
+  }
+
+  const getCollection = async () => {
+    const collection = await api.collections.findOne(asset.slug);
+    setCollectionInfo(collection);
   };
 
-  const setLoader = (loaderKey) => {
-    let l = { ...loaders };
-    l[loaderKey] = true;
-    setLoaders(l);
-  };
-
-  const freeLoader = (loaderKey) => {
-    let l = { ...loaders };
-    if (!loaderKey) {
-      for (const key of Object.keys(loaders)) l[key] = false;
-      return setLoaders(l);
-    }
-    l[loaderKey] = false;
-    setLoaders(l);
-  };
-
-  const getAsset = async () => {
+  const getOrder = async () => {
     try {
-      const seaport = new OpenSeaPort(provider, {
-        networkName: Network.Main,
-      });
-      console.log(props);
-      const tokenAddress = props.tokenAddress;
-      const tokenId = props.tokenId
-
-      const asset = await seaport.api.get(
-        `/api/v1/asset/${tokenAddress}/${tokenId}`
-      );
-      setNft(asset);
-      setFromOptions(
-        asset.collection.payment_tokens.filter(
-          ({ address }) =>
-            address !== '0x0000000000000000000000000000000000000000'
-        )
-      );
-
-      let sell_order = asset?.orders?.find(({ side }) => side);
+      let sell_order = asset?.sellOrders?.find(({ side }) => side);
+      console.log("order", sell_order);
       setSellOrder(sell_order);
-
     } catch (error) {
       console.log(error);
     }
   };
 
+  const onClose = () => {
+    initState();
+  }
+
+  const onClickBuy = () => {
+    setOpen(true);
+  }
+
+  const handleReviewChange = () => {
+    setReview(!review);
+  }
+
+  const handleAcceptChange = () => {
+    setAccept(!accept);
+  }
+
+  const goBack = () => {
+    setReview(false);
+    setAccept(false);
+  }
+
   const onBuyItem = async () => {
-    setLoader('buying');
+    setBuying(true);
 
     if (window.ethereum) {
       window.web3 = new Web3(window.ethereum);
       window.ethereum.enable();
     }
     try {
-      console.log(window.web3.currentProvider);
       const seaport = new OpenSeaPort(window.web3.currentProvider, {
-        networkName: Network.Main
+        networkName: Network.Rinkeby,
+        // apiKey: "3fef0678b4d14d87a5b885c3805dc621"
       });
 
       const order = await seaport.api.getOrder({
-        asset_contract_address: nft.asset_contract.address,
+        asset_contract_address: props.tokenAddress,
         side: OrderSide.Sell,
-        token_id: nft.token_id,
+        token_id: props.tokenId,
         order_by: 'created_date',
         order_direction: 'desc',
         bundled: 'false',
         include_bundled: 'false',
         include_invalid: 'false',
       });
-      console.log(order);
-      // console.log(account);
+
       const transactionHash = await seaport.fulfillOrder({
         order,
         accountAddress: account.address,
       });
-      console.log(transactionHash);
-      freeLoader('buying');
+      toast.success("Order Completed", { hideProgressBar: true });
+      toast.success("This item is yours", { hideProgressBar: true });
+      initState();
+      setSellOrder(null);
     } catch (error) {
-      freeLoader('buying');
-      console.log(error);
+      toast.error(error.message, { hideProgressBar: true });
+      setBuying(false);
     }
   };
 
@@ -122,14 +124,165 @@ const BuyNowButton = (props) => {
         <button
           className='btn buy-now-btn'
           type='button'
-          disabled={loaders.buying || !sellOrder}
-          onClick={onBuyItem}
+          disabled={buying}
+          onClick={onClickBuy}
         >
-          {loaders.buying ? 'Complete in metamask ...' : 'Buy now'}
+          {buying ? 'Complete in metamask ...' : 'Buy now'}
         </button>
       ) : (
         <div className='buy-now-message'>This item is not for sale</div>
       )}
+      <Modal
+        open={open}
+        onClose={onClose}
+        modalStyles={'asset-detail-modal-container'}
+        bodyStyles='buy-now-modal-body'
+        isLoading={true}
+      >
+        <>
+          <div className='buy-now-modal-info-container'>
+            <div className='buy-now-modal-info'>
+              <header className='buy-now-modal-info-header'>
+                {review ?
+                  (<>
+                    <span className='buy-now-back-btn'><FaArrowCircleLeft size={20} onClick={goBack} /></span>
+                    <h4>Complete checkout</h4>
+                  </>) :
+                  (<>
+                    <h4>This is an unreviewed collection</h4>
+                  </>
+                  )}
+              </header>
+              {review ?
+                (<>
+                  <div className="checkout-content">
+                    <div className='checkout-detail'>
+                      <small>Item</small>
+                      <small>Subtotal</small>
+                    </div>
+                    <div className='checkout-detail'>
+                      <small>
+                        <ImageTypeDetect
+                          imageURL={asset?.imageSmall}
+                          alt={asset?.name}
+                          className='checkout-img'
+                        />
+
+                        <div className='checkout-info'>
+                          <span>{collectionInfo.name}</span>
+                          <p>{asset?.name}</p>
+                        </div>
+                      </small>
+                      <small><FaEthereum size={15} /> {asset?.currentPrice}</small>
+                    </div>
+                    <div className='checkout-detail'>
+                      <small>Total</small>
+                      <small><FaEthereum size={15} /> {asset?.currentPrice}</small>
+                    </div>
+                    <div className='checkout-check'>
+                      <input type="checkbox" checked={accept} onChange={handleAcceptChange} />
+                      By checking this box, I agree to OpenSea's
+                      <a href="https://opensea.io/tos" target="_blank" rel="noreferrer"> Terms of Service </a>
+                      and WEGO's <Link to='/terms' target="_blank">Terms of Use</Link>
+                    </div>
+                    <div className='checkout-btn'>
+                      <button
+                        className='btn buy-now-btn'
+                        type='button'
+                        disabled={!accept}
+                        onClick={onBuyItem}
+                      >
+                        {buying ? 'Complete in metamask ...' : 'Confirm checkout'}
+                      </button>
+                    </div>
+                  </div>
+                </>) :
+                (<>
+                  <div className='buy-now-info'>
+                    <div>Review this information to ensure it’s what you want to buy. </div>
+                  </div>
+                  <div className="buy-now-content">
+                    <div className='buy-now-details'>
+                      <span> Collection name </span>
+                      <small> <a href={`https://opensea.io/collection/${collectionInfo?.slug}`}>{collectionInfo?.name}</a> </small>
+                    </div>
+                    <div className='buy-now-details'>
+                      <span> Creator </span>
+                      <small><a href={`https://opensea.io/${asset?.creator?.user?.username}`}>{asset?.creator?.user?.username}</a></small>
+                    </div>
+                    <div className='buy-now-details'>
+                      <span> Total sales</span>
+                      <small>{`${collectionInfo?.stats?.totalSales} sales`}</small>
+                    </div>
+                    <div className='buy-now-details'>
+                      <span> Total volume</span>
+                      <small><FaEthereum size={15} /> {collectionInfo?.stats?.totalVolume.toFixed(3)} </small>
+                    </div>
+                    <div className='buy-now-details'>
+                      <span> Social links</span>
+                      <small>
+                        {collectionInfo.website && (
+                          <a className='social-link'
+                            href={collectionInfo.website} target='_blank' rel='noreferrer'>
+                            <FaLink size={30} />
+                          </a>
+                        )}
+                        {(collectionInfo.discord || collectionInfo.slug === socialBeesSlug) && (
+                          <a className='social-link'
+                            href={collectionInfo.slug === socialBeesSlug ? `https://discord.gg/${socialBeesDiscordLinks}` : collectionInfo.discord}
+                            target='_blank'
+                            rel='noreferrer'
+                          >
+                            <FaDiscord size={30} />
+                          </a>
+                        )}
+                        {(collectionInfo.twitter || collectionInfo.slug === socialBeesSlug) && (
+                          <a className='social-link'
+                            href={`https://twitter.com/${collectionInfo.slug === socialBeesSlug ? "Crypto_Swarm" : collectionInfo.twitter}`}
+                            target='_blank'
+                            rel='noreferrer'
+                          >
+                            <FaTwitter size={30} />
+                          </a>
+                        )}
+                        {collectionInfo.slug === socialBeesSlug && (
+                          <a className='social-link'
+                            href="https://www.youtube.com/c/BeesSocialTV"
+                            target='_blank'
+                            rel='noreferrer'
+                          >
+                            <FaYoutube size={30} />
+                          </a>
+                        )}
+                      </small>
+                    </div>
+                    <div className='buy-now-details'>
+                      <span> Contract address</span>
+                      <small><a href={`https://etherscan.io/address/${asset?.contractAddress}`}>
+                        {`${asset.contractAddress.substr(0, 6)}...${asset?.contractAddress.substr(asset?.contractAddress.length - 4)}`}
+                      </a>
+                      </small>
+                    </div>
+                    <div className='buy-now-details'>
+                      <span> Total items</span>
+                      <small>{`${collectionInfo?.stats?.count} items`}</small>
+                    </div>
+                    <div className='buy-now-details'>
+                      <span> Created date</span>
+                      <small>{asset.createdAt.split('T')[0]}</small>
+                    </div>
+                    <div className='buy-now-check'>
+                      <input type="checkbox" checked={review} onChange={handleReviewChange} />
+                      I understand that OpenSea has not reviewed this collection
+                      and blockchain transactions are irreversible.
+                    </div>
+                  </div>
+                </>)
+              }
+            </div>
+          </div>
+        </>
+      </Modal>
     </div>
   );
 };
