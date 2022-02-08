@@ -35,8 +35,6 @@ const CollectionAssetCard = ({
   if (filters)
     pathstate.filters = filters
 
-  if (collectionTraits)
-    pathstate.collectionTraits = collectionTraits
 
     
   return (
