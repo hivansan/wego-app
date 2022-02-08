@@ -32,6 +32,7 @@ export class Api {
       
       //{slug, limit, offset,sortBy, sortDirection, traits, priceRange, rankRange, traitsCountRange, buyNow, ownerAddress, searchAsset}
       find:  (options = {}) => {
+        console.log("options", options);
         const parameters = Object.keys(options).map( key => {
           if (options[key] === null || options[key] === undefined)
             return '';
@@ -49,6 +50,7 @@ export class Api {
         })
         .filter( param => param !== '' )
         .join('&');
+        console.log(`/assets?${parameters}`);
         
         return this.request('get', `/assets?${parameters}`);
       },

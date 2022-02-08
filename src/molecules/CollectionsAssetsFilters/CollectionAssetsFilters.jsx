@@ -221,7 +221,7 @@ const CollectionAssetsFilters = ({
                   key={traitType}
                 />
               </Filter>
-            )) : <div className='filter-spinner'><FaSpinner size={60} className='spinner' /></div>}
+            )) : collectionSlug?<div className='filter-spinner'><FaSpinner size={60} className='spinner' /></div> : ''}
         </div>
       </div>
     </>

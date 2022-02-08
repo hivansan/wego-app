@@ -72,6 +72,9 @@ const MainSwitch = () => {
         <Route exact path='/mynfts'>
           <Profile />
         </Route>
+        <Route exact path='/login'>
+          <Profile />
+        </Route>
         <Route
           path='/assets/:address/:tokenId'
           children={

@@ -4,6 +4,8 @@ import CryptoIcon from '../atoms/CryptoIcon';
 
 const ProfileHeader = ({ account }) => {
 
+  if (!account)
+    return <></>;
 
   return (
     <div>
