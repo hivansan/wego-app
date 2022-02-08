@@ -64,10 +64,10 @@ const CollectionDetails = ({ setFooter, locationState }) => {
     ) => {
       setResultAssets([]);
       setHasNextPage(true);
-      const res = await api.assets.find(
+      const res = await api.assets.find({
         slug,
-        assetsPerPage,
-        0,
+        limit: assetsPerPage,
+        offset: 0,
         sortBy,
         sortDirection,
         traits,
@@ -76,7 +76,7 @@ const CollectionDetails = ({ setFooter, locationState }) => {
         traitsCountRange,
         buyNow,
         searchAsset
-      );
+      });
       const results =
         res && res.results && res.results.length === 0 ? null : res.results;
 
@@ -143,10 +143,10 @@ const CollectionDetails = ({ setFooter, locationState }) => {
     searchAsset
   ) => {
     const isAssetsNew = assetsPage === 0 ? 20 : assetsPage + 20;
-    const res = await api.assets.find(
+    const res = await api.assets.find({
       slug,
-      assetsPerPage,
-      isAssetsNew,
+      limit: assetsPerPage,
+      offset: isAssetsNew,
       sortBy,
       sortDirection,
       traits,
@@ -155,7 +155,7 @@ const CollectionDetails = ({ setFooter, locationState }) => {
       traitsCountRange,
       buyNow,
       searchAsset
-    );
+    });
 
     setAssetsPage(assetsPage + 20);
     setResultAssets([...resultAssets, ...res.results]);

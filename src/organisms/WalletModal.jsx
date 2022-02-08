@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Modal from '../atoms/Modal';
-import { Typography, Button, CircularProgress } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { setAccount } from '../store/actions/actionAccount';
 import { useAccount } from '../store/selectors/useAccount';
@@ -14,10 +14,10 @@ import { supportedWallets } from '../web3/supportedWallets';
 
 
 import { GrCopy } from 'react-icons/gr';
-import Web3 from 'web3';
 
 
-const WalletModal = ({ open, handleClose }) => {
+
+const WalletModal = ({ open, isWidget, customTitle=null, customMessage=null, handleClose }) => {
   // Save the account to redux
   const dispatch = useDispatch();
   const _setAccount = React.useCallback(
@@ -193,6 +193,32 @@ const WalletModal = ({ open, handleClose }) => {
     );
   }
 
+  if (isWidget) 
+    return (
+        <div className='wallet-modal widget-mode'>
+          {account.account.address ? (
+            <ConnectedWallet />
+          ) : (
+            <>
+              <header className='wallet-modal__header'>{customTitle? customTitle : "Connect Wallet"}</header>
+              <div className='wallet-modal__body'>
+              {customMessage
+                ? 
+                  <div className='wallet-modal__body__info'>
+                    <p>{customMessage}</p>
+                  </div> 
+                : "" 
+              }
+                
+                <div className='wallet-modal__body__options'>
+                  {getModalContent()}
+                </div>
+              </div>
+            </>
+          )}
+        </div>
+    );
+
   return (
     <Modal
       open={open}
@@ -205,14 +231,10 @@ const WalletModal = ({ open, handleClose }) => {
           <ConnectedWallet />
         ) : (
           <>
-            <header className='wallet-modal__header'>Connect Wallet</header>
+            <header className='wallet-modal__header'>{customTitle? customTitle : "Connect Wallet"}</header>
             <div className='wallet-modal__body'>
               <div className='wallet-modal__body__info'>
-                {/* <p>
-                  By connecting a wallet, you agree to Uniswap Labs’ Terms of
-                  Service and acknowledge that you have read and understand the
-                  Uniswap protocol disclaimer.
-                </p> */}
+              <p>{customMessage? customMessage : "" }</p>
               </div>
               <div className='wallet-modal__body__options'>
                 {getModalContent()}

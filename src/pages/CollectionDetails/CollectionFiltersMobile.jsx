@@ -9,6 +9,7 @@ import RangeFilters from '../../molecules/CollectionsAssetsFilters/RangeFilters'
 import { Api } from '../../services/api';
 
 const CollectionAssetsFiltersMobile = ({
+  address,
   collectionTraits,
   setFilters,
   filters,
@@ -45,35 +46,56 @@ const CollectionAssetsFiltersMobile = ({
     const priceSelected =
       price === 'priceUsdRange' ? 'currentPriceUSD' : 'currentPrice';
 
-    const res = await api.assets.find(
-      collectionSlug,
-      1,
-      0,
-      priceSelected,
-      'desc'
-    );
+    var source = {}
+    if (collectionSlug) 
+      source.slug = collectionSlug
+    else if (address)
+      source.ownerAddress = address
+
+
+    const res = await api.assets.find({
+      ...source,
+      limit: 1,
+      offset: 0,
+      sortBy: priceSelected,
+      sortDirection: 'desc'
+    });
 
     setMaxPrice(res?.results[0]?.[priceSelected] || null);
   };
 
   const getMaxRariRank = async () => {
-    const res = await api.assets.find(
-      collectionSlug,
-      1,
-      0,
-      'rarityScoreRank',
-      'desc'
-    );
+
+    var source = {}
+    if (collectionSlug) 
+      source.slug = collectionSlug
+    else if (address)
+      source.ownerAddress = address
+
+    const res = await api.assets.find({
+      ...source,
+      limit: 1,
+      offset: 0,
+      sortBy: 'rarityScoreRank',
+      sortDirection: 'desc'
+    });
     setMaxRank(res?.results[0]?.rarityScoreRank);
   };
   const getMaxTraitsCount = async () => {
-    const res = await api.assets.find(
-      collectionSlug,
-      1,
-      0,
-      'traitsCount',
-      'desc'
-    );
+
+    var source = {}
+    if (collectionSlug) 
+      source.slug = collectionSlug
+    else if (address)
+      source.ownerAddress = address
+
+    const res = await api.assets.find({
+      ...source,
+      limit: 1,
+      offset: 0,
+      sortBy: 'traitsCount',
+      sortDirection: 'desc'
+    });
     setMaxTraitsCount(res?.results[0]?.traitsCount);
   };
 
@@ -127,16 +149,18 @@ const CollectionAssetsFiltersMobile = ({
             max={maxRank}
           />
         </Filter>
-        <Filter title='Traits Count'>
-          <RangeFilters
-            filter='traitsCountRange'
-            setRange={setTraitsCountRange}
-            range={traitsCountRange}
-            max={maxTraitsCount}
-            min={0}
-          />
-        </Filter>
-        {collectionTraits ?
+        {traitsCountRange && setTraitsCountRange && (
+          <Filter title='Traits Count'>
+            <RangeFilters
+              filter='traitsCountRange'
+              setRange={setTraitsCountRange}
+              range={traitsCountRange}
+              max={maxTraitsCount}
+              min={0}
+            />
+          </Filter>  
+        )}
+        {collectionTraits && traitTypes?
           traitTypes.map((traitType, i) => (
             <Filter title={traitType} key={i} counter={collectionTraits.filter(trait => trait.trait_type === traitType).length}>
               <SearchFilters

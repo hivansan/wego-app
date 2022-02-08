@@ -30,44 +30,30 @@ export class Api {
       score: (address, tokenId) => {
         return this.request('get', `/asset/${address}/${tokenId}/score`);
       },
-      find: (
-        slug,
-        limit,
-        offset,
-        sortBy,
-        sortDirection,
-        traits,
-        priceRange,
-        rankRange,
-        traitsCountRange,
-        buyNow,
-        searchAsset
-      ) => {
-        const hasSorts =
-          sortBy === 'none' || !sortBy ? '' : `&sortBy=${sortBy}`;
-        const hasTraits = !traits ? '' : `&traits=${JSON.stringify(traits)}`;
-        const hasSortDirection = !sortDirection
-          ? ''
-          : `&sortDirection=${sortDirection}`;
-        const hasPriceRange = !priceRange
-          ? ''
-          : `&${priceRange.param}=${JSON.stringify(priceRange.range)}`;
+      
+      //{slug, limit, offset,sortBy, sortDirection, traits, priceRange, rankRange, traitsCountRange, buyNow, ownerAddress, searchAsset}
+      find:  (options = {}) => {
+        console.log("options", options);
+        const parameters = Object.keys(options).map( key => {
+          if (options[key] === null || options[key] === undefined)
+            return '';
 
-        const hasRankRange = !rankRange
-          ? ''
-          : `&${rankRange.param}=${JSON.stringify(rankRange.range)}`;
-        const hasTraitsCountRange = !traitsCountRange
-          ? ''
-          : `&${traitsCountRange.param}=${JSON.stringify(
-            traitsCountRange.range
-          )}`;
-        const isBuyNow = !buyNow ? '' : `&buyNow=${JSON.stringify(buyNow)}`;
-        const hasAssetSearch = !searchAsset
-          ? ''
-          : `&query=${encodeURIComponent(searchAsset)}`;
+          if (key === 'traits' || key === 'buyNow')
+            return `${key}=${JSON.stringify(options[key])}`;
+          
+          if (key === 'priceRange' || key === 'rankRange' || key === 'traitsCountRange')
+            return `${options[key].param}=${JSON.stringify(options[key].range)}`;
+          
+          if (key === 'searchAsset')
+            return `query=${encodeURIComponent(options[key])}`
 
-        const collectionAssetsUrl = `/assets?slug=${slug}&limit=${limit}&offset=${offset}${hasSortDirection}${hasSorts}${hasTraits}${hasPriceRange}${hasRankRange}${hasTraitsCountRange}${isBuyNow}${hasAssetSearch}`;
-        return this.request('get', collectionAssetsUrl);
+          return `${key}=${options[key]}`;
+        })
+        .filter( param => param !== '' )
+        .join('&');
+        console.log(`/assets?${parameters}`);
+        
+        return this.request('get', `/assets?${parameters}`);
       },
     };
 

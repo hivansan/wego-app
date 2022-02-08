@@ -1,0 +1,24 @@
+@import '../variables.scss';
+
+.profile-menu {
+    margin-top: 12px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    max-width: 800px;
+
+    .Mui-selected, .PrivateTabIndicator-colorPrimary-2 {
+        color: var(--color-primary) !important;
+    }   
+
+    .MuiPaper-root {
+        background-color: transparent !important;
+        border: 1px solid var(--border-default) !important;
+        box-shadow: transparent !important;
+        border-radius: 0.25rem;
+    }
+
+    .MuiTab-textColorPrimary {
+        color: var(--color-secondary);
+    }
+}

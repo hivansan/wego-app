@@ -1,0 +1,19 @@
+.identicon div {
+    /*
+    height: 16px;// 1rem;
+    width: 16px; //1rem;
+    border-radius: 1.125rem;
+    */
+    border: 2px solid #000;
+    //background-color: black;
+    position: relative;
+    
+
+
+}
+
+.identicon.circle div {
+    border-radius: 100% !important;
+
+}
+
