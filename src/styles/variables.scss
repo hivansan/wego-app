@@ -4,6 +4,7 @@
 $bg-app: #fff;
 $bg-header: #fff;
 $primary-color: #1f71ba;
+$favorite-color: #ba1f71;
 $secondary-color: #666666;
 $success-color: #38b87d;
 $light-gray: #676767;
@@ -36,6 +37,7 @@ $bm-icon-color--dark: #fff;
 
 :root {
   --color-primary: #{$primary-color};
+  --color--favorite: #{$favorite-color};
   --color-muted: #{$muted};
 }
 

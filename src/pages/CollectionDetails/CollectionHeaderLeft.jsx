@@ -17,8 +17,9 @@ import moment from 'moment';
 import Skeleton from 'react-loading-skeleton';
 import ImageTypeDetect from '../../molecules/ImageTypeDetect';
 import { isAdmin } from '../../services/auth';
+import FavoriteButton from '../../atoms/FavoriteButton';
 
-const CollectionHeaderLeft = ({ collectionInfo }) => {
+const CollectionHeaderLeft = ({ collectionInfo, isFavorite, setIsFavorite }) => {
   const socialBeesDiscordLinks = ["qTnnuraPuE", "V68hE9FHrU"][Math.floor(Math.random() * 2)];
   const socialBeesSlug = "social-bees-university";
 
@@ -57,6 +58,7 @@ const CollectionHeaderLeft = ({ collectionInfo }) => {
                             color='#1f71ba'
                           />
                         )}
+                        <FavoriteButton isFavorite={isFavorite} setIsFavorite={setIsFavorite} />
                       </>
                     ) : (
                       <p>
@@ -77,6 +79,7 @@ const CollectionHeaderLeft = ({ collectionInfo }) => {
                             )}
                           </>
                         )}
+                        <FavoriteButton isFavorite={isFavorite} setIsFavorite={setIsFavorite} />
                       </p>
                     )}
                   </>

@@ -1,0 +1,38 @@
+@import '../variables.scss';
+
+.favorite-btn {
+  
+  border-width: 0;
+  background-color: transparent;
+
+    .favorite-toggled {
+
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        margin-right: 2rem;
+
+        svg {
+          color: var(--color--favorite);
+          margin-right: 0.5rem;
+        }
+
+
+    }
+
+    .favorite-untoggled {
+
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      margin-right: 2rem;
+
+      svg {
+        color: var(--color-primary);
+        margin-right: 0.5rem;
+      }
+
+  }    
+
+  
+}

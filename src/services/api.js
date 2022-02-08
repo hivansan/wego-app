@@ -85,13 +85,16 @@ export class Api {
     };
 
     this.favorites = {
-      byAddress: (address) => {
-
+      assets: async account => {
+        return this.requireAuth(this.request, account, 'get', `/favorites?${queryString.stringify({ index: 'assets' })}`);
       },
-      toggleAsset: (account, slug, tokenId) => {
+      collections: async account => {
+        return this.requireAuth(this.request, account, 'get', `/favorites?${queryString.stringify({ index: 'collections' })}`);
+      },
+      toggleAsset: async (account, slug, tokenId) => {
         return this.requireAuth(this.postRequest, account, 'post', `/favorite/toggle?${queryString.stringify({ slug, tokenId })}`);
       },
-      toggleCollection: (account, slug) => {
+      toggleCollection: async (account, slug) => {
         return this.requireAuth(this.postRequest, account, 'post', `/favorite/toggle?${queryString.stringify({ slug })}`);
       },
     }

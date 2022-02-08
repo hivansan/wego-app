@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import CollectionHeader from './CollectionHeader';
 import CollectionAssets from './CollectionAssets';
+import { useAccount } from '../../store/selectors/useAccount';
 
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams, useLocation, useHistory } from 'react-router-dom';
 import { useDebounce } from '../../atoms/hooks/useStateDebounce';
 import Error404 from '../Error404';
 
@@ -39,8 +40,13 @@ const CollectionDetails = ({ setFooter, locationState }) => {
   const [filtersMobileOpen, setFiltersMobileOpen] = useState(false);
   const [assetsPerPage, setAssetsPerPage] = useState(20);
   const [assetsPage, setAssetsPage] = useState(0);
+  const [isFavorite, setIsFavorite] = useState(false);
+  const _account = useAccount();
+  const [account, setAccount] = useState(null);
+  
   const api = new Api();
   const location = useLocation();
+  const history = useHistory();
   const isFiltersMobileOpen = filtersMobileOpen ? 'd-none' : '';
 
   const _storeFilter = useStoreFilter();
@@ -50,6 +56,31 @@ const CollectionDetails = ({ setFooter, locationState }) => {
     const collection = await api.collections.findOne(slug);
     setResult(collection);
   };
+
+  useEffect(() => {
+    
+    if (_account && _account.account?.address != "") {
+      setAccount(_account);
+
+    }
+  }, [_account]);
+
+
+  const collectionsToggleFavorite = isSetted => {
+    if (account?.address !== '') {
+
+    }
+    else {
+      history.push('/login');
+    }
+  }
+
+  useEffect(() => {
+
+    //const data = api.favorites.collections(account);
+    //console.log("favorite data", data);
+
+  }, [isFavorite, account]);
 
   useEffect(() => {
     const getCollectionAssets = async (
@@ -232,6 +263,8 @@ const CollectionDetails = ({ setFooter, locationState }) => {
   return (
     <div className='collection-container'>
       <CollectionHeader
+        isFavorite={isFavorite}
+        setIsFavorite={collectionsToggleFavorite}
         collection={result}
         isFiltersMobileOpen={isFiltersMobileOpen}
       />
