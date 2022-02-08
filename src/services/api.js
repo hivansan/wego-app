@@ -88,8 +88,11 @@ export class Api {
       byAddress: (address) => {
 
       },
-      toggle: (account, slug, tokenId) => {
+      toggleAsset: (account, slug, tokenId) => {
         return this.requireAuth(this.postRequest, account, 'post', `/favorite/toggle?${queryString.stringify({ slug, tokenId })}`);
+      },
+      toggleCollection: (account, slug) => {
+        return this.requireAuth(this.postRequest, account, 'post', `/favorite/toggle?${queryString.stringify({ slug })}`);
       },
     }
 
