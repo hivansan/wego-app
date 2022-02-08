@@ -67,11 +67,13 @@ const CollectionDetails = ({ setFooter, locationState }) => {
 
 
   const collectionsToggleFavorite = isSetted => {
+    console.log("isSetted", isSetted);
     if (account?.address !== '') {
 
     }
     else {
       history.push('/login');
+      console.log("here");
     }
   }
 
