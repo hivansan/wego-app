@@ -20,7 +20,7 @@ const Trait = ({ filters, setFilters, trait, bgFilters }) => {
 
   const handleFilter = () => {
     if (checked) {
-      let newFilters = filters.filter(({ value }) => value !== trait.value);
+      let newFilters = filters.filter(f => f.value !== trait.value || f.traitType !== trait.trait_type);
       setFilters(newFilters);
       _setFilters(newFilters);
       return setChecked(false);
