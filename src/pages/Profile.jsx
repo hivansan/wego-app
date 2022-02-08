@@ -7,6 +7,7 @@ import { useLocation } from 'react-router-dom';
 import AssetsList from '../molecules/AssetsList';
 import Favorites from './Favorites';
 
+
 const Profile = () => {
   const _account = useAccount();
   const [account, setAccount] = useState(null);
@@ -41,7 +42,7 @@ const Profile = () => {
       <ProfileMenu />
       
       {tab === '/mynfts' && <AssetsList search={{ownerAddress: account?.address}} />}
-      {tab === '/favorites' && <AssetsList search={{ownerAddress: account?.address}} />}
+      {tab === '/favorites' && <Favorites address={account?.address} />}
       
 
     </div>);
