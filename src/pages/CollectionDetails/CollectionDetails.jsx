@@ -288,6 +288,10 @@ const CollectionDetails = ({ setFooter, locationState }) => {
 
   useEffect(() => {
     setFilters(locationState);
+
+    if (account) {
+      getAssetFavoriteState();
+    }
   }, [location]);
 
   useEffect(() => {
