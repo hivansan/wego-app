@@ -19,6 +19,10 @@ const Trait = ({ filters, setFilters, trait, bgFilters }) => {
   const { ...storeFilter } = _storeFilter.storeFilter;
 
   const handleFilter = () => {
+
+    if (!filters || !setFilters)
+      return;
+
     if (checked) {
       let newFilters = filters.filter(f => f.value !== trait.value || f.traitType !== trait.trait_type);
       setFilters(newFilters);

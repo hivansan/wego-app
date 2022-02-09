@@ -7,13 +7,14 @@ import { Link, useLocation, useHistory } from 'react-router-dom';
 import ToggleTheme from './header/ToggleTheme';
 import { useDebounce } from '../atoms/hooks/useStateDebounce';
 import { Api } from '../services/api';
-//import UnlockModal from '../atoms/unlock/unlockModal';
-import { CONNECTION_CONNECTED, CONNECTION_DISCONNECTED } from '../constants';
+
+import { useAccount } from '../store/selectors/useAccount';
 import Store from '../stores/store';
 import { useEffect } from 'react';
 import NftSearchBarModal from './NftSearchBarModal';
 import HeaderDropDownResults from './DropdownResults/headerResults/HeaderResults';
 import WalletModal from '../organisms/WalletModal';
+import WalletMenu from '../molecules/WalletMenu';
 import { AiOutlineForm } from 'react-icons/ai';
 import { IoAnalyticsSharp } from 'react-icons/io5';
 
@@ -26,7 +27,7 @@ const Header = ({ background, menuOpen, setMenuOpen }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [assetModal] = useState(false);
   const [hotCollections, setHotCollections] = useState(null);
-  const [connected, setConnected] = useState(false);
+  //const [connected, setConnected] = useState(false);
   const [account, setAccount] = useState(null);
   const [param, setParam] = useState('');
   const [debounceParam, setDebounceParam] = useDebounce(param, 500);
@@ -40,6 +41,19 @@ const Header = ({ background, menuOpen, setMenuOpen }) => {
   const api = new Api();
   const isMobile = useMediaQuery({ query: '(max-width: 576px)' });
   const isTablet = useMediaQuery({ query: '(max-width : 1200px)' });
+
+  const _account = useAccount();
+  
+  //const { ...account } = _account;
+
+
+  useEffect(() => {
+
+    if (_account && _account.account?.address != "") {
+      setAccount(_account.account.address);
+
+    }
+  }, [_account]);
 
   useEffect(() => {
     if (param !== '') {
@@ -71,17 +85,8 @@ const Header = ({ background, menuOpen, setMenuOpen }) => {
 
     getHotCollections();
 
-    emitter.on(CONNECTION_CONNECTED, () => {
-      setConnected(true);
-      setAccount(store.getStore('account'));
-    });
-    emitter.on(CONNECTION_DISCONNECTED, () => {
-      setConnected(false);
-      setAccount(null);
-    });
 
     return () => {
-      setAccount(null);
       setHotCollections(null);
     };
   }, []);
@@ -187,6 +192,14 @@ const Header = ({ background, menuOpen, setMenuOpen }) => {
     }
   };
 
+  const logIn = () => {
+    history.push('/login');
+  } 
+
+  const openProfile = () => {
+    history.push('/mynfts');
+  }
+
   return (
     <>
       <div className='header-container'>
@@ -276,25 +289,30 @@ const Header = ({ background, menuOpen, setMenuOpen }) => {
               </div> */}
 
               <div className='icons'>
-                <button
-                  style={{
-                    borderWidth: '0',
-                    backgroundColor: 'transparent',
-                    cursor: 'pointer',
-                  }}
-                  onClick={() => setModalOpen(true)}
-                >
-                  <FaWallet size={28} className='header-icon' />
-                </button>
-                {connected && (
-                  <span>{account?.address.substring(0, 5)}...</span>
+                {!(account && account != "") && (
+                  <button
+                    style={{
+                      borderWidth: '0',
+                      backgroundColor: 'transparent',
+                      cursor: 'pointer',
+                    }}
+                    onClick={() => logIn() /*setModalOpen(true)*/}
+                  >
+                    <FaWallet size={28} className='header-icon' />
+                  </button>
                 )}
-                {modalOpen && (
+                {account && account != "" && (
+                  <>
+                    <WalletMenu address={account} />
+                    {/*<span>{account.substring(0, 5)}...</span>*/}
+                  </>
+                )}
+                {/*modalOpen && (
                   <WalletModal
                     handleClose={() => setModalOpen(false)}
                     open={modalOpen}
                   />
-                )}
+                )*/}
               </div>
               <ToggleTheme />
             </div>
@@ -342,21 +360,21 @@ const Header = ({ background, menuOpen, setMenuOpen }) => {
                 Get Listed
                 </a>*/}
 
-              <div className='bm-item' onClick={() => setModalOpen(true)}>
+              <div className='bm-item' onClick={() => account && account != "" ? openProfile() : logIn()/*setModalOpen(true)*/}>
                 <FaWallet size={28} />
-                {connected ? (
-                  <>{account?.address.substring(0, 15)}... </>
+                {account && account != "" ? (
+                  <>{account.substring(0, 15)}... </>
                 ) : (
                   'Connect you wallet'
                 )}
               </div>
 
-              {modalOpen && (
+              {/*modalOpen && (
                 <WalletModal
                   handleClose={() => setModalOpen(false)}
                   open={modalOpen}
                 />
-              )}
+              )*/}
 
               <div className='bm-item theme-menu'>
                 <ToggleTheme />

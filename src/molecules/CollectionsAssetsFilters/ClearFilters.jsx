@@ -36,7 +36,7 @@ const ClearFilters = ({
           <GrFormClose />
         </div>
       )}
-      {traitsCountRange && (
+      {traitsCountRange && setTraitsCountRange && (
         <div
           className='trait-filter'
           onClick={() => setTraitsCountRange(false)}
@@ -81,11 +81,11 @@ const ClearFilters = ({
           ))}
         </>
       )}
-      {filters.length > 0 ||
-        priceRange ||
-        rankRange ||
-        traitsCountRange ||
-        buyNow ? (
+      {filters && filters.length > 0 ||
+      priceRange ||
+      rankRange ||
+      traitsCountRange ||
+      buyNow ? (
         <div
           className='clear-filters'
           onClick={() => {

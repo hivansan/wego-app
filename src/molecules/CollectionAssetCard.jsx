@@ -30,13 +30,21 @@ const CollectionAssetCard = ({
     ) : (
       <>{asset[index].tokenId}</>
     );
+
+  const pathstate = {};
+  if (filters)
+    pathstate.filters = filters
+
+  //if (collectionTraits) pathstate.collectionTraits = collectionTraits
+
+    
   return (
     <Link
       key={asset[index].id}
       to={{
         pathname: `/assets/${asset[index].asset_contract?.address || asset[index].contractAddress
           }/${asset[index].tokenId}`,
-        state: { background: location, filters: filters },
+        state: { background: location, ...pathstate },
       }}
     >
       <article className={`${hasExtraClasses} collection-asset-card`}>
@@ -74,13 +82,13 @@ const CollectionAssetCard = ({
               alt={asset[index].name}
               className='img'
             />
-          ) : (
+          ) : collectionImg ? (
             <ImageTypeDetect
               imageURL={collectionImg}
               alt={asset[index].slug}
               className='img'
             />
-          )}
+          ) : ''}
         </section>
         <section className='asset-card-info'>
           {asset[index].rarityScoreRank && (

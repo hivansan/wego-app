@@ -32,6 +32,7 @@ const CollectionAssetsFilters = ({
   traitsCountRange,
   setBuyNow,
   buyNow,
+  address
 }) => {
   const setIsCollapse = () => setCollapse(!isCollapse);
   const [maxPrice, setMaxPrice] = useState(null);
@@ -57,35 +58,56 @@ const CollectionAssetsFilters = ({
     const priceSelected =
       price === 'priceUsdRange' ? 'currentPriceUSD' : 'currentPrice';
 
-    const res = await api.assets.find(
-      collectionSlug,
-      1,
-      0,
-      priceSelected,
-      'desc'
-    );
+    var source = {}
+    if (collectionSlug) 
+      source.slug = collectionSlug
+    else if (address)
+      source.ownerAddress = address
+
+    const res = await api.assets.find({
+      ...source,
+      limit: 1,
+      offset: 0,
+      sortBy: priceSelected,
+      sortDirection: 'desc'
+    });
 
     setMaxPrice(res?.results[0]?.[priceSelected] || null);
   };
 
   const getMaxRariRank = async () => {
-    const res = await api.assets.find(
-      collectionSlug,
-      1,
-      0,
-      'rarityScoreRank',
-      'desc'
-    );
+
+    var source = {}
+    if (collectionSlug) 
+      source.slug = collectionSlug
+    else if (address)
+      source.ownerAddress = address
+
+
+    const res = await api.assets.find({
+      ...source,
+      limit: 1,
+      offset: 0,
+      sortBy: 'rarityScoreRank',
+      sortDirection: 'desc'
+    });
     setMaxRank(res?.results[0]?.rarityScoreRank);
   };
   const getMaxTraitsCount = async () => {
-    const res = await api.assets.find(
-      collectionSlug,
-      1,
-      0,
-      'traitsCount',
-      'desc'
-    );
+
+    var source = {}
+    if (collectionSlug) 
+      source.slug = collectionSlug
+    else if (address)
+      source.ownerAddress = address
+
+    const res = await api.assets.find({
+      ...source,
+      limit: 1,
+      offset: 0,
+      sortBy: 'traitsCount',
+      sortDirection: 'desc'
+    });
     setMaxTraitsCount(res?.results[0]?.traitsCount);
   };
 
@@ -116,6 +138,7 @@ const CollectionAssetsFilters = ({
         rankRange={rankRange}
         setRankRange={setRankRange}
         collectionSlug={collectionSlug}
+        address={address}
       />
     );
   }
@@ -143,7 +166,8 @@ const CollectionAssetsFilters = ({
             <BiArrowToLeft size={20} />
           </header>
 
-          <Filter title='Status' isCollapse={isCollapse}>
+          {buyNow && (
+            <Filter title='Status' isCollapse={isCollapse}>
             <div className='filter-status'>
               <LightPrimaryButton
                 className={`${buyNow ? 'selected' : 'unselected'}`}
@@ -156,6 +180,8 @@ const CollectionAssetsFilters = ({
               {/* <LightPrimaryButton>Auction</LightPrimaryButton> */}
             </div>
           </Filter>
+          )}
+          
 
           {/* price filter */}
           <Filter title='Price ETH' isCollapse={isCollapse}>
@@ -180,18 +206,21 @@ const CollectionAssetsFilters = ({
               max={maxRank}
             />
           </Filter>
-          <Filter title='Traits Count' isCollapse={isCollapse}>
-            <RangeFilters
-              filter='traitsCountRange'
-              setRange={setTraitsCountRange}
-              range={traitsCountRange}
-              max={maxTraitsCount}
-              min={0}
-            />
-          </Filter>
+          {
+            traitsCountRange && setTraitsCountRange && (
+            <Filter title='Traits Count' isCollapse={isCollapse}>
+              <RangeFilters
+                filter='traitsCountRange'
+                setRange={setTraitsCountRange}
+                range={traitsCountRange}
+                max={maxTraitsCount}
+                min={0}
+              />
+            </Filter>  
+            )}
 
           {/* traits filters */}
-          {collectionTraits ?
+          {collectionTraits && filters && setFilters ?
             traits.map((traitType) => (
               <Filter title={traitType} key={traitType} counter={collectionTraits.filter(trait => trait.trait_type === traitType).length} isCollapse={isCollapse}>
                 <SearchFilters
@@ -202,7 +231,7 @@ const CollectionAssetsFilters = ({
                   key={traitType}
                 />
               </Filter>
-            )) : <div className='filter-spinner'><FaSpinner size={60} className='spinner' /></div>}
+            )) : collectionSlug?<div className='filter-spinner'><FaSpinner size={60} className='spinner' /></div> : ''}
         </div>
       </div>
     </>
