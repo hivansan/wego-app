@@ -41,6 +41,7 @@ const CollectionDetails = ({ setFooter, locationState }) => {
   const [assetsPerPage, setAssetsPerPage] = useState(20);
   const [assetsPage, setAssetsPage] = useState(0);
   const [isFavorite, setIsFavorite] = useState(false);
+  const [isFavoriteLoading, setIsFavoriteLoading] = useState(true);
   const _account = useAccount();
   const [account, setAccount] = useState(null);
   
@@ -60,29 +61,39 @@ const CollectionDetails = ({ setFooter, locationState }) => {
   useEffect(() => {
     
     if (_account && _account.account?.address != "") {
-      setAccount(_account);
-
+      setAccount(_account.account);
     }
+
+    
   }, [_account]);
 
 
-  const collectionsToggleFavorite = isSetted => {
-    console.log("isSetted", isSetted);
-    if (account?.address !== '') {
-
+  const collectionsToggleFavorite = async isSetted => {
+    
+    if (!account || account.address === '') {
+      history.push('/login');
     }
     else {
-      history.push('/login');
-      console.log("here");
+      setIsFavoriteLoading(true);
+      const result = await api.favorites.toggleCollection(account, slug, isSetted);
+      setIsFavorite(isSetted);
+      setIsFavoriteLoading(false);
     }
+  }
+
+  const getCollectionFavoriteState = async () => {
+    if (!account || account.address === '') return;
+    setIsFavoriteLoading(true);
+    const result = await api.favorites.collections(account);
+    setIsFavorite(result.find(coll => coll.slug === slug));
+    setIsFavoriteLoading(false);
   }
 
   useEffect(() => {
 
-    //const data = api.favorites.collections(account);
-    //console.log("favorite data", data);
+    getCollectionFavoriteState();
 
-  }, [isFavorite, account]);
+  }, [account]);
 
   useEffect(() => {
     const getCollectionAssets = async (
@@ -267,6 +278,7 @@ const CollectionDetails = ({ setFooter, locationState }) => {
       <CollectionHeader
         isFavorite={isFavorite}
         setIsFavorite={collectionsToggleFavorite}
+        isFavoriteLoading={isFavoriteLoading}
         collection={result}
         isFiltersMobileOpen={isFiltersMobileOpen}
       />

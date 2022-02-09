@@ -5,34 +5,53 @@
   border-width: 0;
   background-color: transparent;
 
-    .favorite-toggled {
+  .favorite-toggled {
 
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        margin-right: 2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    margin-right: 2rem;
 
-        svg {
-          color: var(--color--favorite);
-          margin-right: 0.5rem;
-        }
-
-
+    svg {
+      color: var(--color--favorite);
+      margin-right: 0.5rem;
     }
 
-    .favorite-untoggled {
 
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      margin-right: 2rem;
+  }
 
-      svg {
-        color: var(--color-primary);
-        margin-right: 0.5rem;
+  .favorite-untoggled {
+
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    margin-right: 2rem;
+
+    svg {
+      color: var(--color-primary);
+      margin-right: 0.5rem;
+    }
+
+  }
+
+  .favorite-spinner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    .spinner {
+      animation: spin infinite 5s linear;
+      color: var(--color-secondary);
+    }
+    @keyframes spin {
+      from {
+        transform: rotate(0deg);
       }
-
-  }    
-
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  }
   
 }

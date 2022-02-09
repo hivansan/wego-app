@@ -19,7 +19,7 @@ import ImageTypeDetect from '../../molecules/ImageTypeDetect';
 import { isAdmin } from '../../services/auth';
 import FavoriteButton from '../../atoms/FavoriteButton';
 
-const CollectionHeaderLeft = ({ collectionInfo, isFavorite, setIsFavorite }) => {
+const CollectionHeaderLeft = ({ collectionInfo, isFavorite, setIsFavorite, isFavoriteLoading }) => {
   const socialBeesDiscordLinks = ["qTnnuraPuE", "V68hE9FHrU"][Math.floor(Math.random() * 2)];
   const socialBeesSlug = "social-bees-university";
 
@@ -58,7 +58,11 @@ const CollectionHeaderLeft = ({ collectionInfo, isFavorite, setIsFavorite }) => 
                             color='#1f71ba'
                           />
                         )}
-                        <FavoriteButton isFavorite={isFavorite} setIsFavorite={setIsFavorite} />
+                        <FavoriteButton 
+                          isFavorite={isFavorite} 
+                          setIsFavorite={setIsFavorite} 
+                          isLoading={isFavoriteLoading} 
+                        />
                       </>
                     ) : (
                       <p>
@@ -79,7 +83,11 @@ const CollectionHeaderLeft = ({ collectionInfo, isFavorite, setIsFavorite }) => 
                             )}
                           </>
                         )}
-                        <FavoriteButton isFavorite={isFavorite} setIsFavorite={setIsFavorite} />
+                        <FavoriteButton 
+                          isFavorite={isFavorite} 
+                          setIsFavorite={setIsFavorite} 
+                          isLoading={isFavoriteLoading} 
+                        />
                       </p>
                     )}
                   </>
