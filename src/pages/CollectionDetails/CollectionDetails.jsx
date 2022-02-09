@@ -42,6 +42,8 @@ const CollectionDetails = ({ setFooter, locationState }) => {
   const [assetsPage, setAssetsPage] = useState(0);
   const [isFavorite, setIsFavorite] = useState(false);
   const [isFavoriteLoading, setIsFavoriteLoading] = useState(true);
+  const [whichAssetFavoriteIsLoading, setWhichAssetFavoriteIsLoading] = useState([]);
+  const [favoriteAssets, setFavoriteAssets] = useState([]);
   const _account = useAccount();
   const [account, setAccount] = useState(null);
   
@@ -81,6 +83,25 @@ const CollectionDetails = ({ setFooter, locationState }) => {
     }
   }
 
+  const assetsToggleFavorite = async (isSetted, contractAddress, tokenId) => {
+    if (!account || account.address === '') {
+      history.push('/login');
+    }
+    else {
+      setWhichAssetFavoriteIsLoading(whichAssetFavoriteIsLoading.concat(tokenId));
+      await api.favorites.toggleAsset(account, slug, contractAddress, tokenId, isSetted);
+
+      if (!isSetted) {
+        setFavoriteAssets(favoriteAssets.filter(ass => ass.tokenId !== tokenId && ass.slug === slug));
+      }
+      else {
+        setFavoriteAssets(favoriteAssets.concat({tokenId, slug, contractAddress}));
+      }
+  
+      setWhichAssetFavoriteIsLoading(whichAssetFavoriteIsLoading.filter(val => val !== tokenId));
+    }
+  }
+
   const getCollectionFavoriteState = async () => {
     if (!account || account.address === '') return;
     setIsFavoriteLoading(true);
@@ -89,9 +110,24 @@ const CollectionDetails = ({ setFooter, locationState }) => {
     setIsFavoriteLoading(false);
   }
 
+  const getAssetFavoriteState = async () => {
+    if (!account || account.address === '') return;
+
+    setWhichAssetFavoriteIsLoading(whichAssetFavoriteIsLoading.concat(-1));
+    const result = await api.favorites.assets(account);
+
+    setFavoriteAssets(
+      result.map(ass => ({slug, contractAddress: ass.contractAddress, tokenId: ass.tokenId}))
+      .filter(ass => ass.slug === slug)
+    );
+
+    setWhichAssetFavoriteIsLoading(whichAssetFavoriteIsLoading.filter(val => val !== -1));
+  }
+
   useEffect(() => {
 
     getCollectionFavoriteState();
+    getAssetFavoriteState();
 
   }, [account]);
 
@@ -284,6 +320,9 @@ const CollectionDetails = ({ setFooter, locationState }) => {
       />
       <CollectionAssets
         totalAssets={totalAssets}
+        favoriteAssets={favoriteAssets}
+        setFavoriteAssets={assetsToggleFavorite}
+        favoriteAssetsLoading={whichAssetFavoriteIsLoading}
         setBuyNow={setBuyNow}
         buyNow={buyNow}
         traitsCountRange={traitsCountRange}

@@ -43,7 +43,10 @@ const CollectionAssets = ({
   setSearchAsset,
   setDebounceParam,
   hasFilters,
-  realTotalAssets
+  realTotalAssets,
+  favoriteAssets,
+  setFavoriteAssets,
+  favoriteAssetsLoading
 }) => {
   const [isFiltersCollapse, setIsFiltersCollapse] = useState(true);
   return (
@@ -168,6 +171,9 @@ const CollectionAssets = ({
                                       location={location}
                                       setFilters={setFilters}
                                       filters={filters}
+                                      favoriteAssets={favoriteAssets}
+                                      setFavoriteAssets={setFavoriteAssets}
+                                      favoriteAssetsLoading={favoriteAssetsLoading}
                                     />
                                   )}
                                 </React.Fragment>

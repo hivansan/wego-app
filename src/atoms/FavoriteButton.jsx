@@ -6,10 +6,11 @@ const FavoriteButton = ({ children, style, className, isFavorite, setIsFavorite,
 
   const hasExtraClasses = className ? className : '';
 
-  const handleClick = () =>
+  const handleClick = e =>
   {
+    e.preventDefault();
     setIsFavorite(!isFavorite);
-
+    return false;
   }
 
   return (

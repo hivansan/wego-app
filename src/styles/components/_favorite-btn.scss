@@ -2,15 +2,24 @@
 
 .favorite-btn {
   
+  display: flex;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  overflow:visible;
   border-width: 0;
   background-color: transparent;
+  animation: unhover-bounce 1 0.3s ease-in;
+  transform-origin: center;
 
   .favorite-toggled {
-
+    width: 30px;
+    height: 30px;
     cursor: pointer;
     display: flex;
     align-items: center;
-    margin-right: 2rem;
+    transform-origin: center;
+    animation: hearted 1 0.2s ease-out;
 
     svg {
       color: var(--color--favorite);
@@ -18,14 +27,26 @@
     }
 
 
+    @keyframes hearted {
+      from {
+        transform: scale(1);
+      }
+      75% {
+        transform: scale(1.2);
+      }
+      to {
+        transform: scale(1);
+      }
+    }
+  
   }
 
   .favorite-untoggled {
-
+    width: 30px;
+    height: 30px;
     cursor: pointer;
     display: flex;
     align-items: center;
-    margin-right: 2rem;
 
     svg {
       color: var(--color-primary);
@@ -54,4 +75,28 @@
     }
   }
   
+
+
+  &:hover{
+    animation: hover-bounce 1 0.3s ease-out;
+    transform: scale(1.1);
+  }
+
+  @keyframes hover-bounce {
+    from {
+      transform: scale(1);
+    }
+    to {
+      transform: scale(1.1);
+    }
+  }
+
+  @keyframes unhover-bounce {
+    from {
+      transform: scale(1.1);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
 }

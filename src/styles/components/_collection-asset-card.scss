@@ -104,34 +104,52 @@ a {
         }
       }
 
-      .asset-price {
-        text-align: end;
+      .asset-info-left {
         display: flex;
         flex-direction: column;
-        p {
-          margin: 0;
-          font-size: 13px;
-          color: var(--muted);
+        .asset-rank {
+          display: block;
+          color: var(--color-primary);
         }
+  
+      }
 
-        span {
+      .asset-info-right {
+        display: flex;
+        justify-content: space-between;
+
+        .asset-price {
+          text-align: end;
           display: flex;
-          gap: 0.2rem;
-          align-items: center;
-          justify-content: space-between;
-          width: 100%;
-          small {
-            &:last-child {
-              color: var(--color-secondary);
+          flex-direction: column;
+          p {
+            margin: 0;
+            font-size: 13px;
+            color: var(--muted);
+          }
+  
+          span {
+            display: flex;
+            gap: 0.2rem;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            small {
+              &:last-child {
+                color: var(--color-secondary);
+              }
+            }
+  
+            .last-price {
+              display: flex;
+              gap: 0.1rem;
             }
           }
-
-          .last-price {
-            display: flex;
-            gap: 0.1rem;
-          }
         }
+
       }
+
+
     }
   }
 }
