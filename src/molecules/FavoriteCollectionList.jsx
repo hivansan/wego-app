@@ -1,124 +1,56 @@
 import { useEffect, useState } from 'react';
-import FavoriteListDetails from './FavoriteListDetails';
 import { Api } from '../services/api';
-import { useLocation } from 'react-router-dom';
-const FavoriteCollectionList = ({address}) => {
-  const [resultAssets, setResultAssets] = useState([]);
-  const [hasNextPage, setHasNextPage] = useState(true);
-  const [isNextPageLoading, setIsNextPageLoading] = useState(false);
-  const [totalAssets, setTotalAssets] = useState(null);
-  const [assetsPerPage, setAssetsPerPage] = useState(20);
-  const [assetsPage, setAssetsPage] = useState(0);
-  const [priceUsdRange, setPriceUsdRange] = useState(false);
-  const [rankRange, setRankRange] = useState(false);
-  const [assetsSort, setAssetsSort] = useState({
-    orderBy: 'rarityScore',
-    orderDirection: 'asc',
-  });
-  const [filtersMobileOpen, setFiltersMobileOpen] = useState(false);
-  const location = useLocation();
+import FavoriteCollectionRow from './FavoriteCollectionRow';
+
+const FavoriteCollectionList = ({account}) => {
+  
+  const [isLoading, setIsLoading] = useState(false);
+  const [collections, setCollections] = useState([]);
 
   const api = new Api();
 
-  const fetchAssets = async (
-    sortBy,
-    sortDirection,
-    priceRange,
-    rankRange
-  ) => {
-    setResultAssets([]);
-    setHasNextPage(true);
-    const res = await api.assets.find({
-      limit: assetsPerPage,
-      offset: 0,
-      sortBy,
-      sortDirection,
-      priceRange,
-      rankRange,
-      ownerAddress: address
-    });
-    const results =
-      res && res.results && res.results.length === 0 ? null : res.results;
+  const fetchAssets = async () => {
+    setIsLoading(true);
 
+    const results = await api.favorites.collections(account);
+    setCollections(results);
 
-    setResultAssets(results);
-
-    setTotalAssets(res);
-    if (res.results && res.results.length < 20) {
-      setHasNextPage(false);
-    }
-
-    setIsNextPageLoading(() => true);
-    setIsNextPageLoading(false);
-
-  };
-
-  const loadNextAssetsPage = async (
-    sortBy,
-    sortDirection,
-    priceRange,
-    rankRange
-  ) => {
-    const isAssetsNew = assetsPage === 0 ? 20 : assetsPage + 20;
-    const res = await api.assets.find({
-      limit: assetsPerPage,
-      offset: isAssetsNew,
-      sortBy,
-      sortDirection,
-      priceRange,
-      rankRange,
-      ownerAddress: address
-    });
-
-    setAssetsPage(assetsPage + 20);
-    setResultAssets([...resultAssets, ...res.results]);
-    if (res.results.length === 0 || res.results.length < 20) {
-      setHasNextPage(false);
-    }
-
-    setIsNextPageLoading(() => true);
-    setIsNextPageLoading(false);
+    setIsLoading(false);
   };
 
 
   useEffect(() => {
 
-    const PriceUsdFilter = priceUsdRange ? priceUsdRange : null;
-    const rankFilter = rankRange ? rankRange : null;
-    //getAssetCounter();
-    setAssetsPage(0);
-    fetchAssets(
-        assetsSort.orderBy,
-        assetsSort.orderDirection,
-        PriceUsdFilter,
-        rankFilter
-    );
-    window.scrollTo(0, 0);
+    fetchAssets();
 
-  }, [assetsSort, rankRange, priceUsdRange]);
+
+  }, []);
 
   return (
-    <div className="assets-list">
-      <FavoriteListDetails
-        search={{ownerAddress: address}}
-        totalAssets={totalAssets}
-        setPriceRange={setPriceUsdRange}
-        priceRange={priceUsdRange}
-        rankRange={rankRange}
-        setRankRange={setRankRange}
-        sortBy={assetsSort.orderBy}
-        sortDirection={assetsSort.orderDirection}
-        assetsSort={assetsSort}
-        setAssetsSort={setAssetsSort}
-        filtersMobileOpen={filtersMobileOpen}
-        setFiltersMobileOpen={setFiltersMobileOpen}
-        location={location}
-        assets={resultAssets}
-        hasNextPage={hasNextPage}
-        isNextPageLoading={isNextPageLoading}
-        setAssets={setResultAssets}
-        _loadNextPage={loadNextAssetsPage}
-      />
+    <div className="collection-list">
+      {isLoading && (
+        <>Loading collections</>
+      )}
+      <div className="favorite-collection-row">
+        <div className="collection-head">
+          <div className='stat'>Collection</div>
+        </div>
+        <div className="collection-stats">
+          <div className="stat">Floor Price</div>
+          <div className="stat">7d Volume</div>
+          <div className="stat">1d</div>
+          <div className="stat">7d</div>
+          <div className="stat">30d</div>
+          <div className="stat">Owners</div>
+          <div className="stat">Items</div>
+        </div>
+      </div>
+      {!isLoading && (
+        collections.map(coll => 
+        <FavoriteCollectionRow collectionInfo={coll} key={coll.slug} />)
+      )}
+
+
     </div>);
 };
 

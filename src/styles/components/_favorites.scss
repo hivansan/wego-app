@@ -1,0 +1,11 @@
+@import '../variables.scss';
+
+.favorites {
+    display: flex;
+    flex-direction: row;
+    min-height: 500px;
+
+    .favorites-lists {
+        flex-grow: 4;
+    }
+}

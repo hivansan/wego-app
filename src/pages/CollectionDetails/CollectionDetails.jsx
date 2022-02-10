@@ -83,7 +83,7 @@ const CollectionDetails = ({ setFooter, locationState }) => {
     }
   }
 
-  const assetsToggleFavorite = async (isSetted, contractAddress, tokenId) => {
+  const assetsToggleFavorite = async (isSetted, slug, contractAddress, tokenId) => {
     if (!account || account.address === '') {
       history.push('/login');
     }

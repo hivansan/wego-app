@@ -1,7 +1,71 @@
 import React from 'react';
 import { FaEthereum } from 'react-icons/fa';
 
-const CollectionStats = ({ collection: stats }) => {
+const CollectionStats = ({ collection: stats, mode='all' }) => {
+
+  if (mode === 'row') {
+    return (
+      <>
+        {stats && (
+          <div className="collection-stats">
+            <div className='stat'>
+              <small>
+                {(stats.stats?.floorPrice &&
+                  stats.stats?.floorPrice.toString().substr(0, 5)) ||
+                  (stats.floorPrice &&
+                    stats.floorPrice.toString().substr(0, 5)) ||
+                  0}{' '}
+                <FaEthereum size={14} className='token token-secondary' />
+              </small>
+            </div>
+            <div className='stat'>
+              <small>
+                {(stats?.stats?.sevenDayVolume &&
+                  stats?.stats?.sevenDayVolume.toString().substr(0, 6)) ||
+                  (stats.sevenDayVolume &&
+                    stats.sevenDayVolume.toString().substr(0, 6)) ||
+                  0}{' '}
+                <FaEthereum size={14} className='token token-secondary' />
+              </small>
+            </div>
+
+            <div className='stat'>
+              <small>
+                {(stats?.stats?.oneDayChange &&
+                  <span className={stats.stats.oneDayChange > 0 ? 'price-up' : 'price-down'}> {stats.stats.oneDayChange.toFixed(3)} </span>)
+                  || 0}
+                <FaEthereum size={14} className='token token-secondary' />
+              </small>
+            </div>
+            <div className='stat'>
+              <small>
+                {(stats?.stats?.sevenDayChange &&
+                  <span className={stats.stats.sevenDayChange > 0 ? 'price-up' : 'price-down'}> {stats.stats.sevenDayChange.toFixed(3)} </span>)
+                  || 0}
+                <FaEthereum size={14} className='token token-secondary' />
+              </small>
+            </div>
+
+            <div className='stat'>
+              <small>
+                {(stats?.stats?.thirtyDayChange &&
+                  <span className={stats.stats.thirtyDayChange > 0 ? 'price-up' : 'price-down'}> {stats.stats.thirtyDayChange.toFixed(3)} </span>)
+                  || 0}
+                <FaEthereum size={14} className='token token-secondary' />
+              </small>
+            </div>
+
+            <div className='stat'>
+              <small>{stats.stats?.numOwners || stats.numOwners || 0}</small>
+            </div>
+            <div className='stat'>
+              <small>{stats.stats?.totalSupply || stats.totalSupply || 0}</small>
+            </div>
+          </div>
+        )}
+      </>)
+  }
+
   return (
     <>
       {stats && (

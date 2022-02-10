@@ -106,7 +106,7 @@ const CollectionAssetCard = ({
                     favoriteAssets.find(ass => 
                       ass.tokenId === asset[index].tokenId 
                       && ass.contractAddress === asset[index].contractAddress)}
-                  setIsFavorite={isSetted => setFavoriteAssets(isSetted, asset[index].contractAddress, asset[index].tokenId)}
+                  setIsFavorite={isSetted => setFavoriteAssets(isSetted, asset[index].slug, asset[index].contractAddress, asset[index].tokenId)}
                   isLoading={favoriteAssetsLoading.find( ass => ass === -1 || ass === asset[index].tokenId)}
                 />
 

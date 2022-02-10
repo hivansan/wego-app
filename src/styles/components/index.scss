@@ -24,6 +24,9 @@
 @use './_collection-result-card';
 @use './_asset-result-card';
 @use './_paginator';
+@use './_favorite-collection-row';
+@use './_favorite-collection-list';
+@use './_favorites';
 
 @use './asset-detail-modal';
 

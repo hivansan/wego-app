@@ -50,7 +50,7 @@ const Profile = () => {
       <ProfileMenu />
       
       {tab === '/mynfts' && <AssetsList search={{ownerAddress: account?.address}} />}
-      {tab === '/favorites' && <Favorites address={account?.address} />}
+      {tab === '/favorites' && <Favorites account={account} />}
       
 
     </div>);
