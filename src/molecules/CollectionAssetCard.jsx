@@ -99,18 +99,22 @@ const CollectionAssetCard = ({
             {asset[index].rarityScoreRank && (
               <div className="asset-rank">Rarity Rank #{asset[index].rarityScoreRank}</div>
             )}
-              <div className='asset-favorite'>
 
-                <FavoriteButton 
-                  isFavorite={
-                    favoriteAssets.find(ass => 
-                      ass.tokenId === asset[index].tokenId 
-                      && ass.contractAddress === asset[index].contractAddress)}
-                  setIsFavorite={isSetted => setFavoriteAssets(isSetted, asset[index].slug, asset[index].contractAddress, asset[index].tokenId)}
-                  isLoading={favoriteAssetsLoading.find( ass => ass === -1 || ass === asset[index].tokenId)}
-                />
+              {favoriteAssets &&  setFavoriteAssets && favoriteAssetsLoading && (
+                <div className='asset-favorite'>
+
+                  <FavoriteButton 
+                    isFavorite={
+                      favoriteAssets.find(ass => 
+                        ass.tokenId === asset[index].tokenId 
+                        && ass.contractAddress === asset[index].contractAddress)}
+                    setIsFavorite={isSetted => setFavoriteAssets(isSetted, asset[index].slug, asset[index].contractAddress, asset[index].tokenId)}
+                    isLoading={favoriteAssetsLoading.find( ass => ass === -1 || ass === asset[index].tokenId)}
+                  />
 
               </div>
+               )}
+
           </div>
 
 

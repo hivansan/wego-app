@@ -87,10 +87,21 @@ export class Api {
     };
 
     this.favorites = {
-      assets: async account => {
-        return this.requireAuth(this.request, account, 'get', `/favorites?${queryString.stringify({ index: 'assets'})}`);
+      // {slug, limit, offset}
+      assets: async (account, options={}) => {
+        //options = Object.assign({slug: 'social-bees-university'}, options);
+        //return (await this.assets.find(options)).results;
+        
+        // const query = Object.assign({ index: 'assets'}, options);
+        //return this.request('get', `/favorites?${queryString.stringify(query)}`, {headers: {'Authorization': account.address}});
+        
+        return this.requireAuth(this.request, account, 'get', `/favorites?${queryString.stringify({ index: 'assets' })}`);
       },
       collections: async account => {
+        //return [];
+
+        //return this.request('get', `/favorites?${queryString.stringify({ index: 'collections' })}`, {headers: {'Authorization': account.address}});
+        
         return this.requireAuth(this.request, account, 'get', `/favorites?${queryString.stringify({ index: 'collections' })}`);
       },
       toggleAsset: async (account, slug, contractAddress, tokenId, value=null) => {
