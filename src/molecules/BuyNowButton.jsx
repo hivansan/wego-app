@@ -58,7 +58,6 @@ const BuyNowButton = (props) => {
   const getOrder = async () => {
     try {
       let sell_order = asset?.sellOrders?.find(({ side }) => side);
-      console.log("order", sell_order);
       setSellOrder(sell_order);
     } catch (error) {
       console.log(error);
@@ -92,6 +91,12 @@ const BuyNowButton = (props) => {
     if (window.ethereum) {
       window.web3 = new Web3(window.ethereum);
       window.ethereum.enable();
+      const balance = window.web3.utils.fromWei(await window.web3.eth.getBalance(account.address));
+      if (balance < asset.currentPrice) {
+        toast.error("Insufficient funds", { hideProgressBar: true });
+        setBuying(false);
+        return;
+      }
     }
     try {
       const seaport = new OpenSeaPort(window.web3.currentProvider, {
@@ -197,7 +202,7 @@ const BuyNowButton = (props) => {
                       <button
                         className='btn buy-now-btn'
                         type='button'
-                        disabled={!accept}
+                        disabled={!accept || buying}
                         onClick={onBuyItem}
                       >
                         {buying ? 'Complete in metamask ...' : 'Confirm checkout'}
