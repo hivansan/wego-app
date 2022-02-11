@@ -12,7 +12,7 @@ const FavoriteCollectionList = ({account}) => {
   const fetchAssets = async () => {
     setIsLoading(true);
 
-    const results = await api.favorites.collections(account);
+    const results = await api.favorites.find(account, {index: 'collections'});
     setCollections(results);
 
     setIsLoading(false);
@@ -21,10 +21,11 @@ const FavoriteCollectionList = ({account}) => {
 
   useEffect(() => {
 
-    fetchAssets();
+    if (account && account.address != '')
+      fetchAssets();
 
 
-  }, []);
+  }, [account]);
 
   return (
     <div className="collection-list">

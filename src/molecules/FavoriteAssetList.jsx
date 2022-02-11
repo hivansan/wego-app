@@ -19,8 +19,9 @@ const FavoriteAssetList = ({account}) => {
   const fetchAssets = async () => {
     setResultAssets([]);
     setHasNextPage(true);
-
-    const results = await api.favorites.assets(account);
+    
+    const results = await api.favorites.find(account, {index: 'assets'});
+    
 
     setResultAssets(results);
 

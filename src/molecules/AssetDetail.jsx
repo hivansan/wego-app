@@ -58,7 +58,7 @@ const AssetDetailModal = ({ setFooter }) => {
       return;
     
     setIsLoading(true);
-    const result = await api.favorites.assets(account);
+    const result = await api.favorites.find(account, {index: 'assets'});
     setIsFavorite(result.find(ass => ass.tokenId === asset.tokenId && ass.contractAddress === asset.contractAddress ));    
     setIsLoading(false);
   }

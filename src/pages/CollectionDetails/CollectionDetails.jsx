@@ -105,7 +105,8 @@ const CollectionDetails = ({ setFooter, locationState }) => {
   const getCollectionFavoriteState = async () => {
     if (!account || account.address === '') return;
     setIsFavoriteLoading(true);
-    const result = await api.favorites.collections(account);
+    
+    const result = await api.favorites.find(account, {index: 'collections'});
     setIsFavorite(result.find(coll => coll.slug === slug));
     setIsFavoriteLoading(false);
   }
@@ -114,7 +115,7 @@ const CollectionDetails = ({ setFooter, locationState }) => {
     if (!account || account.address === '') return;
 
     setWhichAssetFavoriteIsLoading(whichAssetFavoriteIsLoading.concat(-1));
-    const result = await api.favorites.assets(account);
+    const result = await api.favorites.find(account, {index: 'assets'});
 
     setFavoriteAssets(
       result.map(ass => ({slug, contractAddress: ass.contractAddress, tokenId: ass.tokenId}))

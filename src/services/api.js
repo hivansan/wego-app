@@ -87,22 +87,25 @@ export class Api {
     };
 
     this.favorites = {
-      // {slug, limit, offset}
-      assets: async (account, options={}) => {
-        //options = Object.assign({slug: 'social-bees-university'}, options);
-        //return (await this.assets.find(options)).results;
+      // {index, slug, limit, offset}
+      find: async (account, options={}) => {
         
-        // const query = Object.assign({ index: 'assets'}, options);
-        //return this.request('get', `/favorites?${queryString.stringify(query)}`, {headers: {'Authorization': account.address}});
-        
-        return this.requireAuth(this.request, account, 'get', `/favorites?${queryString.stringify({ index: 'assets' })}`);
-      },
-      collections: async account => {
-        //return [];
+        const query = Object.assign({index:'assets', slug:null, limit:20000, offset:0}, options);
 
-        //return this.request('get', `/favorites?${queryString.stringify({ index: 'collections' })}`, {headers: {'Authorization': account.address}});
+        try {
+          const {data} = await axios.get(`${baseURL}/favorites?${queryString.stringify(query)}`, {
+            headers: {
+              accept: 'application/json, text/plain, */*',
+              'Content-Type': 'application/json;charset=UTF-8',
+              authorization: account.address,
+            }
+          });
+
+          return data;
+        } catch (error) {
+          throw error;
+        }
         
-        return this.requireAuth(this.request, account, 'get', `/favorites?${queryString.stringify({ index: 'collections' })}`);
       },
       toggleAsset: async (account, slug, contractAddress, tokenId, value=null) => {
         return this.requireAuth(this.postRequest, account, 'post', `/favorite/toggle?${queryString.stringify({ slug, tokenId, contractAddress, value })}`);
