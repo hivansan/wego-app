@@ -20,7 +20,11 @@ const FavoriteAssetList = ({account}) => {
     setResultAssets([]);
     setHasNextPage(true);
     
-    const results = await api.favorites.find(account, {index: 'assets'});
+    const results = await api.favorites.find(account, {
+      index: 'assets',
+      limit: assetsPerPage,
+      offset: 0
+    });
     
 
     setResultAssets(results);
