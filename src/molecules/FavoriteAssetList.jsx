@@ -48,10 +48,14 @@ const FavoriteAssetList = ({account}) => {
 
   const loadNextAssetsPage = async () => {
     // No pagination on API endpoint yet
-    /*
-    const isAssetsNew = assetsPage === 0 ? 20 : assetsPage + 20;
-    const res = await api.favorites.assets(account);
 
+    const isAssetsNew = assetsPage === 0 ? 20 : assetsPage + 20;
+    const res = await api.favorites.find(account, {
+      index: 'assets',
+      limit: assetsPerPage,
+      offset: isAssetsNew
+    });
+    
     setAssetsPage(assetsPage + 20);
     setResultAssets([...resultAssets, ...res]);
     if (res.length === 0 || res.length < 20) {
@@ -60,7 +64,7 @@ const FavoriteAssetList = ({account}) => {
 
     setIsNextPageLoading(() => true);
     setIsNextPageLoading(false);
-    */
+
   };
 
 

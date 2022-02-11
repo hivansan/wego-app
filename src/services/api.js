@@ -50,7 +50,6 @@ export class Api {
         })
         .filter( param => param !== '' )
         .join('&');
-        console.log(`/assets?${parameters}`);
         
         return this.request('get', `/assets?${parameters}`);
       },

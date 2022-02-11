@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Api } from '../services/api';
 import FavoriteCollectionRow from './FavoriteCollectionRow';
+import Skeleton from 'react-loading-skeleton';
 
 const FavoriteCollectionList = ({account}) => {
   
@@ -29,9 +30,6 @@ const FavoriteCollectionList = ({account}) => {
 
   return (
     <div className="collection-list">
-      {isLoading && (
-        <>Loading collections</>
-      )}
       <div className="favorite-collection-row">
         <div className="collection-head">
           <div className='stat'>Collection</div>
@@ -49,6 +47,14 @@ const FavoriteCollectionList = ({account}) => {
       {!isLoading && (
         collections.map(coll => 
         <FavoriteCollectionRow collectionInfo={coll} key={coll.slug} />)
+      )}
+      {isLoading && (
+        <div className='loading-item'>
+          <Skeleton className='loading-item-header' />
+          <Skeleton className='loading-item-header' />
+          <Skeleton className='loading-item-header' />
+        </div>
+      
       )}
 
 
