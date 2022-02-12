@@ -29,28 +29,28 @@ export class Api {
       score: (address, tokenId) => {
         return this.request('get', `/asset/${address}/${tokenId}/score`);
       },
-      
+
       //{slug, limit, offset,sortBy, sortDirection, traits, priceRange, rankRange, traitsCountRange, buyNow, ownerAddress, searchAsset}
-      find:  (options = {}) => {
+      find: (options = {}) => {
         console.log("options", options);
-        const parameters = Object.keys(options).map( key => {
+        const parameters = Object.keys(options).map(key => {
           if (options[key] === null || options[key] === undefined)
             return '';
 
           if (key === 'traits' || key === 'buyNow')
             return `${key}=${JSON.stringify(options[key])}`;
-          
+
           if (key === 'priceRange' || key === 'rankRange' || key === 'traitsCountRange')
             return `${options[key].param}=${JSON.stringify(options[key].range)}`;
-          
+
           if (key === 'searchAsset')
             return `query=${encodeURIComponent(options[key])}`
 
           return `${key}=${options[key]}`;
         })
-        .filter( param => param !== '' )
-        .join('&');
-        
+          .filter(param => param !== '')
+          .join('&');
+
         return this.request('get', `/assets?${parameters}`);
       },
     };
@@ -87,12 +87,12 @@ export class Api {
 
     this.favorites = {
       // {index, slug, limit, offset}
-      find: async (account, options={}) => {
-        
-        const query = Object.assign({index:'assets', slug:null, limit:20000, offset:0}, options);
+      find: async (account, options = {}) => {
+
+        const query = Object.assign({ index: 'assets', slug: null, limit: 20000, offset: 0 }, options);
 
         try {
-          const {data} = await axios.get(`${baseURL}/favorites?${queryString.stringify(query)}`, {
+          const { data } = await axios.get(`${baseURL}/favorites?${queryString.stringify(query)}`, {
             headers: {
               accept: 'application/json, text/plain, */*',
               'Content-Type': 'application/json;charset=UTF-8',
@@ -104,12 +104,12 @@ export class Api {
         } catch (error) {
           throw error;
         }
-        
+
       },
-      toggleAsset: async (account, slug, contractAddress, tokenId, value=null) => {
+      toggleAsset: async (account, slug, contractAddress, tokenId, value = null) => {
         return this.requireAuth(this.postRequest, account, 'post', `/favorite/toggle?${queryString.stringify({ slug, tokenId, contractAddress, value })}`);
       },
-      toggleCollection: async (account, slug, value=null) => {
+      toggleCollection: async (account, slug, value = null) => {
         return this.requireAuth(this.postRequest, account, 'post', `/favorite/toggle?${queryString.stringify({ slug, value })}`);
       },
     }
