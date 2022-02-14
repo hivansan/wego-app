@@ -5,7 +5,8 @@ import ProfileHeader from '../molecules/ProfileHeader';
 import ProfileMenu from '../molecules/ProfileMenu';
 import { useLocation, useHistory } from 'react-router-dom';
 import AssetsList from '../molecules/AssetsList';
-import Favorites from './Favorites';
+import FavoriteAssetList from '../molecules/FavoriteAssetList';
+import FavoriteCollectionList from '../molecules/FavoriteCollectionList';
 
 
 const Profile = () => {
@@ -50,7 +51,8 @@ const Profile = () => {
       <ProfileMenu />
       
       {tab === '/mynfts' && <AssetsList search={{ownerAddress: account?.address}} />}
-      {tab === '/favorites' && <Favorites account={account} />}
+      {tab === '/favorite/collections' && <FavoriteCollectionList account={account} />}
+      {tab === '/favorite/nfts' && <FavoriteAssetList account={account} />}
       
 
     </div>);

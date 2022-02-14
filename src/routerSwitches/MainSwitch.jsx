@@ -66,7 +66,10 @@ const MainSwitch = () => {
         {/*<Route path='/getlisted'>
           <GetListed isSearchResultsOpen={isSearchResultsOpen} />
         </Route>*/}
-        <Route exact path='/favorites'>
+        <Route exact path='/favorite/collections'>
+          <Profile />
+        </Route>
+        <Route exact path='/favorite/nfts'>
           <Profile />
         </Route>
         <Route exact path='/mynfts'>

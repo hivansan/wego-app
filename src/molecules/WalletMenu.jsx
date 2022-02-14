@@ -56,8 +56,13 @@ export default function WalletMenu({address, ...props}) {
     setAnchorEl(null);
   }
 
-  const favorites = () => {
-    history.push("/favorites");
+  const favoriteCollections = () => {
+    history.push("/favorite/collections");
+    setAnchorEl(null);
+  }
+
+  const favoriteNFTs = () => {
+    history.push("/favorite/nfts");
     setAnchorEl(null);
   }
 
@@ -134,13 +139,24 @@ export default function WalletMenu({address, ...props}) {
 
         <MenuItem 
           classes={{root: 'wallet-menu-selected'}}
-          onClick={favorites}
+          onClick={favoriteCollections}
         >
           <ListItemIcon>
             <Favorite fontSize="small" />
           </ListItemIcon>
-          <ListItemText primary="Favorites" />
+          <ListItemText primary="Collections" />
         </MenuItem>
+
+        <MenuItem 
+          classes={{root: 'wallet-menu-selected'}}
+          onClick={favoriteNFTs}
+        >
+          <ListItemIcon>
+            <Favorite fontSize="small" />
+          </ListItemIcon>
+          <ListItemText primary="NFTs" />
+        </MenuItem>
+
 
         <MenuItem 
           classes={{root: 'wallet-menu-selected'}}
