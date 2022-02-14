@@ -7,7 +7,10 @@ import { useLocation, useHistory } from 'react-router-dom';
 import AssetsList from '../molecules/AssetsList';
 import FavoriteAssetList from '../molecules/FavoriteAssetList';
 import FavoriteCollectionList from '../molecules/FavoriteCollectionList';
-
+import DarkPrimaryButton from '../atoms/darkPrimaryButton';
+import { Api } from '../services/api';
+import Sync from '@material-ui/icons/Sync';
+import { FaSpinner } from 'react-icons/fa';
 
 const Profile = () => {
   const _account = useAccount();
@@ -15,7 +18,9 @@ const Profile = () => {
   const location = useLocation();
   const history = useHistory();
   const [tab, setTab] = useState('/mynfts');
+  const [isSyncingNFTs, setIsSyncingNFTs] = useState(false);
   
+  const api = new Api();
   
   useEffect(() => {
     
@@ -36,6 +41,15 @@ const Profile = () => {
       history.goBack();
   }
 
+  const sync = async () => {
+    if (account && account.address !== ''){
+      setIsSyncingNFTs(true);
+      await api.users.refreshNFTs(account.address);
+      setIsSyncingNFTs(false);
+      window.location.reload();
+    }
+  }
+
   if (!account) {
     return <WalletModal 
             isWidget={true}
@@ -50,7 +64,16 @@ const Profile = () => {
       <ProfileHeader account={account} />
       <ProfileMenu />
       
-      {tab === '/mynfts' && <AssetsList search={{ownerAddress: account?.address}} />}
+      {tab === '/mynfts' && (
+        <div className="mynfts">
+          <div className='sync-bar'>
+            {!isSyncingNFTs && (<DarkPrimaryButton onClick={sync}> <Sync /> Sync my NFT's </DarkPrimaryButton>)}
+            {isSyncingNFTs && (<div className='favorite-spinner'><FaSpinner size={20} className='spinner' /> <span>Syncing...</span></div>)}
+          </div>
+          <AssetsList search={{ownerAddress: account?.address}} />
+        </div>
+      )}
+
       {tab === '/favorite/collections' && <FavoriteCollectionList account={account} />}
       {tab === '/favorite/nfts' && <FavoriteAssetList account={account} />}
       

@@ -129,6 +129,10 @@ export class Api {
         });
       },
 
+      refreshNFTs: publicAddress => {
+        return this.request('get', `/assets/fromOwner?ownerAddress=${publicAddress}`);
+      },
+
       login: async (account) => {
         console.log(account);
         try {
