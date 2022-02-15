@@ -156,7 +156,7 @@ const CollectionAssetsFilters = ({
             <BiArrowToLeft size={20} />
           </header>
 
-          {buyNow && (
+          {buyNow !== undefined && (
             <Filter title='Status' isCollapse={isCollapse}>
             <div className='filter-status'>
               <LightPrimaryButton
