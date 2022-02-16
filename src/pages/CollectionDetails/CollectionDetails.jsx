@@ -46,7 +46,7 @@ const CollectionDetails = ({ setFooter, locationState }) => {
   const [favoriteAssets, setFavoriteAssets] = useState([]);
   const _account = useAccount();
   const [account, setAccount] = useState(null);
-  
+
   const api = new Api();
   const location = useLocation();
   const history = useHistory();
@@ -61,17 +61,17 @@ const CollectionDetails = ({ setFooter, locationState }) => {
   };
 
   useEffect(() => {
-    
+
     if (_account && _account.account?.address != "") {
       setAccount(_account.account);
     }
 
-    
+
   }, [_account]);
 
 
   const collectionsToggleFavorite = async isSetted => {
-    
+
     if (!account || account.address === '') {
       history.push('/login');
     }
@@ -95,9 +95,9 @@ const CollectionDetails = ({ setFooter, locationState }) => {
         setFavoriteAssets(favoriteAssets.filter(ass => ass.tokenId !== tokenId && ass.slug === slug));
       }
       else {
-        setFavoriteAssets(favoriteAssets.concat({tokenId, slug, contractAddress}));
+        setFavoriteAssets(favoriteAssets.concat({ tokenId, slug, contractAddress }));
       }
-  
+
       setWhichAssetFavoriteIsLoading(whichAssetFavoriteIsLoading.filter(val => val !== tokenId));
     }
   }
@@ -105,8 +105,8 @@ const CollectionDetails = ({ setFooter, locationState }) => {
   const getCollectionFavoriteState = async () => {
     if (!account || account.address === '') return;
     setIsFavoriteLoading(true);
-    
-    const result = await api.favorites.find(account, {index: 'collections', slug});
+
+    const result = await api.favorites.find(account, { index: 'collections', slug });
     setIsFavorite(result.find(coll => coll.slug === slug));
     setIsFavoriteLoading(false);
   }
@@ -115,11 +115,11 @@ const CollectionDetails = ({ setFooter, locationState }) => {
     if (!account || account.address === '') return;
 
     setWhichAssetFavoriteIsLoading(whichAssetFavoriteIsLoading.concat(-1));
-    const result = await api.favorites.find(account, {index: 'assets', slug});
+    const result = await api.favorites.find(account, { index: 'assets', slug });
 
     setFavoriteAssets(
-      result.map(ass => ({slug, contractAddress: ass.contractAddress, tokenId: ass.tokenId}))
-      .filter(ass => ass.slug === slug)
+      result.map(ass => ({ slug, contractAddress: ass.contractAddress, tokenId: ass.tokenId }))
+        .filter(ass => ass.slug === slug)
     );
 
     setWhichAssetFavoriteIsLoading(whichAssetFavoriteIsLoading.filter(val => val !== -1));
@@ -133,16 +133,7 @@ const CollectionDetails = ({ setFooter, locationState }) => {
   }, [account]);
 
   useEffect(() => {
-    const getCollectionAssets = async (
-      sortBy,
-      sortDirection,
-      traits,
-      priceRange,
-      rankRange,
-      traitsCountRange,
-      buyNow,
-      searchAsset
-    ) => {
+    const getCollectionAssets = async (sortBy, sortDirection, traits, priceRange, rankRange, traitsCountRange, buyNow, searchAsset) => {
       setResultAssets([]);
       setHasNextPage(true);
       const res = await api.assets.find({

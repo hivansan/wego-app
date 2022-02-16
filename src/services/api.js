@@ -34,7 +34,7 @@ export class Api {
       find: (options = {}) => {
         console.log("options", options);
         const parameters = Object.keys(options).map(key => {
-          if (options[key] === null || options[key] === undefined)
+          if (!options[key])
             return '';
 
           if (key === 'traits' || key === 'buyNow')
@@ -44,7 +44,7 @@ export class Api {
             return `${options[key].param}=${JSON.stringify(options[key].range)}`;
 
           if (key === 'searchAsset')
-            return `query=${encodeURIComponent(options[key])}`
+            return `query=${encodeURIComponent(options[key])}`;
 
           return `${key}=${options[key]}`;
         })
