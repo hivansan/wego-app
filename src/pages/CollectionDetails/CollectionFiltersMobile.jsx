@@ -9,7 +9,7 @@ import RangeFilters from '../../molecules/CollectionsAssetsFilters/RangeFilters'
 import { Api } from '../../services/api';
 
 const CollectionAssetsFiltersMobile = ({
-  address,
+  search={},
   collectionTraits,
   setFilters,
   filters,
@@ -46,15 +46,12 @@ const CollectionAssetsFiltersMobile = ({
     const priceSelected =
       price === 'priceUsdRange' ? 'currentPriceUSD' : 'currentPrice';
 
-    var source = {}
-    if (collectionSlug) 
-      source.slug = collectionSlug
-    else if (address)
-      source.ownerAddress = address
+      if (collectionSlug) 
+        search.slug = collectionSlug
 
 
     const res = await api.assets.find({
-      ...source,
+      ...search,
       limit: 1,
       offset: 0,
       sortBy: priceSelected,
@@ -66,14 +63,12 @@ const CollectionAssetsFiltersMobile = ({
 
   const getMaxRariRank = async () => {
 
-    var source = {}
     if (collectionSlug) 
-      source.slug = collectionSlug
-    else if (address)
-      source.ownerAddress = address
+      search.slug = collectionSlug
+
 
     const res = await api.assets.find({
-      ...source,
+      ...search,
       limit: 1,
       offset: 0,
       sortBy: 'rarityScoreRank',
@@ -83,14 +78,12 @@ const CollectionAssetsFiltersMobile = ({
   };
   const getMaxTraitsCount = async () => {
 
-    var source = {}
     if (collectionSlug) 
-      source.slug = collectionSlug
-    else if (address)
-      source.ownerAddress = address
+      search.slug = collectionSlug
+
 
     const res = await api.assets.find({
-      ...source,
+      ...search,
       limit: 1,
       offset: 0,
       sortBy: 'traitsCount',

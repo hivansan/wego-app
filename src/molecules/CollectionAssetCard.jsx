@@ -6,6 +6,7 @@ import { FaEthereum } from 'react-icons/fa';
 import Icon from 'react-crypto-icons';
 import CryptoIcon from '../atoms/CryptoIcon';
 import ImageTypeDetect from './ImageTypeDetect';
+import FavoriteButton from '../atoms/FavoriteButton';
 
 const CollectionAssetCard = ({
   className,
@@ -15,7 +16,10 @@ const CollectionAssetCard = ({
   index,
   collectionImg,
   setFilters,
-  filters
+  filters,
+  favoriteAssets,
+  setFavoriteAssets,
+  favoriteAssetsLoading
 }) => {
   const hasExtraClasses = className ? className : '';
   const tokenIdTrimmed =
@@ -91,38 +95,60 @@ const CollectionAssetCard = ({
           ) : ''}
         </section>
         <section className='asset-card-info'>
-          {asset[index].rarityScoreRank && (
-            <p>Rarity Rank #{asset[index].rarityScoreRank}</p>
-          )}
-          <div className='asset-price'>
-            {asset[index].currentPrice && (
-              <>
-                <span>
-                  <small>Price</small>
-                  <div className='last-price'>
-                    <CryptoIcon token={asset[index]?.sellOrders?.length ? asset[index].sellOrders[0].payment_token_contract?.symbol : 'ETH'} />
-                    <small>
-                      {asset[index]?.currentPrice?.toLocaleString().substr(0, 10)}
-                    </small>
-                  </div>
-                </span>
-              </>
+          <div className='asset-info-left'>
+            {asset[index].rarityScoreRank && (
+              <div className="asset-rank">Rarity Rank #{asset[index].rarityScoreRank}</div>
             )}
 
-            {asset[index].lastSalePrice && (
-              <>
-                <span>
-                  <small>Last</small>
-                  <div className='last-price'>
-                    {asset[index]?.lastSale?.payment_token?.symbol && (<CryptoIcon token={asset[index]?.lastSale?.payment_token?.symbol} />)}
-                    <small> {asset[index].lastSalePrice.toLocaleString()}</small>
-                  </div>
-                </span>
-                <span>
-                  <small>{asset[index]?.lastSale ? 'Last sold: ' + moment(asset[index].lastSale.created_date).format('MMM D \'YY') : ''}</small>
-                </span>
-              </>
-            )}
+              {favoriteAssets &&  setFavoriteAssets && favoriteAssetsLoading && (
+                <div className='asset-favorite'>
+
+                  <FavoriteButton 
+                    isFavorite={
+                      favoriteAssets.find(ass => 
+                        ass.tokenId === asset[index].tokenId 
+                        && ass.contractAddress === asset[index].contractAddress)}
+                    setIsFavorite={isSetted => setFavoriteAssets(isSetted, asset[index].slug, asset[index].contractAddress, asset[index].tokenId)}
+                    isLoading={favoriteAssetsLoading.find( ass => ass === -1 || ass === asset[index].tokenId)}
+                  />
+
+              </div>
+               )}
+
+          </div>
+
+
+          <div className='asset-info-right'>
+            <div className='asset-price'>
+              {asset[index].currentPrice && (
+                <>
+                  <span>
+                    <small>Price</small>
+                    <div className='last-price'>
+                      <CryptoIcon token={asset[index]?.sellOrders?.length ? asset[index].sellOrders[0].payment_token_contract?.symbol : 'ETH'} />
+                      <small>
+                        {asset[index]?.currentPrice?.toLocaleString().substr(0, 10)}
+                      </small>
+                    </div>
+                  </span>
+                </>
+              )}
+
+              {asset[index].lastSalePrice && (
+                <>
+                  <span>
+                    <small>Last</small>
+                    <div className='last-price'>
+                      {asset[index]?.lastSale?.payment_token?.symbol && (<CryptoIcon token={asset[index]?.lastSale?.payment_token?.symbol} />)}
+                      <small> {asset[index].lastSalePrice.toLocaleString()}</small>
+                    </div>
+                  </span>
+                  <span>
+                    <small>{asset[index]?.lastSale ? 'Last sold: ' + moment(asset[index].lastSale.created_date).format('MMM D \'YY') : ''}</small>
+                  </span>
+                </>
+              )}
+            </div>
           </div>
         </section>
       </article>

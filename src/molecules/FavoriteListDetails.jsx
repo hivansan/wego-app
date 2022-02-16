@@ -14,68 +14,26 @@ const AssetListDetails = ({
   assets,
   _loadNextPage,
   hasNextPage,
-
-  filtersMobileOpen,
-  setFiltersMobileOpen,
-  setAssetsSort,
-  assetsSort,
-  sortDirection,
-  sortBy,
-  setPriceRange,
-  priceRange,
-  rankRange,
+  isNextPageLoading,
+  setAssets,
   totalAssets,
-  setRankRange,
-  search
+  favoriteAssets,
+  setFavoriteAssets,
+  favoriteAssetsLoading
 }) => {
-  const [isFiltersCollapse, setIsFiltersCollapse] = useState(true);
+
   return (
     <div className='collection-assets-container'>
-      <CollectionAssetsFilters
-        setPriceRange={setPriceRange}
-        priceRange={priceRange}
-        rankRange={rankRange}
-        setRankRange={setRankRange}
-        search={search}
-        filtersMobileOpen={filtersMobileOpen}
-        setFiltersMobileOpen={setFiltersMobileOpen}
 
-        isCollapse={isFiltersCollapse}
-        setCollapse={setIsFiltersCollapse}
-      />
 
       <div className='collection-assets'>
-        <div className='assets-header'>
-          <CollectionAssetsSort
-            setAssetsSort={setAssetsSort}
-            assetsSort={assetsSort}
-          />
-        </div>
-
-        <div className='total-results'>
-          {totalAssets && totalAssets.meta && (
-            <small>{totalAssets.meta.total.toLocaleString()} results</small>
-          )}
-        </div>
-
-        <ClearFilters
-          setPriceRange={setPriceRange}
-          priceRange={priceRange}
-          rankRange={rankRange}
-          setRankRange={setRankRange}
-        />
 
         <div className='assets-container'>
           {assets ? (
             <InfiniteScroll
               dataLength={assets.length}
               next={() =>
-                _loadNextPage(
-                  sortBy,
-                  sortDirection,
-                  priceRange,
-                  rankRange
-                )
+                _loadNextPage()
               }
               hasMore={true}
               className={` assets-container-infinite`}
@@ -126,6 +84,9 @@ const AssetListDetails = ({
                                       asset={assets}
                                       isScrolling={isScrolling}
                                       location={location}
+                                      favoriteAssets={favoriteAssets}
+                                      setFavoriteAssets={setFavoriteAssets}
+                                      favoriteAssetsLoading={favoriteAssetsLoading}
                                     />
                                   )}
                                 </React.Fragment>

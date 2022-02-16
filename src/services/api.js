@@ -2,7 +2,6 @@ import axios from 'axios';
 import queryString from 'query-string';
 import personalSign from '../web3/personalSign';
 
-
 // export const baseURL = 'https://wegonft.com/api';
 export const baseURL = 'http://localhost:3000/api';
 
@@ -30,29 +29,28 @@ export class Api {
       score: (address, tokenId) => {
         return this.request('get', `/asset/${address}/${tokenId}/score`);
       },
-      
+
       //{slug, limit, offset,sortBy, sortDirection, traits, priceRange, rankRange, traitsCountRange, buyNow, ownerAddress, searchAsset}
-      find:  (options = {}) => {
+      find: (options = {}) => {
         console.log("options", options);
-        const parameters = Object.keys(options).map( key => {
-          if (options[key] === null || options[key] === undefined)
+        const parameters = Object.keys(options).map(key => {
+          if (!options[key])
             return '';
 
           if (key === 'traits' || key === 'buyNow')
             return `${key}=${JSON.stringify(options[key])}`;
-          
+
           if (key === 'priceRange' || key === 'rankRange' || key === 'traitsCountRange')
             return `${options[key].param}=${JSON.stringify(options[key].range)}`;
-          
+
           if (key === 'searchAsset')
-            return `query=${encodeURIComponent(options[key])}`
+            return `query=${encodeURIComponent(options[key])}`;
 
           return `${key}=${options[key]}`;
         })
-        .filter( param => param !== '' )
-        .join('&');
-        console.log(`/assets?${parameters}`);
-        
+          .filter(param => param !== '')
+          .join('&');
+
         return this.request('get', `/assets?${parameters}`);
       },
     };
@@ -88,11 +86,31 @@ export class Api {
     };
 
     this.favorites = {
-      byAddress: (address) => {
+      // {index, slug, limit, offset}
+      find: async (account, options = {}) => {
+
+        const query = Object.assign({ index: 'assets', slug: null, limit: 20000, offset: 0 }, options);
+
+        try {
+          const { data } = await axios.get(`${baseURL}/favorites?${queryString.stringify(query)}`, {
+            headers: {
+              accept: 'application/json, text/plain, */*',
+              'Content-Type': 'application/json;charset=UTF-8',
+              authorization: account.address,
+            }
+          });
+
+          return data;
+        } catch (error) {
+          throw error;
+        }
 
       },
-      toggle: (account, slug, tokenId) => {
-        return this.requireAuth(this.postRequest, account, 'post', `/favorite/toggle?${queryString.stringify({ slug, tokenId })}`);
+      toggleAsset: async (account, slug, contractAddress, tokenId, value = null) => {
+        return this.requireAuth(this.postRequest, account, 'post', `/favorite/toggle?${queryString.stringify({ slug, tokenId, contractAddress, value })}`);
+      },
+      toggleCollection: async (account, slug, value = null) => {
+        return this.requireAuth(this.postRequest, account, 'post', `/favorite/toggle?${queryString.stringify({ slug, value })}`);
       },
     }
 
@@ -109,6 +127,10 @@ export class Api {
         return this.postRequest('post', '/users', {
           publicAddress,
         });
+      },
+
+      refreshNFTs: publicAddress => {
+        return this.request('get', `/assets/fromOwner?ownerAddress=${publicAddress}`);
       },
 
       login: async (account) => {

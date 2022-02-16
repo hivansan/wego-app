@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import AssetListDetails from './AssetListDetails';
 import { Api } from '../services/api';
 import { useLocation } from 'react-router-dom';
-const AssetsList = ({address}) => {
+const AssetsList = ({search}) => {
   const [resultAssets, setResultAssets] = useState([]);
   const [hasNextPage, setHasNextPage] = useState(true);
   const [isNextPageLoading, setIsNextPageLoading] = useState(false);
@@ -20,7 +20,7 @@ const AssetsList = ({address}) => {
 
   const api = new Api();
 
-  const getOwnedAssets = async (
+  const fetchAssets = async (
     sortBy,
     sortDirection,
     priceRange,
@@ -35,7 +35,7 @@ const AssetsList = ({address}) => {
       sortDirection,
       priceRange,
       rankRange,
-      ownerAddress: address
+      ...search
     });
     const results =
       res && res.results && res.results.length === 0 ? null : res.results;
@@ -67,7 +67,7 @@ const AssetsList = ({address}) => {
       sortDirection,
       priceRange,
       rankRange,
-      ownerAddress: address
+      ...search
     });
 
     setAssetsPage(assetsPage + 20);
@@ -87,7 +87,7 @@ const AssetsList = ({address}) => {
     const rankFilter = rankRange ? rankRange : null;
     //getAssetCounter();
     setAssetsPage(0);
-    getOwnedAssets(
+    fetchAssets(
         assetsSort.orderBy,
         assetsSort.orderDirection,
         PriceUsdFilter,
@@ -100,7 +100,7 @@ const AssetsList = ({address}) => {
   return (
     <div className="assets-list">
       <AssetListDetails
-        address={address}
+        search={search}
         totalAssets={totalAssets}
         setPriceRange={setPriceUsdRange}
         priceRange={priceUsdRange}

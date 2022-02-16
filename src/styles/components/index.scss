@@ -4,6 +4,7 @@
 @use './dark-primary-btn';
 @use './light-primary-btn';
 @use './buy-now-btn';
+@use './favorite-btn';
 
 @use './flagship-card';
 @use './top-collections-card';
@@ -23,6 +24,9 @@
 @use './_collection-result-card';
 @use './_asset-result-card';
 @use './_paginator';
+@use './_favorite-collection-row';
+@use './_favorite-collection-list';
+@use './_profile';
 
 @use './asset-detail-modal';
 

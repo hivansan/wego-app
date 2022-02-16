@@ -4,6 +4,7 @@
     margin-top: 12px;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 4rem;
     width: 100%;
     max-width: 800px;
 
@@ -20,5 +21,9 @@
 
     .MuiTab-textColorPrimary {
         color: var(--color-secondary);
+    }
+
+    .PrivateTabIndicator-colorPrimary-2 {
+        background-color: var(--color-primary) !important;
     }
 }

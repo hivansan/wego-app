@@ -32,7 +32,7 @@ const CollectionAssetsFilters = ({
   traitsCountRange,
   setBuyNow,
   buyNow,
-  address
+  search={}
 }) => {
   const setIsCollapse = () => setCollapse(!isCollapse);
   const [maxPrice, setMaxPrice] = useState(null);
@@ -58,14 +58,11 @@ const CollectionAssetsFilters = ({
     const priceSelected =
       price === 'priceUsdRange' ? 'currentPriceUSD' : 'currentPrice';
 
-    var source = {}
     if (collectionSlug) 
-      source.slug = collectionSlug
-    else if (address)
-      source.ownerAddress = address
+      search.slug = collectionSlug
 
     const res = await api.assets.find({
-      ...source,
+      ...search,
       limit: 1,
       offset: 0,
       sortBy: priceSelected,
@@ -77,15 +74,11 @@ const CollectionAssetsFilters = ({
 
   const getMaxRariRank = async () => {
 
-    var source = {}
     if (collectionSlug) 
-      source.slug = collectionSlug
-    else if (address)
-      source.ownerAddress = address
-
+      search.slug = collectionSlug
 
     const res = await api.assets.find({
-      ...source,
+      ...search,
       limit: 1,
       offset: 0,
       sortBy: 'rarityScoreRank',
@@ -95,14 +88,11 @@ const CollectionAssetsFilters = ({
   };
   const getMaxTraitsCount = async () => {
 
-    var source = {}
     if (collectionSlug) 
-      source.slug = collectionSlug
-    else if (address)
-      source.ownerAddress = address
+      search.slug = collectionSlug
 
     const res = await api.assets.find({
-      ...source,
+      ...search,
       limit: 1,
       offset: 0,
       sortBy: 'traitsCount',
@@ -138,7 +128,7 @@ const CollectionAssetsFilters = ({
         rankRange={rankRange}
         setRankRange={setRankRange}
         collectionSlug={collectionSlug}
-        address={address}
+        search={search}
       />
     );
   }
@@ -166,7 +156,7 @@ const CollectionAssetsFilters = ({
             <BiArrowToLeft size={20} />
           </header>
 
-          {buyNow && (
+          {buyNow !== undefined && (
             <Filter title='Status' isCollapse={isCollapse}>
             <div className='filter-status'>
               <LightPrimaryButton

@@ -7,7 +7,7 @@ import Tab from '@material-ui/core/Tab';
 import PhotoLibrary from '@material-ui/icons/PhotoLibrary';
 import Favorite from '@material-ui/icons/Favorite';
 
-const LOCATIONS = ['/mynfts', '/favorites'];
+const LOCATIONS = ['/mynfts', '/favorite/collections', '/favorite/nfts'];
 
 const ProfileMenu = ({ tabSlug }) => {
   const history = useHistory();
@@ -26,9 +26,15 @@ const ProfileMenu = ({ tabSlug }) => {
     history.push('/mynfts');
   }
 
-  const favorites = () => {
-    history.push('/favorites');
+  
+  const favoritesCollections = () => {
+    history.push('/favorite/collections');
   }
+
+  const favoritesNFTs = () => {
+    history.push('/favorite/nfts');
+  }
+
 
 
   return (
@@ -42,7 +48,8 @@ const ProfileMenu = ({ tabSlug }) => {
             textColor="primary"
         >
             <Tab icon={<PhotoLibrary />} aria-label="my nfts" label="My NFT's" onClick={myNfts} />
-            <Tab icon={<Favorite />} aria-label="favorite" label="Favorites" onClick={favorites} />
+            <Tab icon={<Favorite />} aria-label="favorite" label="Collections" onClick={favoritesCollections} />
+            <Tab icon={<Favorite />} aria-label="favorite" label="NFT's" onClick={favoritesNFTs} />
         </Tabs>
       </Paper>
     </div>

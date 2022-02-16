@@ -7,10 +7,18 @@ import { useLocation, useHistory, useParams } from 'react-router-dom';
 import Trait from './AssetDetailModal/Trait';
 import CryptoIcon from '../atoms/CryptoIcon';
 import BuyNowButton from './BuyNowButton';
+import FavoriteButton from '../atoms/FavoriteButton';
+import { useAccount } from '../store/selectors/useAccount';
+
 const AssetDetailModal = ({ setFooter }) => {
   const [open, setOpen] = useState(true);
 
   const [asset, setAsset] = useState(null);
+  const [isFavorite, setIsFavorite] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const _account = useAccount();
+  const [account, setAccount] = useState(null);
+  
   // const [assetScore, setAssetScore] = useState(null);
   const [filters, setFilters] = useState([]);
   const [goBackPath, setGoBackPath] = useState('');
@@ -28,6 +36,46 @@ const AssetDetailModal = ({ setFooter }) => {
   //   const res = await api.assets.score(address, tokenId);
   //   setAssetScore(res);
   // };
+
+
+  useEffect(() => {
+    
+    if (_account && _account.account?.address != "") {
+      setAccount(_account.account);
+    }
+
+    
+  }, [_account]);
+
+  useEffect(() => {
+
+    getFavoriteStatus();
+  }, [account, asset]);
+
+
+  const getFavoriteStatus = async () => {
+    if (!asset || (!account || account.address === '')) 
+      return;
+    
+    setIsLoading(true);
+    const result = await api.favorites.find(account, {index: 'assets', slug: asset.slug});
+    setIsFavorite(result.find(ass => ass.tokenId === asset.tokenId && ass.contractAddress === asset.contractAddress ));    
+    setIsLoading(false);
+  }
+
+  const updateFavorite = async isSetted => {
+    if (!asset) return;
+
+    if (!account || account.address === '') {
+      history.push('/login');
+      return;
+    }
+
+    setIsLoading(true);
+    const result = await api.favorites.toggleAsset(account, asset.slug, asset.contractAddress, asset.tokenId, isSetted);
+    setIsFavorite(isSetted);
+    setIsLoading(false);
+  }
 
   const back = (e) => {
     e.stopPropagation();
@@ -187,6 +235,13 @@ const AssetDetailModal = ({ setFooter }) => {
                     {asset.rarityScoreRank && (
                       <p>Rarity Rank #{asset.rarityScoreRank}</p>
                     )}
+
+                    <FavoriteButton 
+                      isFavorite={isFavorite}
+                      setIsFavorite={updateFavorite}
+                      isLoading={isLoading}
+                    />
+
                     <div className='asset-price'>
                       {asset.currentPrice && (
                         <>
